@@ -1,0 +1,65 @@
+{
+ "fecha_consulta": "2026-10-13",
+ "reglas": [
+  {
+   "id": "tg_033",
+   "estado": "confirmado",
+   "documento": "Acuerdo 033 de 2007 CSU",
+   "articulo": "Art. 10 parágrafo",
+   "url": "https://ingbiomedica.unal.edu.co/files/Normatividad/ACUERDO_033_2007_CSU_proceso_de_formacion.pdf",
+   "cita_textual": "las Facultades reglamentarán el proceso de calificación y socialización del trabajo de grado en algunas de la siguientes modalidades: 1. Trabajos investigativos (Trabajo monográfico, Participación en proyectos de investigación, Proyecto final). 2. Prácticas de extensión (...Pasantías, Emprendimiento empresarial, Proyecto Social). 3. Actividades especiales (Exámenes preparatorios). 4. Opción de grado (asignaturas de posgrado).",
+   "fecha_consulta": "2026-10-13",
+   "nota": ""
+  },
+  {
+   "id": "tg_fac_modalidades",
+   "estado": "confirmado",
+   "documento": "Acuerdo 37 de 2017 Consejo Facultad de Ingeniería (Bogotá)",
+   "articulo": "Art. 2",
+   "url": "https://web.archive.org/web/2023/http://www.legal.unal.edu.co/rlunal/home/doc.jsp?d_i=88861",
+   "cita_textual": "1. Trabajos investigativos : Trabajo Monográfico, Proyecto Final, Participación en Proyecto de Investigación . 2. Prácticas de extensión : Emprendimiento Empresarial, Pasantía, Proyecto Social . 3. Opción de grado: Asignaturas de posgrado .",
+   "fecha_consulta": "2026-10-13",
+   "nota": ""
+  },
+  {
+   "id": "tg_fac_prereq",
+   "estado": "confirmado",
+   "documento": "Acuerdo 37 de 2017 CF Ingeniería",
+   "articulo": "Art. 3-4",
+   "url": "https://web.archive.org/web/2023/http://www.legal.unal.edu.co/rlunal/home/doc.jsp?d_i=88861",
+   "cita_textual": "La asignatura Trabajo de Grado podrá ser inscrita cuando cumpla los prerrequisitos estipulados en el Acuerdo del Plan de estudios de cada Programa Curricular. ... antes de finalizar la semana catorce del periodo académico anterior al cual aspiren a realizar el Trabajo de Grado para todas las modalidades.",
+   "fecha_consulta": "2026-10-13",
+   "nota": ""
+  },
+  {
+   "id": "tg_80",
+   "estado": "confirmado (PEP, según Acuerdo 036/2017)",
+   "documento": "PEP Ing. Electrónica",
+   "articulo": "C.2 num.5",
+   "url": "https://ingenieria.bogota.unal.edu.co/images/userupload/640/PEP_ELECTR%C3%93NICA_5df2d.pdf",
+   "cita_textual": "Para inscribirlo el estudiante debe haber aprobado el 80% del total de créditos exigidos del componente disciplinar o profesional.",
+   "fecha_consulta": "2026-10-13",
+   "nota": "Si el Acuerdo 17/2022 cambió este prerrequisito: NO VERIFICADO."
+  },
+  {
+   "id": "tg_posgrado",
+   "estado": "confirmado (guía oficial posgrados)",
+   "documento": "Guía Acompañamiento Comités Asesores Posgrados 2022",
+   "articulo": "—",
+   "url": "https://posgrados.unal.edu.co/wp-content/uploads/2024/01/GuiaAcompanamientoComitesAsesoresPosgrados_Agosto2022.pdf",
+   "cita_textual": "(Acuerdo 033 de 2007 del CSU, artículo 10, parágrafo y Acuerdo 026 de 2012 del CA, artículo 17) ... deberán diligenciar el formato de registro para cursar asignaturas, al menos, del mismo número de créditos de la asignatura Trabajo de Grado y aprobarlas.",
+   "fecha_consulta": "2026-10-13",
+   "nota": ""
+  },
+  {
+   "id": "tg_026",
+   "estado": "inaccesible",
+   "documento": "Acuerdo 026 de 2012 Consejo Académico (mod. Acuerdo 058 de 2012 CA)",
+   "articulo": "—",
+   "url": "http://www.legal.unal.edu.co/sisjurun/normas/Norma1.jsp?i=47025",
+   "cita_textual": "",
+   "fecha_consulta": "2026-10-13",
+   "nota": "Nota: es del Consejo ACADÉMICO, no CSU. Texto bloqueado (captcha); snapshot archive = página captcha."
+  }
+ ]
+}

@@ -1,0 +1,167 @@
+{
+ "plan": "2545 Ingeniería Electrónica, Sede Bogotá",
+ "fecha_consulta": "2026-10-13",
+ "actos_normativos": [
+  {
+   "id": "acto_vigente_fac",
+   "estado": "confirmado",
+   "documento": "Página oficial del programa (Facultad de Ingeniería)",
+   "articulo": "sección Normatividad",
+   "url": "https://ingenieria.bogota.unal.edu.co/es/programas-academicos/ingenieria-electronica/",
+   "cita_textual": "Plan de estudios: Acuerdo 17 de 2022 – Consejo de facultad. Créditos/Componentes: Acuerdo 125 de 2017 – Consejo Académico",
+   "fecha_consulta": "2026-10-13",
+   "nota": "Enlace oficial legal.unal.edu.co/rlunal/home/doc.jsp?d_i=103128 (Acuerdo 17/2022) bloqueado por captcha; snapshot de archive.org no descargó (timeout). Texto del acuerdo: INACCESIBLE."
+  },
+  {
+   "id": "acto_2017",
+   "estado": "confirmado (vía PEP, fuente secundaria oficial)",
+   "documento": "PEP Ingeniería Electrónica Bogotá",
+   "articulo": "C.1/C.2 y nota 10",
+   "url": "https://ingenieria.bogota.unal.edu.co/images/userupload/640/PEP_ELECTR%C3%93NICA_5df2d.pdf",
+   "cita_textual": "A partir del segundo semestre de 2017, las normativas anteriores quedan derogadas y el plan de estudios del programa se rige por el Acuerdo No. 125 del 31 de marzo de 2017 de Consejo Académico y por el Acuerdo No. 036 del 27 de abril de 2017 de Consejo de Facultad",
+   "fecha_consulta": "2026-10-13",
+   "nota": "Acuerdo 036/2017 CF (d_i=88778) y 125/2017 CA (d_i=88697): INACCESIBLES (captcha; snapshots archive son la página captcha). Probablemente modificado/sustituido por Acuerdo 17 de 2022 CF (no verificado textualmente)."
+  },
+  {
+   "id": "historia",
+   "estado": "confirmado (PEP)",
+   "documento": "PEP",
+   "articulo": "notas 6,8",
+   "url": "https://ingenieria.bogota.unal.edu.co/images/userupload/640/PEP_ELECTR%C3%93NICA_5df2d.pdf",
+   "cita_textual": "Acuerdo 223 de 2008 del Consejo Académico ... Resolución 136 de 2010 del Consejo de la Facultad de Ingeniería, por la cual se MODIFICA la Resolución de Consejo de Facultad 182 del 23 de abril de 2009",
+   "fecha_consulta": "2026-10-13",
+   "nota": "Normas anteriores derogadas por 125/2017 y 036/2017."
+  }
+ ],
+ "estructura_segun_PEP_Acuerdo_036_2017": {
+  "total": 172,
+  "fundamentacion": {
+   "total": 60,
+   "obligatorios": 51,
+   "optativos": 9
+  },
+  "disciplinar": {
+   "total": 78,
+   "obligatorios": 72,
+   "optativos": 6
+  },
+  "libre_eleccion": 34,
+  "trabajo_de_grado_creditos": 6,
+  "fuente": {
+   "id": "pep_estructura",
+   "estado": "confirmado (fuente secundaria; tablas son imágenes)",
+   "documento": "PEP",
+   "articulo": "C.2",
+   "url": "https://ingenieria.bogota.unal.edu.co/images/userupload/640/PEP_ELECTR%C3%93NICA_5df2d.pdf",
+   "cita_textual": "1. Componente de Fundamentación: sesenta (60) créditos exigidos, de los cuales los estudiantes deberán aprobar cincuenta y un (51) créditos correspondientes a asignaturas obligatorias y nueve (9) créditos correspondientes a asignaturas optativas. 2. Componente de Formación Disciplinar o Profesional: setenta y ocho (78) créditos exigidos, de los cuales el estudiante deberá aprobar setenta y dos (72) créditos correspondientes a asignaturas obligatorias y seis (6) créditos correspondientes a asignaturas optativas. ... 4. Componente de Libre Elección: Se exigen treinta y cuatro (34) créditos de libre elección, los cuales corresponden al 20 % del total de créditos del plan de estudios. ... 5. Trabajo de Grado: ... una asignatura de seis (6) créditos.",
+   "fecha_consulta": "2026-10-13",
+   "nota": ""
+  }
+ },
+ "estructura_segun_pagina_facultad_vigente": {
+  "total": 172,
+  "fundamentacion": {
+   "total": 60,
+   "obligatorios": 51,
+   "optativos": 9,
+   "agrupaciones": [
+    {
+     "nombre": "Matemáticas, probabilidad y estadística",
+     "obligatorios": 24,
+     "optativos": 3
+    },
+    {
+     "nombre": "Ciencia de materiales",
+     "obligatorios": 3,
+     "optativos": 0
+    },
+    {
+     "nombre": "Física",
+     "obligatorios": 15,
+     "optativos": 0
+    },
+    {
+     "nombre": "Ciencias económicas y administrativas",
+     "obligatorios": 3,
+     "optativos": 6
+    },
+    {
+     "nombre": "Herramientas informáticas y métodos numéricos",
+     "obligatorios": 6,
+     "optativos": 0
+    }
+   ]
+  },
+  "disciplinar": {
+   "total": 78,
+   "obligatorios": 69,
+   "optativos": 9,
+   "agrupaciones": [
+    {
+     "nombre": "Circuitos y campos",
+     "obligatorios": 14,
+     "optativos": 0
+    },
+    {
+     "nombre": "Señales, sistemas y control",
+     "obligatorios": 10,
+     "optativos": 0
+    },
+    {
+     "nombre": "Electrónica Análoga",
+     "obligatorios": 15,
+     "optativos": 3
+    },
+    {
+     "nombre": "Electrónica Digital",
+     "obligatorios": 8,
+     "optativos": 3
+    },
+    {
+     "nombre": "Telecomunicaciones",
+     "obligatorios": 6,
+     "optativos": 3
+    },
+    {
+     "nombre": "Contexto profesional, innovación e investigación",
+     "obligatorios": 16,
+     "optativos": 0
+    }
+   ]
+  },
+  "libre_eleccion": 34,
+  "trabajo_de_grado": "No desglosado en la página; presumiblemente dentro de obligatorios disciplinares (NO CONFIRMADO).",
+  "fuente": {
+   "id": "fac_estructura",
+   "estado": "confirmado (página oficial; no es el texto del acuerdo)",
+   "documento": "Página programa Ing. Electrónica",
+   "articulo": "Plan de Estudios",
+   "url": "https://ingenieria.bogota.unal.edu.co/es/programas-academicos/ingenieria-electronica/",
+   "cita_textual": "Componente fundamentación: 60 Créditos ... Total créditos obligatorios: 51 Total créditos optativos: 9 Componente Disciplinar/Profesional: 78 Créditos ... Total créditos obligatorios: 69 Total créditos optativos: 9 ... Treinta y cuatro (34) créditos exigidos, que corresponden al 20 % del total de créditos del plan de estudios",
+   "fecha_consulta": "2026-10-13",
+   "nota": "Sumas verificadas: 24+3+15+3+6=51; 3+6=9; 14+10+15+8+6+16=69; 3+3+3=9."
+  }
+ },
+ "otros": [
+  {
+   "id": "libre_prof_70",
+   "estado": "confirmado (PEP)",
+   "documento": "PEP",
+   "articulo": "C.2 num.4",
+   "url": "https://ingenieria.bogota.unal.edu.co/images/userupload/640/PEP_ELECTR%C3%93NICA_5df2d.pdf",
+   "cita_textual": "Para la inscripción de estas asignaturas, el estudiante debe haber aprobado el 70% de los créditos académicos de su plan de estudios.",
+   "fecha_consulta": "2026-10-13",
+   "nota": "Aplica a asignaturas de profundización del componente de libre elección."
+  },
+  {
+   "id": "nivelacion_plan",
+   "estado": "no publicado en fuente accesible",
+   "documento": "—",
+   "articulo": "—",
+   "url": "",
+   "cita_textual": "",
+   "fecha_consulta": "2026-10-13",
+   "nota": "Créditos de nivelación (Matemáticas básicas, lectoescritura, inglés) se rigen por Acuerdo 033/2007 art.13-14, Acuerdo 102/2013 y Res. Rectoría 037/2010; ver reglas_promedios.json. Malla 2023: https://ingenieria.bogota.unal.edu.co/images/Malla_Ing_Electrnica_2023.pdf (no analizada)."
+  }
+ ]
+}

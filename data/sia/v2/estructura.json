@@ -1,0 +1,42 @@
+{
+  "source": {
+    "url": "https://sia.unal.edu.co/ServiciosApp/faces/inicioServicios",
+    "path": "Información académica > Mi historia académica"
+  },
+  "plan": "2545 INGENIERÍA ELECTRÓNICA",
+  "facultad": "FACULTAD DE INGENIERÍA",
+  "acuerdo_version": null,
+  "acuerdo_reason": "not shown in Mi historia académica",
+  "resumen_creditos": [
+    {
+      "tipologia": "DISCIPLINAR OPTATIVA",
+      "exigidos": 9
+    },
+    {
+      "tipologia": "FUND. OBLIGATORIA",
+      "exigidos": 51
+    },
+    {
+      "tipologia": "FUND. OPTATIVA",
+      "exigidos": 9
+    },
+    {
+      "tipologia": "DISCIPLINAR OBLIGATORIA",
+      "exigidos": 63
+    },
+    {
+      "tipologia": "LIBRE ELECCIÓN",
+      "exigidos": 34
+    },
+    {
+      "tipologia": "TRABAJO DE GRADO",
+      "exigidos": 6
+    },
+    {
+      "tipologia": "TOTAL",
+      "exigidos": 172
+    }
+  ],
+  "agrupaciones": null,
+  "agrupaciones_reason": "'Mis planes' redirects to login page https://siabog.unal.edu.co/academia/ (stopped per instructions)"
+}

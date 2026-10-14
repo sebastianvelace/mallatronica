@@ -1,0 +1,1075 @@
+PEP
+Proyecto Educativo de Programa
+Autoevaluación y seguimiento de la
+calidad de los programas de pregrado
+
+ING. ELECTRÓNICA - Facultad de Ingeniería
+Sede Bogotá
+UNIVERSIDAD NACIONAL DE COLOMBIA
+DOLLY MONTOYA
+Rectora
+
+JUAN MANUEL TEJEIRO
+Vicerrector Académico
+
+LUIS EDUARDO GALLEGO VEGA
+Director Nacional de Programas de Pregrado
+
+JAIME FRANKY RODRIGUEZ
+Vicerrector de Sede Bogotá
+
+CARLOS EDUARDO CUBILLOS
+Director Académica Sede Bogotá
+
+
+
+*Redacción y corrección:
+ JAN BACCA RODRIGUEZ
+ JOHN J. PANTOJA
+ Comité Asesor del Programa
+ de Ingeniería Electrónica
+
+
+
+*Diseño y diagramación:
+ JUAN CARLOS ÁLVAREZ SOTTO
+      CONTENIDO
+pg.
+ 5 INTRODUCCIÓN
+
+ 5 A. IDENTIDAD DEL PROGRAMA
+ 5      A.1 Información general
+ 5      A.2 Reseña histórica del programa
+ 6      A.3 Desarrollo del programa
+
+ 7 B. PERTINENCIA Y PROPÓSITOS DEL PROGRAMA
+ 7      B.1 Misión y visión del programa
+ 8      B.2 Objetivos del programa
+ 8      B.3 Objetivos educativos del programa
+ 8      B.4 Metas de formación
+ 8 		           B.4.1. Conocimiento y razonamiento disciplinar
+ 9 		           B.4.2. Habilidades y atributos personales y profesionales
+ 9 		           B.4.3. Destrezas interpersonales: trabajo en equipo y comunicación
+ 9     		       B.4.4. Concebir, diseñar, implementar y operar sistemas en el contexto empresarial, 		
+    			                  social y ambiental – el proceso de innovación
+10      B.5 Perfil del aspirante y del egresado
+10      B.6 Prospectiva del programa
+
+11 C. ORGANIZACIÓN Y ESTRATEGIA CURRICULAR
+11     C.1 Lineamientos básicos para la formación de estudiantes de pregrado
+12     C.2 Organización del plan de estudios
+16     C.3 Desarrollo curricular
+16     C.4 Actualización del currículo
+16     C.5 Estrategias pedagógicas
+
+18 D. ARTICULACIÓN CON EL MEDIO
+18     D.1 Movilidad académica
+19     D.2 Prácticas y pasantías
+19     D.3 Articulación con la investigación
+20     D.4 Articulación con los egresados
+
+20 E. APOYO A LA GESTIÓN DEL CURRÍCULO
+20      E.1 Organización administrativa
+24      E.2 Docentes
+26      E.3 Recursos físicos y de apoyo a la docencia
+                                             INGENIERÍA ELECTRÓNICA
+
+
+   INTRODUCCIÓN                                           Fecha y número de la primera promoción:
+                                                          2003 (10)
+   La carrera de Ingeniería Electrónica en la sede        Resolución de Acreditación: Resolución No. 2250
+Bogotá, es un programa de formación universitaria          del 20 de febrero de 2014
+de pregrado de la Facultad de Ingeniería de la            Vigencia de Acreditación: 8 años
+Universidad Nacional de Colombia, con una duración
+total de diez (10) semestres en jornada diurna, que
+confiere el título de Ingeniero (a) Electrónico (a). El      A.2 Reseña histórica del programa
+Programa inició actividades académicas a partir del
+segundo semestre de 1998.                                     La historia de la carrera de Ingeniería Electrónica
+                                                          en la Universidad Nacional de Colombia debe en
+    Los egresados del programa curricular de              realidad remontarse al 22 de mayo 1961, momento
+Ingeniería Electrónica de la Universidad Nacional         en el que es aprobada, mediante el Acuerdo 60
+de Colombia han tenido destacados resultados              de 1961 del Consejo Académico¹, la creación de
+en pruebas encaminadas a valorar la calidad de la         las primeras carreras de ingeniería distintas a la
+educación, como el Saber Pro. El Programa cuenta con      tradicional Ingeniería Civil: Ingeniería Eléctrica
+un plan de estudios y actividades que contribuyen a       e Ingeniería Mecánica. Este fue el producto de un
+la formación integral y a la autonomía; sus egresados     largo esfuerzo por parte del decano Hernando
+se desempeñan en áreas relacionadas con disciplinas       Correal Correal y su entusiasta aliado, el profesor
+como la medicina, educación, agricultura, minería,        Martin Lutz Mangol, quien sería la voz guía durante
+automotriz, aeroespacial, militar, instrumental,          todo el proceso de creación y puesta en marcha de
+inteligencia artificial y multimedia, entre otras.        la carrera de Ingeniería Eléctrica.
+Los procesos de mejoramiento continuo en los que
+está empeñada la Institución, privilegian la calidad         Ya desde 1961 se resaltaba la importancia de
+facilitando la formación de egresados de alta calidad     desarrollar el área de “corrientes débiles” (como las
+compatibles con el desarrollo del país.                   llamaba Lutz), es decir, de la electrónica, por lo cual
+                                                          el mismo Lutz contactó al profesor belga Andrés
+                                                          Dockx quien contaba con una amplia experiencia en
+                                                          esta nueva área. Sin embargo, debido a problemas
+   A. IDENTIDAD DEL PROGRAMA                              de comunicación y de organización por parte del
+                                                          profesor Dockx, se limitó la proyección y el desarrollo
+   A.1. Información general del programa:                 de la electrónica dentro del Departamento.
+
+Nombre del programa curricular: Ing. Electrónica             No obstante, alumnos como Javier Barona y
+Nivel de formación: Profesional - Pregrado                Demetrio Martínez se interesaron en las posibles
+Código SNIES: 16941                                       aplicaciones que la electrónica tendría en el
+Código SIA: 2545                                          medio, por lo cual encaminaron sus carreras hacia
+Año de iniciación: 27 de agosto de 1997                   el estudio de esta nueva área. Posteriormente, el
+Acuerdo de Creación: Acuerdo 13, Acta 05 del 27 de        área de electrónica se reforzó con la vinculación de
+ agosto de 1997 del Consejo Superior Universitario        profesores como Pablo Rodríguez (1975), Ricardo
+Título que otorga: Ingeniero(a) Electrónico(a)            Isaza (1980) y Adolfo Mora, quien, en su reingreso,
+Sede donde se realiza el programa: Bogotá, D.C.           a principio de los ochentas, realizó una permanente
+Facultad: Ingeniería                                      promoción de la creación de la carrera de Ingeniería
+Área curricular: Ingeniería Eléctrica y Electrónica       Electrónica sin recibir gran apoyo.
+Créditos totales: Ciento Setenta y Dos (172)
+Jornada: Diurna                                              Fue hasta 1990, con el ingreso de Iván Jaramillo
+Modalidad: Presencial                                     Jaramillo, que se volvió a mencionar la posibilidad
+
+
+                                                                                                                    5
+       Autoevaluación y seguimiento de la calidad de los programas de pregrado – PROYECTO EDUCATIVO DE PROGRAMA
+
+
+de crear la nueva carrera. A mediados de este año              Los recursos necesarios para adquirir la dotación
+el ingeniero Jaramillo empezó a dictar clases y             de equipos fueron llegando poco a poco gracias a
+paralelamente fomentaba el interés en la creación           una entrevista con el rector solicitando su apoyo.
+de un grupo de Investigación en Microelectrónica,           Finalmente fue el 27 de agosto de 1997 cuando
+iniciativa que contó con el apoyo de los profesores         se aprobó la creación de la carrera de Ingeniería
+Ricardo Isaza y Adolfo Mora. Su esfuerzo se reflejó         Electrónica mediante el Acuerdo No. 13, acta No.
+en varios trabajos de grado encaminados hacia este          5 del Consejo Académico²y reglamentada en su
+tema, así como diversos trabajos de investigación,          totalidad por la Resolución 003 de 1999 del Consejo
+incluso uno de ellos financiado por Colciencias             de Facultad³. De esta manera el Programa inició
+y desarrollado en conjunto con profesores de la             actividades a partir del segundo semestre de 1998.
+Universidad de los Andes.
+
+   El Departamento poco a poco fue fortaleciéndose              A.3 Desarrollo del Programa
+gracias al ingreso de Carlos Camargo, Carlos Perilla y
+Luis Alejandro Cortés, exalumnos del Departamento              Después de la creación del Programa se han hecho
+que habían culminado su maestría en Electrónica en          ajustes al mismo para adaptarlo a las condiciones
+la Universidad de los Andes, así como el reingreso de       del medio y las posibilidades de la Universidad.
+los profesores Demetrio Martínez y Pablo Rodríguez.
+                                                               En el año 2003, se realizaron algunos cambios
+   Fue hasta 1993, cuando el profesor Jaramillo,            curriculares en el plan de estudios de Ingeniería
+en colaboración con Adolfo Mora, presentó una               Electrónica según el Acuerdo No. 994 y No. 49 de
+propuesta para abrir la carrera de Ingeniería               20035, del Consejo de Sede Bogotá, necesarios para
+Electrónica. Sin embargo, se encontraron con un             el buen funcionamiento del Sistema de Información
+tropiezo, pues en el Departamento de Ingeniería             Académica – SIA, entre los cuales se pueden
+de Sistemas, dos profesores habían elaborado una            mencionar:
+propuesta alternativa para abrir la misma carrera.
+Las dos propuestas no pudieron ser unificadas y                •   El nombre de algunas asignaturas asociadas
+de ahí en adelante existieron más tropiezos a nivel         al plan de estudios y el código de la asignatura
+administrativo que ralentizaron el proceso.                 Conversión Electromagnética.
+
+   En 1997, el entonces director del Departamento,             •    El nombre de las modalidades de grado que
+Ricardo Pardo, convencido de las bondades del               serían ofrecidas.
+proyecto, junto a docentes como Guillermo Ortega y
+Antonio Garzón, dio un nuevo impulso a la propuesta            •    La intensidad horaria de la asignatura
+que paso a paso fue llegando hasta el Consejo               Circuitos Eléctricos I de 6 horas a 8 horas semanales.
+Académico, donde se planteó la interrogante
+principal respecto al origen de los fondos requeridos          •   Los prerrequisitos necesarios para tres
+para implementar la planta física y los equipos             asignaturas ofrecidas en el momento.
+requeridos para abrir el nuevo programa.
+                                                               Por medio del Acuerdo No. 223 de 2008 del
+   En cuanto a la planta física, se aprovechó del           Consejo Académico6, se modificó la estructura
+amplio espacio sobrante en el edificio de laboratorios      del plan de estudios del programa curricular de
+de Mecánica y Eléctrica, modificando algunos                Ingeniería Electrónica, para ajustarse al Acuerdo No.
+laboratorios para construir varios salones utilizando       033 de 2007 del Consejo Superior Universitario7,
+el espacio tanto horizontal como verticalmente,             el cual establece los lineamientos básicos para
+construyendo así, dos pisos adicionales.                    el proceso de formación de los estudiantes de la
+                                                            Universidad Nacional de Colombia a través de sus
+
+
+                                                                                                                     6
+                                                 INGENIERÍA ELECTRÓNICA
+
+
+programas curriculares. Los aspectos más relevantes            a que contenía un cambio significativo en el
+de esta reforma son:                                           plan de estudios, se realizó una consulta con los
+                                                               Coordinadores de la Sede de Medellín y Manizales,
+   •    El establecimiento de los objetivos del Programa.      los cuales acogieron esta iniciativa con beneplácito.
+                                                               Al contar con el aval de parte de estas Sedes, el
+   •   La reglamentación del número de créditos                señor Decano y el Secretario Académico de Facultad,
+exigidos en el plan de estudios.                               presentaron al Consejo Académico esta propuesta,
+                                                               la cual fue aprobada. A partir del segundo semestre
+   •     El plan de estudios se estructuró por medio           de 2017, las normativas anteriores quedan
+de componentes de Fundamentación, Formación                    derogadas y el plan de estudios del programa se rige
+Disciplinar o Profesional y Libre Elección. Se                 por el Acuerdo No. 125 del 31 de marzo de 2017 de
+establecieron las asignaturas de los primeros                  Consejo Académico9 y por el Acuerdo No. 036 del 27
+dos componentes, además de las asignaturas                     de abril de 2017 de Consejo de Facultad10.
+obligatorias y optativas en cada uno, permitiendo la
+flexibilidad de opciones ofrecidas al estudiante.                 Desde el momento del inicio de actividades del
+                                                               programa varias satisfacciones han enmarcado a la
+   •     Se reconoce el inglés como lengua extranjera          carrera: el gran número y nivel de los aspirantes a
+importante en el desarrollo de los profesionales del campo     ingresar a la carrera, el excelente desempeño de los
+y se implementa la realización de un examen de prueba          egresados en las pruebas ECAES (Saber PRO) y la
+específica en idioma, de acuerdo a lo cual los estudiantes     acreditación de la carrera ante el Consejo Nacional
+deben cursar las asignaturasde nivelación necesarias.          de Acreditación - CNA, que fue renovada en febrero
+                                                               de 2014 por un período de 8 años.
+   •    La realización del análisis clasificatorio en
+el examen de admisión con el fin de determinar                    La Ingeniería Electrónica se presenta como
+los admitidos que requieren nivelación en áreas de             una carrera en la que es posible realizar múltiples
+matemáticas básicas y lecto-escritura, estableciendo           desarrollos tecnológicos y generar oportunidades
+que deben tomar los cursos de nivelación                       de emprendimiento que tendrían un impacto muy
+obligatorios el primer periodo académico.                      importante para el avance de un país como Colombia,
+                                                               cuyo aparato productivo aún no ha desarrollado
+   •    El establecimiento de las modalidades de               adecuadamente esta área del conocimiento. En
+trabajo de grado como Trabajos Investigativos,                 respuesta a esto, el Departamento planteó, más de una
+Prácticas de Extensión y Asignaturas de Posgrado.              década después de la creación del Programa, la apertura
+                                                               de una Maestría en Ingeniería Electrónica que pudiera
+   Por medio de la Resolución No. 136 de 2010 de               dar soluciones a problemas específicos y que a su vez
+Consejo de Facultad8, se establecen de forma más               abriera oportunidades en el mercado internacional.
+específica las asignaturas de cada componente del
+plan de estudios con el código, el número de créditos,
+los prerrequisitos y el carácter de la asignatura ya
+sea obligatorio u optativo. Además, se establece que             B. PERTINENCIA Y PROPÓSITOS DEL
+anualmente se hará una revisión de las asignaturas             PROGRAMA
+optativas y de profundización con el fin de mejorar el
+nivel de flexibilidad del plan de estudios y la articulación      B.1. Misión y visión del programa
+con otros planes de estudio de la Universidad.
+                                                                  Misión
+   Posteriormente, el Comité Asesor del Programa
+de Ingeniería Electrónica presentó una nueva                      Contribuir a la difusión, promoción y desarrollo
+propuesta de reforma al plan de estudios. Debido               de las ciencias de la información, la computación
+
+                                                                                                                         7
+       Autoevaluación y seguimiento de la calidad de los programas de pregrado – PROYECTO EDUCATIVO DE PROGRAMA
+
+
+y la electrónica; la utilización y la aplicación de            •   Concebir, Diseñar, Implementar y Operar
+los modelos matemáticos y de los sistemas de                sistemas eléctricos complejos en un ambiente
+información y comunicación y elaboración de                 empresarial y social, con responsabilidad social y
+estudios en estas áreas; así como promover la               ética.
+formación de profesionales que contribuyen al
+análisis y discusión de los problemas de transferencia          •   Innovar, investigar, liderar, trabajar
+de tecnología, vinculados en forma estrecha a la            y comunicarse efectivamente en equipos
+vida nacional.                                              multidisciplinarios, para que contribuyan al análisis,
+                                                            discusión y solución de problemas a nivel local,
+   Visión                                                   nacional o global.
+
+   El programa curricular de Ingeniería Electrónica            •    Crear empresa, diseñar y mejorar productos,
+de la Universidad Nacional de Colombia se                   procesos y sistemas electrónicos proporcionando
+reconocerá a nivel nacional e internacional                 un puente entre la industria y la academia con el fin
+por su alta calidad y formación integral de sus             de fortalecer y promover la industria colombiana.
+profesionales orientados al servicio de la sociedad,
+que le permitirán desempeñarse con un alto sentido             •    Demostrar espíritu observador, crítico y
+ético y de responsabilidad brindando atención en los        objetivo para enfrentar los cambios en el medio
+diferentes campos de aplicación de la electrónica.          social y tecnológico, de manera que actualicen sus
+                                                            conocimientos durante toda su vida y los pongan al
+                                                            servicio de la comunidad nacional o internacional.
+   B.2. Objetivos del programa
+
+   En el Acuerdo 125 de 2017 del Consejo                        B.4. Metas de formación:
+Académico9 se establecen los siguientes objetivos
+del Programa de Ingeniería Electrónica:                         Las metas de formación se han dividido en
+                                                            cuatro grupos de acuerdo con el marco conceptual
+   •    Formar ingenieros electrónicos capaces de           CDIO11, desarrollado por el Instituto Tecnológico de
+concebir, diseñar, implementar y operar sistemas            Massachusetts (MIT). CDIO es un enfoque educativo
+electrónicos complejos, en un ambiente empresarial          que contempla metas de conocimiento, competencias
+y social.                                                   personales, competencias interpersonales y
+                                                            habilidades de concepción, diseño, implementación
+   •    Incentivar al estudiante a innovar, investigar,     y operación (CDIO) de sistemas y productos de
+trabajar en equipo, crear empresa, diseñar y mejorar        ingeniería en el mundo real. Estas metas, junto con los
+productos, procesos y sistemas electrónicos y de            objetivos del programa, proporcionan las bases para
+telecomunicaciones.                                         la formulación del plan de estudios y la articulación
+                                                            de sus componentes.
+
+   B.3. Objetivos educativos del programa                            B.4.1. Conocimiento y razonamiento disciplinar:
+
+   Con el fin de cumplir con los Objetivos                     • Conocimiento de ciencias subyacentes:
+del Programa mencionados en la sección B.2,                 Aplicar conocimientos de ciencias básicas en las
+adicionalmente, el Programa ha definido unos                actividades propias del ejercicio profesional de la
+Objetivos Educativos del Programa (OEP). Los OEP            Ingeniería Electrónica.
+reúnen las capacidades que el programa pretende
+que sus egresados logren cinco años después de                 • Conocimiento fundamental del núcleo de
+obtener el título profesional.                              ingeniería: Integrar conocimientos, herramientas
+
+
+                                                                                                                       8
+                                            INGENIERÍA ELECTRÓNICA
+
+
+y métodos fundamentales del núcleo de ingeniería         diferentes situaciones a través de medios diversos.
+para el ejercicio profesional.
+                                                            • Comunicación en idiomas extranjeros:
+   • Conocimiento fundamental de ingeniería              Comprender las ideas principales de un discurso o
+electrónica: Integrar conocimientos, herramientas        texto, así como expresarse con frases sencillas de
+y métodos fundamentales de Ingeniería Electrónica        forma oral y escrita sobre temas de ingeniería en
+para el ejercicio profesional.                           inglés.
+
+
+       B.4.2.Habilidades y atributos personales             B.4.4.Concebir, diseñar, implementar y operar
+y profesionales:                                         sistemas en el contexto empresarial, social y
+                                                         ambiental – el proceso de innovación:
+   • Razonamiento analítico y resolución de
+problemas de ingeniería: Formular soluciones                • Contexto externo, social y ambiental:
+a problemas abordados desde la ingeniería en             Relacionar el ejercicio profesional con las
+condiciones de incertidumbre, analizando cualitativa     dimensiones social, ambiental y cultural como
+y cuantitativamente el impacto de las soluciones         determinantes del impacto y la pertinencia de las
+formuladas por medio de modelos.                         soluciones de ingeniería.
+
+   • Experimentación,        investigación     y            • Contexto organizacional y de negocios:
+descubrimiento del conocimiento: Explicar por            Relacionar el ejercicio profesional con las dimensiones
+medio de métodos experimentales las soluciones a         económica, tecnológica y organizacional en ambientes
+problemas abordados desde la Ingeniería.                 empresariales y de negocios.
+
+    • Pensamiento sistémico: Aplicar el pensamiento         • Concepción de sistemas de ingeniería:
+sistémico al análisis de las soluciones de Ingeniería.   Generar propuestas de ingeniería conceptual
+                                                         que consideren las necesidades, el contexto, los
+   • Destrezas y actitudes personales:                   requerimientos y las restricciones en la solución de
+Demostrar competencias en la toma de decisiones          problemas.
+y su ejecución, pensamiento crítico y creativo, y
+autonomía en el trabajo y el aprendizaje.                   • Diseño: Diseñar productos y servicios de
+                                                         ingeniería básica o ingeniería de detalle articulando
+   • Destrezas y actitudes profesionales:                conocimientos de otras disciplinas con criterios de
+Actuar con ética, equidad y responsabilidad social,      responsabilidad técnica, económica y ambiental.
+respetando la diversidad y biodiversidad, aspirando
+a ejercer liderazgo y manteniéndose actualizado en          • Implementación: Reconocer que el proceso
+sus conocimientos y nuevas tecnologías.                  de implementación de sistemas de software o
+                                                         hardware implica pruebas, verificación, validación y
+                                                         certificación.
+  B.4.3.Destrezas interpersonales: trabajo en
+equipo y comunicación:                                      • Operación: Reconocer que la operación y la
+                                                         disposición final de sistemas hacen parte de su ciclo
+  • Trabajo en equipo: Conformar y liderar               de vida y por tanto inciden en su eficacia, eficiencia,
+equipos eficaces de trabajo interdisciplinario.          seguridad e impactos.
+
+  • Comunicación       efectiva:     Demostrar             • Emprendimiento ingenieril: Explicar la
+competencias para comunicarse efectivamente en           importancia de la innovación en la práctica de la
+
+
+                                                                                                                   9
+       Autoevaluación y seguimiento de la calidad de los programas de pregrado – PROYECTO EDUCATIVO DE PROGRAMA
+
+
+Ingeniería, así como el emprendimiento y el proceso            El segundo perfil se orienta hacia el área de los
+de creación de empresas.                                    sistemas electrónicos digitales. Los ingenieros que
+                                                            sigan este perfil tendrán conocimientos que les
+                                                            permitan formar parte de grupos de trabajo en los
+   B.5. Perfil del aspirante y del egresado:                diferentes niveles de abstracción desde la capa física
+                                                            hasta la concepción del sistema a nivel nacional e
+   Perfil del Aspirante                                     internacional.
+
+   Personas que posean excelentes capacidades,                 Finalmente, el tercer perfil está orientado hacia el
+con interés en el estudio del modelamiento de               área de los sistemas analógicos y la instrumentación.
+sistemas, análisis, diseño, implementación, control,        Los ingenieros con este perfil tendrán capacidad de
+procesamiento de información con habilidades                modelar, diseñar, implementar y operar elementos,
+para el planteamiento y solución de problemas               componentes y sistemas basados en elementos
+computacionales, continuidad en el desarrollo de            electrónicos que permitan captar y procesar señales
+actividades académicas y trabajo en equipo.                 analógicas.
+
+   Perfil del Egresado                                         El establecimiento del perfil se lleva a cabo
+                                                            mediante la selección de asignaturas de libre
+   El Ingeniero Electrónico de la Universidad               elección clasificadas como optativas y electivas del
+Nacional está en la capacidad de concebir, diseñar          programa que los estudiantes pueden cursar.
+e implementar sistemas electrónicos de alta calidad
+para aplicaciones en diferentes campos de la industria
+nacional, respondiendo así a las necesidades del               B.6. Prospectiva del programa:
+país. Adicionalmente, demuestra capacidad de
+liderazgo y aptitud para el trabajo en equipo, con              El Comité Asesor Curricular del Programa, la
+valores éticos y sentido de la responsabilidad social.      Dirección de Área Curricular, y el Departamento
+                                                            de Ingeniería Eléctrica y Electrónica han venido
+   El Ingeniero Electrónico de la Universidad Nacional      trabajando para documentar los procesos
+de Colombia podrá desempeñarse como profesional             académicos propios del Departamento. Los
+en el estudio, diseño y desarrollo de sistemas de           objetivos y metas de aprendizaje de las asignaturas,
+telecomunicaciones, automatización industrial,              las metodologías de trabajo en el aula y los procesos
+robótica, electrónica de potencia, electrónica digital      de evaluación y calificación han sido los aspectos
+y demás aplicaciones tecnológicas que utilicen              en los cuales se ha hecho énfasis para documentar
+principios de la electrónica para su funcionamiento.        y, a futuro, evaluar los procesos académicos
+Dichos sistemas son aplicables en variados ámbitos          relacionados con la docencia. Esto se ha hecho con
+como la medicina, educación, agricultura, minería,          el fin de construir un sistema que permita evaluar,
+industria automotriz, industria aeroespacial, industria     de forma más objetiva, los programas curriculares
+militar, comunicaciones, instrumental, inteligencia         adscritos al Departamento.
+artificial y multimedia, entre otros.
+                                                               De otra parte, el Comité Asesor considera que
+   En la práctica, el plan de estudios favorece la          el Programa será un referente a nivel nacional y
+formación de profesionales con tres perfiles. El            regional en la innovación metodológica de los
+primer perfil está orientado hacia las comunicaciones.      procesos educativos de los Ingenieros Electrónicos.
+El profesional con este perfil será un ingeniero con        Adicionalmente, la integración de los resultados de las
+capacidades para identificar problemas en el área de        actividades de investigación y extensión a los procesos
+comunicaciones, contextualizándolos y planteando            de formación, permitirán ofrecer un mejor servicio
+soluciones apropiadas.                                      educativo para las futuras generaciones de ingenieros.
+
+
+                                                                                                                      10
+                                                 INGENIERÍA ELECTRÓNICA
+
+
+Dentro de los aspectos en los cuales el Programa quiere
+destacar, está el consolidar los objetivos educativos                 • Desarrollo de hardware, sistemas embebidos,
+del programa, los cuales se encuentran alineados con               desarrollo de plataformas “open source”.
+los lineamientos de formación de estudiantes de la
+Universidad Nacional de Colombia.                                     • Aplicaciones biomédicas y telemedicina.
+
+   Además, el Programa contará con un sistema de                      • Sostenibilidad alimentaria y aplicaciones
+mejoramiento continuo que le permita hacer ajustes                 agroindustriales.
+y adaptarse a las exigencias de la sociedad de una
+forma más eficiente. La pertinencia del objetivo del               El profesional no solo será una persona con grandes
+programa, de los OEP y de las metas de formación,               capacidades técnicas, sino que será un ciudadano
+así como los procesos de seguimiento, monitoreo                 integral, ético y humano, cuyas soluciones siempre
+y evaluación, son algunos de los aspectos que se                estarán orientadas a la sostenibilidad ambiental,
+incorporarán en el sistema de mejora continua que nos           al beneficio de las poblaciones vulnerables y a los
+posicionarán como referente nacional e internacional            retos del posconflicto.
+en la formación de los futuros ingenieros.
+                                                                   Por lo anterior se concluye que la industria
+   Los egresados tendrán la capacidad de                        electrónica es de importancia estratégica para el país
+integrarse al sistema productivo nacional y de                  y que, por consiguiente, el Estado, la Universidad y
+llegar a convertirse en el motor de la economía.                el Departamento deben realizar todos los esfuerzos
+Los subsectores de la electrónica con mayores                   posibles para promover su desarrollo.
+posibilidades son los que desarrollen y suministren
+tecnología a la industria, al comercio, a la agricultura,
+a la salud, a las tecnologías de la información y las
+telecomunicaciones (TIC) y a las demás ramas del                  C. ORGANIZACIÓN Y ESTRATEGIA
+sector productivo, o sea que son los que posibilitan            CURRICULAR
+la modernización de la economía del país.
+                                                                   C.1. Lineamientos básicos para la formación de
+   Actualmente el sector productivo requiere                    estudiantes de pregrado:
+de la tecnología electrónica tanto para poder
+ser competitivo, como para poder garantizar su                     El Acuerdo 033 de 2007 del Consejo Superior
+subsistencia, debido a que su desempeño depende                 Universitario7, que establece los lineamientos
+de la incorporación de medios electrónicos.                     para la formación de estudiantes en la Universidad
+                                                                Nacional de Colombia, se fundamenta en los
+   El país tendrá que migrar, mejorar o actualizar su           principios de excelencia académica, formación
+infraestructura tecnológica para asumir los retos del           integral, contextualización, internacionalización,
+siglo XXI, en áreas como:                                       formación investigativa, interdisciplinariedad y
+                                                                flexibilidad; se adopta el régimen de Créditos
+      • Uso eficiente de la energía y fuentes alternas          Académicos para medir el tiempo que requiere el
+   de generación.                                               estudiante para cumplir con los objetivos de las
+                                                                asignaturas, y para facilitar la homologación de
+      • Vehículos eléctricos, redes inteligentes.               asignaturas y la movilidad de estudiantes entre
+                                                                programas nacionales e internacionales.
+      • Redes de comunicaciones, TIC e internet de las cosas.
+                                                                   El Acuerdo 033 organiza el Plan de Estudios
+      • Control de calidad, automatización de procesos          en Componentes de Formación, entendidos como
+   y manufactura.                                               conjuntos de asignaturas con un objetivo de
+
+                                                                                                                         11
+       Autoevaluación y seguimiento de la calidad de los programas de pregrado – PROYECTO EDUCATIVO DE PROGRAMA
+
+
+formación particular. Así, los Planes deben tener           introduce nuevas políticas y modifica otras
+un Componente de Fundamentación, que se ocupa               preexistentes. Dentro de las nuevas políticas de
+principalmente de la contextualización de los               formación se crea una componente de nivelación
+saberes, un Componente Disciplinar o Profesional,           para los recién ingresados que presenten deficiencias
+propio y característico de la esencia de la carrera,        en el manejo de lenguas extranjeras –cuatro niveles
+incluyendo el Trabajo de Grado, y un Componente de          de inglés–, lectura y escritura, y matemáticas.
+Libre Elección que, a manera de herramienta para la         También introduce la posibilidad de doble titulación
+formación integral, incluye escenarios de contexto,         en la misma Universidad o en convenio con otras,
+de emprendimiento, de responsabilidad social, de            nacionales o extranjeras, para los estudiantes
+investigación, de profundización y de extensión.            con un desempeño muy destacado. Además, con
+                                                            el objeto de articular pregrados y postgrados, se
+    Uno de los principios de mayor relevancia es el         ofrece la oportunidad de tránsito de uno a otro
+de la flexibilidad. El Acuerdo propende porque (i)          disminuyendo los tiempos estipulados para cada
+esté presente en todos los componentes del Plan,            uno de esos programas.
+(ii) obliga a que el Componente de Libre Elección
+sea como mínimo del 20% del total de créditos
+del Programa Curricular y (iii) apunta hacia la                 C.2. Organización del plan de estudios:
+disminución de requisitos y prerrequisitos. Con ello
+se pretende dar al estudiante un nivel de autonomía            El plan de estudios establecidos para el programa
+suficiente y la responsabilidad para elegir los temas       curricular de Ingeniería Electrónica en la Universidad
+y trayectorias académicas que más se acerquen a             Nacional de Colombia tiene un total de ciento
+sus intereses de formación e investigación.                 setenta y dos (172) créditos exigidos, los cuales se
+                                                            encuentran distribuidos, según el Acuerdo No. 36
+  Se debe destacar también que el Acuerdo 033,              de 2017 del Consejo de Facultad10, en los siguientes
+en lo que denomina “estrategias de formación”,
+
+
+
+
+                                                                  Tabla 1. Componente de Fundamentación
+
+
+
+
+                                                                                                                     12
+       Autoevaluación y seguimiento de la calidad de los programas de pregrado – PROYECTO EDUCATIVO DE PROGRAMA
+
+
+
+
+                                                 Tabla 2. Componente de Formación Disciplinar o Profesional
+
+
+
+
+componentes:                                                 que los estudiantes pueden cursar. En la tabla
+                                                             3 también se indica la correspondencia de cada
+   1. Componente de Fundamentación: sesenta                  asignatura con los perfiles del egresado: 1)
+(60) créditos exigidos, de los cuales los estudiantes        comunicaciones, 2) sistemas electrónicos digitales
+deberán aprobar cincuenta y un (51) créditos                 y 3) sistemas analógicos e instrumentación.
+correspondientes a asignaturas obligatorias y
+nueve (9) créditos correspondientes a asignaturas               4. Componente de Libre Elección: Se exigen
+optativas.                                                   treinta y cuatro (34) créditos de libre elección,
+                                                             los cuales corresponden al 20 % del total de
+   2. Componente de Formación Disciplinar o                  créditos del plan de estudios. Es objetivo de este
+Profesional: setenta y ocho (78) créditos exigidos,          componente acercar a los estudiantes a las tareas de
+de los cuales el estudiante deberá aprobar setenta           investigación, extensión, emprendimiento y toma
+y dos (72) créditos correspondientes a asignaturas           de conciencia de las implicaciones sociales de la
+obligatorias y seis (6) créditos correspondientes a          generación de conocimiento. Las asignaturas que lo
+asignaturas optativas.                                       integran podrán ser contextos, cátedras de facultad
+                                                             o sede, asignaturas de profundización, asignaturas
+   3. Materias Optativas: las asignaturas                    de posgrado o de otros programas curriculares de
+optativas equivalentes a quince (15) créditos,               pregrado de la Universidad u otras con las cuales
+que corresponden al 9% del total de créditos del             existan los convenios pertinentes.
+plan de estudios, son asignaturas no obligatorias
+que pertenecen a alguna agrupación de las cuales                Las     asignaturas     de     profundización,
+el estudiante puede elegir cursar para completar             particularmente, son materias dentro del
+los créditos exigidos del componente al cual                 Componente de Libre Elección que son ofrecidas
+corresponda dicha agrupación.                                por el Departamento de Ingeniería Electrónica y
+                                                             permiten al estudiante aproximarse, contextualizar
+   A continuación, se presenta el listado de                 o profundizar temas de su profesión o disciplina y
+asignaturas optativas del componente disciplinar             apropiar herramientas y conocimientos de distintos
+
+
+                                                                                                                    13
+                                           INGENIERÍA ELECTRÓNICA
+
+
+
+
+                                           Tabla 3. Asignaturas optativas del componente disciplinar
+
+
+
+saberes tendientes a la diversificación, flexibilidad      Trabajo de Grado para los estudiantes del Programa
+e interdisciplinariedad. Para la inscripción de estas      de Ingeniería de la Sede Bogotá serán: Trabajos
+asignaturas, el estudiante debe haber aprobado             Investigativos, Prácticas de Extensión y Asignaturas
+el 70% de los créditos académicos de su plan de            de Posgrado.
+estudios. En la tabla 4, se presenta el listado de
+asignaturas de profundización del componente de               6. Doble titulación: el Estatuto Estudiantil,
+libre elección vigentes. En la tabla además se indica      en su Artículo 47, Acuerdo No. 008 del 2008
+al perfil del egresado que corresponde cada una de         Consejo Superior Universitario13, establece que los
+las asignaturas.                                           estudiantes de pregrado la Universidad Nacional
+                                                           de Colombia, pueden optar por un segundo título,
+   5. Trabajo de Grado: para optar por el título de        de pregrado en la Institución. Por otro lado, de
+ingeniero electrónico, el estudiante debe realizar un      acuerdo a información del Programa de Relaciones
+proyecto de trabajo de grado el cual es representado       Internacionales de la Facultad de Ingeniería, el
+con una asignatura de seis (6) créditos. La normativa      Programa de Ingeniería Electrónica cuenta con
+que rige al Trabajo de Grado se encuentra en el            convenios de doble titulación internacional con el
+Acuerdo No. 37 de 2017 de Consejo de Facultad12.           INP de Grenoble y Paristech en Francia, y con el
+Para inscribirlo el estudiante debe haber aprobado el      Politécnico de Milán en Italia. Otros convenios con
+80% del total de créditos exigidos del componente          universidades europeas se encuentran en trámite.
+disciplinar o profesional. Las modalidades de
+
+
+
+
+                                                                                                                  14
+Autoevaluación y seguimiento de la calidad de los programas de pregrado – PROYECTO EDUCATIVO DE PROGRAMA
+
+
+
+
+                                  Tabla 4. Asignaturas de profundización del componente de libre elección.
+
+
+
+
+                                                                                                             15
+                                           INGENIERÍA ELECTRÓNICA
+
+
+
+
+   C.3. Desarrollo curricular:                          Unidos. Algunos de dichos procesos requerirán la
+                                                        inclusión en estos procesos de evaluación de otros
+   A continuación (próxima página), se presenta         actores como el sector productivo.
+la Malla Curricular donde se pueden observar las
+asignaturas, las cuales se enmarcan en la ruta
+curricular que los estudiantes toman para cumplir          C.5. Estrategias pedagógicas:
+con la totalidad del plan de estudios del Programa;
+adicionalmente, se presenta el Mapa Curricular              El Departamento de Ingeniería Eléctrica y
+(Tabla. 5) en el cual se muestra las asignaturas que    Electrónica se ha propuesto como objetivo formar
+contribuyen a alcanzar las Metas de Formación que       ingenieros más allá de los aspectos técnicos de la
+establece el Programa para sus estudiantes.             profesión y contribuir a disminuir las falencias que
+                                                        se presentan a nivel mundial en las habilidades que
+   En el mapa (página 18) se puede observar en          tienen los egresados de estas carreras para ejercer
+qué asignaturas se tiene algún nivel de trabajo para    adecuadamente su ejercicio profesional. Para tal
+el desarrollo de la meta de formación específica.       fin se propone como estrategia pedagógica la
+Por ahora, hemos identificado si en la asignatura       iniciativa curricular CDIO11. Según la cual la función
+se trabaja o no en la meta. A futuro, queremos          fundamental de los ingenieros graduados es la de
+identificar la metodología que se utiliza para          Concebir, Diseñar, Implementar y Operar sistemas
+desarrollar la habilidad requerida y la evaluación      de ingeniería dentro de un ambiente basado en el
+que se hace del avance por parte de los estudiantes.    trabajo en equipo. Esta iniciativa contempla formar
+                                                        a los futuros ingenieros con conocimientos técnicos,
+                                                        razonamiento, aptitudes personales, profesionales,
+   C.4. Actualización del currículo:                    habilidades interpersonales, trabajo en equipo, y
+                                                        comunicación.
+   El mecanismo con el que cuenta el Programa
+para mantenerse actualizado es la revisión de las          El marco del CDIO establece utilizar cualquier
+metas de formación, los objetivos de formación y el     metodología o combinación de éstas que demuestre
+objetivo del plan de estudios por parte del Comité      favorecer el desarrollo de conocimientos o
+Asesor Curricular del Programa. Esta revisión se hace   habilidades necesarias para alcanzar las metas de
+por solicitud de alguno de los miembros del Comité,     formación. Por lo tanto, en los últimos años varios
+de la Asociación de Egresados del Programa, o del       profesores del Departamento han incursionado
+cuerpo docente del Departamento.                        en el estudio de formas de trabajo en el aula que
+                                                        promuevan ciertas habilidades. Por ejemplo, se
+   Como parte de estas estrategias también se           han concentrado esfuerzos en los temas de trabajo
+puede incluir el proceso de evaluación continua que     en equipo y comunicación, principalmente oral y
+se lleva a cabo bajo la coordinación de la Dirección    escrita. Sin embargo, también se han observado
+Académica de la Sede Bogotá, el proceso de              incursiones en metodologías relacionadas con la
+autoevaluación con miras a la acreditación nacional     participación activa de los estudiantes en su proceso
+y otros procesos de autoevaluación a los que se         de aprendizaje. Se está probando y evaluando la
+está sometiendo el programa como el proceso de          efectividad de estas metodologías para el desarrollo
+acreditación internacional de ABET (Acreditation        y promoción de algunas de las habilidades y metas
+Board for Engineering and Technology) de los Estados    de formación.
+
+
+
+
+                                                                                                                 16
+Autoevaluación y seguimiento de la calidad de los programas de pregrado – PROYECTO EDUCATIVO DE PROGRAMA
+
+
+
+
+                                                                              Figura 1. Malla Curricular del Programa de Ingeniería Electrónica
+                                                                                                                                                  17
+                                            INGENIERÍA ELECTRÓNICA
+
+
+
+
+                                                          Tabla 5. Mapa Curricular, Programa de Ingeniería Electrónica
+
+
+   D. ARTICULACIÓN CON EL MEDIO                             En el Programa de Mejores Promedios de la
+                                                         Facultad, los estudiantes pueden realizar estudios en
+   D.1 Movilidad académica:                              los Estados Unidos, Alemania, Francia, Italia, entre
+                                                         otros países, con ciertos beneficios adicionales,
+   Existen dos instancias encargadas de promover         como por ejemplo cursos de idioma, descuentos en
+la internacionalización de los estudiantes de la         los tiquetes, becas o un apoyo a la manutención.
+Universidad: la Dirección de Relaciones Exteriores       Como parte de este programa los estudiantes
+(DRE) del nivel central y el Programa de Relaciones      pueden optar por obtener doble titulación con la
+Internacionales (PRI) de la Facultad de Ingeniería.      universidad en la que realizan su intercambio. Para
+Ambas oficinas operan un amplio número de                poder acceder a la doble titulación los estudiantes
+convenios con universidades e institutos en todo el      deben permanecer por dos años en la universidad
+mundo a través de los cuales los estudiantes pueden      de destino y cumplir con los requisitos de avance de
+asistir a cursos, pasantías o prácticas estudiantiles.   carrera establecidos por el programa. El Programa
+
+
+
+                                                                                                                         18
+       Autoevaluación y seguimiento de la calidad de los programas de pregrado – PROYECTO EDUCATIVO DE PROGRAMA
+
+
+de Ingeniería Electrónica tiene, a la fecha, convenios      diferentes empresas del sector industrial del país. En
+de doble titulación vigentes con las siguientes             estas empresas, los estudiantes tienen la oportunidad
+universidades:                                              de participar en procesos de selección para vincularse
+                                                            como estudiantes-practicantes. El Comité Asesor del
+      • Institute Mines-Télécom (IMT), Francia.             programa curricular ha definido un procedimiento para
+      • ParisTech, Institut des Sicences et                 presentar a los estudiantes ante las empresas y verificar
+   Technologies, Francia.                                   que cumplen con los requisitos académicos para poder
+      • Institute National des Sciences Aplliquées          tener un reconocimiento académico por la práctica
+   (INSA), Francia.                                         empresarial. Las modalidades en las que un estudiante
+      • Politécnico di Milano, Italia.                      se puede vincular laboralmente a una empresa son:
+
+   Además, cada año se realiza la Cátedra                      •   Práctica Profesional: asignatura del plan de
+Internacional de Ingeniería con la participación            estudios de los programas curriculares de pregrado
+de varios profesores e investigadores de todo el            de la Facultad de Ingeniería, que promueve la
+mundo. Es la oportunidad ideal para tomar cursos            vinculación de los estudiantes en el contexto laboral
+de nivel internacional en la Facultad.                      del país como parte de su formación profesional
+                                                            adquirida a lo largo de su plan de estudios.
+    En cuanto a la movilidad de estudiantes a nivel
+nacional, la Universidad Nacional de Colombia cuenta           Equivale a tres (3), seis (6) o nueve (9) créditos
+con el programa SIGUEME, cuyo propósito es brindar a        del Componente de Libre Elección. Como requisito
+los estudiantes posibilidades de mayor enriquecimiento      para aplicar a esta modalidad, el estudiante debe
+académico y de apertura a nuevas experiencias               haber cursado el 70% de su plan de estudios.
+regionales mediante la movilidad académica a nivel
+nacional. Según el programa, el estudiante puede cursar        • Pasantía – Trabajo de Grado: modalidad
+asignaturas durante un semestre en alguna universidad       de trabajo de grado del plan de estudios de los
+perteneciente al convenio. Las universidades de             programas curriculares de pregrado de la Facultad
+destino son las otras sedes de la Universidad Nacional      de Ingeniería, la cual busca el tratamiento de un
+de Colombia, la Pontificia Universidad Javeriana, la        problema específico en las empresas mediante
+Universidad Pontificia Bolivariana, la Universidad          la aplicación de conocimientos y metodologías
+del Valle, Universidad Externado de Colombia, la            adquiridas en el plan de estudios.
+Universidad EAFIT sede Medellín, la Universidad de
+Antioquia, la Universidad del Norte, la Universidad            Equivale a seis (6) créditos. Como requisito para
+Industrial de Santander, la Universidad del Rosario y la    aplicar a esta modalidad, el estudiante debe haber
+Universidad de la Sabana. También es posible cursar         cursado el 80% de las asignaturas del Componente
+asignaturas en la Universidad de los Andes bajo un          de Formación Disciplinar o Profesional.
+convenio que se tiene suscrito con ésta.
+
+                                                                D.3. Articulación con la investigación:
+   D.2. Prácticas y pasantías:
+                                                               El Departamento de Ingeniería Eléctrica y
+   La Facultad de Ingeniería de la Sede Bogotá, ha          Electrónica cuenta con los siguientes grupos de
+dispuesto una oficina de prácticas y pasantías, la cual     investigación:
+se encarga de soportar un sistema de información y
+documentación para formalizar el convenio por parte                • Programa de Investigación sobre Adquisición
+de la Universidad y la empresa en la que el estudiante          y Análisis de Señales - PAAS-UN.
+puede realizar la práctica o pasantía. Por otro lado,              • Grupo de Investigación en Compatibilidad
+el Programa ha desarrollado una relación sólida con             Electromagnética - EMC-UN.
+
+
+                                                                                                                        19
+                                            INGENIERÍA ELECTRÓNICA
+
+
+      • Grupo de Microelectrónica de la Universidad      noviembre de 1983. Como objetivos principales se
+   Nacional de Colombia – GMUN.                          ha propuesto mantener cohesionado el grupo de
+      • Modelamiento y Control de Sistemas               egresados, estrechando sus vínculos personales y
+   Biológicos.                                           profesionales. Promueve la conformación de grupos
+      • Grupo de Investigación en Electrónica de         de trabajo entre docentes, industrias, egresados
+   Alta Frecuencia y Telecomunicaciones – CMUN.          y estudiantes para la realización de distintas
+      • Control Inteligente de Sistemas.                 actividades que relacionen el ejercicio profesional de
+      • Grupo de Investigación en el Sector              la ingeniería con otros aspectos relevantes a la vida
+   Energético Colombiano – GRISEC.                       nacional invitando al desarrollo y la participación
+      • Grupo de Investigación en Protecciones y         de la Ingeniería Eléctrica y Electrónica en la gestión
+   Tierras – GIPYT.                                      política del país.
+      • Observatorio Colombiano de Energía.
+      • Electrical Machines & Drives - EM&D.                Así mismo promueve la celebración de convenios
+      • Grupo de Investigación en Compatibilidad         para el intercambio de información y experiencias
+   Electromagnética.                                     profesionales, programas de capacitación y
+                                                         especialización y organización de eventos
+   La mayoría de ellos están reconocidos por             académicos con universidades, asociaciones y
+Colciencias y están clasificados de acuerdo al           empresas, tanto nacionales como extranjeras.
+escalafón de dicha entidad, gracias al trabajo
+realizado por estos grupos. El estudiante de                Mediante el vínculo con los egresados,
+Ingeniería Electrónica puede vincularse a estos          se busca propender por el acercamiento de
+grupos ya sea para realizar su trabajo de grado o        la Universidad hacia el sector productivo,
+mediante la figura de estudiante auxiliar, ya que los    estableciendo mecanismos de comunicación entre
+grupos a veces requieren estudiantes que colaboren       los profesionales y las personas involucradas en la
+en las labores del mismo.                                academia para divulgar los desarrollos tecnológicos
+                                                         y científicos y las inquietudes profesionales que
+   A pesar de lo anterior, la vinculación de los         se tienen actualmente en el mundo laboral y que
+estudiantes a un grupo de investigación no se            son necesarias de fomentar desde la Universidad.
+limita solo a los grupos del Departamento, también       Finalmente, los estudiantes y recién egresados se
+puede hacerlo a grupos de otros departamentos            benefician de la asociación ya que ésta les facilita su
+de la Universidad. Debido a las aplicaciones de la       vinculación con el sector productivo.
+Ingeniería Electrónica, grupos de diferentes áreas del
+conocimiento pueden requerir apoyo en este campo.
+
+                                                            E. APOYO A LA GESTIÓN DEL CURRÍCULO
+   D.4. Articulación con los egresados:
+                                                            E.1. Organización administrativa:
+   En este aspecto el Departamento cuenta con
+herramientas internas, proporcionadas por la                A continuación, se presenta la organización
+Universidad, como el Sistema de Información del          administrativa de la Universidad, de la Facultad de
+Programa de Egresados (SIE), y otras propias, como la    Ingeniería y del Departamento de Ingeniería Eléctrica
+Asociación de Ingenieros Electricistas y Electrónicos    y Electrónica, las cuales son acordes a lo planteado
+de la Universidad Nacional (AIEEUN) como medios          en el Estatuto General de la Universidad Nacional de
+para la articulación y contacto con los egresados.       Colombia reglamentado por el Acuerdo número 011
+                                                         de 2005 del Consejo Superior Universitario14.
+   AIEEUN es una entidad sin ánimo de lucro,                La cabeza de la estructura organizacional de
+de duración indefinida, establecida en el mes de         la facultad es el Consejo de Facultad. Este está
+
+
+                                                                                                                   20
+Autoevaluación y seguimiento de la calidad de los programas de pregrado – PROYECTO EDUCATIVO DE PROGRAMA
+
+
+
+
+                                                                  Figura 2. Organización administrativa de la Universidad Nacional de Colombia
+
+
+
+                                                                                                                                                 21
+Figura 3. Estructura organizacional de la Facultad de Ingeniería
+
+                                                                   22
+       Autoevaluación y seguimiento de la calidad de los programas de pregrado – PROYECTO EDUCATIVO DE PROGRAMA
+
+
+
+
+                                         Figura 4. Estructura organizacional del Departamento de Ingeniería Eléctrica y Electrónica
+
+compuesto por el Decano, el Vicedecano, un                     supresión), administrar el presupuesto y decidir
+estudiante de pregrado y uno de posgrado, un                   sobre los diferentes asuntos académicos de la
+egresado, los directores de las unidades académicas            facultad.
+básicas, el director de bienestar de la facultad y
+los directores de áreas curriculares. Sus funciones                Posteriormente se encuentra el Decano, quién es
+principales son definir las políticas internas                 la autoridad responsable de la dirección académica y
+de la facultad, hacer recomendaciones ante la                  administrativa de la Facultad. Representa al Rector ante la
+Universidad, administrar y proponer los diferentes             misma y a la Facultad ante la Universidad. Para estas labores
+planes académicos (creación, modificación o                    se apoya en un vicedecano y un secretario de facultad.
+
+                                                                                                                                      23
+                                                     INGENIERÍA ELECTRÓNICA
+
+
+   Dentro del área académica se tienen las unidades                   excelentes capacidades para contribuir a alcanzar
+académicas básicas, que dentro de la organización                     las metas propuestas. En las siguientes gráficas
+de la facultad corresponden a los diferentes                          se muestra la distribución de los docentes según
+departamentos. El Departamento es donde se                            su nivel de formación y por tipo de vinculación,
+conciben y programan las actividades propias                          según información entregada por la Dirección del
+de la profesión académica, como la docencia, la                       Departamento, actualizada al primer semestre de
+investigación y la extensión. Podrá tener secciones                   2017. Como se observa la mayor parte de la planta
+a cargo de un coordinador, que deben corresponder                     docente (87%) cuenta con estudios de maestría o
+a campos de especialización dentro de la disciplina.                  doctorado, reflejando el alto nivel académico con la
+El Departamento también contribuye a definir la                       cuenta el departamento. A su vez se puede observar
+estructura de los programas curriculares de pregrado                  que la mayor parte de los docentes (69%) tienen
+y posgrado, promueve el desarrollo estratégico de la                  dedicación de tiempo completo o exclusiva.
+investigación en su campo y coordina los grupos de
+investigación y difusión que formen sus docentes.                        En cuanto a la distribución de docentes según su
+                                                                      nivel de formación y tipo de vinculación se observa que
+                                                                      la mayor parte de la planta docente que cuenta con
+   E.2. Docentes:                                                     nivel de doctorado es de dedicación exclusiva y tiempo
+                                                                      completo. Sin embargo, los docentes de Cátedra en su
+   El Departamento de Ingeniería Eléctrica y                          gran mayoría cuentan con un nivel de maestría.
+Electrónica cuenta con una planta docente de
+
+
+
+
+      Figura 5. Distribución de la planta docente del Departamento de Ingeniería Eléctrica y Electrónica según el tipo de vinculación
+
+
+
+
+                                                                                                                                        24
+Autoevaluación y seguimiento de la calidad de los programas de pregrado – PROYECTO EDUCATIVO DE PROGRAMA
+
+
+
+
+                                 Figura 6. Distribución de la planta docente del Departamento de
+                                     Ingeniería Eléctrica y Electrónica según su nivel de formación
+
+
+
+
+             Figura 7. Distribución de la planta docente de dedicación exclusiva o tiempo completo
+                 del Departamento de Ingeniería Eléctrica y Electrónica según su nivel de formación
+
+
+
+
+                                                                                                           25
+                                                INGENIERÍA ELECTRÓNICA
+
+
+
+
+                               Figura 8. Distribución de los docentes de cátedra del Departamento de
+                                         Ingeniería Eléctrica y Electrónica según su nivel de formación
+
+
+
+
+   E.3. Recursos físicos y de apoyo a la docencia:              se crearon la Dirección Nacional de Laboratorios y las
+                                                                direcciones de laboratorios de las sedes. También se
+    La Universidad Nacional de Colombia cuenta                  cuenta con tres unidades de servicios: la Unidad de
+con ocho sedes localizadas en diferentes regiones               Servicios de Salud (UNISALUD), que presta servicios
+del país, distribuidas así: cuatro sedes de alta                integrales de salud para beneficio de la comunidad
+capacidad como Bogotá, Medellín, Manizales y                    docente y administrativa; Unidad de Medios de
+Palmira, y cinco sedes conocidas como Sedes de                  Comunicación (UNIMEDIOS), que, a través de UN
+Presencia Nacional: Amazonía, Caribe, Orinoquía,                Periódico, UN Radio y UN Televisión, establece
+Tumaco y La Paz, ubicadas en los departamentos                  un constante diálogo de saberes y lenguajes tanto
+de Amazonas, San Andrés, Arauca, Nariño y Cesar,                al interior como al exterior de la Universidad; y
+respectivamente. Cuenta con 21 facultades que                   la Editorial UN, que consolida las actividades de
+agrupan 71 departamentos y 37 escuelas (Unidades                edición, impresión, distribución y venta de libros y
+Académicas Básicas), 27 centros de extensión, 9                 revistas.
+museos principales, 2 observatorios astronómicos,
+1 conservatorio, 31 bibliotecas, 2 estaciones                      En la Sede Bogotá, se encuentra la Ciudad
+biológicas, varios centros de documentación, centros            Universitaria con un área de 116 hectáreas. El 80%
+deportivos y de salud, numerosos laboratorios,                  del Campus es zona verde, convirtiéndose en uno de
+talleres, salas de informática y auditorios.                    los pulmones de la ciudad. En el campus encontramos
+                                                                11 facultades y 12 centros; además están el edificio
+   En la Universidad existe, además, el Centro de               Uriel Gutiérrez y la Unidad Camilo Torres, donde se
+Estudios para la Prevención de Desastres CEPREVE,               ubican la mayoría de las oficinas administrativas.
+adscrito a la Vicerrectoría Académica. En el año 2004,          El campus cuenta con las siguientes instalaciones:
+
+                                                                                                                         26
+                                             INGENIERÍA ELECTRÓNICA
+
+
+31 bibliotecas, 4 canchas múltiples, 5 canchas de
+tenis de campo, 8 canchas de Fútbol, 10 clínicas de           • Laboratorios de Ingeniería Eléctrica y
+prácticas académicas, 126 edificios, 1 estadio, 488         Mecánica (411)
+laboratorios científicos y técnicos, 6 museos (Museo
+de Arquitectura, Organológico, Arte, de la Ciencia y           -La descripción de los laboratorios se muestra
+el Juego, de Historia Natural y el de Historia de la        a continuación:
+Medicina), 1 polideportivo, 39 salas de cómputo,
+1 sala de conciertos, 1096 aulas de clase, 53 aulas
+máximas, 20 auditorios y 100 talleres.                     411 - Segundo piso:
+                                                           Coordinación Curricular Ingeniería Electrónica y
+    El programa curricular de Ingeniería Electrónica       Oficinas de Docentes
+cuenta con laboratorios, salas de computadores, salones
+y oficinas administrativas. A continuación, se mencionan
+los edificios donde se encuentran estos recursos:
+
+      411 - Segundo piso:
+      Coordinación       Curricular   Ingeniería
+   Electrónica y Oficinas de Docentes
+
+      -Unidad administrativa (segundo piso).
+      -Secretaria académica (segundo piso).                411-104C
+      -Atención      al   estudiante   (secretarias        Almacén de Electrónica
+   curriculares, primer piso).
+
+      • Edificio 401 de Ingeniería
+
+      -Paraninfo (a mano derecha entrando por la
+   puerta principal, primer piso).
+      -Decanatura (segundo piso).
+      -Sala de estudio (a mano derecha entrando
+   por la puerta principal, cuarto piso).
+      -Salas de cómputo (a mano izquierda entrando
+   por la puerta principal, segundo y tercer piso).
+
+      • Edificio 453 de Ingeniería
+                                                           411-102-A
+      -Oficinas de docentes y tutores (primer piso).       Laboratorios de Electrónica Análoga
+      -Coordinación curricular Ingeniería Eléctrica
+   (segundo piso).
+      - Auditorio A, B y C de Ingeniería (primer piso).
+
+      • Edificio de Ciencia y Tecnología (454)
+
+      -Biblioteca y salas de cómputo (primer,
+   segundo y tercer piso).
+      - Auditorio (primer piso).
+      -Cafetería en la terraza.
+
+
+                                                                                                                27
+     Autoevaluación y seguimiento de la calidad de los programas de pregrado – PROYECTO EDUCATIVO DE PROGRAMA
+
+
+411-102-C                                                   411-106
+Laboratorio de Ensayos Industriales - LABE                  Laboratorio de Máquinas Eléctricas
+
+
+
+
+                                                            411-202-A
+                                                            Laboratorio de Electrónica Digital y
+411-104-A
+                                                            Microprocesadores
+Laboratorio de Electrónica de Potencia
+
+
+
+
+411-104-A                                                   411-202-B
+Laboratorio de Electrónica de Potencia                      Laboratorio de Circuitos
+
+
+
+
+                                                                                                                28
+                                INGENIERÍA ELECTRÓNICA
+
+
+411-204-B                                     LIQ
+Laboratorio de Alta Tensión                   Laboratorio de Instrumentación para la
+                                              Industria Petrolera
+
+
+
+
+411-200-B
+Laboratorio de Comunicaciones
+                                              411-119
+                                              Laboratorio de Prototipado (Mecatrónica)
+
+
+
+
+411-203-A
+Laboratorio de Control
+                                              411-102
+                                              Laboratorio de Compatibilidad Electromagnética
+
+
+
+
+                                                                                               29
+     Autoevaluación y seguimiento de la calidad de los programas de pregrado – PROYECTO EDUCATIVO DE PROGRAMA
+
+
+411- 203–B
+Laboratorio de Microelectrónica
+
+
+
+
+                                                                                                                30
+          Autoevaluación y seguimiento de la calidad de los programas de pregrado – PROYECTO EDUCATIVO DE PROGRAMA
+
+
+                                                                     CITAS:
+1
+ (1961, Mayo) Acuerdo 60 de 1961 del Consejo Académico, por el
+cual se crean las carreras de ingeniería eléctrica e ingeniería mecánica   9
+                                                                            (2017, Marzo) Acuerdo 125 de 2017 del Consejo de Académico,
+en la universidad nacional dentro de la Facultad de Ingeniería de          por el cual se modifica la estructura del plan de estudios del programa
+Bogotá. Universidad Nacional de Colombia. [Online]. Available: http://     curricular de Ingeniería Electrónica de la Facultad de Ingeniería de la
+www.legal.unal.edu.co/sisjurun/normas/Norma1.jsp?i=61285                   Sede Bogotá de la Universidad Nacional de Colombia y se deroga el
+                                                                           Acuerdo 223 de 2008 del Consejo Académico. Universidad Nacional
+² (1997, Agosto) Acuerdo 13 de 1997 del Consejo Académico.                 de Colombia. [Online]. Available: http://www.legal.unal.edu.co/rlunal/
+Universidad Nacional de Colombia.                                          home/doc.jsp?d_i=88697
+³ Resolución 03 de 1999 del Consejo de Facultad de Ingeniería - Sede       10
+                                                                              (2017, Abril) Acuerdo 036 de 2017 del Consejo de la Facultad
+Bogotá. Universidad Nacional de Colombia.                                  de Ingeniería, por el cual se especifican los créditos, las agrupaciones
+                                                                           y las asignaturas del programa curricular Ingeniería Electrónica de la
+4
+ (2003, Noviembre) Acuerdo 99 de 2003 del Consejo de Sede Bogotá,          Facultad de Ingeniería de la Sede Bogotá de la Universidad Nacional
+por el cual se aprueban cambios curriculares en el plan de estudios del    de Colombia y se deroga la Resolución 136 de 2010 del Consejo de
+pregrado de Ingeniería Electrónica de la Facultad de Ingeniería de la      Facultad de Ingeniería. Universidad Nacional de Colombia. [Online].
+Sede Bogotá. Universidad Nacional de Colombia. [Online]. Available:        Available: http://www.legal.unal.edu.co/rlunal/home/doc.jsp?d_
+http://www.legal.unal.edu.co/rlunal/home/doc.jsp?d_i=50460                 i=88778
+5
+ (2003, Marzo) Acuerdo 49 de 2003 del Consejo de Sede Bogotá,              11
+                                                                              Edward F. Crawley, Johan Malmqvist y Sören Östlund (2014).
+por el cual se aprueban cambios curriculares en el Plan de Estudios del    Rethinking Engineering Education: The CDIO Approach. Springer US.
+programa de Ingeniería Electrónica, y se compilan las modificaciones
+introducidas después de expedido el último Acuerdo de creación o           12
+                                                                              (2017, Mayo) Acuerdo 037 de 2017 del Consejo de la Facultad
+reestructuración del Programa, en la Facultad de Ingeniería de la Sede     de Ingeniería, por la cual se reglamentan las características específicas
+Bogotá. Universidad Nacional de Colombia. [Online]. Available: http://     del Trabajo de Grado de los programas curriculares de pregrado de
+www.legal.unal.edu.co/rlunal/home/doc.jsp?d_i=49266                        la Facultad de Ingeniería sede Bogotá de la Universidad Nacional de
+                                                                           Colombia. Universidad Nacional de Colombia. [Online]. Available:
+6
+ (2008, Noviembre) Acuerdo 223 de 2008 del Consejo Académico,              http://www.legal.unal.edu.co/rlunal/home/doc.jsp?d_i=88861
+por el cual se modifica la estructura del plan de estudios del programa
+curricular de Ingeniería Electrónica de la Facultad de Ingeniería de la    13
+                                                                              (2008, Mayo) Acuerdo 008 de 2008, por el cual se adopta el
+Sede Bogotá de la Universidad Nacional de Colombia, para ajustarse al      estatuto estudiantil de la Universidad Nacional de Colombia en sus
+Acuerdo 033 de 2007 del Consejo Superior Universitario. Universidad        disposiciones académicas. Universidad Nacional de Colombia. [Online].
+Nacional de Colombia. [Online]. Available: http://www.legal.unal.edu.      Available: http://www.legal.unal.edu.co/sisjurun/normas/Norma1.
+co/rlunal/home/doc.jsp?d_i=34432                                           jsp?i=34983
+7
+  (2007, Noviembre) Acuerdo 033 de 2007, por el cual se establecen         14
+                                                                              (2005, Marzo) Acuerdo 11 de 2005 del consejo superior
+los lineamientos básicos para el proceso de formación de los               universitario, por el cual se adopta el estatuto general de la
+estudiantes de la universidad nacional de Colombia a través de sus         Universidad Nacional de Colombia. Universidad Nacional de Colombia.
+programas curriculares. Universidad Nacional de Colombia. [Online].        [Online]. Available: http://www.unal.edu.co/secretaria/normas/
+Available: http://www.legal.unal.edu.co/sisjurun/normas/Norma1.            csu/2005/A0011_05S.pdf
+jsp?i=34245
+8
+  (2010, Mayo) Resolución 136 de 2010 del Consejo de la Facultad
+de Ingeniería, por la cual se MODIFICA la Resolución de Consejo de
+Facultad 182 del 23 de abril de 2009 para especificar los créditos,
+las agrupaciones y las asignaturas del plan de estudios del programa
+curricular de Ingeniería Electrónica de la Facultad de Ingeniería
+de la Sede Bogotá de la Universidad Nacional de Colombia, para
+adaptarse al Acuerdo 033 de 2007 del Consejo Superior Universitario.
+Universidad Nacional de Colombia. [Online]. Available: http://www.
+legal.unal.edu.co/rlunal/home/doc.jsp?d_i=51750
+
+
+
+
+                                                                                                                                                       31
+            INGENIERÍA ELECTRÓNICA
+
+
+
+
+                   CONTACTO:
+
+           Coordinación del Programa:
+Bogotá, Ciudad Universitaria, edif 453 - Oficina 201
+
+     Tel: 3165000 ext 14180-11101-11109
+
+  Correo electrónico: celectron_bog@unal.edu.co
+
+         Bogotá, Colombia, Sur América
+
+
+
+
+                                                       32
+

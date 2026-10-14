@@ -1,0 +1,52 @@
+{
+ "fuente": "Buscador público SIA, columna DESCRIPCIÓN de resultados + página 'Información de la asignatura'",
+ "fecha_consulta": "2026-10-13T20:03:25-05:00",
+ "nota": "La página de detalle pública NO muestra sección de prerrequisitos (solo grupos/horarios/cupos). Único texto de condición encontrado está en la descripción.",
+ "asignaturas": [
+  {
+   "codigo": "2028816",
+   "nombre": "Diseño de sistemas electrónicos",
+   "creditos": 3,
+   "texto_verbatim": "Uno de los elementos clave en la formación del ingeniero electrónico es el desarrollo de sus habilidades en diseño e integración de sistemas electrónicos. Este se desarrolla a lo largo del plan de estudios y se refuerza en este espacio académico donde se orienta a desarrollar en el estudiante una experiencia de diseño de ingeniería electrónica en el que se incluye la formulación, diseño y desarrollo de una solución integrando herramientas propias de la ingeniería tales como el uso de restricciones, estándares, identificar oportunidades, desarrollar requerimientos, realizar análisis y síntesis, revisar posibles soluciones, evaluar soluciones contra requerimientos, considerar riesgos y desarrollar juicios de ingeniería. Conceptos Previos: Haber cursado al menos el 80% del plan de estudios",
+   "prerrequisitos_asignaturas": null,
+   "logica_AND_OR": null,
+   "restriccion_creditos": {
+    "tipo": "porcentaje_avance_plan",
+    "valor": 80,
+    "texto": "Haber cursado al menos el 80% del plan de estudios",
+    "formal": "'Conceptos Previos' en descripción; no confirmado como prerrequisito SIA formal"
+   }
+  },
+  {
+   "codigo": "2024045",
+   "nombre": "Taller de proyectos interdisciplinarios",
+   "creditos": 3,
+   "texto_verbatim": "El Taller de Proyectos Interdisciplinarios es una asignatura común para varios programas curriculares de la Facultad de Ingeniería que pretende promover el trabajo en equipo e interdisciplinario de los estudiantes, en torno a la solución de problemas en",
+   "texto_truncado_en_fuente": true,
+   "prerrequisitos_asignaturas": null,
+   "logica_AND_OR": null,
+   "restriccion_creditos": null,
+   "null_reason": "Buscador público no publica prerrequisitos; descripción truncada por el sitio"
+  },
+  {
+   "codigo": "2015316",
+   "nombre": "Trabajo de Grado",
+   "creditos": 6,
+   "texto_verbatim": "",
+   "prerrequisitos_asignaturas": null,
+   "logica_AND_OR": null,
+   "restriccion_creditos": null,
+   "null_reason": "Descripción vacía y detalle sin prerrequisitos"
+  },
+  {
+   "codigo": "2015317",
+   "nombre": "Trabajo de Grado - Asignaturas de Posgrado",
+   "creditos": 6,
+   "texto_verbatim": "",
+   "prerrequisitos_asignaturas": null,
+   "logica_AND_OR": null,
+   "restriccion_creditos": null,
+   "null_reason": "Descripción vacía y detalle sin prerrequisitos"
+  }
+ ]
+}

@@ -1,0 +1,9 @@
+{
+ "source": {
+  "url": "https://sia.unal.edu.co/ServiciosApp/faces/inicioServicios",
+  "path": "Información académica > Mi historia académica",
+  "timestamp": "2026-10-13T19:58-05:00"
+ },
+ "agrupaciones": null,
+ "reason": "'Mis planes' redirects to login page https://siabog.unal.edu.co/academia/ (stopped per instructions)"
+}

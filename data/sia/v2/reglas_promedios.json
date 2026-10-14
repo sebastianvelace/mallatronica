@@ -1,0 +1,215 @@
+{
+ "fecha_consulta": "2026-10-13",
+ "reglas": [
+  {
+   "id": "calificaciones",
+   "estado": "confirmado",
+   "documento": "Acuerdo 008 de 2008 CSU",
+   "articulo": "Art. 30 y parágrafo",
+   "url": "https://ingbiomedica.unal.edu.co/files/Normatividad/ACUERDO_008_2008_CSU_Estatuto_Estudiantil.pdf",
+   "cita_textual": "las notas o calificaciones de las asignaturas serán numéricas de cero punto cero (0.0) a cinco punto cero (5.0), en unidades y décimas. La calificación aprobatoria mínima ... tres punto cero (3.0). PARÁGRAFO. Si en los cómputos de las notas intermedias o definitivas resultaren centésimas, éstas se aproximarán a la décima superior si el número de centésimas sobrantes es igual o mayor a cinco (5); en caso contrario, no se tendrán en cuenta.",
+   "fecha_consulta": "2026-10-13",
+   "nota": "Redondeo aplica a notas; no hay norma encontrada sobre precisión/redondeo del PAPA (NO PUBLICADO)."
+  },
+  {
+   "id": "aprobado_reprobado",
+   "estado": "confirmado",
+   "documento": "Acuerdo 008 de 2008 CSU",
+   "articulo": "Art. 31",
+   "url": "https://ingbiomedica.unal.edu.co/files/Normatividad/ACUERDO_008_2008_CSU_Estatuto_Estudiantil.pdf",
+   "cita_textual": "Las actividades académicas tales como: trabajos finales de especialización, proyectos de tesis, exámenes de calificación, evaluaciones integrales, tesis de posgrado, recibirán una de las siguientes calificaciones: • Aprobado • Reprobado.",
+   "fecha_consulta": "2026-10-13",
+   "nota": "Exclusión de AP/NA del PAPA: no hay texto normativo explícito; se infiere de que el PAPA usa 'calificaciones definitivas' numéricas (Art. 40). Wiki no oficial lo afirma."
+  },
+  {
+   "id": "inasistencia",
+   "estado": "confirmado",
+   "documento": "Acuerdo 008 de 2008 CSU",
+   "articulo": "Art. 32",
+   "url": "https://ingbiomedica.unal.edu.co/files/Normatividad/ACUERDO_008_2008_CSU_Estatuto_Estudiantil.pdf",
+   "cita_textual": "Cuando la asistencia mínima exigida en el programa-asignatura no se cumpla, la asignatura se calificará con la nota de cero punto cero (0.0).",
+   "fecha_consulta": "2026-10-13",
+   "nota": ""
+  },
+  {
+   "id": "cursados_aprobados",
+   "estado": "confirmado",
+   "documento": "Acuerdo 008 de 2008 CSU",
+   "articulo": "Art. 33",
+   "url": "https://ingbiomedica.unal.edu.co/files/Normatividad/ACUERDO_008_2008_CSU_Estatuto_Estudiantil.pdf",
+   "cita_textual": "Cuando una asignatura recibe una calificación, los créditos inscritos correspondientes se considerarán como créditos cursados. Cuando la calificación es aprobatoria se considerarán como créditos aprobados.",
+   "fecha_consulta": "2026-10-13",
+   "nota": ""
+  },
+  {
+   "id": "ponderacion",
+   "estado": "confirmado",
+   "documento": "Acuerdo 008 de 2008 CSU",
+   "articulo": "Art. 40",
+   "url": "https://ingbiomedica.unal.edu.co/files/Normatividad/ACUERDO_008_2008_CSU_Estatuto_Estudiantil.pdf",
+   "cita_textual": "El promedio de las calificaciones numéricas se ponderará teniendo en cuenta el número de créditos de cada asignatura.",
+   "fecha_consulta": "2026-10-13",
+   "nota": ""
+  },
+  {
+   "id": "PA",
+   "estado": "confirmado",
+   "documento": "Acuerdo 008 de 2008 CSU",
+   "articulo": "Art. 41",
+   "url": "https://ingbiomedica.unal.edu.co/files/Normatividad/ACUERDO_008_2008_CSU_Estatuto_Estudiantil.pdf",
+   "cita_textual": "1. Se multiplica la última calificación definitiva obtenida en cada asignatura cursada por el número de créditos de la asignatura. 2. Se suman todos los productos anteriores y el resultado se divide por la suma total de créditos de las asignaturas antes consideradas.",
+   "fecha_consulta": "2026-10-13",
+   "nota": "Fórmula: PA = Σ(última nota_i·créditos_i)/Σ créditos_i (una vez por asignatura)."
+  },
+  {
+   "id": "PAPA",
+   "estado": "confirmado",
+   "documento": "Acuerdo 008 de 2008 CSU",
+   "articulo": "Art. 42",
+   "url": "https://ingbiomedica.unal.edu.co/files/Normatividad/ACUERDO_008_2008_CSU_Estatuto_Estudiantil.pdf",
+   "cita_textual": "se tienen en cuenta las calificaciones definitivas de todas las asignaturas cursadas. Esto es, cuando una asignatura se cursa más de una vez se tendrán en cuenta las calificaciones definitivas obtenidas cada vez. ... 1. Se multiplica cada calificación definitiva por el número correspondiente de créditos de la asignatura cursada. 2. Se suman todos los productos anteriores y el resultado se divide por la suma total de créditos cursados. PARÁGRAFO. ... de uso exclusivo e interno de la Universidad. Para la expedición de certificados a los egresados se utilizará el promedio académico definido en el artículo 40",
+   "fecha_consulta": "2026-10-13",
+   "nota": "PAPA = Σ(nota·créditos sobre todos los intentos, incl. reprobadas y repetidas)/Σ créditos cursados. Modificación por Acuerdo CSU 040 de 2012 citada por diracad.bogota.unal.edu.co/calculadora-papa; texto del 040/2012 INACCESIBLE."
+  },
+  {
+   "id": "PAPA_mod_040_2012",
+   "estado": "inaccesible",
+   "documento": "Dirección Académica Bogotá – calculadora PAPA",
+   "articulo": "—",
+   "url": "https://diracad.bogota.unal.edu.co/calculadora-papa",
+   "cita_textual": "De acuerdo con el Artículo 42 del reglamento estudiantil (modificado por el Acuerdo CSU 040 de 2012)",
+   "fecha_consulta": "2026-10-13",
+   "nota": "No se pudo verificar qué cambió."
+  },
+  {
+   "id": "PAPA_perdida",
+   "estado": "confirmado",
+   "documento": "Acuerdo 008 de 2008 CSU",
+   "articulo": "Art. 44 num. 3",
+   "url": "https://ingbiomedica.unal.edu.co/files/Normatividad/ACUERDO_008_2008_CSU_Estatuto_Estudiantil.pdf",
+   "cita_textual": "Presentar un Promedio Aritmético Ponderado Acumulado menor que tres punto cero (3.0).",
+   "fecha_consulta": "2026-10-13",
+   "nota": "Cita parcialmente reconstruida de extracción PDF ('...tres punto cero (3.0)'); verificar."
+  },
+  {
+   "id": "PAPPI",
+   "estado": "no publicado (norma no hallada); descrito por fuente institucional secundaria",
+   "documento": "DAMA Manizales – Promedios",
+   "articulo": "—",
+   "url": "http://dama.manizales.unal.edu.co/index.php/promedios/",
+   "cita_textual": "El Promedio Aritmético Ponderado para Inscripciones -PAPPI- es un promedio NO CERTIFICABLE ... solo tiene en cuenta las asignaturas inscritas con nota y las asignaturas canceladas con pérdida de créditos del estudiante en su último período académico matriculado. ... El P.A.P.P.I. es la suma de la multiplicación del número de créditos de cada asignatura por la calificación obtenida, dividido en la suma del número de créditos de las asignaturas cursadas y canceladas con pérdida de créditos, en el último periodo cursado.",
+   "fecha_consulta": "2026-10-13",
+   "nota": "Canceladas con pérdida de créditos actúan como 0.0 en el denominador. Acto normativo que lo crea: no identificado."
+  },
+  {
+   "id": "cancelacion",
+   "estado": "confirmado",
+   "documento": "Acuerdo 008 de 2008 CSU",
+   "articulo": "Art. 15-16",
+   "url": "https://ingbiomedica.unal.edu.co/files/Normatividad/ACUERDO_008_2008_CSU_Estatuto_Estudiantil.pdf",
+   "cita_textual": "Los estudiantes podrán cancelar asignaturas libremente, sin requisito alguno, antes de completarse el cincuenta por ciento (50%) del período académico. ... ARTÍCULO 16. Los créditos de las asignaturas canceladas por estudiantes de pregrado se descontarán del cupo de créditos para inscripción. PARÁGRAFO. Cuando la cancelación se realice antes de finalizar la segunda semana del período académico o cuando ésta se autorice de forma excepcional, los créditos correspondientes se reintegrarán al cupo",
+   "fecha_consulta": "2026-10-13",
+   "nota": "Canceladas no reciben calificación → no son 'cursadas' (Art. 33) → no entran al PAPA (inferencia)."
+  },
+  {
+   "id": "cupo",
+   "estado": "confirmado",
+   "documento": "Acuerdo 008 de 2008 CSU",
+   "articulo": "Art. 11-12",
+   "url": "https://ingbiomedica.unal.edu.co/files/Normatividad/ACUERDO_008_2008_CSU_Estatuto_Estudiantil.pdf",
+   "cita_textual": "Este cupo corresponde a los créditos que contempla el plan de estudios para el que fue admitido más un cupo adicional. El cupo adicional de créditos será la mitad del mínimo de los créditos que contempla el plan de estudios para el que fue admitido y hasta un máximo de ochenta (80) créditos. El cupo adicional se obtiene gradualmente, sumando dos (2) créditos por cada crédito aprobado. PARÁGRAFO. Los créditos adicionales que como resultado del proceso de clasificación en la admisión deba aprobar un estudiante de pregrado, se sumarán por una única vez al cupo adicional ... ARTÍCULO 12. Los créditos de las asignaturas inscritas ... se descontarán del cupo de créditos para inscripción.",
+   "fecha_consulta": "2026-10-13",
+   "nota": "Para 172: adicional máx 86→tope 80 (cálculo propio). Reingreso por cupo: +10 créditos (Art. 46 par.1)."
+  },
+  {
+   "id": "validacion",
+   "estado": "confirmado",
+   "documento": "Acuerdo 008 de 2008 CSU",
+   "articulo": "Art. 29",
+   "url": "https://ingbiomedica.unal.edu.co/files/Normatividad/ACUERDO_008_2008_CSU_Estatuto_Estudiantil.pdf",
+   "cita_textual": "c. Las asignaturas validadas tienen el mismo efecto que las asignaturas cursadas en un período académico. d. Los créditos de las asignaturas validadas en pregrado se descontarán del cupo de créditos para inscripción, independientemente de la calificación obtenida. PARÁGRAFO 2. Cuando la prueba de validación se presenta por haber reprobado la asignatura en el período inmediatamente anterior, sólo se descontará ... el (50%)",
+   "fecha_consulta": "2026-10-13",
+   "nota": "Validadas: con nota → cuentan en PAPA (inferencia por 'mismo efecto')."
+  },
+  {
+   "id": "homologacion_convalidacion",
+   "estado": "confirmado",
+   "documento": "Acuerdo 008 de 2008 CSU",
+   "articulo": "Art. 35-38",
+   "url": "https://ingbiomedica.unal.edu.co/files/Normatividad/ACUERDO_008_2008_CSU_Estatuto_Estudiantil.pdf",
+   "cita_textual": "ARTÍCULO 38. El número total de créditos correspondiente a homologaciones, convalidaciones y validaciones ... no podrá superar el 50% del mínimo de créditos que contemple el plan de estudios ... PARÁGRAFO. El número de créditos correspondiente a las asignaturas homologadas o convalidadas, cursadas en otra institución ... se considerarán aprobados y se descontarán del cupo",
+   "fecha_consulta": "2026-10-13",
+   "nota": "Si la nota homologada entra al PAPA: NO PUBLICADO en el Estatuto."
+  },
+  {
+   "id": "traslado",
+   "estado": "confirmado",
+   "documento": "Acuerdo 008 de 2008 CSU",
+   "articulo": "Art. 39 par. 2",
+   "url": "https://ingbiomedica.unal.edu.co/files/Normatividad/ACUERDO_008_2008_CSU_Estatuto_Estudiantil.pdf",
+   "cita_textual": "los créditos cursados no aprobados se descontarán del cupo inicial de créditos del nuevo programa.",
+   "fecha_consulta": "2026-10-13",
+   "nota": ""
+  },
+  {
+   "id": "nivelacion_admision",
+   "estado": "confirmado",
+   "documento": "Acuerdo 033 de 2007 CSU",
+   "articulo": "Art. 13",
+   "url": "https://ingbiomedica.unal.edu.co/files/Normatividad/ACUERDO_033_2007_CSU_proceso_de_formacion.pdf",
+   "cita_textual": "La Universidad realizará en el examen de admisión análisis clasificatorios de conocimientos como lecto-escritura, inglés y matemáticas, con el fin de valorar las habilidades y destrezas de los aspirantes o proponer, si fuera necesario, cursos nivelatorios con créditos adicionales a los del programa curricular.",
+   "fecha_consulta": "2026-10-13",
+   "nota": ""
+  },
+  {
+   "id": "idiomas_033",
+   "estado": "confirmado",
+   "documento": "Acuerdo 033 de 2007 CSU",
+   "articulo": "Art. 14",
+   "url": "https://ingbiomedica.unal.edu.co/files/Normatividad/ACUERDO_033_2007_CSU_proceso_de_formacion.pdf",
+   "cita_textual": "Los programas curriculares de pregrado deben incluir en los cuatro primeros semestres de la carrera los niveles de lengua extranjera, correspondientes a los doce (12) créditos que serán adicionales al los estipulados para el programa curricular.",
+   "fecha_consulta": "2026-10-13",
+   "nota": ""
+  },
+  {
+   "id": "ingles_grado",
+   "estado": "confirmado (fuente oficial de Admisiones que resume Acuerdo 102/2013)",
+   "documento": "Admisiones UNAL – Prueba de inglés pregrado",
+   "articulo": "—",
+   "url": "https://admisiones.unal.edu.co/otras-pruebas/prueba-de-ingles-pregrado/",
+   "cita_textual": "Los estudiantes de pregrado para demostrar suficiencia en lengua extranjera deberán acreditar el nivel B1 ... La obtención del nivel de suficiencia en lengua extranjera es una obligación y requisito de grado de cada estudiante. ... Si los estudiantes logran el nivel B1 se considerará suplido su requisito de suficiencia en idioma inglés.",
+   "fecha_consulta": "2026-10-13",
+   "nota": "Texto del Acuerdo 102 de 2013 CSU (mod. Acuerdos 025/2022 y 029/2024 CSU): INACCESIBLE directamente."
+  },
+  {
+   "id": "matematicas_basicas",
+   "estado": "confirmado (Admisiones)",
+   "documento": "Admisiones UNAL – Prueba de admisión",
+   "articulo": "sección 04",
+   "url": "https://admisiones.unal.edu.co/pregrado/prueba-de-admision/",
+   "cita_textual": "La clasificación obedece a lo definido en la Resolución 037 de 2010 de Rectoría ... La clasificación en matemáticas tiene en cuenta tanto el programa curricular al que fue admitido como el puntaje obtenido en el componente de matemáticas en la prueba de admisión. ... La clasificación en lecto-escritura tiene en cuenta tanto la Sede a la que fue admitido como el puntaje obtenido en los componentes análisis textual y ciencias sociales",
+   "fecha_consulta": "2026-10-13",
+   "nota": "Umbrales y relación Matemáticas Básicas→Cálculo Diferencial: Res. 037/2010 INACCESIBLE."
+  },
+  {
+   "id": "nivelacion_en_PAPA",
+   "estado": "contradictorio/indirecto",
+   "documento": "Circular Informativa 03 de 2021 – Registro y Matrícula Bogotá",
+   "articulo": "—",
+   "url": "https://registro.bogota.unal.edu.co/sites/default/files/2023-03/3_5.pdf",
+   "cita_textual": "Los nivelatorios en matemáticas y lecto-escritura inscritos en el período académico 2020-2S no aprobados se excluyeron del cálculo del Promedio Académico (P.A.) y Promedio Aritmético Ponderado Acumulado (P.A.P.A.)",
+   "fecha_consulta": "2026-10-13",
+   "nota": "Excepción COVID implica que normalmente los nivelatorios SÍ entran en PA/PAPA (inferencia). Wiki no oficial (tambinsoyunal) dice que nivelatorios de inglés y matemáticas influyen en el PAPA. Sin norma explícita."
+  },
+  {
+   "id": "libre_eleccion_033",
+   "estado": "confirmado",
+   "documento": "Acuerdo 033 de 2007 CSU",
+   "articulo": "Art. 9 lit. c",
+   "url": "https://ingbiomedica.unal.edu.co/files/Normatividad/ACUERDO_033_2007_CSU_proceso_de_formacion.pdf",
+   "cita_textual": "El componente de libre elección corresponderá a un mínimo del 20% del total de créditos del programa curricular",
+   "fecha_consulta": "2026-10-13",
+   "nota": "Libre elección cuenta en PAPA como cualquier asignatura cursada (Art. 42 no distingue)."
+  }
+ ]
+}

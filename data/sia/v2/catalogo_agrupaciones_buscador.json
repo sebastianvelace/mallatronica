@@ -1,0 +1,487 @@
+{
+ "plan": "2545 INGENIERÍA ELECTRÓNICA",
+ "version": null,
+ "version_null_reason": "acuerdo/versión solo en catálogo autenticado (no accesible)",
+ "fuente": "Buscador de cursos público SIA (sia.unal.edu.co) Pregrado>1101>2055>2545, tipología TODAS",
+ "fecha_consulta": "2026-10-13T20:03:25-05:00",
+ "componentes": [
+  {
+   "nombre": "Fundamentación obligatoria",
+   "tipologia": "FUND. OBLIGATORIA (B)",
+   "creditos_exigidos": 51,
+   "creditos_exigidos_fuente": "valor dado por el usuario; no verificado en catálogo oficial",
+   "agrupaciones": [
+    {
+     "nombre": null,
+     "nombre_null_reason": "Catálogo de programas curriculares (SIA autenticado) no accesible: sesión no iniciada; Buscador público solo expone tipología",
+     "creditos_exigidos": 51,
+     "regla": null,
+     "texto_original": null,
+     "asignaturas": [
+      {
+       "codigo": "1000003-B",
+       "nombre": "Álgebra Lineal",
+       "creditos": 4,
+       "obligatoria": true,
+       "semestre": null,
+       "sin_programar": false
+      },
+      {
+       "codigo": "1000004-B",
+       "nombre": "Cálculo diferencial",
+       "creditos": 4,
+       "obligatoria": true,
+       "semestre": null,
+       "sin_programar": false
+      },
+      {
+       "codigo": "1000006-B",
+       "nombre": "Cálculo en varias variables",
+       "creditos": 4,
+       "obligatoria": true,
+       "semestre": null,
+       "sin_programar": false
+      },
+      {
+       "codigo": "1000005-B",
+       "nombre": "Cálculo Integral",
+       "creditos": 4,
+       "obligatoria": true,
+       "semestre": null,
+       "sin_programar": false
+      },
+      {
+       "codigo": "1000007-B",
+       "nombre": "Ecuaciones Diferenciales",
+       "creditos": 4,
+       "obligatoria": true,
+       "semestre": null,
+       "sin_programar": false
+      },
+      {
+       "codigo": "2016500",
+       "nombre": "Física de Semiconductores",
+       "creditos": 3,
+       "obligatoria": true,
+       "semestre": null,
+       "sin_programar": false
+      },
+      {
+       "codigo": "1000017-B",
+       "nombre": "Fundamentos de electricidad y magnetismo",
+       "creditos": 4,
+       "obligatoria": true,
+       "semestre": null,
+       "sin_programar": false
+      },
+      {
+       "codigo": "1000019-B",
+       "nombre": "Fundamentos de mecánica",
+       "creditos": 4,
+       "obligatoria": true,
+       "semestre": null,
+       "sin_programar": false
+      },
+      {
+       "codigo": "1000020-B",
+       "nombre": "Fundamentos de oscilaciones, ondas y óptica",
+       "creditos": 4,
+       "obligatoria": true,
+       "semestre": null,
+       "sin_programar": false
+      },
+      {
+       "codigo": "2015703",
+       "nombre": "Ingeniería económica",
+       "creditos": 3,
+       "obligatoria": true,
+       "semestre": null,
+       "sin_programar": false
+      },
+      {
+       "codigo": "1000040-B",
+       "nombre": "Introducción a la ciencia de materiales",
+       "creditos": 3,
+       "obligatoria": true,
+       "semestre": null,
+       "sin_programar": false
+      },
+      {
+       "codigo": "2015734",
+       "nombre": "Programación de computadores",
+       "creditos": 3,
+       "obligatoria": true,
+       "semestre": null,
+       "sin_programar": false
+      },
+      {
+       "codigo": "2016375",
+       "nombre": "Programación orientada a objetos",
+       "creditos": 3,
+       "obligatoria": true,
+       "semestre": null,
+       "sin_programar": false
+      },
+      {
+       "codigo": "2015159",
+       "nombre": "Variable compleja",
+       "creditos": 4,
+       "obligatoria": true,
+       "semestre": null,
+       "sin_programar": false
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "nombre": "Fundamentación optativa",
+   "tipologia": "FUND. OPTATIVA (O)",
+   "creditos_exigidos": 9,
+   "creditos_exigidos_fuente": "valor dado por el usuario; no verificado en catálogo oficial",
+   "agrupaciones": [
+    {
+     "nombre": null,
+     "nombre_null_reason": "Catálogo de programas curriculares (SIA autenticado) no accesible: sesión no iniciada; Buscador público solo expone tipología",
+     "creditos_exigidos": 9,
+     "regla": null,
+     "texto_original": null,
+     "asignaturas": [
+      {
+       "codigo": "2015698",
+       "nombre": "Administración de empresas",
+       "creditos": 3,
+       "obligatoria": false,
+       "semestre": null,
+       "sin_programar": true
+      },
+      {
+       "codigo": "2016592",
+       "nombre": "Economía general",
+       "creditos": 3,
+       "obligatoria": false,
+       "semestre": null,
+       "sin_programar": false
+      },
+      {
+       "codigo": "2016741",
+       "nombre": "Finanzas",
+       "creditos": 3,
+       "obligatoria": false,
+       "semestre": null,
+       "sin_programar": false
+      },
+      {
+       "codigo": "2015701",
+       "nombre": "Gerencia de recursos humanos",
+       "creditos": 3,
+       "obligatoria": false,
+       "semestre": null,
+       "sin_programar": false
+      },
+      {
+       "codigo": "2015702",
+       "nombre": "Gerencia y gestión de proyectos",
+       "creditos": 3,
+       "obligatoria": false,
+       "semestre": null,
+       "sin_programar": false
+      },
+      {
+       "codigo": "1000013-B",
+       "nombre": "Probabilidad y estadística fundamental",
+       "creditos": 3,
+       "obligatoria": false,
+       "semestre": null,
+       "sin_programar": false
+      },
+      {
+       "codigo": "2016609",
+       "nombre": "Seguridad industrial",
+       "creditos": 3,
+       "obligatoria": false,
+       "semestre": null,
+       "sin_programar": false
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "nombre": "Disciplinar obligatoria",
+   "tipologia": "DISCIPLINAR OBLIGATORIA (C)",
+   "creditos_exigidos": 63,
+   "creditos_exigidos_fuente": "valor dado por el usuario; no verificado en catálogo oficial",
+   "agrupaciones": [
+    {
+     "nombre": null,
+     "nombre_null_reason": "Catálogo de programas curriculares (SIA autenticado) no accesible: sesión no iniciada; Buscador público solo expone tipología",
+     "creditos_exigidos": 63,
+     "regla": null,
+     "texto_original": null,
+     "asignaturas": [
+      {
+       "codigo": "2016487",
+       "nombre": "Campos electromagnéticos",
+       "creditos": 4,
+       "obligatoria": true,
+       "semestre": null,
+       "sin_programar": false
+      },
+      {
+       "codigo": "2016489",
+       "nombre": "Circuitos Eléctricos I",
+       "creditos": 3,
+       "obligatoria": true,
+       "semestre": null,
+       "sin_programar": false
+      },
+      {
+       "codigo": "2016490",
+       "nombre": "Circuitos Eléctricos II",
+       "creditos": 4,
+       "obligatoria": true,
+       "semestre": null,
+       "sin_programar": false
+      },
+      {
+       "codigo": "2016492",
+       "nombre": "Comunicaciones",
+       "creditos": 3,
+       "obligatoria": true,
+       "semestre": null,
+       "sin_programar": false
+      },
+      {
+       "codigo": "2016493",
+       "nombre": "Control",
+       "creditos": 4,
+       "obligatoria": true,
+       "semestre": null,
+       "sin_programar": false
+      },
+      {
+       "codigo": "2028816",
+       "nombre": "Diseño de sistemas electrónicos",
+       "creditos": 3,
+       "obligatoria": true,
+       "semestre": null,
+       "sin_programar": false
+      },
+      {
+       "codigo": "2016495",
+       "nombre": "Electrónica análoga I",
+       "creditos": 4,
+       "obligatoria": true,
+       "semestre": null,
+       "sin_programar": false
+      },
+      {
+       "codigo": "2016496",
+       "nombre": "Electrónica análoga II",
+       "creditos": 4,
+       "obligatoria": true,
+       "semestre": null,
+       "sin_programar": false
+      },
+      {
+       "codigo": "2016497",
+       "nombre": "Electrónica de potencia",
+       "creditos": 4,
+       "obligatoria": true,
+       "semestre": null,
+       "sin_programar": false
+      },
+      {
+       "codigo": "2016498",
+       "nombre": "Electrónica digital I",
+       "creditos": 4,
+       "obligatoria": true,
+       "semestre": null,
+       "sin_programar": false
+      },
+      {
+       "codigo": "2016499",
+       "nombre": "Electrónica digital II",
+       "creditos": 4,
+       "obligatoria": true,
+       "semestre": null,
+       "sin_programar": false
+      },
+      {
+       "codigo": "2016501",
+       "nombre": "Instrumentación y medidas",
+       "creditos": 3,
+       "obligatoria": true,
+       "semestre": null,
+       "sin_programar": false
+      },
+      {
+       "codigo": "2016502",
+       "nombre": "Introducción a ingeniería electrónica",
+       "creditos": 5,
+       "obligatoria": true,
+       "semestre": null,
+       "sin_programar": false
+      },
+      {
+       "codigo": "2016503",
+       "nombre": "Líneas y antenas",
+       "creditos": 3,
+       "obligatoria": true,
+       "semestre": null,
+       "sin_programar": false
+      },
+      {
+       "codigo": "2016506",
+       "nombre": "Señales y sistemas I",
+       "creditos": 3,
+       "obligatoria": true,
+       "semestre": null,
+       "sin_programar": false
+      },
+      {
+       "codigo": "2016507",
+       "nombre": "Señales y Sistemas II",
+       "creditos": 3,
+       "obligatoria": true,
+       "semestre": null,
+       "sin_programar": false
+      },
+      {
+       "codigo": "2016509",
+       "nombre": "Taller de ingeniería electrónica",
+       "creditos": 2,
+       "obligatoria": true,
+       "semestre": null,
+       "sin_programar": false
+      },
+      {
+       "codigo": "2024045",
+       "nombre": "Taller de proyectos interdisciplinarios",
+       "creditos": 3,
+       "obligatoria": true,
+       "semestre": null,
+       "sin_programar": false
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "nombre": "Disciplinar optativa",
+   "tipologia": "DISCIPLINAR OPTATIVA (T)",
+   "creditos_exigidos": 9,
+   "creditos_exigidos_fuente": "valor dado por el usuario; no verificado en catálogo oficial",
+   "agrupaciones": [
+    {
+     "nombre": null,
+     "nombre_null_reason": "Catálogo de programas curriculares (SIA autenticado) no accesible: sesión no iniciada; Buscador público solo expone tipología",
+     "creditos_exigidos": 9,
+     "regla": null,
+     "texto_original": null,
+     "asignaturas": [
+      {
+       "codigo": "2016488",
+       "nombre": "Circuitos de RF",
+       "creditos": 3,
+       "obligatoria": false,
+       "semestre": null,
+       "sin_programar": false
+      },
+      {
+       "codigo": "2028211",
+       "nombre": "Circuitos integrados lineales y aplicaciones",
+       "creditos": 3,
+       "obligatoria": false,
+       "semestre": null,
+       "sin_programar": false
+      },
+      {
+       "codigo": "2019125",
+       "nombre": "Redes de telecomunicaciones",
+       "creditos": 3,
+       "obligatoria": false,
+       "semestre": null,
+       "sin_programar": false
+      },
+      {
+       "codigo": "2016508",
+       "nombre": "Sistemas embebidos",
+       "creditos": 3,
+       "obligatoria": false,
+       "semestre": null,
+       "sin_programar": false
+      },
+      {
+       "codigo": "2016512",
+       "nombre": "Verificación de sistemas digitales",
+       "creditos": 3,
+       "obligatoria": false,
+       "semestre": null,
+       "sin_programar": false
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "nombre": "Trabajo de grado",
+   "tipologia": "TRABAJO DE GRADO (P)",
+   "creditos_exigidos": 6,
+   "creditos_exigidos_fuente": "valor dado por el usuario; no verificado en catálogo oficial",
+   "agrupaciones": [
+    {
+     "nombre": null,
+     "nombre_null_reason": "Catálogo de programas curriculares (SIA autenticado) no accesible: sesión no iniciada; Buscador público solo expone tipología",
+     "creditos_exigidos": 6,
+     "regla": null,
+     "texto_original": null,
+     "asignaturas": [
+      {
+       "codigo": "2015316",
+       "nombre": "Trabajo de Grado",
+       "creditos": 6,
+       "obligatoria": null,
+       "semestre": null,
+       "sin_programar": false
+      },
+      {
+       "codigo": "2015317",
+       "nombre": "Trabajo de Grado - Asignaturas de Posgrado",
+       "creditos": 6,
+       "obligatoria": null,
+       "semestre": null,
+       "sin_programar": false
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "nombre": "Libre elección",
+   "tipologia": "LIBRE ELECCIÓN (L)",
+   "creditos_exigidos": 34,
+   "agrupaciones": [],
+   "nota": "No consultado (cualquier asignatura de la universidad)"
+  }
+ ],
+ "nivelacion": [
+  "1000044-B Inglés I- Semestral",
+  "1000048-B Inglés I- Virtual*",
+  "1000045-B Inglés II - Semestral",
+  "1000049-B Inglés II - Virtual*",
+  "1000046-B Inglés III - Semestral",
+  "1000050-B Inglés III- Virtual*",
+  "2023926 Inglés III-Intensivo*",
+  "2024731 Inglés intensivo I*",
+  "1000052-B Inglés Intensivo I y II",
+  "1000053-B Inglés Intensivo III y IV",
+  "1000047-B Inglés IV- Semestral",
+  "1000051-B Inglés IV- Virtual*",
+  "1000002-B Lecto-Escritura",
+  "1000001-B Matemáticas Básicas",
+  "2021185 Suficiencia por Acogimiento al Acuerdo 032*"
+ ],
+ "nota_nivelacion": "* = ASIGNATURA SIN PROGRAMAR"
+}

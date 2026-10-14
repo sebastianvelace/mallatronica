@@ -1,0 +1,564 @@
+<!DOCTYPE html>
+<!--[if lt IE 7 ]><html lang="es" class="ie6 oldie"><![endif]-->
+<!--[if IE 7 ]><html lang="es" class="ie7 oldie"><![endif]-->
+<!--[if IE 8 ]><html lang="es" class="ie8 oldie"><![endif]-->
+<!--[if IE 9 ]><html lang="es" class="ie9 oldie"><![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!--><html lang="es" class="no-js"><!--<![endif]-->
+<head>
+
+<meta charset="utf-8">
+<!-- 
+	This website is powered by TYPO3 - inspiring people to share!
+	TYPO3 is a free open source Content Management Framework initially created by Kasper Skaarhoj and licensed under GNU/GPL.
+	TYPO3 is copyright 1998-2017 of Kasper Skaarhoj. Extensions are copyright of their respective owners.
+	Information and contribution at https://typo3.org/
+-->
+
+<base href="https://admisiones.unal.edu.co/">
+<link rel="shortcut icon" href="/fileadmin/templates/images/favicon.ico" type="image/x-icon">
+<title>Universidad Nacional de Colombia: Prueba de admisión</title>
+<meta name="generator" content="TYPO3 CMS">
+<meta name="revisit-after" content="1 hour">
+<meta name="distribution" content="all">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=0.5, maximum-scale=2.5, user-scalable=yes">
+<meta name="expires" content="1">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="robots" content="all">
+<meta name="norton-safeweb-site-verification" content="a3zqkxb3w2mdo6035j-1rurez2c8-y7rgrl87bl8wq92sqc3y4pjl22d1xrig9ejqylx9c9oiam-77vc6tkfm40z5b20stedj-dzxw9mwdbdh4sxh5x7wyxdkstqlqqt">
+
+
+<link rel="stylesheet" type="text/css" href="/typo3temp/assets/css/d42b6e1bdf.css?1509727928" media="all">
+<link rel="stylesheet" type="text/css" href="/fileadmin/templates/css/bootstrap.min.css?1760560673" media="all">
+<link rel="stylesheet" type="text/css" href="/fileadmin/templates/css/reset.css?1760560672" media="all">
+<link rel="stylesheet" type="text/css" href="/fileadmin/templates/css/unal.css?1786407262" media="all">
+<link rel="stylesheet" type="text/css" href="/fileadmin/templates/css/base.css?1760735671" media="all">
+<link rel="stylesheet" type="text/css" href="/fileadmin/templates/css/tablet.css?1760560672" media="all">
+<link rel="stylesheet" type="text/css" href="/fileadmin/templates/css/phone.css?1760560672" media="all">
+<link rel="stylesheet" type="text/css" href="/fileadmin/templates/css/small.css?1760560672" media="all">
+<link rel="stylesheet" type="text/css" href="/fileadmin/templates/css/printer.css?1760560672" media="all">
+<link rel="stylesheet" type="text/css" href="/fileadmin/templates/css/custom.css?1786398573" media="all">
+<link rel="stylesheet" type="text/css" href="/fileadmin/templates/css/font-awesome.min.css?1760560672" media="all">
+<link rel="stylesheet" type="text/css" href="/fileadmin/templates/css/accesibilidad.css?1786491162" media="all">
+
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js" type="text/javascript"></script>
+<script src="/fileadmin/templates/js/unal.js?1760557265" type="text/javascript"></script>
+<!--[if lt IE 9]><script src="/fileadmin/templates/js/html5shiv.js?1760557265" type="text/javascript"></script><![endif]-->
+<!--[if lt IE 9]><script src="/fileadmin/templates/js/respond.js?1760557265" type="text/javascript"></script><![endif]-->
+<script src="/fileadmin/templates/js/personal.js?1509130692" type="text/javascript"></script>
+<script src="/fileadmin/templates/js/bootstrap.js?1509130698" type="text/javascript"></script>
+<script src="/fileadmin/templates/js/strings.js?1509130700" type="text/javascript"></script>
+<script src="/fileadmin/templates/js/px-video.js" type="text/javascript"></script>
+<script src="/fileadmin/templates/js/accesibilidad.js?1786405174" type="text/javascript"></script>
+
+
+
+</head>
+<body class="uid-44">
+<div id="services">
+  <div class="indicator hidden-xs"></div>
+  <ul class="dropdown-menu">
+    <li>
+      <a href="https://smartkey.xertica.com/cloudkey/a/unal.edu.co/user/login" target="_blank"><img src="fileadmin/templates/images/icnServEmail.png" width="32" height="32" alt="Correo Electrónico">Correo Electrónico</a>
+    </li>
+    <li>
+      <a href="http://dninfoa.unal.edu.co" target="_blank"><img src="fileadmin/templates/images/icnServSia.png" width="32" height="32" alt="Sistema de Información Académica">Sistema de Información Académica</a>
+    </li>
+    <li>
+      <a href="http://bibliotecas.unal.edu.co" target="_blank"><img src="fileadmin/templates/images/icnServLibrary.png" width="32" height="32" alt="Biblioteca">Biblioteca</a>
+    </li>
+    <li>
+      <a href="http://personal.unal.edu.co" target="_blank"><img src="fileadmin/templates/images/icnServCall.png" width="32" height="32" alt="Convocatorias">Convocatorias</a>
+    </li>
+    <li>
+      <a href="http://identidad.unal.edu.co"><img src="fileadmin/templates/images/icnServIdentidad.png" width="32" height="32" alt="Identidad U.N.">Identidad U.N.</a>
+    </li>
+  </ul>
+</div>
+<header id="unalTop">
+  <div class="logo">
+    <a href="http://unal.edu.co">
+      <!--[if (gte IE 9)|!(IE)]><!-->
+      <svg width="93%" height="93%">
+        <image xlink:href="fileadmin/templates/images/escudoUnal.svg" width="100%" height="100%" class="hidden-print"/>
+      </svg>
+      
+      <!--<![endif]-->
+      <!--[if lt IE 9]>
+      <img src="fileadmin/templates/images/escudoUnal.png" width="93%" height="auto" class="hidden-print"/> 
+      <![endif]-->
+      <img src="fileadmin/templates/images/escudoUnal_black.png" alt="Escudo de la Universidad Nacional de Colombia" class="visible-print" />
+    </a>
+  </div>
+  <div class="seal">
+    <img class="hidden-print" alt="Escudo de la República de Colombia" src="fileadmin/templates/images/sealColombia.png" width="66" height="66" />
+    <img class="visible-print" alt="Escudo de la República de Colombia" src="fileadmin/templates/images/sealColombia_black.png" width="66" height="66" />
+  </div>
+  <div class="firstMenu">
+    <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target="#bs-navbar" aria-controls="bs-navbar" aria-expanded="false">
+      <span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span>
+    </button>
+    <div class="btn-group languageMenu hidden-xs">
+      <div class="btn btn-default dropdown-toggle" data-toggle="dropdown">ES<span class="caret"></span></div>
+      <ul class="dropdown-menu">
+        <li class="active"><a href="pregrado/prueba-de-admision/"><a href="pregrado/prueba-de-admision/" hreflang="es-CO">ES</a></a></li><li class="text-muted"><a href="en/pregrado/prueba-de-admision/">EN</a></li>
+      </ul>
+    </div>
+    <ul class="socialLinks hidden-xs">
+      <li style="text-indent: -9999px;">
+        <a href="https://www.facebook.com/pages/Direcci%C3%B3n-Nacional-de-Admisiones/403767329693376" target="_blank" class="facebook" title="Página oficial en Facebook">Página oficial en Facebook</a>
+      </li>
+      <!--<li style="text-indent: -9999px;">
+        <a href="https://twitter.com/Admisiones_UN" target="_blank" class="twitter" title="Cuenta oficial en Twitter">Cuenta oficial en Twitter</a>
+      </li>-->
+      <li><a href="#contenido" class="sr-only sr-only-focusable">Ir al contenido de la página</a></li>
+    </ul>
+    <div class="navbar-default">
+      <nav id="profiles">
+        <ul class="nav navbar-nav dropdown-menu">
+          <li class="item_Aspirantes #>"><a href="http://aspirantes.unal.edu.co/">Aspirantes</a></li>
+          <li class="item_Estudiantes #>"><a href="http://estudiantes.unal.edu.co/">Estudiantes</a></li>
+          <li class="item_Egresados #>"><a href="http://egresados.unal.edu.co/">Egresados</a></li>
+          <li class="item_Docentes #>"><a href="http://docentes.unal.edu.co/">Docentes</a></li>
+          <li class="item_Administrativos #>"><a href="http://administrativos.unal.edu.co/">Administrativos</a></li>
+        </ul>
+      </nav>
+    </div>
+  </div>
+  <div id="bs-navbar" class="navbar-collapse collapse navigation">
+    <div class="site-url">
+      <a href="https://admisiones.unal.edu.co/">admisiones.unal.edu.co</a>
+    </div>
+    <div class="buscador">
+      <div class="gcse-searchbox-only" data-resultsUrl="http://unal.edu.co/resultados-de-la-busqueda/" data-newWindow="true"></div>
+    </div>
+    <div class="mainMenu">
+      <div class="btn-group"><a href="somos-dna/" class=btn btn-default dropdown-toggle>Somos DNA</a></div><div class="btn-group"><a href="pregrado/" class=btn btn-default dropdown-toggle>Pregrado</a></div><div class="btn-group"><a href="posgrado/" class=btn btn-default dropdown-toggle>Posgrado</a></div><div class="btn-group"><a href="otras-pruebas/" class=btn btn-default dropdown-toggle>Otras pruebas</a></div><div class="btn-group"><a href="servicios-en-linea/" class=btn btn-default dropdown-toggle>Servicios en línea</a></div><span class="caret-right"></span>
+      <div class="btn-group">
+        <div class="btn btn-default dropdown-toggle" data-toggle="dropdown">Sedes<span class="caret"></span></div>
+        <ul class="dropdown-menu dropItem-16">
+          <li><a href="http://www.imani.unal.edu.co" target="_blank">Amazonia</a><span class="caret-right"></span></li>
+          <li><a href="http://www.bogota.unal.edu.co" target="_blank">Bogotá</a><span class="caret-right"></span></li>
+          <li><a href="http://www.caribe.unal.edu.co" target="_blank">Caribe</a><span class="caret-right"></span></li>
+          <li><a href="http://www.manizales.unal.edu.co" target="_blank">Manizales</a><span class="caret-right"></span></li>
+          <li><a href="http://www.medellin.unal.edu.co" target="_blank">Medellín</a><span class="caret-right"></span></li>
+          <li><a href="http://www.orinoquia.unal.edu.co" target="_blank">Orinoquia</a><span class="caret-right"></span></li>
+          <li><a href="http://www.palmira.unal.edu.co" target="_blank">Palmira</a><span class="caret-right"></span></li>
+          <li><a href="http://www.tumaco-pacifico.unal.edu.co" target="_blank">Tumaco</a><span class="caret-right"></span></li>
+          <li><a href="http://delapaz.unal.edu.co" target="_blank">De La Paz</a><span class="caret-right"></span></li>
+        </ul>
+      </div>
+    </div>
+    <div class="btn-group hidden-sm hidden-md hidden-lg hidden-print">
+      <div class="btn btn-default dropdown-toggle" data-toggle="dropdown" id="unalOpenMenuServicios" data-target="#services">Servicios<span class="caret"> </span>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- defaultpanel -->
+<!-- Panel de accesibilidad -->
+<div class="tx-unal-accesibilidad">
+  <!-- defaultpanel -->
+  <div id="panel-accesibilidad" style="display: none" class="panel-content container-fluid">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="row">
+          <div class="col-md-3">
+            <h4>Tamaño letra</h4>
+            <button class="boton-panel" id="letra-disminuir" onclick="cambiarTamanioLetra('-')" type="submit" name=""
+            value="">
+              A<sup>-</sup>
+            </button>
+              <button class="boton-panel" id="letra-aumentar" onclick="cambiarTamanioLetra('+')" type="submit" name=""
+              value="">
+                A<sup>+</sup>
+              </button>
+              <input disabled="1" class="letras-porcentaje" id="letter-percent" type="text" name="" value="100%" />
+            </div>
+              <div class="col-md-3">
+                <h4>Cambiar Contrastes</h4>
+                <button class="boton-panel" id="contraste-1" onclick="cambiarContrastes(1)" type="submit" name=""
+                value="">
+                  1
+                </button>
+                <button class="boton-panel" id="contraste-2" onclick="cambiarContrastes(2)" type="submit" name=""
+                value="">
+                  2
+                </button>
+                <button class="boton-panel" id="contrate-3" onclick="cambiarContrastes(3)" type="submit" name="" value="">
+                  3
+                </button>
+              </div>
+              <div class="col-md-3">
+                <h4>Invertir colores</h4>
+                <button class="boton-panel" id="inversor" onclick="invertirColores()" type="submit" name="" value="">
+                  Aplicar
+                </button>
+              </div>
+              <div class="col-md-3">
+                <h4>Restablecer ajustes</h4>
+                <button class="boton-panel" id="defaul-config" onclick="defaultConfig()" type="submit" name="" value="">
+                  Aplicar
+                </button>
+              </div>
+            </div>
+            </div>
+            </div>
+            </div>
+              <!-- /content wrapper for padding -->
+              <div id="pestania-accesibilidad" class="">Panel de Accesibilidad</div>
+            </div>
+
+<main class="detalle">
+  <!-- Migas de pan -->
+  <div class="row">
+    <div class="breadcrumb-class clearfix col-sm-9">
+      Está en: 
+      <a href="http://admisiones.unal.edu.co/">Dirección Nacional de Admisiones</a>
+      /&nbsp;<a href="pregrado/" class=elemento_miga_de_pan>Pregrado</a>/&nbsp;Prueba de admisión
+    </div>    
+    <!-- Buscador -->    
+    <div class="col-sm-3">
+      <a href="/busqueda" style="margin-top: 20px; margin-bottom: 10px;" class="btn btn-success btn-search btn-block"><span class="glyphicon glyphicon-search"></span>Buscar en Admisiones</a>
+    </div>
+  </div>
+  <!-- Desde este punto, se renderizará el contenido enviado desde los distintos templates -->
+  <div class="contenido">
+    
+  <div class="printable row">
+    <div class="col-sm-2 col-sm-push-10">
+      <a class="btn btn-info btn-block" style="color:white; white-space:normal; word-break: break-word;" onClick="ImprimirPaginaWeb()">
+        <span class="glyphicon glyphicon-print"></span><br>Imprimir esta página
+      </a>
+    </div>
+    <div class="col-sm-10 col-sm-pull-2">
+      <div class="jumbotron">
+        
+        
+      </div>
+    </div>
+    <div class="articulo col-xs-12">
+        
+<div id="c1390" class="frame frame-default frame-type-html frame-layout-0"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Ancizar+Sans:ital,wght@0,100..900;1,100..900&display=swap"><div class="pn" id="pn-root"><header class="pn-hero"><p class="pn-eyebrow">Pregrado · Proceso de admisión</p><h2 class="pn-title">Prueba de Admisión</h2><p>Cinco componentes, ciento veinte preguntas de opción múltiple y tres horas y media para resolverla.</p><div class="pn-stats" role="list"><div class="pn-stat" role="listitem"><span class="pn-stat__num">5</span><span class="pn-stat__label">Componentes</span></div><div class="pn-stat" role="listitem"><span class="pn-stat__num">120</span><span class="pn-stat__label">Preguntas</span></div><div class="pn-stat" role="listitem"><span class="pn-stat__num">3h 30</span><span class="pn-stat__label">Tiempo máximo</span></div></div></header><section class="pn-section pn-section--plain"><ul class="pn-list"><li>La Universidad Nacional de Colombia realiza anualmente dos procesos de admisión de aspirantes.</li><li>Para elegir el grupo de nuevos estudiantes en cada proceso, se realiza una evaluación que rastrea el nivel de comprensión de los conceptos básicos que se requieren para adelantar estudios universitarios. Esta comprensión se evidencia en el reconocimiento y uso significativo de las estructuras y códigos propios de la matemática, las ciencias naturales, las ciencias sociales y las artes.</li><li>El reconocimiento y uso significativo se demuestra en la interacción con textos y contextos, y en el planteamiento y en la solución de problemas para los que ese saber es pertinente. Por esto, para desarrollar la evaluación se utilizan textos, gráficas, problemas contextualizados e imágenes de diferente tipo.</li></ul></section><section class="pn-section" id="Componentes-de-la-prueba" aria-labelledby="pn-h-comp"><h3 id="pn-h-comp"><span class="pn-num">01</span> Componentes de la prueba</h3><table class="pn-table"><caption>Componentes de la prueba, sus áreas y cómo se evalúan</caption><thead><tr><th scope="col">Componente</th><th scope="col">Áreas</th><th scope="col">Preguntas</th><th scope="col">Cómo se evalúa</th></tr></thead><tbody><tr><th scope="row">Análisis textual</th><td>—</td><td class="pn-table__num">25</td><td>Mediante textos de tipo referencial (ciencias naturales, ciencias humanas, tecnología y artes) o de tipo poético-literario (poemas, cuentos, fragmentos de novelas, ensayos o crónicas), se indaga su comprensión e interpretación en los niveles literal, inferencial y crítico-intertextual, con énfasis en los dos últimos.</td></tr><tr><th scope="row">Matemáticas</th><td>Pensamiento numérico · espacial y métrico · aleatorio · variacional</td><td class="pn-table__num">25</td><td rowspan="3">A través de <strong>problemas contextualizados</strong> se explora el nivel de apropiación y comprensión de los conceptos básicos de las áreas examinadas, estimulando la reflexión mediante reconocimiento, interpretación y aplicación de conceptos.<br><br>Con <strong>gráficas</strong>, tablas u otro tipo de esquema que representan conceptos y procesos, se estimula su interpretación para reconocer habilidades cognitivas como el análisis, la síntesis y la deducción.</td></tr><tr><th scope="row">Ciencias Naturales</th><td>Física · Química · Biología</td><td class="pn-table__num">25</td></tr><tr><th scope="row">Ciencias Sociales</th><td>Geografía · Historia · Filosofía</td><td class="pn-table__num">25</td></tr><tr><th scope="row">Análisis de la imagen</th><td>—</td><td class="pn-table__num">20</td><td>Apoyados en imágenes de diferente tipo, se formulan problemas orientados al reconocimiento de la constancia de las formas, de movimientos y transformaciones, de intencionalidades, de relaciones de causalidad lógica y de asociación semántica entre imagen y palabra.</td></tr></tbody><tfoot><tr><th scope="row" colspan="3">Total</th><td class="pn-table__num">120 preguntas · 3 h 30</td></tr></tfoot></table></section><section class="pn-section" id="Lectura-y-Calificacion-de-la-Prueba" aria-labelledby="pn-h-calif"><h3 id="pn-h-calif"><span class="pn-num">02</span> Lectura y Calificación de la Prueba</h3><ul class="pn-list"><li>Una vez se aplica la prueba y se organizan las hojas de respuestas de todos los aspirantes, tiene lugar el proceso de Lectura y Calificación.</li><li>Este proceso inicia con la captura de la información de las hojas de respuestas mediante una máquina de lectura óptica, a través de la cual se cargan todas las respuestas dadas por cada aspirante, tanto correctas como incorrectas, y se registra el número de las respuestas correctas.</li><li>La calificación se realiza con base en la Teoría de Respuesta al Ítem como fundamento teórico y se utiliza el modelo de Rasch, que incorpora un parámetro: el de la dificultad del ítem. Para cada aspirante se obtiene un nivel de habilidad en cada componente evaluado: matemáticas, ciencias naturales, ciencias sociales, análisis textual y análisis de la imagen.</li><li>Esta habilidad corresponde a la probabilidad que tiene el aspirante de responder, de manera correcta, un ítem con un determinado nivel de dificultad. Esta metodología no sólo permite establecer una mejor estimación de la habilidad del aspirante y una clasificación, sino que proporciona información estadística de las características de la prueba misma.</li><li>Utilizando el modelo de Rasch, se identifica la habilidad del aspirante en cada componente evaluado, habilidad que está directamente relacionada con el número de respuestas correctas y, para cada componente, se hace una estandarización de dicha habilidad, con una media en 10 y una desviación de 1.</li><li>Finalmente, se consolida la habilidad total con base en las habilidades obtenidas en los componentes evaluados. Esta habilidad total se estandariza con un procedimiento semejante al que se hizo por componente, pero con media en 500 y desviación en 100. Este puntaje total estandarizado es el que se tiene en cuenta en el proceso de Admisión.</li></ul></section><section class="pn-section" id="Admision" aria-labelledby="pn-h-admision"><h3 id="pn-h-admision"><span class="pn-num">03</span> Admisión</h3><ul class="pn-list"><li>El proceso de admisión atiende lo definido en la <a href="https://legal.unal.edu.co/rlunal/home/doc.jsp?d_i=113211" target="_blank" rel="noopener">Resolución 11 de 2025</a>, de la Vicerrectoría Académica, por la cual se reglamenta la admisión a los programas curriculares de pregrado de la Universidad Nacional de Colombia.</li><li>Todo el proceso de Lectura, Calificación y Admisión se realiza en presencia de profesores de la Universidad Nacional, designados como auditores del proceso de lectura, calificación y admisión. Igualmente, se cuenta con la presencia de funcionarios de la Oficina Nacional de Control Interno de la Universidad y con funcionarios de la Dirección Nacional de Admisiones, especializados en la ejecución y verificación de los procesos, quienes velan por la transparencia y equidad en el proceso de admisión en la Universidad Nacional de Colombia.</li></ul></section><section class="pn-section" id="Clasificacion-en-matematicas-y-lecto-escritura" aria-labelledby="pn-h-clasif"><h3 id="pn-h-clasif"><span class="pn-num">04</span> Clasificación en matemáticas y lecto-escritura</h3><ul class="pn-list"><li>La clasificación obedece a lo definido en la <a href="https://legal.unal.edu.co/rlunal/home/doc.jsp?d_i=36920" target="_blank" rel="noopener">Resolución 037 de 2010 de Rectoría</a>, "Por la cual se reglamentan la clasificación, inscripción y calificación de los estudiantes con necesidades de nivelación en matemáticas, lecto-escritura y suficiencia en idioma extranjero y se deroga la Resolución 469 de 2009".</li><li>El objetivo de esta clasificación es reconocer los niveles diferenciados de ingreso a los programas de pregrado, valorar las habilidades de los nuevos admitidos y proporcionar cursos nivelatorios que faciliten la adecuada inserción de los nuevos estudiantes en el medio universitario.</li><li>La clasificación en matemáticas tiene en cuenta tanto el programa curricular al que fue admitido como el puntaje obtenido en el componente de matemáticas en la prueba de admisión. Tomar el curso de Matemáticas Básicas le proporciona al estudiante la oportunidad de mejorar sus habilidades matemáticas y contar con las estrategias necesarias para facilitar su tránsito académico en el programa.</li><li>La clasificación en lecto-escritura tiene en cuenta tanto la Sede a la que fue admitido como el puntaje obtenido en los componentes análisis textual y ciencias sociales en la prueba de admisión. Tomar el curso de nivelación en Lecto-escritura le proporciona al estudiante la oportunidad de fortalecer sus competencias comunicativas, no sólo en el ámbito académico sino también para la vida en general.</li></ul></section></div><style>
+  #pn-root, #pn-root * { box-sizing: border-box; }
+  #pn-root {
+    --bg: #eef1f6; --panel: #ffffff; --ink: #16233f; --ink-soft: #46536b;
+    --primary: #1f3b73; --accent: #c89a3c; --teal: #1f7a5c; --muted: #9aa3b2; --line: #dbe1ec;
+    font-family: 'Ancizar Sans', -apple-system, sans-serif; color: var(--ink); background: var(--bg);
+    padding: 28px 16px 40px; border-radius: 16px; line-height: 1.65;
+  }
+  #pn-root h2, #pn-root h3, #pn-root h4 { font-family: 'Ancizar Sans', sans-serif; color: var(--ink); margin: 0 0 8px; }
+  #pn-root p { margin: 0 0 14px; color: var(--ink-soft); }
+  #pn-root a { color: var(--primary); }
+
+  .pn-hero { max-width: 1080px; margin: 0 auto 32px; text-align: center; }
+  .pn-eyebrow { font-size: 14px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent); margin: 0 0 10px; font-weight: 600; }
+  .pn-title { font-size: clamp(28px, 5vw, 40px); line-height: 1.15; font-weight: 700; }
+  .pn-subtitle { font-size: 16px; max-width: 60ch; margin: 0 auto 20px; color: var(--ink-soft); }
+  .pn-stats { display: flex; justify-content: center; gap: 12px; flex-wrap: wrap; }
+  .pn-stat { background: var(--panel); border: 1px solid var(--line); border-radius: 12px; padding: 12px 22px; min-width: 110px; }
+  .pn-stat__num { display: block; font-size: 24px; font-weight: 700; color: var(--primary); }
+  .pn-stat__label { display: block; font-size: 12px; color: var(--ink-soft); text-transform: uppercase; letter-spacing: 0.03em; margin-top: 2px; }
+
+  .pn-section { max-width: 1080px; margin: 0 auto 18px; background: var(--panel); border: 1px solid var(--line); border-radius: 14px; padding: 24px 22px; scroll-margin-top: 20px; }
+  .pn-section--plain { padding: 18px 22px; }
+  .pn-section h3 { font-size: 21px; display: flex; align-items: baseline; gap: 10px; margin-bottom: 14px; padding-bottom: 12px; border-bottom: 2px solid var(--line); }
+  .pn-num { font-size: 13px; font-weight: 600; color: var(--accent); }
+
+  .pn-list { margin: 0; padding-left: 20px; }
+  .pn-list li { margin-bottom: 10px; }
+  .pn-list li:last-child { margin-bottom: 0; }
+
+  .pn-table { width: 100%; border-collapse: collapse; margin-top: 4px; font-size: 13.5px; }
+  .pn-table caption { text-align: left; font-size: 12.5px; color: var(--muted); margin-bottom: 8px; }
+  .pn-table th, .pn-table td { text-align: left; padding: 10px 12px; border-bottom: 1px solid var(--line); vertical-align: top; }
+  .pn-table thead th { font-size: 11.5px; text-transform: uppercase; color: var(--ink-soft); border-bottom: 2px solid var(--ink); }
+  .pn-table tfoot th, .pn-table tfoot td { border-top: 2px solid var(--ink); border-bottom: none; font-weight: 700; color: var(--ink); }
+  .pn-table__num { font-weight: 600; color: var(--primary); white-space: nowrap; }
+
+  #pn-root a:focus-visible { outline: 2px solid var(--primary); outline-offset: 2px; }
+
+  @media (max-width: 640px) {
+    .pn-table { font-size: 12.5px; }
+    .pn-table th, .pn-table td { padding: 8px; }
+  }
+</style></div>
+
+
+<div id="c1389" class="frame frame-default frame-type-html frame-layout-0"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Ancizar+Sans:ital,wght@0,100..900;1,100..900&display=swap"><div class="pa21" id="pa21b-root"><header class="pa21-hero"><div class="pa21-hero__text"><p class="pa21-eyebrow">Programas especiales · PEAMA · PAET · PTIUN</p><h2 class="pa21-title">Cálculo del Puntaje de Admisión</h2><p>Cómo se calcula el puntaje de admisión para aspirantes de las sedes Amazonía, Caribe, Orinoquía y Tumaco, a partir de sub&#8209;pruebas de Saber&nbsp;11.</p></div></header><div class="pa21-layout"><div class="pa21-content"><section class="pa21-section" id="Introducción" aria-labelledby="pa21b-h-intro"><h3 id="pa21b-h-intro"><span class="pa21-num">01</span> Introducción</h3><p>La Universidad Nacional tomará los resultados de unas sub&nbsp;pruebas de la prueba Saber&nbsp;11 para los aspirantes que se presentaron por los programas de admisión especial PEAMA, PAET y PTIUN, ofrecidos por las Sedes Amazonía, Caribe, Orinoquía y Tumaco, con el fin de eliminar barreras de acceso para los aspirantes de estas regiones.</p></section><section class="pa21-section" id="Cálculo-del-Puntaje-de-Admisión" aria-labelledby="pa21b-h-calc"><h3 id="pa21b-h-calc"><span class="pa21-num">02</span> Cálculo del Puntaje de Admisión</h3><p>Este cálculo se basa en los dos siguientes hechos:</p><ul class="pa21-facts"><li>La UN otorga la misma importancia relativa a cada una de las cuatro pruebas que se utilizarán en esta medición.</li><li>La escala de la UN es aproximadamente Normal con media en 500 y desviación en 100.</li></ul><p>Bajo estos supuestos, el proceso consiste en:</p><ol class="pa21-pipeline"><li><span class="pa21-pipeline__n">1</span>Colocar los puntajes de las sub&nbsp;pruebas en una escala estandarizada (0,1), es decir, con media cero (0) y desviación uno (1).</li><li><span class="pa21-pipeline__n">2</span>Colocar los puntajes de cada prueba en la escala con media en 10 y desviación en 1.</li><li><span class="pa21-pipeline__n">3</span>Colocar el puntaje de admisión en la escala con media en 500 y desviación en 100.</li></ol><p>Dado que no se puede asumir que las personas que se presentan al proceso de admisión constituyen una muestra aleatoria con igual distribución de puntajes que la distribución de la prueba Saber&nbsp;11, la UN hará los cálculos a partir de los puntajes de los aspirantes inscritos. Esto significa que para el numeral 1, se calculará directamente la media de los puntajes y la desviación estándar de cada prueba, y se hará la estandarización estadística de la siguiente forma.</p><p>Supóngase que la media de cada una de las pruebas es respectivamente: Matemáticas <span class="eq"><i>μ</i><sub>PMA</sub></span>, Lectura Crítica <span class="eq"><i>μ</i><sub>PLC</sub></span>, Ciencias Naturales <span class="eq"><i>μ</i><sub>PCN</sub></span>, y Sociales y Ciudadanas <span class="eq"><i>μ</i><sub>PSC</sub></span>. Adicionalmente supóngase que las desviaciones son respectivamente <span class="eq"><i>σ</i><sub>PMA</sub>, <i>σ</i><sub>PLC</sub>, <i>σ</i><sub>PCN</sub>, <i>σ</i><sub>PSC</sub></span>.</p><h4>Estandarización por componente</h4><p>En consecuencia, el procedimiento para estandarizar cada puntaje de las pruebas a la escala (0,1) es como sigue:</p><div class="pa21-formulas"><div class="pa21-formula"><span class="pa21-formula__label">Matemática</span><div class="eq eq--block"><i>MaSt</i><sub>UN</sub> = <span class="frac"><span class="num"><i>PMA</i> − <i>μ</i><sub>PMA</sub></span><span class="den"><i>σ</i><sub>PMA</sub></span></span></div></div><div class="pa21-formula"><span class="pa21-formula__label">Análisis Textual</span><div class="eq eq--block"><i>AtSt</i><sub>UN</sub> = <span class="frac"><span class="num"><i>PLC</i> − <i>μ</i><sub>PLC</sub></span><span class="den"><i>σ</i><sub>PLC</sub></span></span></div></div><div class="pa21-formula"><span class="pa21-formula__label">Ciencias Naturales</span><div class="eq eq--block"><i>CnSt</i><sub>UN</sub> = <span class="frac"><span class="num"><i>PCN</i> − <i>μ</i><sub>PCN</sub></span><span class="den"><i>σ</i><sub>PCN</sub></span></span></div></div><div class="pa21-formula"><span class="pa21-formula__label">Sociales y Ciudadanas</span><div class="eq eq--block"><i>CsSt</i><sub>UN</sub> = <span class="frac"><span class="num"><i>PSC</i> − <i>μ</i><sub>PSC</sub></span><span class="den"><i>σ</i><sub>PSC</sub></span></span></div></div></div><p>Donde <span class="eq"><i>MaSt</i><sub>UN</sub></span> corresponde al componente de Matemática estandarizado, <span class="eq"><i>AtSt</i><sub>UN</sub></span> corresponde al componente de Análisis Textual estandarizado, <span class="eq"><i>CnSt</i><sub>UN</sub></span> corresponde al componente de Ciencias Naturales estandarizado y <span class="eq"><i>CsSt</i><sub>UN</sub></span> corresponde al componente de Ciencias Sociales estandarizado.</p><h4>Del componente al puntaje final</h4><p>El puntaje de admisión se calcula como sigue:</p><ol class="pa21-steps"><li><span class="pa21-steps__n">1</span><div><p class="pa21-steps__title">Se calcula el puntaje total como la suma de los cuatro componentes estandarizados.</p><div class="pa21-formula pa21-formula--wide"><div class="eq eq--block"><i>Total</i><sub>UN</sub> = <i>MaSt</i><sub>UN</sub> + <i>AtSt</i><sub>UN</sub> + <i>CnSt</i><sub>UN</sub> + <i>CsSt</i><sub>UN</sub></div></div></div></li><li><span class="pa21-steps__n">2</span><div><p class="pa21-steps__title">Se calcula la media del puntaje total (<span class="eq"><i>μ</i><sub>Total,UN</sub></span>) y la desviación estándar del puntaje total (<span class="eq"><i>σ</i><sub>Total,UN</sub></span>).</p><p class="pa21-steps__desc">Este cálculo es necesario debido a que las pruebas no son, en general, independientes.</p></div></li><li><span class="pa21-steps__n">3</span><div><p class="pa21-steps__title">Se calcula el puntaje total estandarizado (0,1), el cual se denota como <span class="eq"><i>TotalSt</i><sub>UN</sub></span>.</p><div class="pa21-formula pa21-formula--wide"><div class="eq eq--block"><i>TotalSt</i><sub>UN</sub> = <span class="frac"><span class="num"><i>Total</i><sub>UN</sub> − <i>μ</i><sub>Total,UN</sub></span><span class="den"><i>σ</i><sub>Total,UN</sub></span></span></div></div></div></li><li class="pa21-steps__final"><span class="pa21-steps__n">4</span><div><p class="pa21-steps__title">Finalmente, el puntaje de admisión en escala (500,100) es obtenido como:</p><div class="pa21-formula pa21-formula--final"><div class="eq eq--block"><i>PunAdm</i><sub>UN</sub> = 100 × <i>TotalSt</i><sub>UN</sub> + 500</div></div></div></li></ol></section><section class="pa21-section" id="Puntajes-reportados-por-cada-componente" aria-labelledby="pa21b-h-rep"><h3 id="pa21b-h-rep"><span class="pa21-num">03</span> Puntajes reportados por cada componente</h3><p>Por razones administrativas y de comparabilidad histórica, los puntajes de cada componente se reportan con media en 10 y desviación en 1. Entonces los puntajes reportados de cada componente se calculan así:</p><table class="pa21-table"><caption>Fórmula de reporte por componente (escala media 10, desviación 1)</caption><thead><tr><th scope="col">Componente</th><th scope="col">Fórmula de reporte</th></tr></thead><tbody><tr><th scope="row">Matemática</th><td><span class="eq">Matemática = <i>MaSt</i><sub>UN</sub> + 10</span></td></tr><tr><th scope="row">Análisis Textual</th><td><span class="eq">AnálisisTextual = <i>AtSt</i><sub>UN</sub> + 10</span></td></tr><tr><th scope="row">Ciencias Naturales</th><td><span class="eq">CienciasNaturales = <i>CnSt</i><sub>UN</sub> + 10</span></td></tr><tr><th scope="row">Ciencias Sociales</th><td><span class="eq">CienciasSociales = <i>ScSt</i><sub>UN</sub> + 10</span></td></tr></tbody></table></section></div></div></div><style>
+  #pa21b-root, #pa21b-root * { box-sizing: border-box; }
+  #pa21b-root {
+    --pa-bg: #eef1f6; --pa-panel: #ffffff; --pa-ink: #16233f; --pa-ink-soft: #46536b;
+    --pa-primary: #1f3b73; --pa-accent: #c89a3c; --pa-teal: #1f7a5c; --pa-muted: #9aa3b2; --pa-line: #dbe1ec;
+    font-family: 'Ancizar Sans', -apple-system, sans-serif; color: var(--pa-ink); background: var(--pa-bg);
+    padding: 28px 16px 40px; border-radius: 16px; line-height: 1.65;
+  }
+  #pa21b-root h2, #pa21b-root h3, #pa21b-root h4 { font-family: 'Ancizar Sans', Georgia, serif; color: var(--pa-ink); margin: 0 0 8px; }
+  #pa21b-root p { margin: 0 0 14px; color: var(--pa-ink-soft); }
+
+  /* ---- Fórmulas en HTML/CSS puro (sin JS/CDN) ---- */
+  #pa21b-root .eq { font-family: 'Ancizar Sans', Georgia, serif; font-style: normal; color: var(--pa-ink); }
+  #pa21b-root .eq i { font-style: italic; }
+  #pa21b-root .eq sub { font-size: 0.72em; }
+  #pa21b-root .eq--block { display: block; text-align: center; font-size: 1.05em; padding: 4px 0; }
+  #pa21b-root .frac { display: inline-flex; flex-direction: column; vertical-align: middle; text-align: center; margin: 0 5px; line-height: 1.25; position: relative; top: 0.18em; }
+  #pa21b-root .frac .num, #pa21b-root .frac .den { padding: 0 4px; white-space: nowrap; }
+  #pa21b-root .frac .num { border-bottom: 1.4px solid currentColor; padding-bottom: 2px; }
+  #pa21b-root .frac .den { padding-top: 2px; }
+
+  .pa21-hero { max-width: 1080px; margin: 0 auto 28px; }
+  .pa21-eyebrow { font-family: 'Ancizar Sans', monospace; font-size: 14px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--pa-accent); margin: 0 0 10px; font-weight: 600; }
+  .pa21-title { font-size: clamp(28px, 5vw, 40px); line-height: 1.12; font-weight: 700; }
+  .pa21-subtitle { font-size: 16px; max-width: 60ch; color: var(--pa-ink-soft); }
+  .pa21-layout { max-width: 1080px; margin: 0 auto; }
+  .pa21-content { width: 100%; }
+  .pa21-section { background: var(--pa-panel); border: 1px solid var(--pa-line); border-radius: 14px; padding: 24px 22px; margin-bottom: 18px; scroll-margin-top: 20px; }
+  .pa21-section h3 { font-size: 21px; display: flex; align-items: baseline; gap: 10px; margin-bottom: 14px; padding-bottom: 12px; border-bottom: 2px solid var(--pa-line); }
+  .pa21-num { font-family: 'Ancizar Sans', monospace; font-size: 13px; font-weight: 600; color: var(--pa-accent); }
+  .pa21-section h4 { font-size: 16px; margin-top: 18px; }
+  .pa21-facts { margin: 0 0 16px; padding-left: 20px; }
+  .pa21-pipeline { list-style: none; margin: 0 0 20px; padding: 0; display: grid; gap: 10px; }
+  .pa21-pipeline li { display: flex; align-items: flex-start; gap: 12px; font-size: 14.5px; color: var(--pa-ink-soft); }
+  .pa21-pipeline__n { flex: none; width: 24px; height: 24px; border-radius: 50%; background: var(--pa-primary); color: #fff; font-family: 'Ancizar Sans', monospace; font-size: 12px; font-weight: 600; display: flex; align-items: center; justify-content: center; }
+  .pa21-formulas { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 12px; margin: 12px 0 20px; }
+  .pa21-formula { background: #f4f6fb; border: 1px solid var(--pa-line); border-left: 3px solid var(--pa-primary); border-radius: 8px; padding: 12px 14px 10px; overflow-x: auto; }
+  .pa21-formula__label { display: block; font-family: 'Ancizar Sans', monospace; font-size: 11.5px; text-transform: uppercase; letter-spacing: 0.03em; color: var(--pa-ink-soft); margin-bottom: 4px; }
+  .pa21-formula--wide { margin: 10px 0 4px; }
+  .pa21-formula--final { border-left-color: var(--pa-accent); background: #fbf6e9; font-size: 1.05em; }
+  .pa21-steps { list-style: none; margin: 0; padding: 0; display: grid; gap: 14px; }
+  .pa21-steps > li { display: flex; gap: 14px; align-items: flex-start; padding: 14px; border: 1px solid var(--pa-line); border-radius: 10px; }
+  .pa21-steps__n { flex: none; width: 30px; height: 30px; border-radius: 50%; background: var(--pa-ink); color: #fff; font-family: 'Ancizar Sans', monospace; font-weight: 600; display: flex; align-items: center; justify-content: center; }
+  .pa21-steps__title { font-weight: 600; margin: 0 0 4px; color: var(--pa-ink); }
+  .pa21-steps__desc { font-size: 13.5px; margin: 4px 0 0; }
+  .pa21-steps__final { border-color: var(--pa-accent); background: #fffdf7; }
+  .pa21-steps__final .pa21-steps__n { background: var(--pa-accent); }
+  .pa21-table { width: 100%; border-collapse: collapse; margin-top: 12px; font-size: 14px; }
+  .pa21-table caption { text-align: left; font-size: 12.5px; color: var(--pa-muted); margin-bottom: 8px; }
+  .pa21-table th, .pa21-table td { text-align: left; padding: 10px 12px; border-bottom: 1px solid var(--pa-line); }
+  .pa21-table thead th { font-family: 'Ancizar Sans', monospace; font-size: 11.5px; text-transform: uppercase; color: var(--pa-ink-soft); border-bottom: 2px solid var(--pa-ink); }
+  .pa21-table td { overflow-x: auto; }
+  #pa21b-root a:focus-visible { outline: 2px solid var(--pa-primary); outline-offset: 2px; }
+</style></div>
+
+
+      </div>
+  </div>
+
+  </div>
+  <!-- Fin de la renderización del contenido del template -->
+</main>
+<footer class="clear">
+  <nav class="col-md-3 col-lg-3 col-sm-3 col-xs-4 col-xxs-6 gobiernoLinea">
+    <a href="http://www.legal.unal.edu.co" target="_top">Régimen Legal_</a>
+    <a href="http://www.unal.edu.co/dnp" target="_top">Talento humano</a>
+    <a href="http://contratacion.unal.edu.co" target="_top">Contratación</a>
+    <a href="http://www.unal.edu.co/dnp/" target="_top">Ofertas de empleo</a>
+    <a href="http://launalcuenta.unal.edu.co/" target="_top">Rendición de cuentas</a>
+    <a href="http://docentes.unal.edu.co/concurso-profesoral/" target="_top">Concurso docente</a>
+    <a href="http://www.pagovirtual.unal.edu.co/" target="_top">Pago Virtual</a>
+    <a href="http://www.unal.edu.co/control_interno/index.html" target="_top">Control interno</a>
+    <a href="http://siga.unal.edu.co" target="_top">Calidad</a>
+    <a href="http://unal.edu.co/buzon-de-notificaciones/" target="_self">Buzón de notificaciones</a>
+  </nav>
+  <nav class="col-md-3 col-lg-3 col-sm-3 col-xs-4 col-xxs-6 gobiernoLinea">
+    <a href="https://smartkey.xertica.com/cloudkey/a/unal.edu.co/user/login" target="_top">Correo institucional</a>
+    <a href="#">Mapa del sitio</a>
+    <a href="http://redessociales.unal.edu.co" target="_top">Redes Sociales</a>
+    <a href="#">FAQ</a>
+    <a href="http://unal.edu.co/quejas-y-reclamos/" target="_self">Quejas y reclamos</a>
+    <a href="http://unal.edu.co/atencion-en-linea/" target="_self">Atención en línea</a>
+    <a href="http://unal.edu.co/encuesta/" target="_self">Encuesta</a>
+    <a href="#">Contáctenos</a>
+    <a href="http://www.onp.unal.edu.co" target="_top">Estadísticas</a>
+    <a href="#">Glosario</a>
+  </nav>
+  <div class="col-md-4 col-lg-4 col-sm-4 col-xs-4 col-xxs-12 footer-info">
+    <p class="col-sm-12 col-md-6 contacto">
+      <b>Contacto página web:</b><br/> Dirección: Calle 44 nº 45-67<br/> Unidad Camilo Torres, Bloque B3 <br/> Bogotá D.C., Colombia<br/> (+57 1) 316 5000 Ext.83000
+    </p>
+    <p class="col-sm-12 col-md-6 derechos">
+      © Copyright 2026<br/> Algunos derechos reservados.<br/>
+      <a title="Comuníquese con el administrador de este sitio web" href="mailto:inscripcion_nal@unal.edu.co ">inscripcion_nal@unal.edu.co</a><br/>
+      <a href="http://admisiones.unal.edu.co/acerca-de-este-sitio-web/">Acerca de este sitio web</a><br/> Actualización: 13/10/2026
+    </p>
+  </div>
+  
+  <div class="col-md-2 col-lg-2 col-sm-2 col-xs-12 logos">
+    <div class="col-xs-6 col-sm-12 col-md-6 no-padding">
+      <a class="col-xs-6 col-sm-12" href="http://www.orgulloun.unal.edu.co">
+        <img class="hidden-print" alt="Orgullo UN" src="fileadmin/templates/images/log_orgullo.png" width="78" height="21" />
+        <img class="visible-print" alt="Orgullo UN" src="fileadmin/templates/images/log_orgullo_black.png" width="94" height="37" />
+      </a>
+      
+      <a class="col-xs-6 col-sm-12 imgAgencia" href="http://www.agenciadenoticias.unal.edu.co/inicio.html">
+        <img class="hidden-print" alt="Agencia de noticias" src="fileadmin/templates/images/log_agenc.png" width="94" height="25" />
+        <img class="visible-print" alt="Agencia de noticias" src="fileadmin/templates/images/log_agenc_black.png" width="94" height="37" />
+      </a>
+    </div>
+    <div class="col-xs-6 col-sm-12 col-md-6 no-padding">
+      <a class="col-xs-6 col-sm-12" href="https://www.sivirtual.gov.co/memoficha-entidad/-/entidad/T0356">
+        <img alt="Trámites en línea" src="fileadmin/templates/images/log_gobiern.png" width="67" height="51" />
+      </a>
+      
+      <a class="col-xs-6 col-sm-12" href="http://www.contaduria.gov.co/">
+        <img alt="Contaduría general de la republica" src="fileadmin/templates/images/log_contra.png" width="67" height="51" />
+      </a>
+    </div>
+    
+  </div>
+  
+   <style>
+        .seguridad {
+            height: 100%;
+            width: 100%;
+            position: fixed;
+            right: 0;
+            bottom: 0;
+            z-index: 2;
+            /*
+            display: none;
+            */
+        }
+    
+        #nachat {
+            position: fixed;
+            right: 0;
+            bottom: 0;
+            z-index: 1;
+            width: 95%;
+            height: 41rem;
+            border-radius: 10px;
+            margin: 1rem;
+        }
+    
+        .hide-show {
+            display: none;
+        }
+    
+        #chatbutton {
+            position: fixed;
+            right: 0;
+            bottom: 0;
+            z-index: 2;
+            width: 10rem;
+            height: 10rem;
+            border-radius: 50%;
+            background-color: white;
+    
+            margin: 1rem;
+            border: 2px solid #50992E;
+        }
+    
+        #chatbutton:hover {
+            cursor: pointer;
+            background-color: whitesmoke;
+        }
+    
+        #imagechatbutton {
+            color: #50992E;
+        }
+    
+        @media only screen and (min-width: 700px) {
+            #nachat {
+                width: 60%;
+            }
+     
+            
+        }
+    
+        @media only screen and (min-width: 900px) {
+            #nachat {
+                width: 40%;
+            }
+        }
+    
+        @media only screen and (min-width: 1300px) {
+            #nachat {
+                width: 30%;
+            }
+        }
+    
+        @media only screen and (max-height: 800px) and (min-width: 767px) {
+            #nachat {
+                height: 80%;
+            }
+        }
+    
+        @media only screen and (max-height: 800px) and (max-width: 767px) {
+            #nachat {
+                height: 85%;
+            }
+        }
+     
+        @media only screen and (max-width: 767px) {
+            #chatbutton{
+              width: 7rem;
+              height: 7rem;
+            }
+        }
+    
+    
+    </style>
+    
+    
+    <script>
+        function openHideChat() {
+            var element = document.getElementById("seguridad");
+            element.classList.toggle("hide-show");
+            var button = document.getElementById("chatbutton");
+            button.classList.toggle("hide-show");
+        }
+    
+        function chatHide() {
+            const iframe = document.getElementById('nachat');
+            const seguridad = document.getElementById('seguridad');
+            const button = document.getElementById('chatbutton');
+            window.addEventListener('click', function (event) {
+                if (event.target !== iframe && !iframe.contains(event.target) && !button.contains(event.target) && !seguridad.classList.contains('hide-show')) {
+                    openHideChat()
+                }
+            });
+    
+        }
+      
+        function hideButtonOnFooter() {
+          const footer = document.querySelector('footer');
+          const header = document.querySelector('header');
+          const nachat = document.getElementById('nachat');
+          const button = document.getElementById('chatbutton');
+          const footerPosition = footer.getBoundingClientRect();
+          const buttonPosition = button.getBoundingClientRect();
+          
+          if(footerPosition.top <= (window.innerHeight || document.documentElement.clientHeight)){
+            button.style.bottom = window.innerHeight-footerPosition.top+"px";
+            nachat.style.bottom = window.innerHeight-footerPosition.top+"px";
+          }else{
+            button.style.bottom = '0px';
+            nachat.style.bottom = '0px';
+          }
+        }
+      
+      window.addEventListener('scroll', hideButtonOnFooter);
+      window.addEventListener('resize', hideButtonOnFooter);
+      window.addEventListener('DOMContentLoaded', hideButtonOnFooter);
+    </script>
+    
+    <button id="chatbutton" onclick="openHideChat()">
+        <img id="imagechatbutton"
+            src="https://admisiones.unal.edu.co/fileadmin/nachat/img/NaChatLogoOscuro.5d9fd2dc.svg"
+            alt="Chat informativo" style="height:50%">
+    </button>
+    
+    <div class="seguridad hide-show" id="seguridad">
+        <iframe id="nachat" onload="chatHide()" onfocus="" src="https://admisiones.unal.edu.co/nachat/userchat"></iframe>
+    </div>
+  
+</footer>
+
+
+
+
+</body>
+</html>

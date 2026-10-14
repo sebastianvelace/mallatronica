@@ -1,0 +1,326 @@
+ 
+ Ingeniería Electrónica | Facultad de Ingeniería 
+ Saltar al contenido 
+ Aspirantes 
+ Estudiantes 
+ Egresados 
+ Docentes 
+ Administrativos 
+ Facebook 
+ X 
+ YouTube 
+ Instagram 
+ ES Ampliar 
+ Español 
+ English 
+ ingenieria.bogota.unal.edu.co 
+ La Facultad Ampliar 
+ Facultad de Ingeniería UNAL 
+ Decanatura 
+ Vicedecanatura Académica 
+ Vicedecanatura de Investigación y Extensión 
+ Departamentos 
+ Áreas Curriculares 
+ Secretaría de Facultad 
+ Unidad Administrativa 
+ Innovación y Emprendimiento 
+ Proyecto Comunicaciones Digitales 
+ Preguntas Frecuentes 
+ Programas Ampliar 
+ Programas Académicos 
+ Investigación Ampliar 
+ Grupos de investigación – Hermes 
+ Laboratorios Facultad 
+ Extensión Ampliar 
+ Instituto de Extensión e Investigación – IEI 
+ Internacionalización 
+ Bienestar 
+ SEDES Ampliar 
+ Amazonia 
+ Bogotá 
+ Caribe 
+ De La Paz 
+ Manizales 
+ Medellín 
+ Orinoquia 
+ Palmira 
+ Tumaco 
+ . 
+ . 
+ Alternar el menú 
+ Tamaño letra
+ A - 
+ A + 
+ Cambiar Contrastes
+ 1
+ 2
+ 3
+ Invertir colores
+ Aplicar
+ Restablecer ajustes
+ Aplicar
+ Panel de Accesibilidad 
+ Campus UNAL 
+ Está en: Inicio / Programas Académicos / Ingeniería Electrónica 
+ Buscar 
+ Ingeniería Electrónica | Sede Bogotá 
+ Código SNIES: 16941
+ Código SIA: 2545
+ Créditos: 172
+ Modalidad: Presencial
+ Jornada: Diurna
+ Duración: 10 Semestres
+ Información General 
+ Plan de Estudios 
+ Investigación / Laboratorios 
+ Contactos 
+ Autoevaluación / Acreditación 
+ Normatividad 
+ El Ingeniero Electrónico de la Universidad Nacional de Colombia podrá desempeñarse como profesional en el estudio, diseño y desarrollo de sistemas de telecomunicaciones, automatización industrial, robótica, electrónica de potencia, electrónica digital y demás aplicaciones tecnológicas que utilicen principios de la electrónica para su funcionamiento. Dichos sistemas son aplicables en variados ámbitos como la medicina, educación, agricultura, minería, industria automotriz, industria aeroespacial, industria militar, comunicaciones, instrumental, inteligencia artificial y multimedia, entre otros.
+ En la práctica, el plan de estudios favorece la formación de profesionales con tres perfiles derivados del perfil declarado en el párrafo anterior. El primer perfil está orientado hacia las comunicaciones. El profesional con este perfil será un ingeniero con capacidades para identificar problemas en el área de comunicaciones, contextualizándolos y planteando soluciones apropiadas. El segundo perfil se orienta hacia el área de los sistemas electrónicos digitales. Los ingenieros que sigan este perfil tendrán conocimientos que les permitan formar parte de grupos de trabajo en los diferentes niveles de abstracción desde la capa física hasta la concepción del sistema a nivel nacional e internacional. Finalmente, el tercer perfil está orientado hacia el área de los sistemas analógicos y la instrumentación.
+ Información para Estudiantes 
+ Perfil del aspirante
+ Personas que posean excelentes capacidades, con interés en el estudio del modelamiento de sistemas; análisis, diseño, implementación, control, procesamiento de información con habilidades para el planteamiento y solución de problemas computacionales, continuidad en el desarrollo de actividades académicas y trabajo en equipo.
+ Perfil del egresado
+ El Ingeniero Electrónico de la Universidad Nacional está en la capacidad de concebir, diseñar e implementar sistemas electrónicos de alta calidad para aplicaciones en diferentes campos de la industria nacional, respondiendo así a las necesidades del país. Adicionalmente, demuestra capacidad de liderazgo y aptitud para el trabajo en equipo, con valores éticos y sentido de la responsabilidad social.
+ Objetivos educativos del programa 
+Los graduados del Programa en Ingeniería Electrónica de la Universidad Nacional de Colombia sede Bogotá, serán ciudadanos integrales y profesionales que:
+ Aplicarán conocimientos científicos, tecnológicos y administrativos en la concepción, diseño e implementación de soluciones a problemas de Ingeniería Electrónica considerando criterios de sostenibilidad social y ambiental. 
+ Contribuirán a la solución integral de problemas en ingeniería mediante el liderazgo y la comunicación efectiva en equipos multidisciplinarios. 
+ Aplicarán habilidades de aprendizaje permanente ante las dinámicas sociales, económicas y tecnológicas reconociendo las responsabilidades éticas de su ejercicio profesional. 
+ Id RA
+ | 
+ Resultado de Aprendizaje
+ | 
+ Nombre Corto
+ | 
+ 1
+ | 
+ Capacidad para identificar, formular y resolver problemas complejos de ingeniería aplicando principios de ingeniería, ciencia y matemáticas.
+ | 
+ Resolución de Problemas
+ | 
+ 2
+ | 
+ Capacidad para aplicar el diseño de ingeniería para producir soluciones que satisfagan necesidades específicas considerando la salud pública, la seguridad y el bienestar, así como factores globales, culturales, sociales, ambientales y económicos.
+ | 
+ Diseño
+ | 
+ 3
+ | 
+ Capacidad para comunicarse eficazmente con una variedad de audiencias.
+ | 
+ Comunicación
+ | 
+ 4
+ | 
+ Capacidad para reconocer responsabilidades éticas y profesionales en situaciones de ingeniería y tomar decisiones informadas, considerando el impacto de las soluciones de ingeniería en un contexto global, económico, ambiental y social.
+ | 
+ Ética
+ | 
+ 5
+ | 
+ Capacidad para trabajar eficazmente en un equipo cuyos miembros colaboran proporcionando liderazgo, creando un entorno colaborativo e inclusivo, estableciendo metas, planificando tareas y cumpliendo objetivos.
+ | 
+ Trabajo en Equipo
+ | 
+ 6
+ | 
+ Capacidad para desarrollar y llevar a cabo la experimentación adecuada, analizar e interpretar datos y utilizar el juicio de ingeniería para sacar conclusiones.
+ | 
+ Trabajo Experimental
+ | 
+ 7
+ | 
+ Capacidad para adquirir y aplicar nuevos conocimientos según sea necesario, utilizando estrategias de aprendizaje adecuadas.
+ | 
+ Aprendizaje a Largo Plazo
+ | 
+ Malla curricular Descargar PDF
+ Componente fundamentación: 60 Créditos 
+ Matemáticas, probabilidad y estadística 
+ Créditos obligatorios: 24 
+ Créditos optativos: 3 
+ Ciencia de materiales 
+ Créditos obligatorios: 3 
+ Créditos optativos: 0 
+ Física 
+ Créditos obligatorios: 15 
+ Créditos optativos: 0 
+ Ciencias económicas y administrativas 
+ Créditos obligatorios: 3 
+ Créditos optativos: 6 
+ Herramientas informáticas y métodos numéricos 
+ Créditos obligatorios: 6 
+ Créditos optativos: 0 
+ Total créditos obligatorios: 51 
+ Total créditos optativos: 9 
+ Componente Disciplinar/Profesional: 78 Créditos 
+ Circuitos y campos 
+ Créditos obligatorios: 14 
+ Créditos optativos: 0 
+ Señales, sistemas y control 
+ Créditos obligatorios: 10 
+ Créditos optativos: 0 
+ Electrónica Análoga 
+ Créditos obligatorios: 15 
+ Créditos optativos: 3 
+ Electrónica Digital 
+ Créditos obligatorios: 8 
+ Créditos optativos: 3 
+ Telecomunicaciones 
+ Créditos obligatorios: 6 
+ Créditos optativos: 3 
+ Contexto profesional, innovación e investigación 
+ Créditos obligatorios: 16 
+ Créditos optativos: 0 
+ Total créditos obligatorios: 69 
+ Total créditos optativos: 9 
+ Componente de libre elección 
+ Componente de libre elección
+ Treinta y cuatro (34) créditos exigidos, que corresponden al 20 % del total de créditos del plan de estudios
+ Laboratorios
+ Departamento de Ingeniería Eléctrica y Electrónica Ver los Laboratorios
+ Grupos de Investigación
+ Todos los grupos están reconocidos por Colciencias y están clasificados de acuerdo al escalafón de dicha entidad. El estudiante de ingeniería electrónica puede vincularse a estos grupos ya sea para realizar su trabajo de grado o mediante la figura de estudiante auxiliar, ya que los grupos a veces requieren estudiantes que colaboren en las labores del mismo. 
+ Departamento de Ingeniería Eléctrica y Electrónica Ver los Grupos de Investigación
+ Coordinación curricular
+ Pablo Enrique Rodríguez Espinosa
+ Cargo
+ Coordinador curricular del pregrado en Ingeniería Electrónica
+ E-mail
+ celectron_fibog@unal.edu.co
+ Área Curricular de Ingeniería Eléctrica y Electrónica 
+ Personal de Apoyo
+ Angie Paola Chivatá
+ Cargo
+ Coordinadora Administrativa y Académica
+ E-mail
+ daciee_fibog@unal.edu.co
+ Teléfono
+ Ext: 14004
+ Oficina
+ 222, Edificio 453 Aulas de Ingeniería
+ Luis Antonio Rodríguez Pérez
+ Cargo
+ Asesor Curricular y Trámites Estudiantiles
+ E-mail
+ aciee_fibog@unal.edu.co
+ Teléfono
+ Oficina
+ 02 CADE primer piso
+ Angie Viviana Gómez
+ Cargo
+ Secretaria Ejecutiva
+ E-mail
+ trabajosfi_bog@unal.edu.co
+ Teléfono
+ Ext: 13657
+ Oficina
+ 02 CADE primer piso
+ Acreditación
+ Proceso de acreditación ABET
+ El pregrado de Ingeniería Electrónica está acreditado por la Comisión de Acreditación de Ingeniería de ABET , según los Criterios Generales de la Comisión y los Criterios del Programa para programas de ingeniería eléctrica, computación, telecomunicaciones, y de nombres similares.
+ Estado: Acreditado. Desde Octubre 01, 2018 – presente 
+ Sede acreditada: Sede Bogotá 
+ Fecha de la próxima revisión: 2025 – 2026 
+ Acreditado por: EAC – Engineering Accreditation Commission 
+ Criterios del programa: Ingeniería Eléctrica y Electrónica
+ Admitidos
+ Admitidos 
+ Graduados
+ Graduados 
+ PEP – Proyecto educativo del programa de Ingeniería Electrónica Descargar PDF
+ Ministerio de Educación Nacional – Resolución No. 444 del 13 de enero de 2012 Documento No Disponible
+ Plan de estudios
+ Acuerdo 17 de 2022 – Consejo de facultad Visitar enlace
+ Créditos/Componentes
+ Acuerdo 125 de 2017 – Consejo Académico Ir al Enlace
+ Buscar 
+ Navegar por la Facultad
+ Decanatura 
+ Vicedecanatura Académica 
+ Dirección de bienestar 
+ Departamentos 
+ Secretaría de facultad 
+ Unidad Administrativa 
+ Programa de Relaciones Internacionales 
+ Enlaces Rápidos
+ Preguntas frecuentes 
+ Comunidad Fibog 
+ Eventos académicos 
+ Noticias 
+ Innovación y Emprendimiento 
+ Tratamiento de Datos 
+ Aplicativos
+ Ticket Fibog 
+ Cupo Fibog 
+ Admisiones Posgrados 
+ Concurso Docente 
+ Gestión Aulas TIC 
+ SEFI 
+ Quanticon Valley 
+ Régimen Legal 
+ Contratación 
+ Rendición de cuentas 
+ Pago Virtual 
+ Calidad 
+ Talento Humano 
+ Ofertas de Empleo 
+ Concurso Docente 
+ Control Interno 
+ Buzón de notificaciones 
+ Correo institucional 
+ Redes Sociales 
+ Quejas y reclamos 
+ Encuesta 
+ Estadísticas 
+ Mapa del sitio 
+ FAQ 
+ Atención en línea 
+ Contáctenos 
+ Glosario 
+ Contacto página web: 
+ Carrera 30 No 45A-03
+ Edif. CADE - Oficina 103
+ Bogotá D.C., Colombia
+ (+57) 601 3165000
+ © Copyright 2026
+ Algunos derechos reservados.
+ untic_fibog@unal.edu.co
+ Acerca de este sitio web 
+ Actualización: 08/07/26
+ Correo Electrónico 
+ DINARA - SIA 
+ Bibliotecas 
+ Convocatorias 
+ Identidad UNAL 
+ La Facultad Alternar menú hijo Ampliar 
+ Facultad de Ingeniería UNAL 
+ Decanatura 
+ Vicedecanatura Académica 
+ Vicedecanatura de Investigación y Extensión 
+ Departamentos 
+ Áreas Curriculares 
+ Secretaría de Facultad 
+ Unidad Administrativa 
+ Innovación y Emprendimiento 
+ Proyecto Comunicaciones Digitales 
+ Preguntas Frecuentes 
+ Programas Alternar menú hijo Ampliar 
+ Programas Académicos 
+ Investigación Alternar menú hijo Ampliar 
+ Grupos de investigación – Hermes 
+ Laboratorios Facultad 
+ Extensión Alternar menú hijo Ampliar 
+ Instituto de Extensión e Investigación – IEI 
+ Internacionalización 
+ Bienestar 
+ Perfiles Alternar menú hijo Ampliar 
+ Aspirantes 
+ Estudiantes 
+ Egresados 
+ Docentes 
+ Administrativos 
+ X 
+ 
