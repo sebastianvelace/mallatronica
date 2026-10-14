@@ -1,0 +1,8 @@
+.git
+.atl
+.agents
+.codex
+data/private
+data/sia/v2/src
+node_modules
+dist

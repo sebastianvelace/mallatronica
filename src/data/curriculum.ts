@@ -1,4 +1,22 @@
+import siaPlan from '../../data/sia/plan2545.json'
+
 export type Track = 'fundamentacion' | 'profesional' | 'electiva'
+export type PrerequisiteType = 'M' | 'O' | 'E' | 'A' | string
+
+export type PrerequisiteRef = {
+  code: string
+  name: string
+  type: PrerequisiteType
+  condition: number
+  corequisite: boolean
+}
+
+export type PrerequisiteGroup = {
+  condition: number
+  mode: 'all' | 'any'
+  type: PrerequisiteType
+  items: PrerequisiteRef[]
+}
 
 export type GlobalRequirement = {
   kind: 'regularCredits' | 'disciplinaryCredits'
@@ -11,12 +29,15 @@ export type Subject = {
   code: string
   name: string
   credits: number
-  semester: number
+  semester: number | null
   track: Track
   category: string
-  prereqs: string[]
+  tipologia: string
+  prereqGroups: PrerequisiteGroup[] | null
+  prerequisiteCodes: string[]
   globalPrereqs?: GlobalRequirement[]
   tag?: string
+  sinProgramar: boolean
 }
 
 export type SupportSubject = {
@@ -25,90 +46,155 @@ export type SupportSubject = {
   name: string
   credits: number
   kind: 'nivelacion' | 'idioma'
-  prereqs: string[]
+  prereqGroups: PrerequisiteGroup[] | null
+  sinProgramar: boolean
 }
+
+type SiaRawPrerequisite = {
+  codigo: string
+  nombre: string
+  tipo: PrerequisiteType
+  condicion: number
+  todas: boolean
+  correquisito: boolean
+}
+
+type SiaRawCourse = {
+  codigo: string
+  nombre: string
+  creditos: number
+  tipologia: string
+  agrupacion: string | null
+  prerrequisitos: SiaRawPrerequisite[] | null
+  semestre: number | null
+  sin_programar_2026_2: boolean
+}
+
+const rawPlan = siaPlan as SiaRawCourse[]
 
 export const curriculumMeta = {
   plan: '2545',
   program: 'Ingeniería Electrónica',
   campus: 'Bogotá',
-  sourceLabel: 'Malla oficial encontrada · 2023',
+  sourceLabel: 'Catálogo público SIA · consulta 2026-10-13',
   regularCredits: 172,
   disciplinaryCredits: 78,
-  projectThreshold: 121,
-  thesisThreshold: 63,
 } as const
 
-export const semesterTotals = [17, 18, 18, 19, 17, 17, 16, 16, 16, 18]
+export function courseCodeKey(code: string) {
+  return code.toLocaleUpperCase().replace(/[^A-Z0-9]/g, '')
+}
 
-export const subjects: Subject[] = [
-  { id: 'calculo-diferencial', code: '1000004', name: 'Cálculo diferencial', credits: 4, semester: 1, track: 'fundamentacion', category: 'Matemáticas', prereqs: [] },
-  { id: 'libre-socio-1', code: 'CLE', name: 'Libre elección · socio-humanística', credits: 3, semester: 1, track: 'electiva', category: 'Libre elección', prereqs: [], tag: 'CLE' },
-  { id: 'intro-electronica', code: '2016502', name: 'Introducción a la ingeniería electrónica', credits: 5, semester: 1, track: 'profesional', category: 'Contexto profesional', prereqs: [] },
-  { id: 'programacion', code: '2015734', name: 'Programación de computadores', credits: 3, semester: 1, track: 'fundamentacion', category: 'Informática', prereqs: [] },
-  { id: 'taller-electronica', code: '2016509', name: 'Taller de electrónica', credits: 2, semester: 1, track: 'profesional', category: 'Contexto profesional', prereqs: [] },
+function slug(value: string) {
+  return value.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLocaleLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '')
+}
 
-  { id: 'calculo-integral', code: '1000005', name: 'Cálculo integral', credits: 4, semester: 2, track: 'fundamentacion', category: 'Matemáticas', prereqs: ['calculo-diferencial'] },
-  { id: 'algebra-lineal', code: '1000003', name: 'Álgebra lineal', credits: 4, semester: 2, track: 'fundamentacion', category: 'Matemáticas', prereqs: ['calculo-diferencial'] },
-  { id: 'fund-mecanica', code: '1000019', name: 'Fundamentos de mecánica', credits: 4, semester: 2, track: 'fundamentacion', category: 'Física', prereqs: ['calculo-diferencial'] },
-  { id: 'programacion-objetos', code: '2016375', name: 'Programación orientada a objetos', credits: 3, semester: 2, track: 'fundamentacion', category: 'Informática', prereqs: ['programacion'] },
-  { id: 'libre-socio-2', code: 'CLE', name: 'Libre elección · socio-humanística', credits: 3, semester: 2, track: 'electiva', category: 'Libre elección', prereqs: [], tag: 'CLE' },
+const legacyIdsByCode: Record<string, string> = {
+  '1000003-B': 'algebra-lineal',
+  '1000004-B': 'calculo-diferencial',
+  '1000005-B': 'calculo-integral',
+  '1000006-B': 'calculo-varias',
+  '1000007-B': 'ecuaciones',
+  '1000017-B': 'fund-electricidad',
+  '1000019-B': 'fund-mecanica',
+  '1000020-B': 'ondas-optica',
+  '1000040-B': 'materiales',
+  '2015159': 'variable-compleja',
+  '2015316': 'trabajo-grado',
+  '2015734': 'programacion',
+  '2016375': 'programacion-objetos',
+  '2016487': 'campos',
+  '2016489': 'circuitos-1',
+  '2016490': 'circuitos-2',
+  '2016492': 'comunicaciones',
+  '2016493': 'control',
+  '2016495': 'electronica-analoga-1',
+  '2016496': 'electronica-analoga-2',
+  '2016497': 'potencia',
+  '2016498': 'electronica-digital-1',
+  '2016499': 'electronica-digital-2',
+  '2016500': 'semiconductores',
+  '2016501': 'instrumentacion',
+  '2016502': 'intro-electronica',
+  '2016503': 'lineas-antenas',
+  '2016506': 'senales-1',
+  '2016507': 'senales-2',
+  '2016509': 'taller-electronica',
+  '2016510': 'taller-proyectos',
+  '2016512': 'verificacion-sistemas-digitales',
+  '2024045': 'taller-proyectos',
+  '1000001-B': 'matematicas-basicas',
+  '1000002-B': 'lecto-escritura',
+  '1000044-B': 'ingles-1',
+  '1000045-B': 'ingles-2',
+  '1000046-B': 'ingles-3',
+  '1000047-B': 'ingles-4',
+}
 
-  { id: 'calculo-varias', code: '1000006', name: 'Cálculo en varias variables', credits: 4, semester: 3, track: 'fundamentacion', category: 'Matemáticas', prereqs: ['calculo-integral', 'algebra-lineal'] },
-  { id: 'ecuaciones', code: '1000007', name: 'Ecuaciones diferenciales', credits: 4, semester: 3, track: 'fundamentacion', category: 'Matemáticas', prereqs: ['calculo-integral', 'algebra-lineal'] },
-  { id: 'fund-electricidad', code: '1000017', name: 'Fundamentos de electricidad y magnetismo', credits: 4, semester: 3, track: 'fundamentacion', category: 'Física', prereqs: ['fund-mecanica'] },
-  { id: 'materiales', code: '1000040', name: 'Introducción a la ciencia de materiales', credits: 3, semester: 3, track: 'fundamentacion', category: 'Ciencia de los materiales', prereqs: ['fund-mecanica'] },
-  { id: 'circuitos-1', code: '2016489', name: 'Circuitos eléctricos I', credits: 3, semester: 3, track: 'profesional', category: 'Circuitos y campos', prereqs: ['taller-electronica'] },
+function trackFor(tipologia: string): Track {
+  if (tipologia.startsWith('DISCIPLINAR') || tipologia.startsWith('TRABAJO')) return 'profesional'
+  if (tipologia.startsWith('NIVELACIÓN')) return 'electiva'
+  return 'fundamentacion'
+}
 
-  { id: 'variable-compleja', code: '2015159', name: 'Variable compleja', credits: 4, semester: 4, track: 'fundamentacion', category: 'Matemáticas', prereqs: ['calculo-varias', 'ecuaciones'] },
-  { id: 'libre-socio-3', code: 'CLE', name: 'Libre elección · socio-humanística', credits: 3, semester: 4, track: 'electiva', category: 'Libre elección', prereqs: [], tag: 'CLE' },
-  { id: 'ondas-optica', code: '1000020', name: 'Fundamentos de oscilaciones, ondas y óptica', credits: 4, semester: 4, track: 'fundamentacion', category: 'Física', prereqs: ['ecuaciones', 'fund-electricidad'] },
-  { id: 'electronica-analoga-1', code: '2016495', name: 'Electrónica análoga I', credits: 4, semester: 4, track: 'profesional', category: 'Electrónica análoga', prereqs: ['circuitos-1', 'materiales'] },
-  { id: 'circuitos-2', code: '2016490', name: 'Circuitos eléctricos II', credits: 4, semester: 4, track: 'profesional', category: 'Circuitos y campos', prereqs: ['circuitos-1'] },
+function prerequisitesFor(raw: SiaRawPrerequisite[] | null): PrerequisiteGroup[] | null {
+  if (raw === null) return null
+  const grouped = new Map<number, SiaRawPrerequisite[]>()
+  for (const item of raw) grouped.set(item.condicion, [...(grouped.get(item.condicion) ?? []), item])
+  return Array.from(grouped.entries()).sort(([a], [b]) => a - b).map(([condition, items]) => ({
+    condition,
+    mode: items.every((item) => item.todas) ? 'all' : 'any',
+    type: items[0]?.tipo ?? 'M',
+    items: items.map((item) => ({
+      code: item.codigo,
+      name: item.nombre,
+      type: item.tipo,
+      condition: item.condicion,
+      corequisite: item.correquisito,
+    })),
+  }))
+}
 
-  { id: 'opt-probabilidad', code: 'OPT', name: 'Optativa de probabilidad y estadística', credits: 3, semester: 5, track: 'fundamentacion', category: 'Matemáticas', prereqs: ['calculo-integral'], tag: 'Optativa' },
-  { id: 'senales-1', code: '2016506', name: 'Señales y sistemas I', credits: 3, semester: 5, track: 'profesional', category: 'Señales, sistemas y control', prereqs: ['ecuaciones', 'circuitos-1'] },
-  { id: 'instrumentacion', code: '2016501', name: 'Instrumentación y medidas', credits: 3, semester: 5, track: 'profesional', category: 'Electrónica análoga', prereqs: ['electronica-analoga-1'] },
-  { id: 'electronica-analoga-2', code: '2016496', name: 'Electrónica análoga II', credits: 4, semester: 5, track: 'profesional', category: 'Electrónica análoga', prereqs: ['electronica-analoga-1'] },
-  { id: 'electronica-digital-1', code: '2016498', name: 'Electrónica digital I', credits: 4, semester: 5, track: 'profesional', category: 'Electrónica digital', prereqs: ['circuitos-1'] },
+function isLanguageCourse(name: string) {
+  return /ingl[eé]s|idioma extranjero|suficiencia por acogimiento/i.test(name)
+}
 
-  { id: 'semiconductores', code: '2016500', name: 'Física de semiconductores', credits: 3, semester: 6, track: 'fundamentacion', category: 'Física', prereqs: ['materiales'] },
-  { id: 'senales-2', code: '2016507', name: 'Señales y sistemas II', credits: 3, semester: 6, track: 'profesional', category: 'Señales, sistemas y control', prereqs: ['senales-1'] },
-  { id: 'campos', code: '2016487', name: 'Campos electromagnéticos', credits: 4, semester: 6, track: 'profesional', category: 'Circuitos y campos', prereqs: ['fund-electricidad', 'ondas-optica'] },
-  { id: 'opt-analoga', code: 'OPT', name: 'Optativa de electrónica análoga', credits: 3, semester: 6, track: 'profesional', category: 'Electrónica análoga', prereqs: ['electronica-analoga-2'], tag: 'Optativa' },
-  { id: 'electronica-digital-2', code: '2016499', name: 'Electrónica digital II', credits: 4, semester: 6, track: 'profesional', category: 'Electrónica digital', prereqs: ['electronica-digital-1'] },
+function subjectFromRaw(raw: SiaRawCourse): Subject {
+  const prereqGroups = prerequisitesFor(raw.prerrequisitos)
+  const tag = raw.tipologia.includes('OPTATIVA') ? 'Optativa' : raw.tipologia.startsWith('TRABAJO') ? 'Grado' : undefined
+  return {
+    id: legacyIdsByCode[raw.codigo] ?? `sia-${slug(raw.codigo)}-${slug(raw.nombre)}`,
+    code: raw.codigo,
+    name: raw.nombre,
+    credits: raw.creditos,
+    semester: raw.semestre,
+    track: trackFor(raw.tipologia),
+    category: raw.tipologia,
+    tipologia: raw.tipologia,
+    prereqGroups,
+    prerequisiteCodes: prereqGroups?.flatMap((group) => group.items.map((item) => item.code)) ?? [],
+    tag,
+    sinProgramar: raw.sin_programar_2026_2,
+  }
+}
 
-  { id: 'ingenieria-economica', code: '2015703', name: 'Ingeniería económica', credits: 3, semester: 7, track: 'fundamentacion', category: 'Ciencias económicas y administrativas', prereqs: [] },
-  { id: 'control', code: '2016493', name: 'Control', credits: 4, semester: 7, track: 'profesional', category: 'Señales, sistemas y control', prereqs: ['senales-2'] },
-  { id: 'lineas-antenas', code: '2016503', name: 'Líneas y antenas', credits: 3, semester: 7, track: 'profesional', category: 'Telecomunicaciones', prereqs: ['campos'] },
-  { id: 'comunicaciones', code: '2016492', name: 'Comunicaciones', credits: 3, semester: 7, track: 'profesional', category: 'Telecomunicaciones', prereqs: ['senales-2', 'campos'] },
-  { id: 'opt-digital', code: 'OPT', name: 'Optativa de electrónica digital', credits: 3, semester: 7, track: 'profesional', category: 'Electrónica digital', prereqs: ['electronica-digital-2'], tag: 'Optativa' },
+const allCourses = rawPlan.map(subjectFromRaw)
 
-  { id: 'opt-admin-1', code: 'OPT', name: 'Optativa de administración', credits: 3, semester: 8, track: 'fundamentacion', category: 'Ciencias económicas y administrativas', prereqs: [], tag: 'Optativa' },
-  { id: 'libre-profundizacion-1', code: 'CLE', name: 'Libre elección · profundización o complementaria', credits: 3, semester: 8, track: 'electiva', category: 'Libre elección', prereqs: [], tag: 'CLE' },
-  { id: 'opt-telecomunicaciones', code: '2019125', name: 'Optativa de telecomunicaciones', credits: 3, semester: 8, track: 'profesional', category: 'Telecomunicaciones', prereqs: ['comunicaciones'], tag: 'Optativa' },
-  { id: 'potencia', code: '2016497', name: 'Electrónica de potencia', credits: 4, semester: 8, track: 'profesional', category: 'Electrónica análoga', prereqs: ['opt-analoga', 'opt-digital'] },
+export const subjects = allCourses.filter((subject) => !subject.tipologia.startsWith('NIVELACIÓN'))
 
-  { id: 'opt-admin-2', code: 'OPT', name: 'Optativa de administración', credits: 3, semester: 9, track: 'fundamentacion', category: 'Ciencias económicas y administrativas', prereqs: ['opt-admin-1'], tag: 'Optativa' },
-  { id: 'libre-profundizacion-2', code: 'CLE', name: 'Libre elección · profundización o complementaria', credits: 3, semester: 9, track: 'electiva', category: 'Libre elección', prereqs: [], tag: 'CLE' },
-  { id: 'libre-profundizacion-3', code: 'CLE', name: 'Libre elección · profundización o complementaria', credits: 3, semester: 9, track: 'electiva', category: 'Libre elección', prereqs: [], tag: 'CLE' },
-  { id: 'libre-profundizacion-4', code: 'CLE', name: 'Libre elección · profundización o complementaria', credits: 4, semester: 9, track: 'electiva', category: 'Libre elección', prereqs: [], tag: 'CLE' },
-  { id: 'taller-proyectos', code: '2016510', name: 'Taller de proyectos interdisciplinarios', credits: 3, semester: 9, track: 'profesional', category: 'Contexto profesional, innovación e investigación', prereqs: [], globalPrereqs: [{ kind: 'regularCredits', value: 121, label: '121 créditos académicos aprobados' }] },
+export const supportSubjects: SupportSubject[] = allCourses
+  .filter((subject) => subject.tipologia.startsWith('NIVELACIÓN'))
+  .map((subject) => ({
+    id: subject.id,
+    code: subject.code,
+    name: subject.name,
+    credits: subject.credits,
+    kind: isLanguageCourse(subject.name) ? 'idioma' : 'nivelacion',
+    prereqGroups: subject.prereqGroups,
+    sinProgramar: subject.sinProgramar,
+  }))
 
-  { id: 'libre-profundizacion-5', code: 'CLE', name: 'Libre elección · profundización o complementaria', credits: 3, semester: 10, track: 'electiva', category: 'Libre elección', prereqs: [], tag: 'CLE' },
-  { id: 'libre-profundizacion-6', code: 'CLE', name: 'Libre elección · profundización o complementaria', credits: 3, semester: 10, track: 'electiva', category: 'Libre elección', prereqs: [], tag: 'CLE' },
-  { id: 'libre-profundizacion-7', code: 'CLE', name: 'Libre elección · profundización o complementaria', credits: 3, semester: 10, track: 'electiva', category: 'Libre elección', prereqs: [], tag: 'CLE' },
-  { id: 'diseno-sistemas', code: '2016494', name: 'Diseño de sistemas electrónicos', credits: 3, semester: 10, track: 'profesional', category: 'Electrónica digital', prereqs: ['potencia'] },
-  { id: 'trabajo-grado', code: '2015316', name: 'Trabajo de grado', credits: 6, semester: 10, track: 'profesional', category: 'Trabajo de grado', prereqs: ['taller-proyectos'], globalPrereqs: [{ kind: 'disciplinaryCredits', value: 63, label: '63 créditos disciplinares aprobados' }], tag: 'Grado' },
-]
+export const disciplinaryIds = new Set(subjects.filter((subject) => subject.tipologia.startsWith('DISCIPLINAR')).map((subject) => subject.id))
 
-export const supportSubjects: SupportSubject[] = [
-  { id: 'matematicas-basicas', code: '1000001', name: 'Matemáticas básicas', credits: 4, kind: 'nivelacion', prereqs: [] },
-  { id: 'lecto-escritura', code: '1000002', name: 'Lecto-escritura', credits: 4, kind: 'nivelacion', prereqs: [] },
-  { id: 'ingles-1', code: '1000044', name: 'Inglés I', credits: 3, kind: 'idioma', prereqs: [] },
-  { id: 'ingles-2', code: '1000045', name: 'Inglés II', credits: 3, kind: 'idioma', prereqs: ['ingles-1'] },
-  { id: 'ingles-3', code: '1000046', name: 'Inglés III', credits: 3, kind: 'idioma', prereqs: ['ingles-2'] },
-  { id: 'ingles-4', code: '1000047', name: 'Inglés IV', credits: 3, kind: 'idioma', prereqs: ['ingles-3'] },
-]
-
-export const disciplinaryIds = new Set(subjects.filter((subject) => subject.track === 'profesional').map((subject) => subject.id))
+export const rawCourseCount = rawPlan.length
+export const unplacedCourseCount = subjects.filter((subject) => subject.semester === null).length

@@ -1,12 +1,15 @@
 {
   "name": "mallatronica",
   "private": true,
+  "license": "MIT",
+  "repository": { "type": "git", "url": "https://github.com/sebastianvelace/mallatronica.git" },
   "version": "0.1.0",
   "type": "module",
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "test": "node --test tests/*.test.cjs"
   },
   "devDependencies": {
     "typescript": "^5.9.3",

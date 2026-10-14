@@ -1,5 +1,10 @@
 import './style.css'
-import { curriculumMeta, disciplinaryIds, semesterTotals, subjects, supportSubjects, type Subject } from './data/curriculum'
+import { mountCurriculumBoard, renderCurriculumBoard, type BoardOptions } from './ui/curriculum-board'
+import { courseCodeKey, curriculumMeta, disciplinaryIds, rawCourseCount, subjects, supportSubjects, type PrerequisiteGroup, type PrerequisiteRef, type Subject } from './data/curriculum'
+import { normalizeCatalogCourse, readCatalogCourses, type CatalogCourse } from './domain/catalog'
+import { readElectiveAssignments, type ElectiveAssignments } from './domain/electives'
+import { recordedAverage, readGrades } from './domain/grades'
+import { creditBalance } from './domain/credit-balance'
 
 type Status = 'aprobada' | 'reprobada' | 'pendiente'
 type View = 'malla' | 'calculadora' | 'horario' | 'libre' | 'info'
@@ -17,17 +22,10 @@ type ScheduleSlot = {
   room: string
 }
 
-type ChoiceCourse = {
-  id: string
-  code: string
-  name: string
-  credits: number
-  category: string
-  source: 'manual' | 'imported'
-}
+type ChoiceCourse = CatalogCourse
 
 type State = {
-  schemaVersion: 4
+  schemaVersion: 5
   subjects: Record<string, Status>
   notes: Record<string, number>
   theme: 'dark' | 'light'
@@ -37,30 +35,33 @@ type State = {
   english: RequirementStatus
   schedule: ScheduleSlot[]
   freeChoice: ChoiceCourse[]
+  electiveAssignments: ElectiveAssignments
 }
 
 const totalCredits = curriculumMeta.regularCredits
-const semesters = Array.from(new Set(subjects.map((subject) => subject.semester))).sort((a, b) => a - b)
+const semesters = Array.from(new Set(subjects.map((subject) => subject.semester).filter((semester): semester is number => semester !== null))).sort((a, b) => a - b)
 const scheduleDays: ScheduleDay[] = ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes']
 
 const defaultState: State = {
-  schemaVersion: 4,
+  schemaVersion: 5,
   subjects: {},
   notes: {},
-  theme: 'dark',
+  theme: 'light',
   connections: true,
   mathBasics: 'cumplida',
   literacy: 'no-aplica',
   english: 'exento',
   schedule: [],
   freeChoice: [],
+  electiveAssignments: {},
 }
 
 const STATE_KEY = 'mallatronica-state-v2'
 
 let state = loadState()
 let activeView: View = 'malla'
-let activeMenu: string | null = null
+let disposeBoard = () => {}
+let pendingCourseId: string | undefined
 let freeChoiceQuery = ''
 let freeChoiceCategory = 'all'
 let pendingScheduleSubjectId: string | null = null
@@ -74,12 +75,14 @@ function loadState(): State {
     const parsed = JSON.parse(raw) as Partial<State>
     return {
       ...defaultState,
-      schemaVersion: 3,
+      schemaVersion: 5,
       ...parsed,
+      theme: parsed.schemaVersion === 5 && parsed.theme === 'dark' ? 'dark' : 'light',
       subjects: parsed.subjects ?? {},
-      notes: parsed.notes ?? {},
+      notes: readGrades(parsed.notes),
       schedule: Array.isArray(parsed.schedule) ? parsed.schedule.filter(isScheduleSlot) : [],
       freeChoice: Array.isArray(parsed.freeChoice) ? parsed.freeChoice.filter(isChoiceCourse) : [],
+      electiveAssignments: readElectiveAssignments(parsed.electiveAssignments, Array.isArray(parsed.freeChoice) ? parsed.freeChoice.filter(isChoiceCourse) : []),
     }
   } catch {
     return { ...defaultState, subjects: {}, notes: {}, schedule: [], freeChoice: [] }
@@ -121,17 +124,37 @@ function isApproved(subject: Subject) {
 }
 
 function getApprovedCredits() {
-  return subjects.reduce((sum, subject) => sum + (isApproved(subject) ? subject.credits : 0), 0)
+  return creditBalance(subjects.filter(isApproved).map(subject => subject.id)).allocated
 }
 
 function getApprovedDisciplinaryCredits() {
   return subjects.reduce((sum, subject) => sum + (disciplinaryIds.has(subject.id) && isApproved(subject) ? subject.credits : 0), 0)
 }
 
+function subjectForCode(code: string) {
+  const key = courseCodeKey(code)
+  return subjects.find((subject) => courseCodeKey(subject.code) === key)
+}
+
+function prerequisiteSatisfied(reference: PrerequisiteRef) {
+  const subject = subjectForCode(reference.code)
+  return subject ? isApproved(subject) : false
+}
+
+function prerequisiteGroupSatisfied(group: PrerequisiteGroup) {
+  const statuses = group.items.map(prerequisiteSatisfied)
+  return group.mode === 'all' ? statuses.every(Boolean) : statuses.some(Boolean)
+}
+
+function prerequisiteGroupLabel(group: PrerequisiteGroup) {
+  const names = group.items.map((item) => `${item.name} (${item.code})`).join(group.mode === 'all' ? ' y ' : ' o ')
+  return `Condición ${group.condition}: ${names}`
+}
+
 function getMissingRequirements(subject: Subject) {
-  const missing = subject.prereqs
-    .filter((id) => getStatus(subjects.find((item) => item.id === id)!) !== 'aprobada')
-    .map((id) => subjects.find((item) => item.id === id)?.name ?? id)
+  const missing = subject.prereqGroups === null
+    ? ['Prerrequisitos no publicados por el SIA']
+    : subject.prereqGroups.filter((group) => !prerequisiteGroupSatisfied(group)).map(prerequisiteGroupLabel)
 
   if (subject.id === 'calculo-diferencial' && state.mathBasics === 'pendiente' && supportStatus('matematicas-basicas') !== 'aprobada') missing.unshift('Matemáticas básicas')
 
@@ -164,7 +187,8 @@ function supportStatus(id: string): Status | 'exento' | 'disponible' | 'bloquead
   const support = supportSubjects.find((item) => item.id === id)!
   if (state.subjects[id] === 'aprobada') return 'aprobada'
   if (state.subjects[id] === 'reprobada') return 'reprobada'
-  if (support.prereqs.every((prereq) => supportStatus(prereq) === 'aprobada')) return 'disponible'
+  if (support.prereqGroups === null || support.prereqGroups.length === 0) return 'disponible'
+  if (support.prereqGroups.every(prerequisiteGroupSatisfied)) return 'disponible'
   return 'bloqueada'
 }
 
@@ -174,9 +198,12 @@ function icon(name: string) {
     calculator: '<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="2.5" width="16" height="19" rx="2"/><path d="M7 6.5h10M7.5 11h.01M12 11h.01M16.5 11h.01M7.5 15h.01M12 15h.01M16.5 15h.01M7.5 19h.01M12 19h.01M16.5 19h.01"/></svg>',
     calendar: '<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4.5" width="18" height="17" rx="2"/><path d="M7 2.5v4M17 2.5v4M3 9h18M7 13h.01M12 13h.01M17 13h.01M7 17h.01M12 17h.01"/></svg>',
     info: '<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 10.5v6M12 7.5h.01"/></svg>',
+    book: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5.5A2.5 2.5 0 0 1 6.5 3H20v17H6.5A2.5 2.5 0 0 0 4 22V5.5Z"/><path d="M4 5.5V22M8 7h8M8 11h8"/></svg>',
     sun: '<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="3.5"/><path d="M12 2v2M12 20v2M4.93 4.93l1.42 1.42M17.65 17.65l1.42 1.42M2 12h2M20 12h2M4.93 19.07l1.42-1.42M17.65 6.35l1.42-1.42"/></svg>',
     download: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12M7 10l5 5 5-5M4 21h16"/></svg>',
     upload: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21V9M7 12l5-5 5 5M4 3h16"/></svg>',
+    menu: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>',
+    close: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="m6 6 12 12M18 6 6 18"/></svg>',
     arrow: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>',
     zap: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="m13 2-9 12h7l-1 8 9-12h-7l1-8Z"/></svg>',
   }
@@ -188,7 +215,7 @@ function getStatus(subject: Subject): Status | 'disponible' | 'parcial' | 'bloqu
   if (state.subjects[subject.id]) return state.subjects[subject.id]
   const missing = getMissingRequirements(subject)
   if (missing.length === 0) return 'disponible'
-  const total = subject.prereqs.length + (subject.globalPrereqs?.length ?? 0) + (subject.id === 'calculo-diferencial' && state.mathBasics === 'pendiente' ? 1 : 0)
+  const total = (subject.prereqGroups?.length ?? 0) + (subject.globalPrereqs?.length ?? 0) + (subject.id === 'calculo-diferencial' && state.mathBasics === 'pendiente' ? 1 : 0)
   const satisfied = total - missing.length
   if (satisfied > 0) return 'parcial'
   return 'bloqueada'
@@ -211,86 +238,104 @@ function calculateApprovedCredits() {
 }
 
 function render() {
+  disposeBoard()
   const approvedCredits = calculateApprovedCredits()
   const percentage = Math.round((approvedCredits / totalCredits) * 100)
   document.documentElement.dataset.theme = state.theme
   app.innerHTML = `
-    <div class="shell">
-      <aside class="sidebar">
-        <div class="brand-lockup">
-          <div class="brand-mark"><span></span><span></span><span></span></div>
-          <div><div class="brand-name">mallatrónica</div><div class="brand-meta">UNAL · BOGOTÁ</div></div>
-        </div>
-        <div class="sidebar-divider"></div>
-        <div class="rail-label">Espacio de trabajo</div>
-        <nav class="nav-list" aria-label="Secciones principales">
-          ${navItem('malla', icon('grid'), 'Malla curricular', '01')}
-          ${navItem('calculadora', icon('calculator'), 'Calculadora PAPA', '02')}
-          ${navItem('horario', icon('calendar'), 'Horario semanal', '03')}
-          ${navItem('info', icon('info'), 'Info y enlaces', '04')}
-        </nav>
-        <div class="sidebar-foot">
-          <div class="sync-dot"><span></span> Guardado localmente</div>
-          <p>Tu avance vive en este navegador. Exportalo para llevarlo con vos.</p>
-          <div class="foot-rule"></div>
-          <small>v0.2 · Plan ${curriculumMeta.plan}</small>
-        </div>
-      </aside>
+    <div class="workspace-shell">
       <main class="main-content">
-        <header class="topbar">
-          <div class="breadcrumb"><span>Mi carrera</span><span class="slash">/</span><strong>${activeView === 'malla' ? 'Malla curricular' : activeView === 'calculadora' ? 'Calculadora histórica' : activeView === 'horario' ? 'Horario semanal' : 'Información'}</strong></div>
-          <div class="top-actions">
-            <button class="icon-button" data-action="theme" title="Cambiar tema">${icon('sun')}<span class="hide-mobile">${state.theme === 'dark' ? 'Modo claro' : 'Modo oscuro'}</span></button>
-            <button class="button button-quiet" data-action="export">${icon('download')}<span class="hide-mobile">Exportar avance</span></button>
-            <button class="avatar" aria-label="Perfil local">SV</button>
+        <header class="workspace-header">
+          <div class="workspace-brand"><span class="brand-name">mallatrónica</span><span class="workspace-campus">UNAL · Bogotá</span></div>
+          <nav class="workspace-nav" aria-label="Navegación principal">
+            ${navItem('malla', icon('grid'), 'Malla', 'Malla curricular')}
+            ${navItem('calculadora', icon('calculator'), 'Notas', 'Notas y promedio')}
+            ${navItem('horario', icon('calendar'), 'Horario', 'Horario semanal')}
+            ${navItem('libre', icon('book'), 'Libre elección', 'Libre elección')}
+            ${navItem('info', icon('info'), 'Ayuda', 'Fuentes y ayuda')}
+          </nav>
+          <div class="workspace-actions">
+            <a class="github-link" href="https://github.com/sebastianvelace/mallatronica" target="_blank" rel="noopener noreferrer" aria-label="Ver el código y contribuir en GitHub (abre otra pestaña)">GitHub ${icon('arrow')}</a>
+            <button data-action="theme" aria-label="Cambiar tema" title="Cambiar tema">${icon('sun')}</button>
+            <button data-action="export" aria-label="Exportar avance" title="Exportar avance">${icon('download')}<span>Exportar</span></button>
           </div>
         </header>
-        ${activeView === 'malla' ? renderMalla(approvedCredits, percentage) : activeView === 'calculadora' ? renderCalculator() : activeView === 'horario' ? renderSchedule() : renderInfo()}
+        ${activeView === 'malla' ? renderMalla(approvedCredits, percentage) : activeView === 'calculadora' ? renderCalculator() : activeView === 'horario' ? renderSchedule() : activeView === 'libre' ? renderFreeChoice() : renderInfo()}
       </main>
     </div>
     <input type="file" id="import-file" accept="application/json" hidden />
+    <input type="file" id="catalog-file" accept="application/json" hidden />
   `
   bindEvents()
-  requestAnimationFrame(drawConnections)
+  disposeBoard = mountCurriculumBoard(app, boardOptions())
+  pendingCourseId = undefined
 }
 
-function navItem(view: View, svg: string, label: string, number: string) {
-  return `<button class="nav-item ${activeView === view ? 'active' : ''}" data-view="${view}"><span class="nav-icon">${svg}</span><span>${label}</span><small>${number}</small></button>`
+function navItem(view: View, svg: string, label: string, accessibleLabel: string) {
+  return `<button class="workspace-nav-item ${activeView === view ? 'active' : ''}" data-view="${view}" aria-label="${accessibleLabel}"${activeView === view ? ' aria-current="page"' : ''}>${svg}<span>${label}</span></button>`
 }
 
 function renderMalla(approvedCredits: number, percentage: number) {
+  const average = recordedAverage(state.notes)
   return `
-    <section class="page-heading">
-      <div>
-        <div class="eyebrow"><span class="eyebrow-dot"></span> Plan ${curriculumMeta.plan} · referencia 2023</div>
-        <h1>Entendé tu <em>ruta.</em></h1>
-        <p class="lede">Una lectura clara de tus cursos, prerrequisitos y créditos. Tu avance se guarda solo en este dispositivo.</p>
-      </div>
-      <div class="heading-note"><span>FUENTE</span><strong>${curriculumMeta.program}</strong><small>${curriculumMeta.campus} · ${curriculumMeta.sourceLabel}</small></div>
-    </section>
-    <section class="progress-panel">
-      <div class="progress-main">
-        <div class="progress-value">${percentage}<span>%</span></div>
-        <div><div class="progress-title">Créditos regulares aprobados</div><div class="progress-subtitle"><strong>${approvedCredits}</strong> de ${totalCredits} · disciplinares: ${getApprovedDisciplinaryCredits()} / ${curriculumMeta.disciplinaryCredits}</div></div>
-      </div>
-      <div class="progress-track"><div class="progress-fill" style="width: ${Math.max(percentage, 1)}%"><i></i></div><div class="track-mark mark-25"></div><div class="track-mark mark-50"></div><div class="track-mark mark-75"></div></div>
-      <div class="progress-foot"><span>Inicio</span><span>Mitad de carrera</span><span>Grado</span></div>
-      <div class="progress-actions"><button class="button button-outline" data-action="reset">Reiniciar estado</button><button class="button button-solid" data-view="calculadora">Abrir calculadora ${icon('arrow')}</button></div>
-    </section>
-    <section class="toolbar">
-      <div class="legend"><span class="toolbar-label">Lectura del mapa</span>${legendItem('available', 'Disponible')}${legendItem('partial', 'Parcial')}${legendItem('blocked', 'Bloqueada')}${legendItem('pending', 'Pendiente')}${legendItem('approved', 'Aprobada')}</div>
-      <div class="toolbar-controls"><button class="toggle ${state.connections ? 'on' : ''}" data-action="connections"><span></span> Conexiones ${state.connections ? 'ON' : 'OFF'}</button><button class="text-button" data-action="import">${icon('upload')} Importar</button></div>
-    </section>
-    <section class="map-wrap">
-      <div class="map-caption"><span><strong>MALLA CURRICULAR</strong> · ${subjects.length} espacios académicos</span><span class="map-help">Clic: aprobar · <b>⋮</b>: opciones</span></div>
-      <div class="curriculum-map">
-        <div class="track-labels"><div class="track-header">Componente</div><div class="track-segment foundation">Fundamentación</div><div class="track-segment professional">Formación profesional</div><div class="track-segment elective">Libre elección</div></div>
-        <div class="semester-board">${state.connections ? connectionSvg() : ''}${semesters.map((semester) => renderSemester(semester)).join('')}</div>
-      </div>
-    </section>
-    ${renderSupportTracks()}
-    <div class="privacy-strip"><span class="privacy-icon">${icon('zap')}</span><span><strong>Datos bajo tu control.</strong> La malla es una referencia del Plan 2545. Contrastá prerrequisitos, homologaciones y vigencia con el SIA.</span><button data-view="info">Ver alcance ${icon('arrow')}</button></div>
+    <section class="curriculum-heading"><div><p>UNAL Bogotá <span>/</span> Plan 2545</p><h1>Ingeniería Electrónica<span>.</span></h1><p>Tu carrera, materia por materia.</p></div><div class="curriculum-metrics"><div class="recorded-average"><span>Promedio registrado</span><strong data-recorded-average>${average.value?.toFixed(2) ?? 'Sin notas'}</strong><small>${average.courses} materias · ${average.credits} créditos con nota</small><details><summary>¿Es mi PAPA?</summary><p>Es una estimación ponderada por créditos. Usa una nota por materia del plan, incluidas las reprobadas; excluye aprobadas sin nota, nivelación y libre elección. No reemplaza el PAPA de tu historia académica completa.</p></details></div><div class="curriculum-progress"><strong>${approvedCredits}<span> / ${totalCredits} cr.</span></strong><div role="progressbar" aria-label="Créditos aprobados" aria-valuenow="${Math.min(100, percentage)}" aria-valuemin="0" aria-valuemax="100"><i style="width:${Math.min(100, percentage)}%"></i></div><small>${percentage}% del plan registrado</small></div></div></section>
+    ${renderCreditBalance()}
+    ${renderCurriculumBoard(boardOptions())}
+    <details class="curriculum-support"><summary>Nivelación y lengua extranjera <span>Configurar mi situación</span></summary>${renderSupportTracks()}</details>
+    <footer class="curriculum-footer"><span>Avance guardado en este navegador · oferta y requisitos finales en el SIA</span><div><button class="text-button" data-action="import">Importar avance</button><button class="text-button" data-view="info">Fuentes y alcance</button><button class="text-button" data-action="reset">Reiniciar</button></div></footer>
   `
+}
+
+function renderCreditBalance() {
+  const balance = creditBalance(subjects.filter(isApproved).map(subject => subject.id))
+  return `<details class="curriculum-support credit-balance"><summary>Balance de créditos <span>Requisitos por componente · ${balance.required} créditos</span></summary>
+    <p>Estimación por componente, no certificación de grado. Las agrupaciones de optativas aún necesitan validación; los excedentes no pasan automáticamente a libre elección.</p>
+    <div class="credit-balance-table"><table><caption>Créditos registrados y exigidos</caption><thead><tr><th scope="col">Componente</th><th scope="col">Registrados</th><th scope="col">Exigidos</th><th scope="col">Faltantes estimados</th></tr></thead><tbody>${balance.rows.map(row => `<tr><th scope="row">${row.category}</th><td>${row.recorded}</td><td>${row.required}</td><td>${row.remaining}</td></tr>`).join('')}</tbody></table></div>
+    <p>Trabajo de grado aporta como máximo 6 créditos al balance, aunque registres ambas alternativas. Libre elección permanece pendiente mientras sus aprobaciones no estén implementadas. La nivelación es individual y no se suma a los 172 créditos.</p>
+    <p>Fuente: resumen SIA del plan 2545, consulta del 13 de octubre de 2026. No se importó progreso personal.</p></details>`
+}
+
+function boardOptions(): BoardOptions {
+  return {
+    status: getStatus,
+    missing: getMissingRequirements,
+    approved: isApproved,
+    note: (id) => state.notes[id],
+    inspectId: pendingCourseId,
+    electiveAssignments: state.electiveAssignments,
+    freeChoices: state.freeChoice,
+    assignElective: (key, id) => {
+      const next = { ...state.electiveAssignments }
+      if (id) next[key] = id
+      else delete next[key]
+      state.electiveAssignments = readElectiveAssignments(next, state.freeChoice)
+      saveState(); render()
+      app.querySelector<HTMLButtonElement>(`[data-slot-key="${key}"]`)?.focus({ preventScroll: true })
+    },
+    saveGrade: (subject, grade) => {
+      if (grade !== undefined && (!Number.isFinite(grade) || grade < 0 || grade > 5)) return
+      if (grade === undefined) {
+        if (state.notes[subject.id] !== undefined) state.subjects[subject.id] = isApproved(subject) ? 'aprobada' : 'reprobada'
+        delete state.notes[subject.id]
+      } else state.notes[subject.id] = grade
+      pendingCourseId = subject.id
+      saveState(); render()
+    },
+    update: (subject, status) => {
+      if (state.notes[subject.id] !== undefined) return
+      if (status === 'aprobada' && !canApprove(subject)) { showRequirementToast(subject); return }
+      if (status === 'clear') delete state.subjects[subject.id]
+      else state.subjects[subject.id] = status
+      pendingCourseId = subject.id
+      saveState()
+      render()
+    },
+    schedule: (subject) => {
+      pendingScheduleSubjectId = subject.id
+      activeView = 'horario'
+      render()
+    },
+  }
 }
 
 function renderSupportTracks() {
@@ -319,67 +364,16 @@ function renderSupportTracks() {
   return `<section class="support-tracks"><div class="support-intro"><span class="panel-kicker">Fuera de los 172 créditos regulares</span><h2>Tu situación también importa.</h2><p>Estas rutas dependen de tu historia académica. No las tratamos como si fueran iguales para todas las personas.</p></div><div class="support-grid">${track('nivelacion', 'Nivelación', 'Matemáticas básicas y lecto-escritura se registran aparte del plan regular.')}${track('idioma', 'Lengua extranjera', 'Si aprobaste el examen de clasificación, tu cadena de inglés queda exenta.')}</div></section>`
 }
 
-function legendItem(className: string, label: string) {
-  return `<span class="legend-item"><i class="legend-dot ${className}"></i>${label}</span>`
-}
-
-function renderSemester(semester: number) {
-  const semesterSubjects = subjects.filter((subject) => subject.semester === semester)
-  return `<div class="semester-column"><div class="semester-title"><span>${String(semester).padStart(2, '0')}</span><strong>Semestre ${semester}</strong></div><div class="subject-stack">${semesterSubjects.map(renderSubject).join('')}</div><div class="semester-total">${semesterSubjects.reduce((sum, subject) => sum + subject.credits, 0)} créditos <small>/ ${semesterTotals[semester - 1]}</small></div></div>`
-}
-
-function connectionSvg() {
-  return `<svg class="connection-layer" preserveAspectRatio="none" aria-hidden="true"></svg>`
-}
-
-function drawConnections() {
-  const board = app.querySelector<HTMLElement>('.semester-board')
-  const svg = app.querySelector<SVGElement>('.connection-layer')
-  if (!board || !svg || !state.connections) return
-  const boardRect = board.getBoundingClientRect()
-  const width = Math.max(board.scrollWidth, boardRect.width)
-  const height = Math.max(board.scrollHeight, boardRect.height)
-  svg.setAttribute('viewBox', `0 0 ${width} ${height}`)
-  const paths = subjects.flatMap((subject) => subject.prereqs.map((prereq) => {
-    const from = app.querySelector<HTMLElement>(`[data-subject="${prereq}"]`)
-    const to = app.querySelector<HTMLElement>(`[data-subject="${subject.id}"]`)
-    if (!from || !to) return ''
-    const fromRect = from.getBoundingClientRect()
-    const toRect = to.getBoundingClientRect()
-    const x1 = fromRect.right - boardRect.left
-    const y1 = fromRect.top + fromRect.height / 2 - boardRect.top
-    const x2 = toRect.left - boardRect.left
-    const y2 = toRect.top + toRect.height / 2 - boardRect.top
-    const bend = Math.max(28, (x2 - x1) * 0.45)
-    return `<path d="M ${x1.toFixed(1)} ${y1.toFixed(1)} C ${(x1 + bend).toFixed(1)} ${y1.toFixed(1)}, ${(x2 - bend).toFixed(1)} ${y2.toFixed(1)}, ${x2.toFixed(1)} ${y2.toFixed(1)}"/>`
-  })).filter(Boolean).join('')
-  svg.innerHTML = paths
-}
-
-function renderSubject(subject: Subject) {
-  const status = getStatus(subject)
-  const info = statusInfo(status)
-  const hasNote = state.notes[subject.id] !== undefined
-  const missing = getMissingRequirements(subject)
-  const requirementText = missing.length ? `<small class="subject-requirements">Falta: ${missing.slice(0, 2).join(' · ')}${missing.length > 2 ? ` · +${missing.length - 2}` : ''}</small>` : ''
-  return `<article class="subject-card ${info.className} ${hasNote ? 'has-note' : ''}" data-subject="${subject.id}" tabindex="0" aria-label="${subject.name}, ${info.label}" title="${missing.length ? `Falta: ${missing.join(', ')}` : 'Sin requisitos pendientes'}">
-    <div class="subject-top"><span class="subject-code">${subject.code}</span><button class="kebab" data-menu="${subject.id}" aria-label="Más opciones para ${subject.name}">⋮</button></div>
-    <h3>${subject.name}</h3>${requirementText}<div class="subject-bottom"><span class="subject-credits">${subject.credits} cr.</span><span class="status-pill ${info.className}"><i>${info.icon}</i>${info.label}</span></div>
-    ${subject.tag ? `<span class="subject-tag">${subject.tag}</span>` : ''}
-    ${activeMenu === subject.id ? `<div class="subject-menu"><button data-status="aprobada" data-subject-action="${subject.id}">✓ Marcar aprobada</button><button data-status="pendiente" data-subject-action="${subject.id}">◷ Marcar pendiente</button><button data-status="reprobada" data-subject-action="${subject.id}">× Marcar reprobada</button><button data-status="clear" data-subject-action="${subject.id}">↺ Limpiar marca</button></div>` : ''}
-  </article>`
-}
-
 function renderCalculator() {
   const entries = Object.entries(state.notes)
   const regularEntries = entries.filter(([id]) => subjects.some((item) => item.id === id))
   const levelingEntries = entries.filter(([id]) => supportSubjects.some((item) => item.id === id && item.kind === 'nivelacion'))
-  const weighted = regularEntries.reduce((sum, [id, note]) => sum + note * (subjects.find((item) => item.id === id)?.credits ?? 0), 0)
-  const credits = regularEntries.reduce((sum, [id]) => sum + (subjects.find((item) => item.id === id)?.credits ?? 0), 0)
-  const papa = credits ? (weighted / credits).toFixed(2) : '0.00'
+  const average = recordedAverage(state.notes)
+  const credits = average.credits
+  const papa = average.value?.toFixed(2) ?? 'Sin notas'
   return `<section class="page-heading compact"><div><div class="eyebrow"><span class="eyebrow-dot"></span> Historial académico</div><h1>Que tus notas <em>cuenten.</em></h1><p class="lede">Registrá las calificaciones por materia y dejá que la ruta se actualice sola.</p></div><div class="heading-note"><span>REGLA DE CÁLCULO</span><strong>Σ (nota × créditos) / Σ créditos</strong><small>Escala de 0.0 a 5.0 · aprobación desde 3.0</small></div></section>
-  <section class="metric-grid"><div class="metric-card accent"><span>PAPA acumulado</span><strong>${papa}</strong><small>Sobre ${credits} créditos regulares con nota</small></div><div class="metric-card"><span>Créditos cursados</span><strong>${credits}</strong><small>Registrados en tu historia</small></div><div class="metric-card"><span>Materias calificadas</span><strong>${regularEntries.length}</strong><small>Podés editar desde la malla</small></div></section>
-  <section class="calculator-layout"><div class="panel"><div class="panel-heading"><div><span class="panel-kicker">Historial</span><h2>Notas por semestre</h2></div><button class="button button-solid" data-action="add-semester">+ Añadir semestre</button></div>${renderLevelingSemester(levelingEntries.length > 0)}${semesters.map((semester) => renderGradeSemester(semester)).join('')}</div><aside class="side-note"><span class="side-note-icon">${icon('zap')}</span><h3>La calculadora manda.</h3><p>Cuando una materia tiene nota, su estado se deriva de ella y el marcado manual queda pausado. Las notas de nivelación se guardan aparte hasta confirmar su tratamiento oficial en el PAPA.</p><button class="text-button" data-view="malla">Volver a la malla ${icon('arrow')}</button></aside></section>`
+  <section class="metric-grid"><div class="metric-card accent"><span>Promedio registrado</span><strong>${papa}</strong><small>Sobre ${credits} créditos regulares con nota</small></div><div class="metric-card"><span>Créditos cursados</span><strong>${credits}</strong><small>Registrados en tu historia</small></div><div class="metric-card"><span>Materias calificadas</span><strong>${regularEntries.length}</strong><small>Editable en cada materia aprobada</small></div></section>
+  <section class="calculator-layout"><div class="panel"><div class="panel-heading"><div><span class="panel-kicker">Historial</span><h2>Notas por materia</h2></div></div>${renderLevelingSemester(levelingEntries.length > 0)}${semesters.map((semester) => renderGradeSemester(semester)).join('')}${subjects.some((subject) => subject.semester === null) ? renderGradeSemester(null) : ''}</div><aside class="side-note"><span class="side-note-icon">${icon('zap')}</span><h3>El estado sigue tu nota.</h3><p>Cuando una materia tiene nota, su estado se deriva de ella y el marcado manual queda pausado. Las notas de nivelación se guardan aparte hasta confirmar su tratamiento oficial en el PAPA.</p><button class="text-button" data-view="malla">Volver a la malla ${icon('arrow')}</button></aside></section>`
 }
 
 function renderLevelingSemester(hasAny: boolean) {
@@ -387,17 +381,45 @@ function renderLevelingSemester(hasAny: boolean) {
   return `<div class="grade-semester leveling-semester"><div class="grade-semester-title"><span>00</span><strong>Nivelación</strong><small>${hasAny ? 'En progreso' : 'Sin registrar'}</small></div><p class="leveling-note">Semestre 0 · Matemáticas básicas y lecto-escritura se registran aparte de los créditos regulares. Su efecto en el PAPA debe confirmarse con el SIA.</p><div class="grade-rows">${levelingSubjects.map((subject) => `<label class="grade-row"><span>${subject.name}<small>${subject.credits} créditos · ${subject.code}</small></span><input type="number" min="0" max="5" step="0.1" value="${state.notes[subject.id] ?? ''}" placeholder="—" data-note="${subject.id}" aria-label="Nota de ${subject.name}" /></label>`).join('')}</div></div>`
 }
 
-function renderGradeSemester(semester: number) {
+function renderGradeSemester(semester: number | null) {
   const semesterSubjects = subjects.filter((subject) => subject.semester === semester)
   const hasAny = semesterSubjects.some((subject) => state.notes[subject.id] !== undefined)
-  return `<div class="grade-semester"><div class="grade-semester-title"><span>0${semester}</span><strong>Semestre ${semester}</strong><small>${hasAny ? 'En progreso' : 'Sin registrar'}</small></div><div class="grade-rows">${semesterSubjects.map((subject) => `<label class="grade-row"><span>${subject.name}<small>${subject.credits} créditos · ${subject.code}</small></span><input type="number" min="0" max="5" step="0.1" value="${state.notes[subject.id] ?? ''}" placeholder="—" data-note="${subject.id}" aria-label="Nota de ${subject.name}" /></label>`).join('')}</div></div>`
+  return `<div class="grade-semester"><div class="grade-semester-title"><span>${semester === null ? 'SIA' : String(semester).padStart(2, '0')}</span><strong>${semester === null ? 'Materias del catálogo sin semestre asignado' : `Semestre ${semester}`}</strong><small>${hasAny ? 'En progreso' : 'Sin registrar'}</small></div><div class="grade-rows">${semesterSubjects.map((subject) => `<label class="grade-row"><span>${subject.name}<small>${subject.credits} créditos · ${subject.code}</small></span><input type="number" min="0" max="5" step="0.1" value="${state.notes[subject.id] ?? ''}" placeholder="—" data-note="${subject.id}" aria-label="Nota de ${subject.name}" /></label>`).join('')}</div></div>`
+}
+
+function getScheduleCourses() {
+  return [...subjects, ...state.freeChoice]
+}
+
+function getScheduleCourse(id: string) {
+  return getScheduleCourses().find((course) => course.id === id)
+}
+
+function renderFreeChoice() {
+  const categories = Array.from(new Set(state.freeChoice.map((course) => course.category))).sort((a, b) => a.localeCompare(b))
+  const query = freeChoiceQuery.trim().toLocaleLowerCase()
+  const visibleCourses = state.freeChoice.filter((course) => {
+    const matchesQuery = !query || `${course.name} ${course.code}`.toLocaleLowerCase().includes(query)
+    const matchesCategory = freeChoiceCategory === 'all' || course.category === freeChoiceCategory
+    return matchesQuery && matchesCategory
+  })
+  const catalogContent = state.freeChoice.length
+    ? visibleCourses.length
+      ? `<div class="choice-grid">${visibleCourses.map((course) => `<article class="choice-card"><div class="choice-card-top"><span class="subject-code">${escapeHtml(course.code)}</span><span class="choice-source">${course.source === 'imported' ? 'Importada' : 'Manual'}</span></div><h3>${escapeHtml(course.name)}</h3><p>${escapeHtml(course.category)}</p><div class="choice-card-bottom"><span>${course.credits} créditos</span><div><button class="text-button" data-choice-schedule="${course.id}">Al horario ${icon('arrow')}</button><button class="choice-remove" type="button" data-choice-remove="${course.id}" aria-label="Eliminar ${escapeHtml(course.name)}">×</button></div></div></article>`).join('')}</div>`
+      : `<div class="catalog-empty"><h2>No hay coincidencias</h2><p>Probá con otro nombre, código o componente.</p></div>`
+    : `<div class="catalog-empty"><div class="empty-orbit">${icon('book')}</div><h2>Catálogo todavía no importado</h2><p>El SIA ofrece un buscador oficial por asignatura, plan, horario y tipología. Importá aquí un JSON exportado o agregá materias manualmente mientras conectamos esa fuente.</p><button class="button button-solid" data-action="import-catalog">Importar catálogo JSON</button></div>`
+
+  return `<section class="page-heading compact"><div><div class="eyebrow"><span class="eyebrow-dot"></span> Catálogo personal</div><h1>Elegí con <em>criterio.</em></h1><p class="lede">Guardá opciones de libre elección y pasalas al horario sin confundirlas con una oferta oficial.</p></div><div class="heading-note"><span>FUENTE</span><strong>${state.freeChoice.length} opción${state.freeChoice.length === 1 ? '' : 'es'}</strong><small>Catálogo local · validar en SIA</small></div></section>
+  <section class="catalog-toolbar"><form data-choice-search><label><span>Buscar</span><input name="query" value="${escapeHtml(freeChoiceQuery)}" placeholder="Nombre o código" /></label><label><span>Componente</span><select name="category"><option value="all">Todos</option>${categories.map((category) => `<option value="${escapeHtml(category)}" ${freeChoiceCategory === category ? 'selected' : ''}>${escapeHtml(category)}</option>`).join('')}</select></label><button class="button button-outline" type="submit">Filtrar</button></form><div class="toolbar-controls"><button class="button button-quiet" type="button" data-action="import-catalog">Importar JSON</button></div></section>
+  <section class="choice-entry"><form data-choice-form><div><span class="panel-kicker">Agregar opción</span><p>Usá datos que hayas verificado en el SIA.</p></div><label><span>Código</span><input name="code" maxlength="30" placeholder="Ej. 201XXXX" required /></label><label class="choice-name-field"><span>Nombre</span><input name="name" maxlength="100" placeholder="Nombre de la asignatura" required /></label><label><span>Créditos</span><input name="credits" type="number" min="1" max="12" step="1" value="3" required /></label><label><span>Componente</span><input name="category" maxlength="60" placeholder="Ej. 2CLE" required /></label><button class="button button-solid" type="submit">Guardar opción ${icon('arrow')}</button></form></section>
+  <section class="choice-results"><div class="map-caption"><span><strong>OPCIONES GUARDADAS</strong> · ${visibleCourses.length} visibles</span><span class="map-help">Se guardan solo en este navegador</span></div>${catalogContent}</section>`
 }
 
 function renderSchedule() {
   const slotCount = state.schedule.length
   return `<section class="page-heading compact"><div><div class="eyebrow"><span class="eyebrow-dot"></span> Planeación semanal</div><h1>Armá tu <em>semana.</em></h1><p class="lede">Agregá tus bloques manualmente y detectá choques antes de armar la matrícula.</p></div><div class="heading-note"><span>FUENTE</span><strong>Carga manual</strong><small>Los grupos del SIA todavía no están conectados</small></div></section>
   <section class="schedule-toolbar"><div><span class="panel-kicker">Tu horario</span><h2>${slotCount ? `${slotCount} bloque${slotCount === 1 ? '' : 's'} guardado${slotCount === 1 ? '' : 's'}` : 'Todavía no hay bloques'}</h2></div><div class="toolbar-controls"><button class="button button-outline" data-action="copy-schedule" ${slotCount ? '' : 'disabled'}>${icon('download')} Copiar</button><button class="button button-solid" data-action="print-schedule">Imprimir</button><button class="text-button" data-action="clear-schedule" ${slotCount ? '' : 'disabled'}>Vaciar</button></div></section>
-  <section class="schedule-workspace"><form class="schedule-form" data-schedule-form><div class="schedule-form-head"><span class="panel-kicker">Agregar bloque</span><p>Solo guardamos estos datos en tu navegador.</p></div><label><span>Materia</span><select name="subjectId" required>${subjects.map((subject) => `<option value="${subject.id}">${subject.name} · ${subject.code}</option>`).join('')}</select></label><div class="schedule-form-grid"><label><span>Día</span><select name="day">${scheduleDays.map((day) => `<option value="${day}">${day}</option>`).join('')}</select></label><label><span>Grupo</span><input name="group" maxlength="20" placeholder="Opcional" /></label><label><span>Inicio</span><input name="start" type="time" value="07:00" required /></label><label><span>Fin</span><input name="end" type="time" value="09:00" required /></label><label><span>Salón</span><input name="room" maxlength="30" placeholder="Opcional" /></label></div><button class="button button-solid" type="submit">Agregar al horario ${icon('arrow')}</button></form><aside class="schedule-note"><span class="side-note-icon">${icon('zap')}</span><h3>Primero una versión verificable.</h3><p>No inventamos grupos, profesores ni cupos. Cuando tengamos una fuente SIA confirmada, esta misma vista podrá importar la oferta oficial.</p></aside></section>
+  <section class="schedule-workspace"><form class="schedule-form" data-schedule-form><div class="schedule-form-head"><span class="panel-kicker">Agregar bloque</span><p>Solo guardamos estos datos en tu navegador.</p></div><label><span>Materia</span><select name="subjectId" required>${getScheduleCourses().map((subject) => `<option value="${subject.id}" ${pendingScheduleSubjectId === subject.id ? 'selected' : ''}>${subject.name} · ${subject.code}</option>`).join('')}</select></label><div class="schedule-form-grid"><label><span>Día</span><select name="day">${scheduleDays.map((day) => `<option value="${day}">${day}</option>`).join('')}</select></label><label><span>Grupo</span><input name="group" maxlength="20" placeholder="Opcional" /></label><label><span>Inicio</span><input name="start" type="time" value="07:00" required /></label><label><span>Fin</span><input name="end" type="time" value="09:00" required /></label><label><span>Salón</span><input name="room" maxlength="30" placeholder="Opcional" /></label></div><button class="button button-solid" type="submit">Agregar al horario ${icon('arrow')}</button></form><aside class="schedule-note"><span class="side-note-icon">${icon('zap')}</span><h3>Primero una versión verificable.</h3><p>No inventamos grupos, profesores ni cupos. Cuando tengamos una fuente SIA confirmada, esta misma vista podrá importar la oferta oficial.</p></aside></section>
   <div class="week-grid"><div class="time-axis"><span>07:00</span><span>09:00</span><span>11:00</span><span>13:00</span><span>15:00</span><span>17:00</span></div>${scheduleDays.map((day) => `<div class="day-column"><strong>${day}</strong><div class="day-lines">${state.schedule.filter((slot) => slot.day === day).sort((a, b) => a.start.localeCompare(b.start)).map(renderScheduleSlot).join('') || '<span class="day-empty">Sin bloques</span>'}</div></div>`).join('')}</div>`
 }
 
@@ -406,7 +428,7 @@ function escapeHtml(value: string) {
 }
 
 function renderScheduleSlot(slot: ScheduleSlot) {
-  const subject = subjects.find((item) => item.id === slot.subjectId)
+  const subject = getScheduleCourse(slot.subjectId)
   const details = [slot.group && `Grupo ${escapeHtml(slot.group)}`, slot.room && escapeHtml(slot.room)].filter(Boolean).join(' · ')
   return `<article class="schedule-block"><div class="schedule-block-time">${slot.start}–${slot.end}</div><strong>${subject?.name ?? 'Materia eliminada'}</strong>${details ? `<small>${details}</small>` : ''}<button type="button" data-schedule-remove="${slot.id}" aria-label="Quitar ${subject?.name ?? 'bloque'}">×</button></article>`
 }
@@ -429,7 +451,7 @@ function scheduleAsText() {
     const slots = state.schedule.filter((slot) => slot.day === day).sort((a, b) => a.start.localeCompare(b.start))
     if (!slots.length) return `${day}: sin bloques`
     return `${day}:\n${slots.map((slot) => {
-      const subject = subjects.find((item) => item.id === slot.subjectId)
+      const subject = getScheduleCourse(slot.subjectId)
       const details = [slot.group && `grupo ${slot.group}`, slot.room && slot.room].filter(Boolean).join(' · ')
       return `  ${slot.start}-${slot.end} · ${subject?.name ?? 'Materia'}${details ? ` · ${details}` : ''}`
     }).join('\n')}`
@@ -437,23 +459,77 @@ function scheduleAsText() {
 }
 
 function renderInfo() {
-  return `<section class="page-heading compact"><div><div class="eyebrow"><span class="eyebrow-dot"></span> Centro de ayuda</div><h1>Lo importante, <em>a mano.</em></h1><p class="lede">Fuentes oficiales, alcance del plan y configuración de tu ruta personal.</p></div><div class="heading-note"><span>FUENTE</span><strong>Plan ${curriculumMeta.plan}</strong><small>Malla encontrada en 2023 · validar vigencia</small></div></section><section class="info-grid"><article class="info-card wide"><div class="info-card-head"><span class="info-index">01</span><h2>Fuentes y alcance</h2></div><p>Mallatrónica es una herramienta independiente. No reemplaza el SIA ni la asesoría de la coordinación curricular.</p><div class="source-row"><span class="source-dot"></span><span>Malla curricular Plan ${curriculumMeta.plan}.</span><span class="source-status">Referencia 2023</span></div><div class="source-row"><span class="source-dot"></span><span>Tu avance y tu ruta se quedan en este navegador.</span><span class="source-status verified">Privacidad local</span></div><div class="source-row"><span class="source-dot"></span><span>Prerrequisitos visuales interpretados desde la malla.</span><span class="source-status">Validar con SIA</span></div></article><article class="info-card"><div class="info-card-head"><span class="info-index">02</span><h2>Enlaces oficiales</h2></div><div class="link-list"><a href="https://unal.edu.co" target="_blank" rel="noreferrer">Universidad Nacional de Colombia ${icon('arrow')}</a><a href="https://ingenieria.bogota.unal.edu.co" target="_blank" rel="noreferrer">Facultad de Ingeniería ${icon('arrow')}</a><a href="#" data-action="placeholder-link">Calendario académico ${icon('arrow')}</a><a href="#" data-action="placeholder-link">SIA · Sistema académico ${icon('arrow')}</a></div></article><article class="info-card"><div class="info-card-head"><span class="info-index">03</span><h2>Tu ruta personal</h2></div><p class="muted">Configurá nivelación y lengua extranjera desde la malla. En tu caso actual quedan como Matemáticas básicas cumplida e Inglés exento.</p><button class="button button-outline full-width" data-view="malla">Editar en la malla ${icon('arrow')}</button></article></section><div class="legal-note"><span>Nota de confianza</span><p>Los datos académicos, créditos, horarios y requisitos deben contrastarse con los canales oficiales vigentes. La malla 2023 es la mejor referencia disponible, no una confirmación de vigencia para 2026.</p></div>`
+  return `<section class="page-heading compact"><div><div class="eyebrow"><span class="eyebrow-dot"></span> Centro de ayuda</div><h1>Lo importante, <em>a mano.</em></h1><p class="lede">Fuentes oficiales, alcance del plan y configuración de tu ruta personal.</p></div><div class="heading-note"><span>FUENTE</span><strong>Plan ${curriculumMeta.plan}</strong><small>${curriculumMeta.sourceLabel}</small></div></section><section class="info-grid"><article class="info-card wide"><div class="info-card-head"><span class="info-index">01</span><h2>Fuentes y alcance</h2></div><p>Mallatrónica es una herramienta independiente. No reemplaza el SIA ni la asesoría de la coordinación curricular.</p><div class="source-row"><span class="source-dot"></span><span>Catálogo público SIA · ${rawCourseCount} registros del Plan ${curriculumMeta.plan}.</span><span class="source-status verified">Fuente primaria</span></div><div class="source-row"><span class="source-dot"></span><span>Tu avance y tu ruta se quedan en este navegador.</span><span class="source-status verified">Privacidad local</span></div><div class="source-row"><span class="source-dot"></span><span>Semestres, agrupaciones y libre elección no vienen publicados en esta extracción.</span><span class="source-status">Dato incompleto</span></div></article><article class="info-card"><div class="info-card-head"><span class="info-index">02</span><h2>Enlaces oficiales</h2></div><div class="link-list"><a href="https://unal.edu.co" target="_blank" rel="noreferrer">Universidad Nacional de Colombia ${icon('arrow')}</a><a href="https://ingenieria.bogota.unal.edu.co" target="_blank" rel="noreferrer">Facultad de Ingeniería ${icon('arrow')}</a><a href="https://siabog.unal.edu.co/academia/libre-acceso/faq.do" target="_blank" rel="noreferrer">SIA · preguntas frecuentes ${icon('arrow')}</a><a href="https://siabog.unal.edu.co/academia/libre-acceso/manuales/539019aa08a39d44dc7c45e1a888f821.pdf" target="_blank" rel="noreferrer">Guía oficial del buscador ${icon('arrow')}</a></div></article><article class="info-card"><div class="info-card-head"><span class="info-index">03</span><h2>Tu ruta personal</h2></div><p class="muted">Configurá nivelación y lengua extranjera desde la malla. En tu caso actual quedan como Matemáticas básicas cumplida e Inglés exento.</p><button class="button button-outline full-width" data-view="malla">Editar en la malla ${icon('arrow')}</button></article></section><div class="legal-note"><span>Nota de confianza</span><p>El catálogo SIA aporta asignaturas y prerrequisitos, pero no publica aquí todos los requisitos de grado, la distribución de libre elección ni los semestres sugeridos. Contrastá siempre la vigencia con el SIA.</p></div>`
 }
 
 function bindEvents() {
   app.querySelectorAll<HTMLElement>('[data-view]').forEach((element) => element.addEventListener('click', () => {
     activeView = element.dataset.view as View
-    activeMenu = null
     render()
   }))
   app.querySelector<HTMLElement>('[data-action="theme"]')?.addEventListener('click', () => { state.theme = state.theme === 'dark' ? 'light' : 'dark'; saveState(); render() })
-  app.querySelector<HTMLElement>('[data-action="connections"]')?.addEventListener('click', () => { state.connections = !state.connections; saveState(); render() })
   app.querySelector<HTMLElement>('[data-action="reset"]')?.addEventListener('click', () => {
     if (window.confirm('¿Reiniciar todas las marcas manuales y notas?')) { state.subjects = {}; state.notes = {}; saveState(); render() }
   })
   app.querySelector<HTMLElement>('[data-action="export"]')?.addEventListener('click', exportState)
   app.querySelector<HTMLElement>('[data-action="import"]')?.addEventListener('click', () => app.querySelector<HTMLInputElement>('#import-file')?.click())
   app.querySelector<HTMLInputElement>('#import-file')?.addEventListener('change', importState)
+  app.querySelector<HTMLElement>('[data-action="import-catalog"]')?.addEventListener('click', () => app.querySelector<HTMLInputElement>('#catalog-file')?.click())
+  app.querySelector<HTMLInputElement>('#catalog-file')?.addEventListener('change', (event) => {
+    const input = event.target as HTMLInputElement
+    const file = input.files?.[0]
+    if (!file) return
+    const reader = new FileReader()
+    reader.onload = () => {
+      try {
+        const imported = readCatalogCourses(JSON.parse(String(reader.result)))
+        if (!imported.length) throw new Error('empty')
+        state.freeChoice = imported
+        state.electiveAssignments = readElectiveAssignments(state.electiveAssignments, state.freeChoice)
+        saveState()
+        render()
+        showSupportToast('Catálogo importado', `${imported.length} opciones quedaron guardadas localmente.`)
+      } catch {
+        showSupportToast('No se pudo importar', 'Usá un JSON con code, name, credits y category por cada materia.')
+      }
+      input.value = ''
+    }
+    reader.readAsText(file)
+  })
+  app.querySelector<HTMLFormElement>('[data-choice-form]')?.addEventListener('submit', (event) => {
+    event.preventDefault()
+    const data = new FormData(event.currentTarget as HTMLFormElement)
+    const course = normalizeCatalogCourse({ code: data.get('code'), name: data.get('name'), credits: data.get('credits'), category: data.get('category') }, state.freeChoice.length, 'manual')
+    if (!course) {
+      showSupportToast('Faltan datos', 'Completá código, nombre, créditos y componente.')
+      return
+    }
+    state.freeChoice.push(course)
+    saveState()
+    render()
+  })
+  app.querySelector<HTMLFormElement>('[data-choice-search]')?.addEventListener('submit', (event) => {
+    event.preventDefault()
+    const data = new FormData(event.currentTarget as HTMLFormElement)
+    freeChoiceQuery = String(data.get('query') ?? '')
+    freeChoiceCategory = String(data.get('category') ?? 'all')
+    render()
+  })
+  app.querySelectorAll<HTMLElement>('[data-choice-schedule]').forEach((element) => element.addEventListener('click', () => {
+    pendingScheduleSubjectId = element.dataset.choiceSchedule ?? null
+    activeView = 'horario'
+    render()
+  }))
+  app.querySelectorAll<HTMLElement>('[data-choice-remove]').forEach((element) => element.addEventListener('click', () => {
+    const id = element.dataset.choiceRemove
+    const course = state.freeChoice.find((item) => item.id === id)
+    if (!id || !course || !window.confirm(`¿Eliminar ${course.name} del catálogo local?`)) return
+    state.freeChoice = state.freeChoice.filter((item) => item.id !== id)
+    state.electiveAssignments = readElectiveAssignments(state.electiveAssignments, state.freeChoice)
+    state.schedule = state.schedule.filter((slot) => slot.subjectId !== id)
+    saveState()
+    render()
+  }))
   app.querySelector<HTMLFormElement>('[data-schedule-form]')?.addEventListener('submit', (event) => {
     event.preventDefault()
     const form = event.currentTarget as HTMLFormElement
@@ -477,6 +553,7 @@ function bindEvents() {
       return
     }
     state.schedule.push(candidate)
+    pendingScheduleSubjectId = null
     saveState()
     render()
   })
@@ -501,26 +578,6 @@ function bindEvents() {
     saveState()
     render()
   })
-  app.querySelectorAll<HTMLElement>('[data-menu]').forEach((element) => element.addEventListener('click', (event) => { event.stopPropagation(); activeMenu = activeMenu === element.dataset.menu ? null : element.dataset.menu ?? null; render() }))
-  app.querySelectorAll<HTMLElement>('[data-subject-action]').forEach((element) => element.addEventListener('click', (event) => {
-    event.stopPropagation()
-    const id = element.dataset.subjectAction!
-    const status = element.dataset.status!
-    if (status === 'clear') delete state.subjects[id]
-    else if (status === 'aprobada' && !canApprove(subjects.find((subject) => subject.id === id)!)) showRequirementToast(subjects.find((subject) => subject.id === id)!)
-    else state.subjects[id] = status as Status
-    activeMenu = null
-    saveState(); render()
-  }))
-  app.querySelectorAll<HTMLElement>('[data-subject]').forEach((element) => element.addEventListener('click', (event) => {
-    if ((event.target as HTMLElement).closest('[data-menu], [data-subject-action]')) return
-    const id = element.dataset.subject!
-    if (state.notes[id] !== undefined) return
-    const subject = subjects.find((item) => item.id === id)!
-    if (state.subjects[id] !== 'aprobada' && !canApprove(subject)) { showRequirementToast(subject); return }
-    state.subjects[id] = state.subjects[id] === 'aprobada' ? 'pendiente' : 'aprobada'
-    saveState(); render()
-  }))
   app.querySelectorAll<HTMLInputElement>('[data-note]').forEach((input) => input.addEventListener('change', () => {
     const id = input.dataset.note!
     const value = input.value === '' ? undefined : Number(input.value)
@@ -536,7 +593,7 @@ function bindEvents() {
   app.querySelectorAll<HTMLButtonElement>('[data-support-id]').forEach((button) => button.addEventListener('click', () => {
     const support = supportSubjects.find((subject) => subject.id === button.dataset.supportId)
     if (!support) return
-    const missing = support.prereqs.filter((id) => supportStatus(id) !== 'aprobada')
+    const missing = support.prereqGroups?.filter((group) => !prerequisiteGroupSatisfied(group)).map(prerequisiteGroupLabel) ?? []
     if (missing.length) { showSupportToast(`${support.name} sigue bloqueado`, `Primero completá ${missing.join(', ')}`); return }
     state.subjects[support.id] = state.subjects[support.id] === 'aprobada' ? 'pendiente' : 'aprobada'
     saveState(); render()
@@ -579,7 +636,17 @@ function importState(event: Event) {
     try {
       const imported = JSON.parse(String(reader.result)) as Partial<State>
       if (!imported.subjects || typeof imported.subjects !== 'object') throw new Error('invalid')
-      state = { ...defaultState, ...imported, subjects: imported.subjects, notes: imported.notes ?? {} }
+      state = {
+        ...defaultState,
+        ...imported,
+        schemaVersion: 5,
+        subjects: imported.subjects,
+        notes: readGrades(imported.notes),
+        theme: imported.schemaVersion === 5 && imported.theme === 'dark' ? 'dark' : 'light',
+        schedule: Array.isArray(imported.schedule) ? imported.schedule.filter(isScheduleSlot) : [],
+        freeChoice: Array.isArray(imported.freeChoice) ? imported.freeChoice.filter(isChoiceCourse) : [],
+        electiveAssignments: readElectiveAssignments(imported.electiveAssignments, Array.isArray(imported.freeChoice) ? imported.freeChoice.filter(isChoiceCourse) : []),
+      }
       saveState(); render(); window.alert('Avance importado correctamente.')
     } catch { window.alert('Ese archivo no tiene un formato de avance válido.') }
     input.value = ''
