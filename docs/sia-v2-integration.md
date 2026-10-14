@@ -10,6 +10,7 @@ Individual progress fields and the individual levelation total were removed from
 
 - Six disjoint requirements total 172 credits; degree contributes at most six.
 - The balance caps each component separately. Excess electives are not automatically transferred to free choice.
+- Locally verified free-choice courses can be approved and graded. Their contribution is capped at 34 credits and remains an estimate until contrasted with SIA.
 - The interface exposes recorded and required credits and explicitly calls the balance an estimate, not graduation certification.
 - Unknown subgroup membership remains unknown. The existing prerequisite dataset is preserved, not overwritten with null values from a different extraction.
 - Research on averages and global restrictions is stored as evidence, not automatically executed as policy.
@@ -17,7 +18,6 @@ Individual progress fields and the individual levelation total were removed from
 ## Pending
 
 - Verified course-to-group mapping and subgroup validation.
-- Free-choice approvals and grades.
 - Attempt history and separate PA/PAPA calculations, including resolution of exceptional cases.
 - Verification of global restrictions, including the distinction between credits taken and passed.
 - GitHub-side cache cleanup and coordination with anyone holding an old clone. Do not merge an old contaminated branch back into the sanitized history.

@@ -2,7 +2,7 @@ import structure from '../../data/sia/v2/estructura.json'
 import { courseCodeKey, subjects } from '../data/curriculum'
 
 /** Component ceilings are not a certification of subgroup eligibility. */
-export function creditBalance(approvedIds: readonly string[]) {
+export function creditBalance(approvedIds: readonly string[], approvedFreeChoiceCredits = 0) {
   const approved = new Set(approvedIds)
   const seen = new Set<string>()
   const rows = structure.resumen_creditos.filter(row => row.tipologia !== 'TOTAL').map(row => ({
@@ -16,6 +16,7 @@ export function creditBalance(approvedIds: readonly string[]) {
     if (row) row.recorded += subject.credits
   }
   for (const row of rows) {
+    if (row.category === 'LIBRE ELECCIÓN') row.recorded = Math.max(0, approvedFreeChoiceCredits)
     row.allocated = Math.min(row.required, row.recorded)
     row.remaining = row.required - row.allocated
   }

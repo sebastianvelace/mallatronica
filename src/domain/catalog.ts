@@ -54,5 +54,14 @@ export function readCatalogCourses(value: unknown, source: CatalogCourseSource =
         ? (value as { freeChoice: unknown[] }).freeChoice
         : []
 
-  return items.map((item, index) => normalizeCatalogCourse(item, index, source)).filter((item): item is CatalogCourse => item !== null)
+  const seenCodes = new Set<string>()
+  const seenIds = new Set<string>()
+  return items.map((item, index) => normalizeCatalogCourse(item, index, source)).filter((item): item is CatalogCourse => {
+    if (!item) return false
+    const code = item.code.toLocaleUpperCase().replace(/[^A-Z0-9]/g, '')
+    if (!code || seenCodes.has(code) || seenIds.has(item.id)) return false
+    seenCodes.add(code)
+    seenIds.add(item.id)
+    return true
+  })
 }

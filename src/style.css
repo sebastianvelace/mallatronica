@@ -117,9 +117,18 @@ svg { width: 16px; height: 16px; fill: none; stroke: currentColor; stroke-width:
 .support-row small { display: block; margin-top: 3px; color: var(--muted-2); font: 9px var(--mono); }
 .support-status { color: var(--muted); font: 9px var(--mono); white-space: nowrap; }
 .support-status.approved { color: var(--mint); }.support-status.exempt { color: var(--blue); }.support-status.pending { color: var(--amber); }.support-status.blocked { color: var(--muted-2); }
+.support-subject { min-width: 0; }
+.support-row-actions { display: flex; align-items: center; justify-content: flex-end; gap: 12px; }
+.support-grade { display: flex; align-items: center; gap: 6px; color: var(--muted-2); font: 9px var(--mono); }
+.support-grade input { width: 62px; min-height: 34px; padding: 6px; border: 1px solid var(--line-strong); border-radius: 7px; background: var(--bg); color: var(--ink); text-align: center; font: 11px var(--mono); }
+.support-grade input:focus { border-color: var(--mint); outline: 2px solid color-mix(in srgb, var(--mint) 20%, transparent); outline-offset: 1px; }
+.language-accreditation { display: grid; gap: 5px; margin-top: 18px; padding: 16px; border: 1px solid color-mix(in srgb, var(--blue) 35%, var(--line)); border-radius: 9px; background: color-mix(in srgb, var(--blue) 5%, var(--panel)); }
+.language-accreditation strong { color: var(--ink); font-size: 14px; }.language-accreditation span { color: var(--blue); font: 10px var(--mono); }.language-accreditation small { color: var(--muted); font-size: 10px; }
+.language-routes { margin-top: 16px; border-top: 1px solid var(--line); }
+.language-routes > summary { padding: 14px 0; color: var(--ink); cursor: pointer; font-size: 11px; }.language-routes > summary span { float: right; color: var(--muted-2); font: 9px var(--mono); }.language-routes > p { margin: 0 0 8px; color: var(--muted); font-size: 10px; }
 .requirement-toast { position: fixed; right: 24px; bottom: 24px; z-index: 30; display: grid; gap: 5px; min-width: 260px; max-width: 360px; padding: 13px 15px; border: 1px solid color-mix(in srgb, var(--amber) 55%, var(--line)); background: var(--panel); box-shadow: 0 14px 28px rgba(0,0,0,.22); color: var(--ink); }
 .requirement-toast strong { font-size: 11px; }.requirement-toast span { color: var(--amber); font: 9px/1.45 var(--mono); }
-@media (max-width: 760px) { .support-tracks { margin-left: 16px; margin-right: 16px; }.support-grid { grid-template-columns: 1fr; }.support-head { display: block; }.support-head select { width: 100%; max-width: none; margin-top: 13px; }.requirement-toast { left: 16px; right: 16px; bottom: 16px; min-width: 0; } }
+@media (max-width: 760px) { .support-tracks { margin-left: 16px; margin-right: 16px; }.support-grid { grid-template-columns: 1fr; }.support-head { display: block; }.support-head select { width: 100%; max-width: none; margin-top: 13px; }.support-row { align-items: flex-start; }.support-row-actions { align-items: flex-end; flex-direction: column-reverse; }.language-routes > summary span { float: none; display: block; margin-top: 5px; }.requirement-toast { left: 16px; right: 16px; bottom: 16px; min-width: 0; } }
 
 .leveling-semester { background: color-mix(in srgb, var(--amber) 4%, var(--panel)); }
 .leveling-semester .grade-semester-title span { color: var(--amber); }
@@ -168,13 +177,22 @@ svg { width: 16px; height: 16px; fill: none; stroke: currentColor; stroke-width:
 .choice-card-bottom { color: var(--muted); font: 9px var(--mono); }
 .choice-card-bottom > div { display: flex; align-items: center; gap: 8px; }
 .choice-card .text-button { color: var(--mint); font-size: 9px; }
+.choice-card.is-approved { border-color: color-mix(in srgb, var(--mint) 48%, var(--line)); }
+.choice-status { color: var(--muted); font: 9px var(--mono); text-transform: uppercase; letter-spacing: .05em; }
+.choice-card.is-approved .choice-status { color: var(--mint); }
+.choice-progress { display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: end; gap: 8px; margin: 0 0 14px; padding: 10px; border: 1px solid var(--line); border-radius: 8px; background: color-mix(in srgb, var(--bg) 55%, transparent); }
+.choice-progress label { display: grid; gap: 5px; color: var(--muted-2); font: 9px var(--mono); }
+.choice-progress input { width: 62px; min-height: 34px; padding: 6px; border: 1px solid var(--line-strong); border-radius: 7px; background: var(--bg); color: var(--ink); text-align: center; font: 11px var(--mono); }
+.choice-progress input:focus { border-color: var(--mint); outline: 2px solid color-mix(in srgb, var(--mint) 20%, transparent); outline-offset: 1px; }
+.choice-progress .button { min-height: 34px; padding: 7px 9px; font-size: 9px; }
+.free-choice-semester .grade-semester-title span { color: var(--mint); }
 .choice-remove { border: 0; background: transparent; color: var(--muted-2); font-size: 15px; }
 .choice-remove:hover, .choice-remove:focus-visible { color: var(--coral); }
 .catalog-empty { display: grid; justify-items: center; gap: 10px; padding: 48px 20px; text-align: center; }
 .catalog-empty h2 { margin: 0; color: var(--ink); font: 600 19px var(--display); }
 .catalog-empty p { max-width: 520px; margin: 0 0 7px; color: var(--muted); font-size: 11px; line-height: 1.6; }
 @media (max-width: 1050px) { .catalog-toolbar, .choice-entry, .choice-results { margin-left: 28px; margin-right: 28px; }.choice-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }.choice-entry form { grid-template-columns: 1fr 1fr 1fr; }.choice-name-field { grid-column: span 2; } }
-@media (max-width: 760px) { .catalog-toolbar, .choice-entry, .choice-results { margin-left: 16px; margin-right: 16px; }.catalog-toolbar { display: block; }.catalog-toolbar form { grid-template-columns: 1fr; }.catalog-toolbar .toolbar-controls { margin-top: 10px; }.choice-entry form { grid-template-columns: 1fr 1fr; }.choice-entry form > div, .choice-name-field, .choice-entry button { grid-column: span 2; }.choice-grid { grid-template-columns: 1fr; padding: 10px; } }
+@media (max-width: 760px) { .catalog-toolbar, .choice-entry, .choice-results { margin-left: 16px; margin-right: 16px; }.catalog-toolbar { display: block; }.catalog-toolbar form { grid-template-columns: minmax(0, 1fr); }.catalog-toolbar .toolbar-controls { margin-top: 10px; }.choice-entry form { grid-template-columns: repeat(2, minmax(0, 1fr)); }.choice-entry input { min-width: 0; width: 100%; }.choice-entry form > div, .choice-name-field, .choice-entry button { grid-column: span 2; }.choice-grid { grid-template-columns: minmax(0, 1fr); padding: 10px; }.choice-progress { grid-template-columns: 1fr; }.choice-progress .button { width: 100%; } }
 
 /* UX layer: a compact rail on desktop and a real drawer on small screens. */
 body { font-size: 15px; line-height: 1.55; }

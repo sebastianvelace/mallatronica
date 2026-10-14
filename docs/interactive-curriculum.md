@@ -25,7 +25,11 @@ Navigation uses named tabs on desktop and a fixed bottom navigation on mobile. R
 
 An approved course may have an optional final grade. Saving or removing that grade updates the weighted average immediately. Removing the grade preserves its previous approval/failure state. Approvals without grades do not enter the average as zeroes. Recorded failing grades do enter it. The same domain calculation is used by the map and calculator.
 
-The displayed **Promedio registrado** is not presented as a certified PAPA. It uses one grade per regular catalogue course, and excludes levelation, local free-choice records, and missing grades. It cannot represent repeated attempts or an entire official transcript. The coverage is shown alongside the result.
+The displayed **Promedio registrado** is not presented as a certified PAPA. It uses one numeric grade per regular, local free-choice, Mathematics Basics, or Literacy course. Language requirements recorded as AP/RE and approvals without a numeric grade are excluded. It cannot represent repeated attempts or an entire official transcript. The coverage is shown alongside the result.
+
+Local free-choice courses have progress isolated from regular-course identifiers. An approval or a grade contributes to the free-choice balance, capped at the official 34-credit requirement. Excess credits are displayed but do not inflate total plan progress.
+
+Mathematics Basics and Literacy are additional levelation credits outside the 172-credit plan. Their numeric grades are included in the recorded average. Foreign-language levels and sufficiency are represented as AP/RE: they can satisfy the 12-credit language requirement but are not converted into numeric grades. This follows the UNAL Resolution 037/2010 subject index and the numeric-average rule in Articles 40–42 of Agreement 008/2008. See `data/sia/v2/reglas_promedios.json` for source status and limitations.
 
 Elective assignments are persisted independently of approvals and grades, using stable `semester:row` keys. An assigned plan course moves from the alternatives catalogue into the selected slot without being duplicated or automatically approved. Changing a placement does not erase grades. Free-choice placements are explicitly planning-only. Assignments reject missing courses, component mismatches, duplicate course codes and invalid slot keys on load/import.
 

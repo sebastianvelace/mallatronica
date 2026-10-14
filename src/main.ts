@@ -25,7 +25,7 @@ type ScheduleSlot = {
 type ChoiceCourse = CatalogCourse
 
 type State = {
-  schemaVersion: 5
+  schemaVersion: number
   subjects: Record<string, Status>
   notes: Record<string, number>
   theme: 'dark' | 'light'
@@ -35,6 +35,8 @@ type State = {
   english: RequirementStatus
   schedule: ScheduleSlot[]
   freeChoice: ChoiceCourse[]
+  freeChoiceStatus: Record<string, Status>
+  freeChoiceNotes: Record<string, number>
   electiveAssignments: ElectiveAssignments
 }
 
@@ -43,7 +45,7 @@ const semesters = Array.from(new Set(subjects.map((subject) => subject.semester)
 const scheduleDays: ScheduleDay[] = ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes']
 
 const defaultState: State = {
-  schemaVersion: 5,
+  schemaVersion: 6,
   subjects: {},
   notes: {},
   theme: 'light',
@@ -53,6 +55,8 @@ const defaultState: State = {
   english: 'exento',
   schedule: [],
   freeChoice: [],
+  freeChoiceStatus: {},
+  freeChoiceNotes: {},
   electiveAssignments: {},
 }
 
@@ -75,18 +79,25 @@ function loadState(): State {
     const parsed = JSON.parse(raw) as Partial<State>
     return {
       ...defaultState,
-      schemaVersion: 5,
+      schemaVersion: 6,
       ...parsed,
-      theme: parsed.schemaVersion === 5 && parsed.theme === 'dark' ? 'dark' : 'light',
+      theme: (parsed.schemaVersion === 5 || parsed.schemaVersion === 6) && parsed.theme === 'dark' ? 'dark' : 'light',
       subjects: parsed.subjects ?? {},
       notes: readGrades(parsed.notes),
       schedule: Array.isArray(parsed.schedule) ? parsed.schedule.filter(isScheduleSlot) : [],
-      freeChoice: Array.isArray(parsed.freeChoice) ? parsed.freeChoice.filter(isChoiceCourse) : [],
-      electiveAssignments: readElectiveAssignments(parsed.electiveAssignments, Array.isArray(parsed.freeChoice) ? parsed.freeChoice.filter(isChoiceCourse) : []),
+      freeChoice: readStoredChoiceCourses(parsed.freeChoice),
+      freeChoiceStatus: readStatuses(parsed.freeChoiceStatus),
+      freeChoiceNotes: readGrades(parsed.freeChoiceNotes),
+      electiveAssignments: readElectiveAssignments(parsed.electiveAssignments, readStoredChoiceCourses(parsed.freeChoice)),
     }
   } catch {
     return { ...defaultState, subjects: {}, notes: {}, schedule: [], freeChoice: [] }
   }
+}
+
+function readStatuses(value: unknown): Record<string, Status> {
+  if (!value || typeof value !== 'object' || Array.isArray(value)) return {}
+  return Object.fromEntries(Object.entries(value).filter(([, status]) => status === 'aprobada' || status === 'reprobada' || status === 'pendiente'))
 }
 
 function isScheduleSlot(value: unknown): value is ScheduleSlot {
@@ -113,6 +124,19 @@ function isChoiceCourse(value: unknown): value is ChoiceCourse {
     && (course.source === 'manual' || course.source === 'imported')
 }
 
+function readStoredChoiceCourses(value: unknown) {
+  if (!Array.isArray(value)) return []
+  const seenIds = new Set<string>()
+  const seenCodes = new Set<string>()
+  return value.filter(isChoiceCourse).filter(course => {
+    const code = courseCodeKey(course.code)
+    if (!code || seenIds.has(course.id) || seenCodes.has(code)) return false
+    seenIds.add(course.id)
+    seenCodes.add(code)
+    return true
+  })
+}
+
 function saveState() {
   localStorage.setItem(STATE_KEY, JSON.stringify(state))
 }
@@ -124,7 +148,23 @@ function isApproved(subject: Subject) {
 }
 
 function getApprovedCredits() {
-  return creditBalance(subjects.filter(isApproved).map(subject => subject.id)).allocated
+  return creditBalance(subjects.filter(isApproved).map(subject => subject.id), getApprovedFreeChoiceCredits()).allocated
+}
+
+function isFreeChoiceApproved(course: ChoiceCourse) {
+  return state.freeChoiceNotes[course.id] !== undefined
+    ? state.freeChoiceNotes[course.id] >= 3
+    : state.freeChoiceStatus[course.id] === 'aprobada'
+}
+
+function getApprovedFreeChoiceCredits() {
+  return state.freeChoice.reduce((sum, course) => sum + (isFreeChoiceApproved(course) ? course.credits : 0), 0)
+}
+
+function pruneFreeChoiceProgress() {
+  const ids = new Set(state.freeChoice.map(course => course.id))
+  state.freeChoiceStatus = Object.fromEntries(Object.entries(state.freeChoiceStatus).filter(([id]) => ids.has(id)))
+  state.freeChoiceNotes = Object.fromEntries(Object.entries(state.freeChoiceNotes).filter(([id]) => ids.has(id)))
 }
 
 function getApprovedDisciplinaryCredits() {
@@ -276,9 +316,9 @@ function navItem(view: View, svg: string, label: string, accessibleLabel: string
 }
 
 function renderMalla(approvedCredits: number, percentage: number) {
-  const average = recordedAverage(state.notes)
+  const average = recordedAverage(state.notes, state.freeChoice, state.freeChoiceNotes)
   return `
-    <section class="curriculum-heading"><div><p>UNAL Bogotá <span>/</span> Plan 2545</p><h1>Ingeniería Electrónica<span>.</span></h1><p>Tu carrera, materia por materia.</p></div><div class="curriculum-metrics"><div class="recorded-average"><span>Promedio registrado</span><strong data-recorded-average>${average.value?.toFixed(2) ?? 'Sin notas'}</strong><small>${average.courses} materias · ${average.credits} créditos con nota</small><details><summary>¿Es mi PAPA?</summary><p>Es una estimación ponderada por créditos. Usa una nota por materia del plan, incluidas las reprobadas; excluye aprobadas sin nota, nivelación y libre elección. No reemplaza el PAPA de tu historia académica completa.</p></details></div><div class="curriculum-progress"><strong>${approvedCredits}<span> / ${totalCredits} cr.</span></strong><div role="progressbar" aria-label="Créditos aprobados" aria-valuenow="${Math.min(100, percentage)}" aria-valuemin="0" aria-valuemax="100"><i style="width:${Math.min(100, percentage)}%"></i></div><small>${percentage}% del plan registrado</small></div></div></section>
+    <section class="curriculum-heading"><div><p>UNAL Bogotá <span>/</span> Plan 2545</p><h1>Ingeniería Electrónica<span>.</span></h1><p>Tu carrera, materia por materia.</p></div><div class="curriculum-metrics"><div class="recorded-average"><span>Promedio registrado</span><strong data-recorded-average>${average.value?.toFixed(2) ?? 'Sin notas'}</strong><small>${average.courses} materias · ${average.credits} créditos con nota</small><details><summary>¿Es mi PAPA?</summary><p>Es una estimación ponderada por créditos. Incluye notas numéricas del plan, libre elección, Matemáticas Básicas y Lectoescritura. Inglés AP/RE y aprobaciones sin nota no se ponderan. Todavía no representa intentos repetidos ni reemplaza el PAPA oficial.</p></details></div><div class="curriculum-progress"><strong>${approvedCredits}<span> / ${totalCredits} cr.</span></strong><div role="progressbar" aria-label="Créditos aprobados" aria-valuenow="${Math.min(100, percentage)}" aria-valuemin="0" aria-valuemax="100"><i style="width:${Math.min(100, percentage)}%"></i></div><small>${percentage}% del plan registrado</small></div></div></section>
     ${renderCreditBalance()}
     ${renderCurriculumBoard(boardOptions())}
     <details class="curriculum-support"><summary>Nivelación y lengua extranjera <span>Configurar mi situación</span></summary>${renderSupportTracks()}</details>
@@ -287,11 +327,11 @@ function renderMalla(approvedCredits: number, percentage: number) {
 }
 
 function renderCreditBalance() {
-  const balance = creditBalance(subjects.filter(isApproved).map(subject => subject.id))
+  const balance = creditBalance(subjects.filter(isApproved).map(subject => subject.id), getApprovedFreeChoiceCredits())
   return `<details class="curriculum-support credit-balance"><summary>Balance de créditos <span>Requisitos por componente · ${balance.required} créditos</span></summary>
     <p>Estimación por componente, no certificación de grado. Las agrupaciones de optativas aún necesitan validación; los excedentes no pasan automáticamente a libre elección.</p>
     <div class="credit-balance-table"><table><caption>Créditos registrados y exigidos</caption><thead><tr><th scope="col">Componente</th><th scope="col">Registrados</th><th scope="col">Exigidos</th><th scope="col">Faltantes estimados</th></tr></thead><tbody>${balance.rows.map(row => `<tr><th scope="row">${row.category}</th><td>${row.recorded}</td><td>${row.required}</td><td>${row.remaining}</td></tr>`).join('')}</tbody></table></div>
-    <p>Trabajo de grado aporta como máximo 6 créditos al balance, aunque registres ambas alternativas. Libre elección permanece pendiente mientras sus aprobaciones no estén implementadas. La nivelación es individual y no se suma a los 172 créditos.</p>
+    <p>Trabajo de grado aporta como máximo 6 créditos al balance, aunque registres ambas alternativas. Libre elección aporta como máximo 34 créditos registrados. La nivelación es individual y no se suma a los 172 créditos.</p>
     <p>Fuente: resumen SIA del plan 2545, consulta del 13 de octubre de 2026. No se importó progreso personal.</p></details>`
 }
 
@@ -342,43 +382,59 @@ function renderSupportTracks() {
   const profileSelect = (key: 'mathBasics' | 'literacy' | 'english', label: string) => {
     const value = state[key]
     const options = key === 'english'
-      ? `<option value="exento" ${value === 'exento' ? 'selected' : ''}>Exento por examen</option><option value="pendiente" ${value === 'pendiente' ? 'selected' : ''}>Debo cursarlo</option>`
-      : `<option value="cumplida" ${value === 'cumplida' ? 'selected' : ''}>Ya cumplida</option><option value="pendiente" ${value === 'pendiente' ? 'selected' : ''}>Debo cursarla</option><option value="no-aplica" ${value === 'no-aplica' ? 'selected' : ''}>No aplica</option>`
+      ? `<option value="exento" ${value === 'exento' ? 'selected' : ''}>Acreditado sin nota</option><option value="pendiente" ${value === 'pendiente' ? 'selected' : ''}>Debo cursar niveles</option>`
+      : `<option value="cumplida" ${value === 'cumplida' ? 'selected' : ''}>La cursé y aprobé</option><option value="pendiente" ${value === 'pendiente' ? 'selected' : ''}>Debo cursarla / la reprobé</option><option value="no-aplica" ${value === 'no-aplica' ? 'selected' : ''}>No me fue exigida</option>`
     return `<label class="profile-select"><span>${label}</span><select data-profile="${key}" aria-label="Estado de ${label}">${options}</select></label>`
   }
   const track = (kind: 'nivelacion' | 'idioma', title: string, description: string) => {
-    const rows = supportSubjects.filter((subject) => subject.kind === kind).map((subject) => {
+    const subjectsForTrack = supportSubjects.filter((subject) => subject.kind === kind)
+    const rows = subjectsForTrack.map((subject) => {
       const status = supportStatus(subject.id)
       const info = status === 'exento'
-        ? { label: 'Exento', icon: '—', className: 'exempt' }
+        ? { label: 'No exigida', icon: '—', className: 'exempt' }
         : statusInfo(status === 'disponible' ? 'disponible' : status)
       const interactive = kind === 'idioma' && state.english === 'pendiente'
-      const row = `<div><strong>${subject.name}</strong><small>${subject.code} · ${subject.credits} créditos</small></div><span class="support-status ${info.className}">${info.icon} ${info.label}</span>`
+      const grade = kind === 'nivelacion' && status !== 'exento'
+        ? `<label class="support-grade"><span>Nota</span><input type="number" min="0" max="5" step="0.1" value="${state.notes[subject.id] ?? ''}" placeholder="—" data-note="${subject.id}" aria-label="Nota de ${subject.name}" /></label>`
+        : ''
+      const row = `<div class="support-subject"><strong>${subject.name}</strong><small>${subject.code} · ${subject.credits} créditos adicionales</small></div><div class="support-row-actions">${grade}<span class="support-status ${info.className}">${info.icon} ${info.label}</span></div>`
       return interactive ? `<button type="button" class="support-row support-row-button" data-support-id="${subject.id}">${row}</button>` : `<div class="support-row">${row}</div>`
     }).join('')
     const selectors = kind === 'idioma'
       ? profileSelect('english', 'Lengua extranjera')
       : `<div class="profile-selects">${profileSelect('mathBasics', 'Matemáticas básicas')}${profileSelect('literacy', 'Lecto-escritura')}</div>`
-    return `<article class="support-card"><div class="support-head"><div><span class="panel-kicker">Ruta adicional</span><h2>${title}</h2></div>${selectors}</div><p>${description}</p><div class="support-list">${rows}</div></article>`
+    const content = kind === 'idioma' && state.english === 'exento'
+      ? `<div class="language-accreditation"><strong>12 créditos acreditados</strong><span>Registrados como aprobado, sin calificación numérica</span><small>Cumplen el requisito de idioma, pero no entran al promedio.</small></div>`
+      : kind === 'idioma'
+        ? `<details class="language-routes"><summary>Elegir únicamente la ruta que aparece en mi historia <span>${subjectsForTrack.length} modalidades del catálogo</span></summary><p>Semestral, virtual, intensiva y suficiencia son alternativas. No debés aprobarlas todas.</p><div class="support-list">${rows}</div></details>`
+        : `<div class="support-list">${rows}</div>`
+    return `<article class="support-card"><div class="support-head"><div><span class="panel-kicker">Ruta adicional</span><h2>${title}</h2></div>${selectors}</div><p>${description}</p>${content}</article>`
   }
-  return `<section class="support-tracks"><div class="support-intro"><span class="panel-kicker">Fuera de los 172 créditos regulares</span><h2>Tu situación también importa.</h2><p>Estas rutas dependen de tu historia académica. No las tratamos como si fueran iguales para todas las personas.</p></div><div class="support-grid">${track('nivelacion', 'Nivelación', 'Matemáticas básicas y lecto-escritura se registran aparte del plan regular.')}${track('idioma', 'Lengua extranjera', 'Si aprobaste el examen de clasificación, tu cadena de inglés queda exenta.')}</div></section>`
+  return `<section class="support-tracks"><div class="support-intro"><span class="panel-kicker">Fuera de los 172 créditos regulares</span><h2>Tu situación también importa.</h2><p>Las notas numéricas de Matemáticas Básicas y Lectoescritura afectan el promedio. Inglés acredita el requisito como aprobado o reprobado, sin nota numérica.</p></div><div class="support-grid">${track('nivelacion', 'Nivelación', 'Son créditos adicionales: cuentan en el promedio cuando tienen nota, pero no dentro de los 172 del plan.')}${track('idioma', 'Lengua extranjera', 'La suficiencia acredita 12 créditos adicionales como aprobado, sin modificar el promedio.')}</div></section>`
 }
 
 function renderCalculator() {
   const entries = Object.entries(state.notes)
   const regularEntries = entries.filter(([id]) => subjects.some((item) => item.id === id))
   const levelingEntries = entries.filter(([id]) => supportSubjects.some((item) => item.id === id && item.kind === 'nivelacion'))
-  const average = recordedAverage(state.notes)
+  const freeChoiceEntries = Object.entries(state.freeChoiceNotes).filter(([id]) => state.freeChoice.some((item) => item.id === id))
+  const average = recordedAverage(state.notes, state.freeChoice, state.freeChoiceNotes)
   const credits = average.credits
   const papa = average.value?.toFixed(2) ?? 'Sin notas'
   return `<section class="page-heading compact"><div><div class="eyebrow"><span class="eyebrow-dot"></span> Historial académico</div><h1>Que tus notas <em>cuenten.</em></h1><p class="lede">Registrá las calificaciones por materia y dejá que la ruta se actualice sola.</p></div><div class="heading-note"><span>REGLA DE CÁLCULO</span><strong>Σ (nota × créditos) / Σ créditos</strong><small>Escala de 0.0 a 5.0 · aprobación desde 3.0</small></div></section>
-  <section class="metric-grid"><div class="metric-card accent"><span>Promedio registrado</span><strong>${papa}</strong><small>Sobre ${credits} créditos regulares con nota</small></div><div class="metric-card"><span>Créditos cursados</span><strong>${credits}</strong><small>Registrados en tu historia</small></div><div class="metric-card"><span>Materias calificadas</span><strong>${regularEntries.length}</strong><small>Editable en cada materia aprobada</small></div></section>
-  <section class="calculator-layout"><div class="panel"><div class="panel-heading"><div><span class="panel-kicker">Historial</span><h2>Notas por materia</h2></div></div>${renderLevelingSemester(levelingEntries.length > 0)}${semesters.map((semester) => renderGradeSemester(semester)).join('')}${subjects.some((subject) => subject.semester === null) ? renderGradeSemester(null) : ''}</div><aside class="side-note"><span class="side-note-icon">${icon('zap')}</span><h3>El estado sigue tu nota.</h3><p>Cuando una materia tiene nota, su estado se deriva de ella y el marcado manual queda pausado. Las notas de nivelación se guardan aparte hasta confirmar su tratamiento oficial en el PAPA.</p><button class="text-button" data-view="malla">Volver a la malla ${icon('arrow')}</button></aside></section>`
+  <section class="metric-grid"><div class="metric-card accent"><span>Promedio registrado</span><strong>${papa}</strong><small>Sobre ${credits} créditos con nota numérica</small></div><div class="metric-card"><span>Créditos ponderados</span><strong>${credits}</strong><small>Plan, libre elección y nivelación numérica</small></div><div class="metric-card"><span>Materias calificadas</span><strong>${regularEntries.length + levelingEntries.length + freeChoiceEntries.length}</strong><small>Inglés AP/RE no se pondera</small></div></section>
+  <section class="calculator-layout"><div class="panel"><div class="panel-heading"><div><span class="panel-kicker">Historial</span><h2>Notas por materia</h2></div></div>${renderLevelingSemester(levelingEntries.length > 0)}${semesters.map((semester) => renderGradeSemester(semester)).join('')}${subjects.some((subject) => subject.semester === null) ? renderGradeSemester(null) : ''}${renderFreeChoiceGrades()}</div><aside class="side-note"><span class="side-note-icon">${icon('zap')}</span><h3>Solo se ponderan números.</h3><p>Matemáticas Básicas y Lectoescritura entran al promedio si tienen nota numérica. Inglés acreditado como AP/RE cumple el requisito, pero no se convierte artificialmente en 3.0 o 5.0.</p><button class="text-button" data-view="malla">Volver a la malla ${icon('arrow')}</button></aside></section>`
+}
+
+function renderFreeChoiceGrades() {
+  if (!state.freeChoice.length) return ''
+  const hasAny = Object.keys(state.freeChoiceNotes).some(id => state.freeChoice.some(course => course.id === id))
+  return `<div class="grade-semester free-choice-semester"><div class="grade-semester-title"><span>LE</span><strong>Libre elección</strong><small>${hasAny ? 'En progreso' : 'Sin registrar'}</small></div><p class="leveling-note">Estas notas sí entran en el promedio registrado. La aplicación limita su aporte al avance a 34 créditos.</p><div class="grade-rows">${state.freeChoice.map(course => `<label class="grade-row"><span>${escapeHtml(course.name)}<small>${course.credits} créditos · ${escapeHtml(course.code)}</small></span><input type="number" min="0" max="5" step="0.1" value="${state.freeChoiceNotes[course.id] ?? ''}" placeholder="—" data-free-note="${escapeHtml(course.id)}" aria-label="Nota de ${escapeHtml(course.name)}" /></label>`).join('')}</div></div>`
 }
 
 function renderLevelingSemester(hasAny: boolean) {
   const levelingSubjects = supportSubjects.filter((subject) => subject.kind === 'nivelacion')
-  return `<div class="grade-semester leveling-semester"><div class="grade-semester-title"><span>00</span><strong>Nivelación</strong><small>${hasAny ? 'En progreso' : 'Sin registrar'}</small></div><p class="leveling-note">Semestre 0 · Matemáticas básicas y lecto-escritura se registran aparte de los créditos regulares. Su efecto en el PAPA debe confirmarse con el SIA.</p><div class="grade-rows">${levelingSubjects.map((subject) => `<label class="grade-row"><span>${subject.name}<small>${subject.credits} créditos · ${subject.code}</small></span><input type="number" min="0" max="5" step="0.1" value="${state.notes[subject.id] ?? ''}" placeholder="—" data-note="${subject.id}" aria-label="Nota de ${subject.name}" /></label>`).join('')}</div></div>`
+  return `<div class="grade-semester leveling-semester"><div class="grade-semester-title"><span>00</span><strong>Nivelación con nota numérica</strong><small>${hasAny ? 'Incluida en el promedio' : 'Sin registrar'}</small></div><p class="leveling-note">Matemáticas Básicas y Lectoescritura tienen créditos adicionales: se ponderan en el promedio, pero no suman a los 172 créditos del plan. Inglés AP/RE se gestiona desde la malla y no entra aquí.</p><div class="grade-rows">${levelingSubjects.map((subject) => `<label class="grade-row"><span>${subject.name}<small>${subject.credits} créditos adicionales · ${subject.code}</small></span><input type="number" min="0" max="5" step="0.1" value="${state.notes[subject.id] ?? ''}" placeholder="—" data-note="${subject.id}" aria-label="Nota de ${subject.name}" /></label>`).join('')}</div></div>`
 }
 
 function renderGradeSemester(semester: number | null) {
@@ -405,14 +461,22 @@ function renderFreeChoice() {
   })
   const catalogContent = state.freeChoice.length
     ? visibleCourses.length
-      ? `<div class="choice-grid">${visibleCourses.map((course) => `<article class="choice-card"><div class="choice-card-top"><span class="subject-code">${escapeHtml(course.code)}</span><span class="choice-source">${course.source === 'imported' ? 'Importada' : 'Manual'}</span></div><h3>${escapeHtml(course.name)}</h3><p>${escapeHtml(course.category)}</p><div class="choice-card-bottom"><span>${course.credits} créditos</span><div><button class="text-button" data-choice-schedule="${course.id}">Al horario ${icon('arrow')}</button><button class="choice-remove" type="button" data-choice-remove="${course.id}" aria-label="Eliminar ${escapeHtml(course.name)}">×</button></div></div></article>`).join('')}</div>`
+      ? `<div class="choice-grid">${visibleCourses.map(renderFreeChoiceCard).join('')}</div>`
       : `<div class="catalog-empty"><h2>No hay coincidencias</h2><p>Probá con otro nombre, código o componente.</p></div>`
     : `<div class="catalog-empty"><div class="empty-orbit">${icon('book')}</div><h2>Catálogo todavía no importado</h2><p>El SIA ofrece un buscador oficial por asignatura, plan, horario y tipología. Importá aquí un JSON exportado o agregá materias manualmente mientras conectamos esa fuente.</p><button class="button button-solid" data-action="import-catalog">Importar catálogo JSON</button></div>`
 
-  return `<section class="page-heading compact"><div><div class="eyebrow"><span class="eyebrow-dot"></span> Catálogo personal</div><h1>Elegí con <em>criterio.</em></h1><p class="lede">Guardá opciones de libre elección y pasalas al horario sin confundirlas con una oferta oficial.</p></div><div class="heading-note"><span>FUENTE</span><strong>${state.freeChoice.length} opción${state.freeChoice.length === 1 ? '' : 'es'}</strong><small>Catálogo local · validar en SIA</small></div></section>
+  const approvedCredits = getApprovedFreeChoiceCredits()
+  return `<section class="page-heading compact"><div><div class="eyebrow"><span class="eyebrow-dot"></span> Catálogo personal</div><h1>Elegí con <em>criterio.</em></h1><p class="lede">Guardá opciones, registrá su resultado y pasalas al horario sin confundirlas con una oferta oficial.</p></div><div class="heading-note"><span>LIBRE ELECCIÓN REGISTRADA</span><strong>${Math.min(34, approvedCredits)} / 34 créditos</strong><small>${approvedCredits > 34 ? `${approvedCredits - 34} créditos excedentes · ` : ''}validar en SIA</small></div></section>
   <section class="catalog-toolbar"><form data-choice-search><label><span>Buscar</span><input name="query" value="${escapeHtml(freeChoiceQuery)}" placeholder="Nombre o código" /></label><label><span>Componente</span><select name="category"><option value="all">Todos</option>${categories.map((category) => `<option value="${escapeHtml(category)}" ${freeChoiceCategory === category ? 'selected' : ''}>${escapeHtml(category)}</option>`).join('')}</select></label><button class="button button-outline" type="submit">Filtrar</button></form><div class="toolbar-controls"><button class="button button-quiet" type="button" data-action="import-catalog">Importar JSON</button></div></section>
   <section class="choice-entry"><form data-choice-form><div><span class="panel-kicker">Agregar opción</span><p>Usá datos que hayas verificado en el SIA.</p></div><label><span>Código</span><input name="code" maxlength="30" placeholder="Ej. 201XXXX" required /></label><label class="choice-name-field"><span>Nombre</span><input name="name" maxlength="100" placeholder="Nombre de la asignatura" required /></label><label><span>Créditos</span><input name="credits" type="number" min="1" max="12" step="1" value="3" required /></label><label><span>Componente</span><input name="category" maxlength="60" placeholder="Ej. 2CLE" required /></label><button class="button button-solid" type="submit">Guardar opción ${icon('arrow')}</button></form></section>
   <section class="choice-results"><div class="map-caption"><span><strong>OPCIONES GUARDADAS</strong> · ${visibleCourses.length} visibles</span><span class="map-help">Se guardan solo en este navegador</span></div>${catalogContent}</section>`
+}
+
+function renderFreeChoiceCard(course: ChoiceCourse) {
+  const grade = state.freeChoiceNotes[course.id]
+  const approved = isFreeChoiceApproved(course)
+  const status = grade !== undefined ? (approved ? 'Aprobada' : 'Reprobada') : approved ? 'Aprobada' : 'Pendiente'
+  return `<article class="choice-card ${approved ? 'is-approved' : ''}"><div class="choice-card-top"><span class="subject-code">${escapeHtml(course.code)}</span><span class="choice-status">${status}</span></div><h3>${escapeHtml(course.name)}</h3><p>${escapeHtml(course.category)} · ${course.source === 'imported' ? 'Importada' : 'Manual'}</p><div class="choice-progress"><label><span>Nota opcional</span><input type="number" min="0" max="5" step="0.1" value="${grade ?? ''}" placeholder="—" data-free-note="${escapeHtml(course.id)}" aria-label="Nota de ${escapeHtml(course.name)}" /></label><button class="button button-quiet" type="button" data-free-approved="${escapeHtml(course.id)}" ${grade !== undefined ? 'disabled' : ''}>${grade !== undefined ? 'Estado por nota' : approved ? 'Quitar aprobación' : 'Marcar aprobada'}</button></div><div class="choice-card-bottom"><span>${course.credits} créditos</span><div><button class="text-button" data-choice-schedule="${escapeHtml(course.id)}">Al horario ${icon('arrow')}</button><button class="choice-remove" type="button" data-choice-remove="${escapeHtml(course.id)}" aria-label="Eliminar ${escapeHtml(course.name)}">×</button></div></div></article>`
 }
 
 function renderSchedule() {
@@ -469,7 +533,7 @@ function bindEvents() {
   }))
   app.querySelector<HTMLElement>('[data-action="theme"]')?.addEventListener('click', () => { state.theme = state.theme === 'dark' ? 'light' : 'dark'; saveState(); render() })
   app.querySelector<HTMLElement>('[data-action="reset"]')?.addEventListener('click', () => {
-    if (window.confirm('¿Reiniciar todas las marcas manuales y notas?')) { state.subjects = {}; state.notes = {}; saveState(); render() }
+    if (window.confirm('¿Reiniciar todas las marcas manuales y notas?')) { state.subjects = {}; state.notes = {}; state.freeChoiceStatus = {}; state.freeChoiceNotes = {}; saveState(); render() }
   })
   app.querySelector<HTMLElement>('[data-action="export"]')?.addEventListener('click', exportState)
   app.querySelector<HTMLElement>('[data-action="import"]')?.addEventListener('click', () => app.querySelector<HTMLInputElement>('#import-file')?.click())
@@ -485,6 +549,7 @@ function bindEvents() {
         const imported = readCatalogCourses(JSON.parse(String(reader.result)))
         if (!imported.length) throw new Error('empty')
         state.freeChoice = imported
+        pruneFreeChoiceProgress()
         state.electiveAssignments = readElectiveAssignments(state.electiveAssignments, state.freeChoice)
         saveState()
         render()
@@ -525,6 +590,8 @@ function bindEvents() {
     const course = state.freeChoice.find((item) => item.id === id)
     if (!id || !course || !window.confirm(`¿Eliminar ${course.name} del catálogo local?`)) return
     state.freeChoice = state.freeChoice.filter((item) => item.id !== id)
+    delete state.freeChoiceStatus[id]
+    delete state.freeChoiceNotes[id]
     state.electiveAssignments = readElectiveAssignments(state.electiveAssignments, state.freeChoice)
     state.schedule = state.schedule.filter((slot) => slot.subjectId !== id)
     saveState()
@@ -582,12 +649,42 @@ function bindEvents() {
     const id = input.dataset.note!
     const value = input.value === '' ? undefined : Number(input.value)
     if (value === undefined || Number.isNaN(value)) delete state.notes[id]
-    else state.notes[id] = Math.min(5, Math.max(0, value))
+    else {
+      state.notes[id] = Math.round(Math.min(5, Math.max(0, value)) * 10) / 10
+      if (id === 'matematicas-basicas') state.mathBasics = state.notes[id] >= 3 ? 'cumplida' : 'pendiente'
+      if (id === 'lecto-escritura') state.literacy = state.notes[id] >= 3 ? 'cumplida' : 'pendiente'
+    }
+    saveState(); render()
+  }))
+  app.querySelectorAll<HTMLInputElement>('[data-free-note]').forEach((input) => input.addEventListener('change', () => {
+    const id = input.dataset.freeNote!
+    if (!state.freeChoice.some(course => course.id === id)) return
+    const value = input.value === '' ? undefined : Number(input.value)
+    if (value === undefined || Number.isNaN(value)) delete state.freeChoiceNotes[id]
+    else state.freeChoiceNotes[id] = Math.min(5, Math.max(0, value))
+    saveState(); render()
+  }))
+  app.querySelectorAll<HTMLButtonElement>('[data-free-approved]').forEach((button) => button.addEventListener('click', () => {
+    const id = button.dataset.freeApproved!
+    const course = state.freeChoice.find(item => item.id === id)
+    if (!course || state.freeChoiceNotes[id] !== undefined) return
+    state.freeChoiceStatus[id] = isFreeChoiceApproved(course) ? 'pendiente' : 'aprobada'
     saveState(); render()
   }))
   app.querySelectorAll<HTMLSelectElement>('[data-profile]').forEach((select) => select.addEventListener('change', () => {
     const key = select.dataset.profile as 'mathBasics' | 'literacy' | 'english'
     state[key] = select.value as RequirementStatus
+    const subjectId = key === 'mathBasics' ? 'matematicas-basicas' : key === 'literacy' ? 'lecto-escritura' : undefined
+    const grade = subjectId ? state.notes[subjectId] : undefined
+    if (subjectId && grade !== undefined) {
+      const contradictsGrade = select.value === 'no-aplica'
+        || (select.value === 'pendiente' && grade >= 3)
+        || (select.value === 'cumplida' && grade < 3)
+      if (contradictsGrade) {
+        delete state.notes[subjectId]
+        showSupportToast('Estado actualizado', 'Se quitó la nota anterior porque contradecía la nueva situación seleccionada.')
+      }
+    }
     saveState(); render()
   }))
   app.querySelectorAll<HTMLButtonElement>('[data-support-id]').forEach((button) => button.addEventListener('click', () => {
@@ -639,14 +736,17 @@ function importState(event: Event) {
       state = {
         ...defaultState,
         ...imported,
-        schemaVersion: 5,
+        schemaVersion: 6,
         subjects: imported.subjects,
         notes: readGrades(imported.notes),
-        theme: imported.schemaVersion === 5 && imported.theme === 'dark' ? 'dark' : 'light',
+        theme: (imported.schemaVersion === 5 || imported.schemaVersion === 6) && imported.theme === 'dark' ? 'dark' : 'light',
         schedule: Array.isArray(imported.schedule) ? imported.schedule.filter(isScheduleSlot) : [],
-        freeChoice: Array.isArray(imported.freeChoice) ? imported.freeChoice.filter(isChoiceCourse) : [],
-        electiveAssignments: readElectiveAssignments(imported.electiveAssignments, Array.isArray(imported.freeChoice) ? imported.freeChoice.filter(isChoiceCourse) : []),
+        freeChoice: readStoredChoiceCourses(imported.freeChoice),
+        freeChoiceStatus: readStatuses(imported.freeChoiceStatus),
+        freeChoiceNotes: readGrades(imported.freeChoiceNotes),
+        electiveAssignments: readElectiveAssignments(imported.electiveAssignments, readStoredChoiceCourses(imported.freeChoice)),
       }
+      pruneFreeChoiceProgress()
       saveState(); render(); window.alert('Avance importado correctamente.')
     } catch { window.alert('Ese archivo no tiene un formato de avance válido.') }
     input.value = ''

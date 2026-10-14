@@ -17,6 +17,7 @@ const { recordedAverage, readGrades } = require('../src/domain/grades.ts')
 const { readElectiveAssignments, referenceSlot } = require('../src/domain/electives.ts')
 const { subjects } = require('../src/data/curriculum.ts')
 const { creditBalance } = require('../src/domain/credit-balance.ts')
+const { readCatalogCourses } = require('../src/domain/catalog.ts')
 if (previous) require.extensions['.ts'] = previous
 else delete require.extensions['.ts']
 
@@ -40,6 +41,11 @@ test('duplicate approvals and unknown ids do not add credits', () => {
   assert.equal(creditBalance(['calculo-diferencial','calculo-diferencial','unknown','matematicas-basicas']).allocated, 4)
 })
 
+test('free-choice progress is capped at its 34-credit requirement', () => {
+  assert.equal(creditBalance([], 18).allocated, 18)
+  assert.equal(creditBalance([], 40).allocated, 34)
+})
+
 test('an approval without a grade is not a zero in the average', () => {
   assert.deepEqual(recordedAverage({}), { value: null, credits: 0, courses: 0 })
   assert.equal(recordedAverage({ 'calculo-diferencial': 4.2 }).value, 4.2)
@@ -52,12 +58,21 @@ test('average is credit-weighted and includes failing grades', () => {
   assert.ok(Math.abs(result.value - (4.2 * 4 + 3.6 * 3 + 2 * 5) / 12) < 1e-12)
 })
 
-test('a recorded zero is a real grade, while levelation and unknown courses are excluded', () => {
-  assert.deepEqual(recordedAverage({ programacion: 0, 'matematicas-basicas': 5, unknown: 5 }), { value: 0, credits: 3, courses: 1 })
+test('recorded average includes local free-choice grades without mixing identifiers', () => {
+  const free = [{ id: 'art', credits: 3 }]
+  const result = recordedAverage({ programacion: 4.0, art: 1.0 }, free, { art: 5.0 })
+  assert.equal(result.value, 4.5)
+  assert.equal(result.credits, 6)
+  assert.equal(result.courses, 2)
+})
+
+test('numeric math and literacy levelation affect the average, while language AP/RE does not', () => {
+  const result = recordedAverage({ programacion: 0, 'matematicas-basicas': 5, 'lecto-escritura': 4, 'ingles-1': 1, unknown: 5 })
+  assert.deepEqual(result, { value: 36 / 11, credits: 11, courses: 3 })
 })
 
 test('imported grades reject non-numeric and out-of-range data', () => {
-  assert.deepEqual(readGrades({ a: '4.2', b: null, c: NaN, d: Infinity, e: -1, f: 6, g: 4.2, h: 0 }), { g: 4.2, h: 0 })
+  assert.deepEqual(readGrades({ a: '4.2', b: null, c: NaN, d: Infinity, e: -1, f: 6, g: 4.2, h: 0, i: 4.26 }), { g: 4.2, h: 0, i: 4.3 })
   for (const value of [null, [], '4']) assert.deepEqual(readGrades(value), {})
 })
 
@@ -84,4 +99,13 @@ test('free-choice placements need an existing course and cannot duplicate a cata
 test('two local free-choice records with the same code cannot fill two slots', () => {
   const free = { id: 'a', code: 'ABC-123', name: 'Arte', credits: 3, category: 'Libre elección' }
   assert.deepEqual(readElectiveAssignments({ '1:2': 'a', '2:5': 'b' }, [free, { ...free, id: 'b', code: 'abc123' }]), { '1:2': 'a' })
+})
+
+test('catalog import rejects duplicate codes and identifiers', () => {
+  const courses = readCatalogCourses([
+    { id: 'one', code: 'ABC-123', name: 'One', credits: 3, category: 'Libre' },
+    { id: 'two', code: 'abc123', name: 'Duplicate code', credits: 3, category: 'Libre' },
+    { id: 'one', code: 'XYZ', name: 'Duplicate id', credits: 3, category: 'Libre' },
+  ])
+  assert.deepEqual(courses.map(course => course.name), ['One'])
 })
