@@ -266,3 +266,12 @@ body { font-size: 15px; line-height: 1.55; }
   .unplaced-grid, .unplaced-group .subject-stack { grid-template-columns: 1fr; }
 }
 @media (prefers-reduced-motion: reduce) { .subject-card, .main-content > .page-heading, .main-content > .progress-panel, .main-content > .toolbar, .main-content > .map-wrap, .main-content > .privacy-strip, .main-content > .metric-grid, .main-content > .calculator-layout, .main-content > .schedule-toolbar, .main-content > .schedule-workspace, .main-content > .catalog-toolbar, .main-content > .choice-entry, .main-content > .choice-results, .main-content > .info-grid, .main-content > .legal-note { animation: none; } }
+
+/* Calendar geometry: 07:00–21:00, including Saturday. */
+.week-grid { grid-template-columns: 65px repeat(6, minmax(132px, 1fr)); min-height: 409px; overflow-x: auto; }
+.time-axis { justify-content: space-between; padding: 42px 8px 8px; }
+.day-lines { position: relative; display: block; height: 364px; padding: 0; opacity: 1; background: repeating-linear-gradient(to bottom, transparent 0, transparent 51px, color-mix(in srgb, var(--line) 75%, transparent) 52px); }
+.schedule-block { position: absolute; left: 6px; right: 6px; min-height: 28px; overflow: hidden; padding: 7px 22px 7px 8px; box-shadow: 0 4px 12px color-mix(in srgb, var(--ink) 8%, transparent); }
+.language-accreditation.neutral { border-color: var(--line); background: var(--panel-soft); }
+.language-accreditation.neutral span { color: var(--muted); }
+@media (max-width: 760px) { .week-grid { grid-template-columns: 56px repeat(6, 126px); } }

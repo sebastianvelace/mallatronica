@@ -65,3 +65,23 @@ export function readCatalogCourses(value: unknown, source: CatalogCourseSource =
     return true
   })
 }
+
+export function mergeCatalogCourses(existing: CatalogCourse[], imported: CatalogCourse[]) {
+  const courses = [...existing]
+  const codes = new Set(existing.map((course) => course.code.toLocaleUpperCase().replace(/[^A-Z0-9]/g, '')))
+  const ids = new Set(existing.map((course) => course.id))
+  let added = 0
+  let skipped = 0
+  for (const course of imported) {
+    const code = course.code.toLocaleUpperCase().replace(/[^A-Z0-9]/g, '')
+    if (!code || codes.has(code) || ids.has(course.id)) {
+      skipped++
+      continue
+    }
+    courses.push(course)
+    codes.add(code)
+    ids.add(course.id)
+    added++
+  }
+  return { courses, added, skipped }
+}

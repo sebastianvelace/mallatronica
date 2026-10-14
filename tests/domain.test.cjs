@@ -17,7 +17,8 @@ const { recordedAverage, readGrades } = require('../src/domain/grades.ts')
 const { readElectiveAssignments, referenceSlot } = require('../src/domain/electives.ts')
 const { subjects } = require('../src/data/curriculum.ts')
 const { creditBalance } = require('../src/domain/credit-balance.ts')
-const { readCatalogCourses } = require('../src/domain/catalog.ts')
+const { mergeCatalogCourses, readCatalogCourses } = require('../src/domain/catalog.ts')
+const { referenceSemesterForCode } = require('../src/data/reference-layout.ts')
 if (previous) require.extensions['.ts'] = previous
 else delete require.extensions['.ts']
 
@@ -108,4 +109,31 @@ test('catalog import rejects duplicate codes and identifiers', () => {
     { id: 'one', code: 'XYZ', name: 'Duplicate id', credits: 3, category: 'Libre' },
   ])
   assert.deepEqual(courses.map(course => course.name), ['One'])
+})
+
+test('catalog import merges without overwriting manual records', () => {
+  const manual = [{ id: 'manual-a', code: 'ABC-123', name: 'Manual', credits: 3, category: 'Libre', source: 'manual' }]
+  const imported = [
+    { id: 'import-a', code: 'abc123', name: 'Duplicate', credits: 4, category: 'Otra', source: 'imported' },
+    { id: 'import-b', code: 'XYZ-9', name: 'New', credits: 2, category: 'Libre', source: 'imported' },
+  ]
+  const result = mergeCatalogCourses(manual, imported)
+  assert.deepEqual(result.courses.map(course => course.name), ['Manual', 'New'])
+  assert.equal(result.added, 1)
+  assert.equal(result.skipped, 1)
+})
+
+test('calculator grouping follows the visual reference without claiming SIA semesters', () => {
+  assert.equal(referenceSemesterForCode('1000004-B'), 1)
+  assert.equal(referenceSemesterForCode('2028816'), 10)
+  assert.equal(referenceSemesterForCode('unknown'), null)
+})
+
+test('critical global requirements are represented conservatively', () => {
+  const design = subjects.find(subject => subject.code === '2028816')
+  const workshop = subjects.find(subject => subject.code === '2024045')
+  const degree = subjects.find(subject => subject.code === '2015316')
+  assert.deepEqual(design.globalPrereqs?.map(item => [item.kind, item.value]), [['recordedRegularCredits', 138]])
+  assert.deepEqual(workshop.globalPrereqs?.map(item => [item.kind, item.value]), [['regularCredits', 121]])
+  assert.deepEqual(degree.globalPrereqs?.map(item => [item.kind, item.value]), [['disciplinaryCredits', 63]])
 })

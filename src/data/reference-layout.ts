@@ -19,3 +19,11 @@ export const referenceSemesters: ReferenceCell[][] = [
   [optional('Optativa · administración', 'foundation'), free(), free(), free(), '2024045'],
   [free(), free(), free(), '2028816', '2015316'],
 ]
+
+/** Suggested visual semester from the user-provided curriculum image, never an SIA rule. */
+export function referenceSemesterForCode(code: string) {
+  const normalized = code.toLocaleUpperCase().replace(/[^A-Z0-9]/g, '')
+  const index = referenceSemesters.findIndex((semester) => semester.some((cell) => typeof cell === 'string'
+    && cell.toLocaleUpperCase().replace(/[^A-Z0-9]/g, '') === normalized))
+  return index === -1 ? null : index + 1
+}

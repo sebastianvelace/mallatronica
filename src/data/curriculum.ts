@@ -19,7 +19,7 @@ export type PrerequisiteGroup = {
 }
 
 export type GlobalRequirement = {
-  kind: 'regularCredits' | 'disciplinaryCredits'
+  kind: 'regularCredits' | 'disciplinaryCredits' | 'recordedRegularCredits'
   value: number
   label: string
 }
@@ -131,6 +131,12 @@ const legacyIdsByCode: Record<string, string> = {
   '1000047-B': 'ingles-4',
 }
 
+const displayNamesByCode: Record<string, string> = {
+  '1000002-B': 'Lectoescritura',
+  '1000040-B': 'Introducción a la ciencia de materiales',
+  '2016509': 'Taller de electrónica',
+}
+
 function trackFor(tipologia: string): Track {
   if (tipologia.startsWith('DISCIPLINAR') || tipologia.startsWith('TRABAJO')) return 'profesional'
   if (tipologia.startsWith('NIVELACIÓN')) return 'electiva'
@@ -162,10 +168,26 @@ function isLanguageCourse(name: string) {
 function subjectFromRaw(raw: SiaRawCourse): Subject {
   const prereqGroups = prerequisitesFor(raw.prerrequisitos)
   const tag = raw.tipologia.includes('OPTATIVA') ? 'Optativa' : raw.tipologia.startsWith('TRABAJO') ? 'Grado' : undefined
+  const globalPrereqs: GlobalRequirement[] = []
+  if (raw.codigo === '2028816') globalPrereqs.push({
+    kind: 'recordedRegularCredits',
+    value: 138,
+    label: '80% del plan cursado (conceptos previos publicados; confirmar en SIA)',
+  })
+  if (raw.codigo === '2024045') globalPrereqs.push({
+    kind: 'regularCredits',
+    value: 121,
+    label: '70% del plan aprobado (malla de referencia; confirmar en SIA)',
+  })
+  if (raw.codigo === '2015316' || raw.codigo === '2015317') globalPrereqs.push({
+    kind: 'disciplinaryCredits',
+    value: 63,
+    label: '80% del componente disciplinar aprobado (PEP 2017; vigencia por confirmar)',
+  })
   return {
     id: legacyIdsByCode[raw.codigo] ?? `sia-${slug(raw.codigo)}-${slug(raw.nombre)}`,
     code: raw.codigo,
-    name: raw.nombre,
+    name: displayNamesByCode[raw.codigo] ?? raw.nombre,
     credits: raw.creditos,
     semester: raw.semestre,
     track: trackFor(raw.tipologia),
@@ -173,6 +195,7 @@ function subjectFromRaw(raw: SiaRawCourse): Subject {
     tipologia: raw.tipologia,
     prereqGroups,
     prerequisiteCodes: prereqGroups?.flatMap((group) => group.items.map((item) => item.code)) ?? [],
+    globalPrereqs: globalPrereqs.length ? globalPrereqs : undefined,
     tag,
     sinProgramar: raw.sin_programar_2026_2,
   }

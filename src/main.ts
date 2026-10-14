@@ -1,7 +1,8 @@
 import './style.css'
 import { mountCurriculumBoard, renderCurriculumBoard, type BoardOptions } from './ui/curriculum-board'
 import { courseCodeKey, curriculumMeta, disciplinaryIds, rawCourseCount, subjects, supportSubjects, type PrerequisiteGroup, type PrerequisiteRef, type Subject } from './data/curriculum'
-import { normalizeCatalogCourse, readCatalogCourses, type CatalogCourse } from './domain/catalog'
+import { referenceSemesterForCode } from './data/reference-layout'
+import { mergeCatalogCourses, normalizeCatalogCourse, readCatalogCourses, type CatalogCourse } from './domain/catalog'
 import { readElectiveAssignments, type ElectiveAssignments } from './domain/electives'
 import { recordedAverage, readGrades } from './domain/grades'
 import { creditBalance } from './domain/credit-balance'
@@ -9,8 +10,8 @@ import { creditBalance } from './domain/credit-balance'
 type Status = 'aprobada' | 'reprobada' | 'pendiente'
 type View = 'malla' | 'calculadora' | 'horario' | 'libre' | 'info'
 
-type RequirementStatus = 'pendiente' | 'cumplida' | 'exento' | 'no-aplica'
-type ScheduleDay = 'Lunes' | 'Martes' | 'Miércoles' | 'Jueves' | 'Viernes'
+type RequirementStatus = 'sin-definir' | 'pendiente' | 'cumplida' | 'exento' | 'no-aplica'
+type ScheduleDay = 'Lunes' | 'Martes' | 'Miércoles' | 'Jueves' | 'Viernes' | 'Sábado'
 
 type ScheduleSlot = {
   id: string
@@ -41,18 +42,18 @@ type State = {
 }
 
 const totalCredits = curriculumMeta.regularCredits
-const semesters = Array.from(new Set(subjects.map((subject) => subject.semester).filter((semester): semester is number => semester !== null))).sort((a, b) => a - b)
-const scheduleDays: ScheduleDay[] = ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes']
+const semesters = Array.from({ length: 10 }, (_, index) => index + 1)
+const scheduleDays: ScheduleDay[] = ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado']
 
 const defaultState: State = {
-  schemaVersion: 6,
+  schemaVersion: 7,
   subjects: {},
   notes: {},
   theme: 'light',
   connections: true,
-  mathBasics: 'cumplida',
-  literacy: 'no-aplica',
-  english: 'exento',
+  mathBasics: 'sin-definir',
+  literacy: 'sin-definir',
+  english: 'sin-definir',
   schedule: [],
   freeChoice: [],
   freeChoiceStatus: {},
@@ -77,22 +78,35 @@ function loadState(): State {
     const raw = localStorage.getItem(STATE_KEY)
     if (!raw) return { ...defaultState, subjects: {}, notes: {} }
     const parsed = JSON.parse(raw) as Partial<State>
-    return {
+    return normalizeState({
       ...defaultState,
-      schemaVersion: 6,
+      schemaVersion: 7,
       ...parsed,
-      theme: (parsed.schemaVersion === 5 || parsed.schemaVersion === 6) && parsed.theme === 'dark' ? 'dark' : 'light',
-      subjects: parsed.subjects ?? {},
+      theme: [5, 6, 7].includes(parsed.schemaVersion ?? 0) && parsed.theme === 'dark' ? 'dark' : 'light',
+      subjects: readStatuses(parsed.subjects),
       notes: readGrades(parsed.notes),
+      mathBasics: readRequirementStatus(parsed.mathBasics),
+      literacy: readRequirementStatus(parsed.literacy),
+      english: readRequirementStatus(parsed.english),
       schedule: Array.isArray(parsed.schedule) ? parsed.schedule.filter(isScheduleSlot) : [],
       freeChoice: readStoredChoiceCourses(parsed.freeChoice),
       freeChoiceStatus: readStatuses(parsed.freeChoiceStatus),
       freeChoiceNotes: readGrades(parsed.freeChoiceNotes),
       electiveAssignments: readElectiveAssignments(parsed.electiveAssignments, readStoredChoiceCourses(parsed.freeChoice)),
-    }
+    })
   } catch {
     return { ...defaultState, subjects: {}, notes: {}, schedule: [], freeChoice: [] }
   }
+}
+
+function readRequirementStatus(value: unknown): RequirementStatus {
+  return value === 'pendiente' || value === 'cumplida' || value === 'exento' || value === 'no-aplica' || value === 'sin-definir' ? value : 'sin-definir'
+}
+
+function normalizeState(next: State) {
+  for (const id of Object.keys(next.notes)) delete next.subjects[id]
+  for (const id of Object.keys(next.freeChoiceNotes)) delete next.freeChoiceStatus[id]
+  return next
 }
 
 function readStatuses(value: unknown): Record<string, Status> {
@@ -171,6 +185,10 @@ function getApprovedDisciplinaryCredits() {
   return subjects.reduce((sum, subject) => sum + (disciplinaryIds.has(subject.id) && isApproved(subject) ? subject.credits : 0), 0)
 }
 
+function getRecordedRegularCredits() {
+  return subjects.reduce((sum, subject) => sum + ((state.notes[subject.id] !== undefined || state.subjects[subject.id] === 'aprobada') ? subject.credits : 0), 0)
+}
+
 function subjectForCode(code: string) {
   const key = courseCodeKey(code)
   return subjects.find((subject) => courseCodeKey(subject.code) === key)
@@ -196,10 +214,14 @@ function getMissingRequirements(subject: Subject) {
     ? ['Prerrequisitos no publicados por el SIA']
     : subject.prereqGroups.filter((group) => !prerequisiteGroupSatisfied(group)).map(prerequisiteGroupLabel)
 
-  if (subject.id === 'calculo-diferencial' && state.mathBasics === 'pendiente' && supportStatus('matematicas-basicas') !== 'aprobada') missing.unshift('Matemáticas básicas')
+  if (subject.id === 'calculo-diferencial' && (state.mathBasics === 'pendiente' || state.mathBasics === 'sin-definir') && supportStatus('matematicas-basicas') !== 'aprobada') missing.unshift(state.mathBasics === 'sin-definir' ? 'Configurar situación de Matemáticas básicas' : 'Matemáticas básicas')
 
   for (const requirement of subject.globalPrereqs ?? []) {
-    const current = requirement.kind === 'regularCredits' ? getApprovedCredits() : getApprovedDisciplinaryCredits()
+    const current = requirement.kind === 'regularCredits'
+      ? getApprovedCredits()
+      : requirement.kind === 'recordedRegularCredits'
+        ? getRecordedRegularCredits()
+        : getApprovedDisciplinaryCredits()
     if (current < requirement.value) missing.push(`${requirement.label} (llevás ${current})`)
   }
 
@@ -255,7 +277,7 @@ function getStatus(subject: Subject): Status | 'disponible' | 'parcial' | 'bloqu
   if (state.subjects[subject.id]) return state.subjects[subject.id]
   const missing = getMissingRequirements(subject)
   if (missing.length === 0) return 'disponible'
-  const total = (subject.prereqGroups?.length ?? 0) + (subject.globalPrereqs?.length ?? 0) + (subject.id === 'calculo-diferencial' && state.mathBasics === 'pendiente' ? 1 : 0)
+  const total = (subject.prereqGroups?.length ?? 0) + (subject.globalPrereqs?.length ?? 0) + (subject.id === 'calculo-diferencial' && (state.mathBasics === 'pendiente' || state.mathBasics === 'sin-definir') ? 1 : 0)
   const satisfied = total - missing.length
   if (satisfied > 0) return 'parcial'
   return 'bloqueada'
@@ -279,6 +301,7 @@ function calculateApprovedCredits() {
 
 function render() {
   disposeBoard()
+  document.querySelector('.requirement-toast')?.remove()
   const approvedCredits = calculateApprovedCredits()
   const percentage = Math.round((approvedCredits / totalCredits) * 100)
   document.documentElement.dataset.theme = state.theme
@@ -357,18 +380,27 @@ function boardOptions(): BoardOptions {
       if (grade === undefined) {
         if (state.notes[subject.id] !== undefined) state.subjects[subject.id] = isApproved(subject) ? 'aprobada' : 'reprobada'
         delete state.notes[subject.id]
-      } else state.notes[subject.id] = grade
+      } else {
+        state.notes[subject.id] = Math.round((grade + Number.EPSILON) * 10) / 10
+        delete state.subjects[subject.id]
+      }
+      const inconsistent = grade !== undefined && getMissingRequirements(subject).length > 0
       pendingCourseId = subject.id
       saveState(); render()
+      if (inconsistent) showSupportToast('Nota guardada como historial', 'La materia tiene requisitos sin registrar. Revisa equivalencias o completa el avance anterior.')
     },
     update: (subject, status) => {
       if (state.notes[subject.id] !== undefined) return
       if (status === 'aprobada' && !canApprove(subject)) { showRequirementToast(subject); return }
       if (status === 'clear') delete state.subjects[subject.id]
       else state.subjects[subject.id] = status
+      const inconsistentDependents = status === 'clear'
+        ? subjects.filter((candidate) => isApproved(candidate) && getMissingRequirements(candidate).length > 0)
+        : []
       pendingCourseId = subject.id
       saveState()
       render()
+      if (inconsistentDependents.length) showSupportToast('Revisa el historial', `${inconsistentDependents.length} materia${inconsistentDependents.length === 1 ? '' : 's'} aprobada${inconsistentDependents.length === 1 ? '' : 's'} quedó con requisitos pendientes.`)
     },
     schedule: (subject) => {
       pendingScheduleSubjectId = subject.id
@@ -382,8 +414,8 @@ function renderSupportTracks() {
   const profileSelect = (key: 'mathBasics' | 'literacy' | 'english', label: string) => {
     const value = state[key]
     const options = key === 'english'
-      ? `<option value="exento" ${value === 'exento' ? 'selected' : ''}>Acreditado sin nota</option><option value="pendiente" ${value === 'pendiente' ? 'selected' : ''}>Debo cursar niveles</option>`
-      : `<option value="cumplida" ${value === 'cumplida' ? 'selected' : ''}>La cursé y aprobé</option><option value="pendiente" ${value === 'pendiente' ? 'selected' : ''}>Debo cursarla / la reprobé</option><option value="no-aplica" ${value === 'no-aplica' ? 'selected' : ''}>No me fue exigida</option>`
+      ? `<option value="sin-definir" ${value === 'sin-definir' ? 'selected' : ''}>Configurar situación</option><option value="exento" ${value === 'exento' ? 'selected' : ''}>Acreditado sin nota</option><option value="pendiente" ${value === 'pendiente' ? 'selected' : ''}>Debo cursar niveles</option>`
+      : `<option value="sin-definir" ${value === 'sin-definir' ? 'selected' : ''}>Configurar situación</option><option value="cumplida" ${value === 'cumplida' ? 'selected' : ''}>La cursé y aprobé</option><option value="pendiente" ${value === 'pendiente' ? 'selected' : ''}>Debo cursarla / la reprobé</option><option value="no-aplica" ${value === 'no-aplica' ? 'selected' : ''}>No me fue exigida</option>`
     return `<label class="profile-select"><span>${label}</span><select data-profile="${key}" aria-label="Estado de ${label}">${options}</select></label>`
   }
   const track = (kind: 'nivelacion' | 'idioma', title: string, description: string) => {
@@ -403,7 +435,9 @@ function renderSupportTracks() {
     const selectors = kind === 'idioma'
       ? profileSelect('english', 'Lengua extranjera')
       : `<div class="profile-selects">${profileSelect('mathBasics', 'Matemáticas básicas')}${profileSelect('literacy', 'Lecto-escritura')}</div>`
-    const content = kind === 'idioma' && state.english === 'exento'
+    const content = kind === 'idioma' && state.english === 'sin-definir'
+      ? `<div class="language-accreditation neutral"><strong>Situación sin configurar</strong><span>Elige si acreditaste el requisito o si debes cursar niveles</span><small>La aplicación no asumirá una condición personal por defecto.</small></div>`
+      : kind === 'idioma' && state.english === 'exento'
       ? `<div class="language-accreditation"><strong>12 créditos acreditados</strong><span>Registrados como aprobado, sin calificación numérica</span><small>Cumplen el requisito de idioma, pero no entran al promedio.</small></div>`
       : kind === 'idioma'
         ? `<details class="language-routes"><summary>Elegir únicamente la ruta que aparece en mi historia <span>${subjectsForTrack.length} modalidades del catálogo</span></summary><p>Semestral, virtual, intensiva y suficiencia son alternativas. No debés aprobarlas todas.</p><div class="support-list">${rows}</div></details>`
@@ -423,7 +457,7 @@ function renderCalculator() {
   const papa = average.value?.toFixed(2) ?? 'Sin notas'
   return `<section class="page-heading compact"><div><div class="eyebrow"><span class="eyebrow-dot"></span> Historial académico</div><h1>Que tus notas <em>cuenten.</em></h1><p class="lede">Registrá las calificaciones por materia y dejá que la ruta se actualice sola.</p></div><div class="heading-note"><span>REGLA DE CÁLCULO</span><strong>Σ (nota × créditos) / Σ créditos</strong><small>Escala de 0.0 a 5.0 · aprobación desde 3.0</small></div></section>
   <section class="metric-grid"><div class="metric-card accent"><span>Promedio registrado</span><strong>${papa}</strong><small>Sobre ${credits} créditos con nota numérica</small></div><div class="metric-card"><span>Créditos ponderados</span><strong>${credits}</strong><small>Plan, libre elección y nivelación numérica</small></div><div class="metric-card"><span>Materias calificadas</span><strong>${regularEntries.length + levelingEntries.length + freeChoiceEntries.length}</strong><small>Inglés AP/RE no se pondera</small></div></section>
-  <section class="calculator-layout"><div class="panel"><div class="panel-heading"><div><span class="panel-kicker">Historial</span><h2>Notas por materia</h2></div></div>${renderLevelingSemester(levelingEntries.length > 0)}${semesters.map((semester) => renderGradeSemester(semester)).join('')}${subjects.some((subject) => subject.semester === null) ? renderGradeSemester(null) : ''}${renderFreeChoiceGrades()}</div><aside class="side-note"><span class="side-note-icon">${icon('zap')}</span><h3>Solo se ponderan números.</h3><p>Matemáticas Básicas y Lectoescritura entran al promedio si tienen nota numérica. Inglés acreditado como AP/RE cumple el requisito, pero no se convierte artificialmente en 3.0 o 5.0.</p><button class="text-button" data-view="malla">Volver a la malla ${icon('arrow')}</button></aside></section>`
+  <section class="calculator-layout"><div class="panel"><div class="panel-heading"><div><span class="panel-kicker">Historial</span><h2>Notas por materia</h2></div></div>${renderLevelingSemester(levelingEntries.length > 0)}${semesters.map((semester) => renderGradeSemester(semester)).join('')}${subjects.some((subject) => referenceSemesterForCode(subject.code) === null) ? renderGradeSemester(null) : ''}${renderFreeChoiceGrades()}</div><aside class="side-note"><span class="side-note-icon">${icon('zap')}</span><h3>Solo se ponderan números.</h3><p>Matemáticas Básicas y Lectoescritura entran al promedio si tienen nota numérica. Inglés acreditado como AP/RE cumple el requisito, pero no se convierte artificialmente en 3.0 o 5.0.</p><button class="text-button" data-view="malla">Volver a la malla ${icon('arrow')}</button></aside></section>`
 }
 
 function renderFreeChoiceGrades() {
@@ -438,9 +472,10 @@ function renderLevelingSemester(hasAny: boolean) {
 }
 
 function renderGradeSemester(semester: number | null) {
-  const semesterSubjects = subjects.filter((subject) => subject.semester === semester)
+  const semesterSubjects = subjects.filter((subject) => referenceSemesterForCode(subject.code) === semester)
   const hasAny = semesterSubjects.some((subject) => state.notes[subject.id] !== undefined)
-  return `<div class="grade-semester"><div class="grade-semester-title"><span>${semester === null ? 'SIA' : String(semester).padStart(2, '0')}</span><strong>${semester === null ? 'Materias del catálogo sin semestre asignado' : `Semestre ${semester}`}</strong><small>${hasAny ? 'En progreso' : 'Sin registrar'}</small></div><div class="grade-rows">${semesterSubjects.map((subject) => `<label class="grade-row"><span>${subject.name}<small>${subject.credits} créditos · ${subject.code}</small></span><input type="number" min="0" max="5" step="0.1" value="${state.notes[subject.id] ?? ''}" placeholder="—" data-note="${subject.id}" aria-label="Nota de ${subject.name}" /></label>`).join('')}</div></div>`
+  if (!semesterSubjects.length) return ''
+  return `<div class="grade-semester"><div class="grade-semester-title"><span>${semester === null ? 'ALT' : String(semester).padStart(2, '0')}</span><strong>${semester === null ? 'Optativas y alternativas sin semestre sugerido' : `Semestre sugerido ${semester}`}</strong><small>${hasAny ? 'En progreso' : 'Sin registrar'}</small></div><div class="grade-rows">${semesterSubjects.map((subject) => `<label class="grade-row"><span>${subject.name}<small>${subject.credits} créditos · ${subject.code}</small></span><input type="number" min="0" max="5" step="0.1" value="${state.notes[subject.id] ?? ''}" placeholder="—" data-note="${subject.id}" aria-label="Nota de ${subject.name}" /></label>`).join('')}</div></div>`
 }
 
 function getScheduleCourses() {
@@ -483,8 +518,8 @@ function renderSchedule() {
   const slotCount = state.schedule.length
   return `<section class="page-heading compact"><div><div class="eyebrow"><span class="eyebrow-dot"></span> Planeación semanal</div><h1>Armá tu <em>semana.</em></h1><p class="lede">Agregá tus bloques manualmente y detectá choques antes de armar la matrícula.</p></div><div class="heading-note"><span>FUENTE</span><strong>Carga manual</strong><small>Los grupos del SIA todavía no están conectados</small></div></section>
   <section class="schedule-toolbar"><div><span class="panel-kicker">Tu horario</span><h2>${slotCount ? `${slotCount} bloque${slotCount === 1 ? '' : 's'} guardado${slotCount === 1 ? '' : 's'}` : 'Todavía no hay bloques'}</h2></div><div class="toolbar-controls"><button class="button button-outline" data-action="copy-schedule" ${slotCount ? '' : 'disabled'}>${icon('download')} Copiar</button><button class="button button-solid" data-action="print-schedule">Imprimir</button><button class="text-button" data-action="clear-schedule" ${slotCount ? '' : 'disabled'}>Vaciar</button></div></section>
-  <section class="schedule-workspace"><form class="schedule-form" data-schedule-form><div class="schedule-form-head"><span class="panel-kicker">Agregar bloque</span><p>Solo guardamos estos datos en tu navegador.</p></div><label><span>Materia</span><select name="subjectId" required>${getScheduleCourses().map((subject) => `<option value="${subject.id}" ${pendingScheduleSubjectId === subject.id ? 'selected' : ''}>${subject.name} · ${subject.code}</option>`).join('')}</select></label><div class="schedule-form-grid"><label><span>Día</span><select name="day">${scheduleDays.map((day) => `<option value="${day}">${day}</option>`).join('')}</select></label><label><span>Grupo</span><input name="group" maxlength="20" placeholder="Opcional" /></label><label><span>Inicio</span><input name="start" type="time" value="07:00" required /></label><label><span>Fin</span><input name="end" type="time" value="09:00" required /></label><label><span>Salón</span><input name="room" maxlength="30" placeholder="Opcional" /></label></div><button class="button button-solid" type="submit">Agregar al horario ${icon('arrow')}</button></form><aside class="schedule-note"><span class="side-note-icon">${icon('zap')}</span><h3>Primero una versión verificable.</h3><p>No inventamos grupos, profesores ni cupos. Cuando tengamos una fuente SIA confirmada, esta misma vista podrá importar la oferta oficial.</p></aside></section>
-  <div class="week-grid"><div class="time-axis"><span>07:00</span><span>09:00</span><span>11:00</span><span>13:00</span><span>15:00</span><span>17:00</span></div>${scheduleDays.map((day) => `<div class="day-column"><strong>${day}</strong><div class="day-lines">${state.schedule.filter((slot) => slot.day === day).sort((a, b) => a.start.localeCompare(b.start)).map(renderScheduleSlot).join('') || '<span class="day-empty">Sin bloques</span>'}</div></div>`).join('')}</div>`
+  <section class="schedule-workspace"><form class="schedule-form" data-schedule-form><div class="schedule-form-head"><span class="panel-kicker">Agregar bloque</span><p>Solo guardamos estos datos en tu navegador.</p></div><label><span>Materia</span><select name="subjectId" required>${getScheduleCourses().map((subject) => `<option value="${subject.id}" ${pendingScheduleSubjectId === subject.id ? 'selected' : ''}>${subject.name} · ${subject.code}</option>`).join('')}</select></label><div class="schedule-form-grid"><label><span>Día</span><select name="day">${scheduleDays.map((day) => `<option value="${day}">${day}</option>`).join('')}</select></label><label><span>Grupo</span><input name="group" maxlength="20" placeholder="Opcional" /></label><label><span>Inicio</span><input name="start" type="time" min="07:00" max="20:59" value="07:00" required /></label><label><span>Fin</span><input name="end" type="time" min="07:01" max="21:00" value="09:00" required /></label><label><span>Salón</span><input name="room" maxlength="30" placeholder="Opcional" /></label></div><button class="button button-solid" type="submit">Agregar al horario ${icon('arrow')}</button></form><aside class="schedule-note"><span class="side-note-icon">${icon('zap')}</span><h3>Primero una versión verificable.</h3><p>No inventamos grupos, profesores ni cupos. Cuando tengamos una fuente SIA confirmada, esta misma vista podrá importar la oferta oficial.</p></aside></section>
+  <div class="week-grid"><div class="time-axis">${['07:00', '09:00', '11:00', '13:00', '15:00', '17:00', '19:00', '21:00'].map((time) => `<span>${time}</span>`).join('')}</div>${scheduleDays.map((day) => `<div class="day-column"><strong>${day}</strong><div class="day-lines">${state.schedule.filter((slot) => slot.day === day).sort((a, b) => a.start.localeCompare(b.start)).map(renderScheduleSlot).join('') || '<span class="day-empty">Sin bloques</span>'}</div></div>`).join('')}</div>`
 }
 
 function escapeHtml(value: string) {
@@ -494,7 +529,11 @@ function escapeHtml(value: string) {
 function renderScheduleSlot(slot: ScheduleSlot) {
   const subject = getScheduleCourse(slot.subjectId)
   const details = [slot.group && `Grupo ${escapeHtml(slot.group)}`, slot.room && escapeHtml(slot.room)].filter(Boolean).join(' · ')
-  return `<article class="schedule-block"><div class="schedule-block-time">${slot.start}–${slot.end}</div><strong>${subject?.name ?? 'Materia eliminada'}</strong>${details ? `<small>${details}</small>` : ''}<button type="button" data-schedule-remove="${slot.id}" aria-label="Quitar ${subject?.name ?? 'bloque'}">×</button></article>`
+  const start = Math.max(7 * 60, Math.min(21 * 60, timeToMinutes(slot.start)))
+  const end = Math.max(start + 15, Math.min(21 * 60, timeToMinutes(slot.end)))
+  const top = ((start - 7 * 60) / (14 * 60)) * 100
+  const height = ((end - start) / (14 * 60)) * 100
+  return `<article class="schedule-block" style="top:${top}%;height:${height}%"><div class="schedule-block-time">${slot.start}–${slot.end}</div><strong>${escapeHtml(subject?.name ?? 'Materia eliminada')}</strong>${details ? `<small>${details}</small>` : ''}<button type="button" data-schedule-remove="${escapeHtml(slot.id)}" aria-label="Quitar ${escapeHtml(subject?.name ?? 'bloque')}">×</button></article>`
 }
 
 function timeToMinutes(value: string) {
@@ -523,7 +562,8 @@ function scheduleAsText() {
 }
 
 function renderInfo() {
-  return `<section class="page-heading compact"><div><div class="eyebrow"><span class="eyebrow-dot"></span> Centro de ayuda</div><h1>Lo importante, <em>a mano.</em></h1><p class="lede">Fuentes oficiales, alcance del plan y configuración de tu ruta personal.</p></div><div class="heading-note"><span>FUENTE</span><strong>Plan ${curriculumMeta.plan}</strong><small>${curriculumMeta.sourceLabel}</small></div></section><section class="info-grid"><article class="info-card wide"><div class="info-card-head"><span class="info-index">01</span><h2>Fuentes y alcance</h2></div><p>Mallatrónica es una herramienta independiente. No reemplaza el SIA ni la asesoría de la coordinación curricular.</p><div class="source-row"><span class="source-dot"></span><span>Catálogo público SIA · ${rawCourseCount} registros del Plan ${curriculumMeta.plan}.</span><span class="source-status verified">Fuente primaria</span></div><div class="source-row"><span class="source-dot"></span><span>Tu avance y tu ruta se quedan en este navegador.</span><span class="source-status verified">Privacidad local</span></div><div class="source-row"><span class="source-dot"></span><span>Semestres, agrupaciones y libre elección no vienen publicados en esta extracción.</span><span class="source-status">Dato incompleto</span></div></article><article class="info-card"><div class="info-card-head"><span class="info-index">02</span><h2>Enlaces oficiales</h2></div><div class="link-list"><a href="https://unal.edu.co" target="_blank" rel="noreferrer">Universidad Nacional de Colombia ${icon('arrow')}</a><a href="https://ingenieria.bogota.unal.edu.co" target="_blank" rel="noreferrer">Facultad de Ingeniería ${icon('arrow')}</a><a href="https://siabog.unal.edu.co/academia/libre-acceso/faq.do" target="_blank" rel="noreferrer">SIA · preguntas frecuentes ${icon('arrow')}</a><a href="https://siabog.unal.edu.co/academia/libre-acceso/manuales/539019aa08a39d44dc7c45e1a888f821.pdf" target="_blank" rel="noreferrer">Guía oficial del buscador ${icon('arrow')}</a></div></article><article class="info-card"><div class="info-card-head"><span class="info-index">03</span><h2>Tu ruta personal</h2></div><p class="muted">Configurá nivelación y lengua extranjera desde la malla. En tu caso actual quedan como Matemáticas básicas cumplida e Inglés exento.</p><button class="button button-outline full-width" data-view="malla">Editar en la malla ${icon('arrow')}</button></article></section><div class="legal-note"><span>Nota de confianza</span><p>El catálogo SIA aporta asignaturas y prerrequisitos, pero no publica aquí todos los requisitos de grado, la distribución de libre elección ni los semestres sugeridos. Contrastá siempre la vigencia con el SIA.</p></div>`
+  const profileConfigured = [state.mathBasics, state.literacy, state.english].filter((value) => value !== 'sin-definir').length
+  return `<section class="page-heading compact"><div><div class="eyebrow"><span class="eyebrow-dot"></span> Centro de ayuda</div><h1>Lo importante, <em>a mano.</em></h1><p class="lede">Fuentes oficiales, alcance del plan y configuración de tu ruta personal.</p></div><div class="heading-note"><span>FUENTE</span><strong>Plan ${curriculumMeta.plan}</strong><small>${curriculumMeta.sourceLabel}</small></div></section><section class="info-grid"><article class="info-card wide"><div class="info-card-head"><span class="info-index">01</span><h2>Fuentes y alcance</h2></div><p>Mallatrónica es una herramienta independiente. No reemplaza el SIA ni la asesoría de la coordinación curricular.</p><div class="source-row"><span class="source-dot"></span><span>Catálogo público SIA · ${rawCourseCount} registros: ${subjects.length} del plan regular y ${supportSubjects.length} de nivelación/lengua.</span><span class="source-status verified">Fuente primaria</span></div><div class="source-row"><span class="source-dot"></span><span>Tu avance y tu ruta se quedan en este navegador.</span><span class="source-status verified">Privacidad local</span></div><div class="source-row"><span class="source-dot"></span><span>Los semestres del mapa son una referencia visual; no vienen publicados en la extracción SIA.</span><span class="source-status">Dato orientativo</span></div></article><article class="info-card"><div class="info-card-head"><span class="info-index">02</span><h2>Enlaces oficiales</h2></div><div class="link-list"><a href="https://unal.edu.co" target="_blank" rel="noreferrer">Universidad Nacional de Colombia ${icon('arrow')}</a><a href="https://ingenieria.bogota.unal.edu.co" target="_blank" rel="noreferrer">Facultad de Ingeniería ${icon('arrow')}</a><a href="https://siabog.unal.edu.co/academia/libre-acceso/faq.do" target="_blank" rel="noreferrer">SIA · preguntas frecuentes ${icon('arrow')}</a><a href="https://siabog.unal.edu.co/academia/libre-acceso/manuales/539019aa08a39d44dc7c45e1a888f821.pdf" target="_blank" rel="noreferrer">Guía oficial del buscador ${icon('arrow')}</a></div></article><article class="info-card"><div class="info-card-head"><span class="info-index">03</span><h2>Tu ruta personal</h2></div><p class="muted">${profileConfigured === 3 ? 'Tu situación de nivelación y lengua extranjera está configurada.' : `Falta configurar ${3 - profileConfigured} de 3 condiciones personales. La aplicación no las presume por vos.`}</p><button class="button button-outline full-width" data-view="malla">Editar en la malla ${icon('arrow')}</button></article></section><div class="legal-note"><span>Nota de confianza</span><p>El catálogo SIA aporta asignaturas y prerrequisitos, pero no publica aquí todos los requisitos de grado, la distribución de libre elección ni los semestres sugeridos. Contrastá siempre la vigencia con el SIA.</p></div>`
 }
 
 function bindEvents() {
@@ -533,7 +573,10 @@ function bindEvents() {
   }))
   app.querySelector<HTMLElement>('[data-action="theme"]')?.addEventListener('click', () => { state.theme = state.theme === 'dark' ? 'light' : 'dark'; saveState(); render() })
   app.querySelector<HTMLElement>('[data-action="reset"]')?.addEventListener('click', () => {
-    if (window.confirm('¿Reiniciar todas las marcas manuales y notas?')) { state.subjects = {}; state.notes = {}; state.freeChoiceStatus = {}; state.freeChoiceNotes = {}; saveState(); render() }
+    if (window.confirm('¿Borrar todo el avance local, la configuración personal, el catálogo de libre elección y el horario? El tema visual se conservará.')) {
+      state = { ...defaultState, theme: state.theme, connections: state.connections, subjects: {}, notes: {}, schedule: [], freeChoice: [], freeChoiceStatus: {}, freeChoiceNotes: {}, electiveAssignments: {} }
+      saveState(); render()
+    }
   })
   app.querySelector<HTMLElement>('[data-action="export"]')?.addEventListener('click', exportState)
   app.querySelector<HTMLElement>('[data-action="import"]')?.addEventListener('click', () => app.querySelector<HTMLInputElement>('#import-file')?.click())
@@ -548,14 +591,15 @@ function bindEvents() {
       try {
         const imported = readCatalogCourses(JSON.parse(String(reader.result)))
         if (!imported.length) throw new Error('empty')
-        state.freeChoice = imported
+        const merged = mergeCatalogCourses(state.freeChoice, imported)
+        state.freeChoice = merged.courses
         pruneFreeChoiceProgress()
         state.electiveAssignments = readElectiveAssignments(state.electiveAssignments, state.freeChoice)
         saveState()
         render()
-        showSupportToast('Catálogo importado', `${imported.length} opciones quedaron guardadas localmente.`)
+        showSupportToast('Catálogo combinado', `${merged.added} opciones agregadas${merged.skipped ? ` · ${merged.skipped} duplicadas conservadas sin cambios` : ''}.`)
       } catch {
-        showSupportToast('No se pudo importar', 'Usá un JSON con code, name, credits y category por cada materia.')
+        showSupportToast('No se pudo importar', 'Usá un JSON con code/name/credits/category o courseCode/courseName/component.')
       }
       input.value = ''
     }
@@ -567,6 +611,10 @@ function bindEvents() {
     const course = normalizeCatalogCourse({ code: data.get('code'), name: data.get('name'), credits: data.get('credits'), category: data.get('category') }, state.freeChoice.length, 'manual')
     if (!course) {
       showSupportToast('Faltan datos', 'Completá código, nombre, créditos y componente.')
+      return
+    }
+    if (state.freeChoice.some((item) => courseCodeKey(item.code) === courseCodeKey(course.code))) {
+      showSupportToast('Código duplicado', 'Ya existe una materia con ese código en tu catálogo local.')
       return
     }
     state.freeChoice.push(course)
@@ -615,6 +663,10 @@ function bindEvents() {
       showSupportToast('El bloque no se puede agregar', 'La hora de fin debe ser posterior a la hora de inicio.')
       return
     }
+    if (timeToMinutes(candidate.start) < 7 * 60 || timeToMinutes(candidate.end) > 21 * 60) {
+      showSupportToast('Horario fuera del tablero', 'Usá horas entre 07:00 y 21:00.')
+      return
+    }
     if (scheduleHasConflict(candidate)) {
       showSupportToast('Hay un choque de horario', `Ya tenés otro bloque el ${candidate.day} en ese intervalo.`)
       return
@@ -648,20 +700,37 @@ function bindEvents() {
   app.querySelectorAll<HTMLInputElement>('[data-note]').forEach((input) => input.addEventListener('change', () => {
     const id = input.dataset.note!
     const value = input.value === '' ? undefined : Number(input.value)
-    if (value === undefined || Number.isNaN(value)) delete state.notes[id]
+    if (value !== undefined && (!input.checkValidity() || !Number.isFinite(value))) {
+      input.reportValidity()
+      input.value = state.notes[id]?.toFixed(1) ?? ''
+      return
+    }
+    if (value === undefined) delete state.notes[id]
     else {
-      state.notes[id] = Math.round(Math.min(5, Math.max(0, value)) * 10) / 10
+      state.notes[id] = Math.round((value + Number.EPSILON) * 10) / 10
+      delete state.subjects[id]
       if (id === 'matematicas-basicas') state.mathBasics = state.notes[id] >= 3 ? 'cumplida' : 'pendiente'
       if (id === 'lecto-escritura') state.literacy = state.notes[id] >= 3 ? 'cumplida' : 'pendiente'
     }
+    const subject = subjects.find((item) => item.id === id)
+    const inconsistent = value !== undefined && subject !== undefined && getMissingRequirements(subject).length > 0
     saveState(); render()
+    if (inconsistent) showSupportToast('Nota guardada como historial', 'La materia tiene requisitos sin registrar. Revisa equivalencias o completa el avance anterior.')
   }))
   app.querySelectorAll<HTMLInputElement>('[data-free-note]').forEach((input) => input.addEventListener('change', () => {
     const id = input.dataset.freeNote!
     if (!state.freeChoice.some(course => course.id === id)) return
     const value = input.value === '' ? undefined : Number(input.value)
-    if (value === undefined || Number.isNaN(value)) delete state.freeChoiceNotes[id]
-    else state.freeChoiceNotes[id] = Math.min(5, Math.max(0, value))
+    if (value !== undefined && (!input.checkValidity() || !Number.isFinite(value))) {
+      input.reportValidity()
+      input.value = state.freeChoiceNotes[id]?.toFixed(1) ?? ''
+      return
+    }
+    if (value === undefined) delete state.freeChoiceNotes[id]
+    else {
+      state.freeChoiceNotes[id] = Math.round((value + Number.EPSILON) * 10) / 10
+      delete state.freeChoiceStatus[id]
+    }
     saveState(); render()
   }))
   app.querySelectorAll<HTMLButtonElement>('[data-free-approved]').forEach((button) => button.addEventListener('click', () => {
@@ -677,12 +746,14 @@ function bindEvents() {
     const subjectId = key === 'mathBasics' ? 'matematicas-basicas' : key === 'literacy' ? 'lecto-escritura' : undefined
     const grade = subjectId ? state.notes[subjectId] : undefined
     if (subjectId && grade !== undefined) {
-      const contradictsGrade = select.value === 'no-aplica'
+      const contradictsGrade = select.value === 'no-aplica' || select.value === 'sin-definir'
         || (select.value === 'pendiente' && grade >= 3)
         || (select.value === 'cumplida' && grade < 3)
       if (contradictsGrade) {
         delete state.notes[subjectId]
+        saveState(); render()
         showSupportToast('Estado actualizado', 'Se quitó la nota anterior porque contradecía la nueva situación seleccionada.')
+        return
       }
     }
     saveState(); render()
@@ -704,7 +775,11 @@ function showRequirementToast(subject: Subject) {
   document.querySelector('.requirement-toast')?.remove()
   const toast = document.createElement('div')
   toast.className = 'requirement-toast'
-  toast.innerHTML = `<strong>${subject.name} sigue bloqueada</strong><span>${getMissingRequirements(subject).slice(0, 3).join(' · ')}</span>`
+  const title = document.createElement('strong')
+  const message = document.createElement('span')
+  title.textContent = `${subject.name} sigue bloqueada`
+  message.textContent = getMissingRequirements(subject).slice(0, 3).join(' · ')
+  toast.append(title, message)
   document.body.appendChild(toast)
   window.setTimeout(() => toast.remove(), 4200)
 }
@@ -713,7 +788,11 @@ function showSupportToast(title: string, message: string) {
   document.querySelector('.requirement-toast')?.remove()
   const toast = document.createElement('div')
   toast.className = 'requirement-toast'
-  toast.innerHTML = `<strong>${title}</strong><span>${message}</span>`
+  const heading = document.createElement('strong')
+  const detail = document.createElement('span')
+  heading.textContent = title
+  detail.textContent = message
+  toast.append(heading, detail)
   document.body.appendChild(toast)
   window.setTimeout(() => toast.remove(), 4200)
 }
@@ -733,19 +812,22 @@ function importState(event: Event) {
     try {
       const imported = JSON.parse(String(reader.result)) as Partial<State>
       if (!imported.subjects || typeof imported.subjects !== 'object') throw new Error('invalid')
-      state = {
+      state = normalizeState({
         ...defaultState,
         ...imported,
-        schemaVersion: 6,
-        subjects: imported.subjects,
+        schemaVersion: 7,
+        subjects: readStatuses(imported.subjects),
         notes: readGrades(imported.notes),
-        theme: (imported.schemaVersion === 5 || imported.schemaVersion === 6) && imported.theme === 'dark' ? 'dark' : 'light',
+        theme: [5, 6, 7].includes(imported.schemaVersion ?? 0) && imported.theme === 'dark' ? 'dark' : 'light',
+        mathBasics: readRequirementStatus(imported.mathBasics),
+        literacy: readRequirementStatus(imported.literacy),
+        english: readRequirementStatus(imported.english),
         schedule: Array.isArray(imported.schedule) ? imported.schedule.filter(isScheduleSlot) : [],
         freeChoice: readStoredChoiceCourses(imported.freeChoice),
         freeChoiceStatus: readStatuses(imported.freeChoiceStatus),
         freeChoiceNotes: readGrades(imported.freeChoiceNotes),
         electiveAssignments: readElectiveAssignments(imported.electiveAssignments, readStoredChoiceCourses(imported.freeChoice)),
-      }
+      })
       pruneFreeChoiceProgress()
       saveState(); render(); window.alert('Avance importado correctamente.')
     } catch { window.alert('Ese archivo no tiene un formato de avance válido.') }
