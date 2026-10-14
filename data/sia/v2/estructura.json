@@ -1,7 +1,7 @@
 {
   "source": {
     "url": "https://sia.unal.edu.co/ServiciosApp/faces/inicioServicios",
-    "path": "Información académica > Mi historia académica"
+    "path": "Resumen de requisitos del plan; sin progreso individual"
   },
   "plan": "2545 INGENIERÍA ELECTRÓNICA",
   "facultad": "FACULTAD DE INGENIERÍA",
@@ -38,5 +38,9 @@
     }
   ],
   "agrupaciones": null,
-  "agrupaciones_reason": "'Mis planes' redirects to login page https://siabog.unal.edu.co/academia/ (stopped per instructions)"
+  "agrupaciones_reason": "'Mis planes' redirects to login page https://siabog.unal.edu.co/academia/ (stopped per instructions)",
+  "nivelacion": {
+    "exigidos": null,
+    "reason": "Depende de los requisitos y exenciones individuales; no forma parte de los 172 créditos"
+  }
 }
