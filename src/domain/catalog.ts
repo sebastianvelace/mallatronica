@@ -35,8 +35,11 @@ export function normalizeCatalogCourse(value: unknown, index: number, source: Ca
   const credits = typeof item.credits === 'number' ? item.credits : Number(item.credits)
   if (!code || !name || !category || !Number.isFinite(credits) || credits <= 0 || credits > 12) return null
 
+  // The prefix keeps free-choice ids apart from plan course ids.
+  const rawId = asText(item.id)
+  const id = rawId.startsWith('free-') ? rawId : slug(rawId) ? `free-${slug(rawId)}` : `free-${slug(code)}-${index}`
   return {
-    id: asText(item.id) || `free-${slug(code)}-${index}`,
+    id,
     code,
     name,
     credits,

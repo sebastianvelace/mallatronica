@@ -1,26 +1,19 @@
 const { test } = require('node:test')
 const assert = require('node:assert/strict')
-const { readFileSync } = require('node:fs')
-const ts = require('typescript')
+const loadTs = require('./load-ts.cjs')
 
 // Compile the actual domain modules with the existing TypeScript dependency.
 // No browser or additional test framework is needed for these pure contracts.
-const previous = require.extensions['.ts']
-require.extensions['.ts'] = (module, filename) => {
-  const { outputText } = ts.transpileModule(readFileSync(filename, 'utf8'), {
-    compilerOptions: { module: ts.ModuleKind.CommonJS, target: ts.ScriptTarget.ES2022, esModuleInterop: true },
-    fileName: filename,
-  })
-  module._compile(outputText, filename)
-}
-const { recordedAverage, readGrades } = require('../src/domain/grades.ts')
-const { readElectiveAssignments, referenceSlot } = require('../src/domain/electives.ts')
-const { subjects } = require('../src/data/curriculum.ts')
-const { creditBalance } = require('../src/domain/credit-balance.ts')
-const { mergeCatalogCourses, readCatalogCourses } = require('../src/domain/catalog.ts')
-const { referenceSemesterForCode } = require('../src/data/reference-layout.ts')
-if (previous) require.extensions['.ts'] = previous
-else delete require.extensions['.ts']
+const {
+  recordedAverage, readGrades, readElectiveAssignments, referenceSlot, subjects, creditBalance, mergeCatalogCourses, readCatalogCourses, referenceSemesterForCode,
+} = loadTs(() => ({
+  ...require('../src/domain/grades.ts'),
+  ...require('../src/domain/electives.ts'),
+  ...require('../src/data/curriculum.ts'),
+  ...require('../src/domain/credit-balance.ts'),
+  ...require('../src/domain/catalog.ts'),
+  ...require('../src/data/reference-layout.ts'),
+}))
 
 test('plan requirements sum to 172 and exclude individual levelation', () => {
   const balance = creditBalance([])

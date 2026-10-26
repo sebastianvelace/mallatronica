@@ -127,7 +127,7 @@ svg { width: 16px; height: 16px; fill: none; stroke: currentColor; stroke-width:
 .language-routes { margin-top: 16px; border-top: 1px solid var(--line); }
 .language-routes > summary { padding: 14px 0; color: var(--ink); cursor: pointer; font-size: 11px; }.language-routes > summary span { float: right; color: var(--muted-2); font: 9px var(--mono); }.language-routes > p { margin: 0 0 8px; color: var(--muted); font-size: 10px; }
 .requirement-toast { position: fixed; right: 24px; bottom: 24px; z-index: 30; display: grid; gap: 5px; min-width: 260px; max-width: 360px; padding: 13px 15px; border: 1px solid color-mix(in srgb, var(--amber) 55%, var(--line)); background: var(--panel); box-shadow: 0 14px 28px rgba(0,0,0,.22); color: var(--ink); }
-.requirement-toast strong { font-size: 11px; }.requirement-toast span { color: var(--amber); font: 9px/1.45 var(--mono); }
+.requirement-toast[hidden] { display: none; }.requirement-toast strong { font-size: 11px; }.requirement-toast span { color: var(--amber); font: 9px/1.45 var(--mono); }
 @media (max-width: 760px) { .support-tracks { margin-left: 16px; margin-right: 16px; }.support-grid { grid-template-columns: 1fr; }.support-head { display: block; }.support-head select { width: 100%; max-width: none; margin-top: 13px; }.support-row { align-items: flex-start; }.support-row-actions { align-items: flex-end; flex-direction: column-reverse; }.language-routes > summary span { float: none; display: block; margin-top: 5px; }.requirement-toast { left: 16px; right: 16px; bottom: 16px; min-width: 0; } }
 
 .leveling-semester { background: color-mix(in srgb, var(--amber) 4%, var(--panel)); }

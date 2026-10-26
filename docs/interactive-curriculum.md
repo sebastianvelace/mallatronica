@@ -35,7 +35,13 @@ Elective assignments are persisted independently of approvals and grades, using 
 
 The elective picker ranks name matches to the visual reference ahead of other courses in the component. This is visual assistance, not verified academic grouping: the SIA extract has no grouping field. Other component courses remain available through a disclosure.
 
-Run `npm test` for the domain contracts; no additional test dependency is required.
+Eligibility (`src/domain/progress.ts`) and stored/imported progress parsing (`src/domain/state.ts`) are pure functions shared by every view. Run `npm test` for the domain contracts; no additional test dependency is required. CI runs the tests and the production build on every pull request.
+
+## First run and offer data
+
+Until Mathematics Basics, Literacy and the foreign-language situation are configured, a notice above the map explains what is missing and opens that panel. The app still does not assume a personal condition: an unconfigured Mathematics Basics keeps Cálculo diferencial blocked. Removing a Mathematics Basics or Literacy grade returns that situation to unconfigured.
+
+Courses marked `sin_programar_2026_2` in the SIA extraction show a "No ofertada" label on the map, in the course detail and in the schedule picker. It is a snapshot, not a live offer.
 
 ## Verification scenarios
 
@@ -53,3 +59,5 @@ Run `npm test` for the domain contracts; no additional test dependency is requir
 - Regular courses with `semester: null` remain editable in the calculator.
 - Planning from an eligible course preselects it in the schedule form.
 - Both themes, reduced motion and browser runtime errors are checked.
+- A first visit follows the system color scheme and shows the configuration notice until the three personal situations are set.
+- Importing progress asks for confirmation before replacing local data; invalid files leave it untouched.
