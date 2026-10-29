@@ -120,7 +120,6 @@ const legacyIdsByCode: Record<string, string> = {
   '2016506': 'senales-1',
   '2016507': 'senales-2',
   '2016509': 'taller-electronica',
-  '2016510': 'taller-proyectos',
   '2016512': 'verificacion-sistemas-digitales',
   '2024045': 'taller-proyectos',
   '1000001-B': 'matematicas-basicas',
@@ -220,4 +219,3 @@ export const supportSubjects: SupportSubject[] = allCourses
 export const disciplinaryIds = new Set(subjects.filter((subject) => subject.tipologia.startsWith('DISCIPLINAR')).map((subject) => subject.id))
 
 export const rawCourseCount = rawPlan.length
-export const unplacedCourseCount = subjects.filter((subject) => subject.semester === null).length

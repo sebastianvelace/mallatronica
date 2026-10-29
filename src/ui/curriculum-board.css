@@ -205,3 +205,11 @@ details.preview-scroll { margin-block: 18px; }
   .course-preview { padding: 16px; }
 }
 @media (prefers-reduced-motion: reduce) { .curriculum-workspace *, .curriculum-progress i { animation: none !important; transition: none !important; scroll-behavior: auto !important; } }
+
+.profile-notice { margin: 0 32px 20px; padding: 16px 18px; display: flex; align-items: center; justify-content: space-between; gap: 18px; border: 1px solid color-mix(in srgb, var(--amber) 55%, var(--line)); border-radius: 8px; background: color-mix(in srgb, var(--amber) 7%, var(--panel)); }
+.profile-notice strong { font-size: 14px; }
+.profile-notice p { margin: 4px 0 0; max-width: 760px; color: var(--muted); font-size: 13px; line-height: 1.5; }
+.profile-notice .button { flex: none; }
+.course-offer { color: var(--amber); }
+.preview-offer { margin: 0 0 12px; color: var(--amber); font-size: 12px; }
+@media (max-width: 760px) { .profile-notice { margin-inline: 16px; flex-direction: column; align-items: stretch; } }

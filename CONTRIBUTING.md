@@ -3,7 +3,7 @@
 1. Abre un issue para describir errores o propuestas importantes.
 2. Crea un fork y una rama para tu cambio.
 3. Instala con `npm ci` y desarrolla con `npm run dev`.
-4. Ejecuta `npm test`, `npm run build` y `git diff --check`.
+4. Ejecuta `npm test`, `npm run build` y `git diff --check`. La CI repite las pruebas y el build en cada pull request.
 5. Envía un pull request con el problema, la solución y las pruebas realizadas.
 
 Mantén los cambios enfocados. Para modificaciones de UI, verifica teclado,
