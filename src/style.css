@@ -275,3 +275,20 @@ body { font-size: 15px; line-height: 1.55; }
 .language-accreditation.neutral { border-color: var(--line); background: var(--panel-soft); }
 .language-accreditation.neutral span { color: var(--muted); }
 @media (max-width: 760px) { .week-grid { grid-template-columns: 56px repeat(6, 126px); } }
+
+/* Each course keeps one theme-aware color across its blocks. */
+.schedule-block { --slot: var(--mint); border-left-color: var(--slot); background: color-mix(in srgb, var(--slot) 12%, var(--panel)); }
+.schedule-block[data-color="1"] { --slot: var(--blue); }
+.schedule-block[data-color="2"] { --slot: var(--amber); }
+.schedule-block[data-color="3"] { --slot: var(--lavender); }
+.schedule-block[data-color="4"] { --slot: var(--coral); }
+.schedule-block[data-color="5"] { --slot: var(--map-discipline); }
+.schedule-block .schedule-block-time { color: color-mix(in srgb, var(--slot) 70%, var(--ink)); }
+.schedule-block.is-editing { outline: 2px solid var(--slot); outline-offset: 1px; }
+.schedule-block-actions { position: absolute; top: 2px; right: 2px; display: flex; flex-direction: column; }
+.schedule-block .schedule-block-actions button { position: static; min-width: 28px; min-height: 28px; }
+.schedule-block .schedule-block-actions [data-schedule-edit]:hover, .schedule-block .schedule-block-actions [data-schedule-edit]:focus-visible { color: var(--ink); }
+.schedule-form-actions { display: flex; flex-wrap: wrap; gap: 10px; }
+.schedule-form.is-editing { border-color: color-mix(in srgb, var(--amber) 60%, var(--line)); }
+.field-help { color: var(--muted-2); font: 9px var(--mono); }
+@media print { .schedule-block-actions { display: none; } }

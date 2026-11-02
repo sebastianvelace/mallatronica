@@ -37,9 +37,22 @@ The elective picker ranks name matches to the visual reference ahead of other co
 
 Eligibility (`src/domain/progress.ts`) and stored/imported progress parsing (`src/domain/state.ts`) are pure functions shared by every view. Run `npm test` for the domain contracts; no additional test dependency is required. CI runs the tests and the production build on every pull request.
 
+## Code layout
+
+- `src/main.ts` renders the shell (navigation, theme, export/import, reset) and mounts the active view.
+- `src/app/store.ts` holds persisted academic state plus presentation state that survives rerenders; `commit()` saves and rerenders. `src/app/selectors.ts` binds eligibility helpers to that state.
+- `src/views/` contains one module per destination (`malla`, `calculator`, `schedule`, `free-choice`, `info`) with a `render` function and, when needed, a `bind` function. Grade inputs shared by several views live in `grade-inputs.ts`.
+- `src/domain/` stays free of DOM code: progress, state parsing, schedule rules, grades, electives, catalog and credit balance.
+
+## Schedule
+
+Blocks can be edited in place; an edited block is never reported as conflicting with its own previous version. A conflict message names the overlapping course and time. Each course keeps one theme-aware color across all its blocks. The course picker groups plan and free-choice courses and hides approved ones, except the course being edited or preselected.
+
 ## First run and offer data
 
 Until Mathematics Basics, Literacy and the foreign-language situation are configured, a notice above the map explains what is missing and opens that panel. The app still does not assume a personal condition: an unconfigured Mathematics Basics keeps Cálculo diferencial blocked. Removing a Mathematics Basics or Literacy grade returns that situation to unconfigured.
+
+The map footer, credit balance and help page show the SIA consultation date from `curriculumMeta.consultedAt`. The credit balance also notes that the reference map draws 11 free-choice spaces (33 credits at 3 each), one credit short of the 34 required.
 
 Courses marked `sin_programar_2026_2` in the SIA extraction show a "No ofertada" label on the map, in the course detail and in the schedule picker. It is a snapshot, not a live offer.
 

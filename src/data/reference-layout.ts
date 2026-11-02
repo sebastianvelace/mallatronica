@@ -27,3 +27,6 @@ export function referenceSemesterForCode(code: string) {
     && cell.toLocaleUpperCase().replace(/[^A-Z0-9]/g, '') === normalized))
   return index === -1 ? null : index + 1
 }
+
+/** Number of free-choice spaces drawn on the reference map. */
+export const referenceFreeSlotCount = referenceSemesters.flat().filter((cell) => typeof cell === 'object' && cell?.kind === 'free').length

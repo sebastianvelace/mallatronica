@@ -76,7 +76,8 @@ export const curriculumMeta = {
   plan: '2545',
   program: 'Ingeniería Electrónica',
   campus: 'Bogotá',
-  sourceLabel: 'Catálogo público SIA · consulta 2026-10-13',
+  /** Date the public SIA catalogue was consulted (ISO). */
+  consultedAt: '2026-10-13',
   regularCredits: 172,
   disciplinaryCredits: 78,
 } as const
