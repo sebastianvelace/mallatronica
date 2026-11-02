@@ -105,6 +105,8 @@ export function bindFreeChoice(root: HTMLElement) {
     delete state.freeChoiceNotes[id]
     state.electiveAssignments = readElectiveAssignments(state.electiveAssignments, state.freeChoice)
     state.schedule = state.schedule.filter((slot) => slot.subjectId !== id)
+    state.plan = state.plan.filter((planned) => planned !== id)
+    delete state.attempts[id]
     commit()
   }))
 }

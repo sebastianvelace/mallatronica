@@ -1,7 +1,7 @@
 import { curriculumMeta, subjects, supportSubjects } from '../data/curriculum'
 import { referenceFreeSlotCount } from '../data/reference-layout'
 import { readElectiveAssignments } from '../domain/electives'
-import { recordedAverage } from '../domain/grades'
+import { cumulativeAverage, recordedAverage } from '../domain/grades'
 import { approvedCredits, prerequisiteGroupLabel, prerequisiteGroupSatisfied, recordBalance, type RequirementStatus } from '../domain/progress'
 import { canApprove, getMissingRequirements, getStatus, isApproved, statusInfo, supportStatus } from '../app/selectors'
 import { commit, navigate, store } from '../app/store'
@@ -9,6 +9,7 @@ import { mountCurriculumBoard, renderCurriculumBoard, type BoardOptions } from '
 import { formatIsoDate } from '../ui/html'
 import { icon } from '../ui/icons'
 import { showToast } from '../ui/toast'
+import { togglePlanned } from './planner'
 
 const totalCredits = curriculumMeta.regularCredits
 
@@ -17,13 +18,14 @@ export function renderMalla() {
   const approved = approvedCredits(state)
   const percentage = Math.round((approved / totalCredits) * 100)
   const average = recordedAverage(state.notes, state.freeChoice, state.freeChoiceNotes)
+  const cumulative = cumulativeAverage(state.notes, state.attempts, state.freeChoice, state.freeChoiceNotes)
   return `
-    <section class="curriculum-heading"><div><p>UNAL Bogotá <span>/</span> Plan 2545</p><h1>Ingeniería Electrónica<span>.</span></h1><p>Tu carrera, materia por materia.</p></div><div class="curriculum-metrics"><div class="recorded-average"><span>Promedio registrado</span><strong data-recorded-average>${average.value?.toFixed(2) ?? 'Sin notas'}</strong><small>${average.courses} materias · ${average.credits} créditos con nota</small><details><summary>¿Es mi PAPA?</summary><p>Es una estimación ponderada por créditos. Incluye notas numéricas del plan, libre elección, Matemáticas Básicas y Lectoescritura. Inglés AP/RE y aprobaciones sin nota no se ponderan. Todavía no representa intentos repetidos ni reemplaza el PAPA oficial.</p></details></div><div class="curriculum-progress"><strong>${approved}<span> / ${totalCredits} cr.</span></strong><div role="progressbar" aria-label="Créditos aprobados" aria-valuenow="${Math.min(100, percentage)}" aria-valuemin="0" aria-valuemax="100"><i style="width:${Math.min(100, percentage)}%"></i></div><small>${percentage}% del plan registrado</small></div></div></section>
+    <section class="curriculum-heading"><div><p>UNAL Bogotá <span>/</span> Plan 2545</p><h1>Ingeniería Electrónica<span>.</span></h1><p>Tu carrera, materia por materia.</p></div><div class="curriculum-metrics"><div class="recorded-average"><span>PAPA estimado</span><strong data-recorded-average>${cumulative.value?.toFixed(2) ?? 'Sin notas'}</strong><small>PA ${average.value?.toFixed(2) ?? '—'} · ${average.courses} materias · ${cumulative.credits} créditos cursados</small><details><summary>¿Cómo se calcula?</summary><p>Ponderado por créditos con notas numéricas del plan, libre elección, Matemáticas Básicas y Lectoescritura. El PA usa la última nota de cada materia; el PAPA suma también los intentos anteriores que registres en Notas. Inglés AP/RE y aprobaciones sin nota no se ponderan. Es una estimación: no reemplaza el PAPA oficial del SIA.</p></details></div><div class="curriculum-progress"><strong>${approved}<span> / ${totalCredits} cr.</span></strong><div role="progressbar" aria-label="Créditos aprobados" aria-valuenow="${Math.min(100, percentage)}" aria-valuemin="0" aria-valuemax="100"><i style="width:${Math.min(100, percentage)}%"></i></div><small>${percentage}% del plan registrado</small></div></div></section>
     ${renderProfileNotice()}
     ${renderCreditBalance()}
     ${renderCurriculumBoard(boardOptions())}
     <details class="curriculum-support" id="support-tracks" data-panel="support"${store.openPanels.has('support') ? ' open' : ''}><summary>Nivelación y lengua extranjera <span>Configurar mi situación</span></summary>${renderSupportTracks()}</details>
-    <footer class="curriculum-footer"><span>Avance guardado en este navegador · datos del SIA consultados el ${formatIsoDate(curriculumMeta.consultedAt)} · oferta y requisitos finales en el SIA</span><div><button class="text-button" data-action="import">Importar avance</button><button class="text-button" data-view="info">Fuentes y alcance</button><button class="text-button" data-action="reset">Reiniciar</button></div></footer>
+    <footer class="curriculum-footer"><span>Avance guardado en este navegador · datos del SIA consultados el ${formatIsoDate(curriculumMeta.consultedAt)} · oferta y requisitos finales en el SIA</span><div><button class="text-button" data-action="print-map">Imprimir o guardar PDF</button><button class="text-button" data-action="import">Importar avance</button><button class="text-button" data-view="info">Fuentes y alcance</button><button class="text-button" data-action="reset">Reiniciar</button></div></footer>
   `
 }
 
@@ -99,6 +101,14 @@ function boardOptions(): BoardOptions {
       commit()
       if (inconsistentDependents.length) showToast('Revisa el historial', `${inconsistentDependents.length} materia${inconsistentDependents.length === 1 ? '' : 's'} aprobada${inconsistentDependents.length === 1 ? '' : 's'} quedó con requisitos pendientes.`)
     },
+    planned: (id) => state.plan.includes(id),
+    togglePlan: (subject) => {
+      const adding = !state.plan.includes(subject.id)
+      togglePlanned(subject.id)
+      store.pendingCourseId = subject.id
+      commit()
+      showToast(adding ? 'Agregada al plan' : 'Quitada del plan', `${subject.name} · revisa la carga en Planear.`)
+    },
     schedule: (subject) => {
       store.pendingScheduleSubjectId = subject.id
       store.editingSlotId = null
@@ -157,6 +167,7 @@ export function bindMalla(root: HTMLElement) {
     support.scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth', block: 'start' })
     support.querySelector<HTMLSelectElement>('select[data-profile]')?.focus({ preventScroll: true })
   })
+  root.querySelector<HTMLElement>('[data-action="print-map"]')?.addEventListener('click', () => window.print())
   root.querySelectorAll<HTMLSelectElement>('[data-profile]').forEach((select) => select.addEventListener('change', () => {
     const key = select.dataset.profile as 'mathBasics' | 'literacy' | 'english'
     state[key] = select.value as RequirementStatus

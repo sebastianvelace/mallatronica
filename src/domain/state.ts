@@ -1,7 +1,7 @@
 import { courseCodeKey, subjects, supportSubjects } from '../data/curriculum'
 import type { CatalogCourse } from './catalog'
 import { readElectiveAssignments, type ElectiveAssignments } from './electives'
-import { readGrades } from './grades'
+import { readAttempts, readGrades, type Attempts } from './grades'
 import type { RequirementStatus, Status } from './progress'
 
 export type ScheduleDay = 'Lunes' | 'Martes' | 'Miércoles' | 'Jueves' | 'Viernes' | 'Sábado'
@@ -30,6 +30,10 @@ export type State = {
   freeChoiceStatus: Record<string, Status>
   freeChoiceNotes: Record<string, number>
   electiveAssignments: ElectiveAssignments
+  /** Courses planned for the next term (plan or free-choice ids). */
+  plan: string[]
+  /** Earlier failing grades of repeated courses, for the PAPA. */
+  attempts: Attempts
 }
 
 export const SCHEMA_VERSION = 7
@@ -51,6 +55,8 @@ export function emptyState(theme: Theme = 'light'): State {
     freeChoiceStatus: {},
     freeChoiceNotes: {},
     electiveAssignments: {},
+    plan: [],
+    attempts: {},
   }
 }
 
@@ -102,10 +108,19 @@ export function readStoredChoiceCourses(value: unknown) {
   })
 }
 
+/** Keeps planned ids that exist, once each, in their original order. */
+export function readPlan(value: unknown, freeChoice: readonly CatalogCourse[]) {
+  if (!Array.isArray(value)) return []
+  const known = new Set([...subjects.map(subject => subject.id), ...freeChoice.map(course => course.id)])
+  return [...new Set(value.filter((id): id is string => typeof id === 'string' && known.has(id)))]
+}
+
 export function pruneFreeChoiceProgress(state: State) {
   const ids = new Set(state.freeChoice.map(course => course.id))
   state.freeChoiceStatus = Object.fromEntries(Object.entries(state.freeChoiceStatus).filter(([id]) => ids.has(id)))
   state.freeChoiceNotes = Object.fromEntries(Object.entries(state.freeChoiceNotes).filter(([id]) => ids.has(id)))
+  state.plan = readPlan(state.plan, state.freeChoice)
+  state.attempts = readAttempts(state.attempts, state.freeChoice)
   return state
 }
 
@@ -128,6 +143,8 @@ export function parseState(value: unknown, fallbackTheme: Theme = 'light'): Stat
     freeChoiceStatus: readStatuses(raw.freeChoiceStatus),
     freeChoiceNotes: readGrades(raw.freeChoiceNotes),
     electiveAssignments: readElectiveAssignments(raw.electiveAssignments, freeChoice),
+    plan: readPlan(raw.plan, freeChoice),
+    attempts: readAttempts(raw.attempts, freeChoice),
   }
   // A grade decides the result; a stale manual mark would contradict it.
   for (const id of Object.keys(state.notes)) delete state.subjects[id]
