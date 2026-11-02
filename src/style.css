@@ -1,7 +1,7 @@
-:root { font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; color: #111311; background: #f7f8f6; font-synthesis: none; text-rendering: optimizeLegibility; --bg: #f7f8f6; --bg-elevated: #ffffff; --panel: #ffffff; --panel-soft: #f0f1ee; --line: #e5e7e2; --line-strong: #c5c9c1; --ink: #111311; --muted: #6e736d; --muted-2: #969b93; --mint: #111311; --mint-strong: #111311; --coral: #c8543d; --amber: #8a6800; --blue: #35729a; --lavender: #6d5b9d; --mono: 'SFMono-Regular', Consolas, 'Liberation Mono', monospace; --display: ui-sans-serif, system-ui, sans-serif; }
-:root[data-theme='dark'] { --bg: #0c1116; --bg-elevated: #111820; --panel: #151f28; --panel-soft: #19252d; --line: #2a3740; --line-strong: #40535a; --ink: #ecf2f0; --muted: #90a0a3; --muted-2: #66767c; --mint: #b8f5ce; --mint-strong: #6fe19e; --coral: #ff937d; --amber: #e8c26f; --blue: #7cc8ef; --lavender: #bdaef6; }
+:root { font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; color: #111311; background: #f7f8f6; font-synthesis: none; text-rendering: optimizeLegibility; --bg: #f7f8f6; --bg-elevated: #ffffff; --panel: #ffffff; --panel-soft: #f0f1ee; --line: #e5e7e2; --line-strong: #c5c9c1; --ink: #111311; --muted: #5d625c; --muted-2: #6f746d; --mint: #111311; --mint-strong: #111311; --coral: #c8543d; --amber: #8a6800; --blue: #35729a; --lavender: #6d5b9d; --mono: 'SFMono-Regular', Consolas, 'Liberation Mono', monospace; --display: ui-sans-serif, system-ui, sans-serif; }
+:root[data-theme='dark'] { --bg: #0c1116; --bg-elevated: #111820; --panel: #151f28; --panel-soft: #19252d; --line: #2a3740; --line-strong: #40535a; --ink: #ecf2f0; --muted: #90a0a3; --muted-2: #84949a; --mint: #b8f5ce; --mint-strong: #6fe19e; --coral: #ff937d; --amber: #e8c26f; --blue: #7cc8ef; --lavender: #bdaef6; }
 * { box-sizing: border-box; }
-body { margin: 0; min-width: 320px; min-height: 100vh; background: var(--bg); }
+body { margin: 0; min-width: 320px; min-height: 100vh; background: var(--bg); color: var(--ink); }
 button, input { font: inherit; }
 button { cursor: pointer; }
 svg { width: 16px; height: 16px; fill: none; stroke: currentColor; stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round; }
@@ -354,3 +354,39 @@ body { font-size: 15px; line-height: 1.55; }
 @media (max-width: 900px) { .schedule-workspace { grid-template-columns: 1fr; } .offer-panel { max-height: none; } }
 .offer-group.is-full { border-style: dashed; }
 .offer-full { color: var(--coral); font-weight: 600; }
+
+/* Timetable builder (planner) */
+.timetable-builder { display: grid; gap: 12px; margin-top: 18px; padding-top: 16px; border-top: 1px solid var(--line); }
+.timetable-head { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px; align-items: flex-end; }
+.timetable-head h3 { margin: 4px 0; font-size: 16px; }
+.timetable-head p { margin: 0; max-width: 460px; font-size: 12px; }
+.timetable-controls { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; }
+.check { display: inline-flex; align-items: center; gap: 6px; color: var(--muted); font-size: 12px; }
+.timetable-options { display: grid; gap: 10px; }
+.timetable-option { display: grid; gap: 10px; padding: 12px 14px; border: 1px solid var(--line); border-radius: 10px; background: var(--bg-elevated); }
+.timetable-option header { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 6px; font-size: 13px; }
+.timetable-option header span { color: var(--muted); font: 11px var(--mono); }
+.timetable-option ul { display: grid; gap: 6px; margin: 0; padding: 0; list-style: none; font-size: 12px; }
+.timetable-option li small { display: block; color: var(--muted); font: 10px/1.4 var(--mono); }
+.timetable-option .button { justify-self: start; }
+.timetable-empty { margin: 0; padding: 10px 12px; border-left: 2px solid var(--coral); background: color-mix(in srgb, var(--coral) 7%, var(--panel)); font-size: 12px; }
+
+/* First-run guide */
+.onboarding { width: min(460px, calc(100vw - 32px)); max-height: calc(100vh - 32px); padding: 0; border: 1px solid var(--line); border-radius: 14px; background: var(--panel); color: var(--ink); box-shadow: 0 24px 60px rgba(0,0,0,.28); }
+.onboarding::backdrop { background: color-mix(in srgb, var(--bg) 55%, transparent); backdrop-filter: blur(3px); }
+.onboarding form { display: grid; gap: 14px; padding: 22px 24px; }
+.onboarding header, .onboarding footer { display: flex; justify-content: space-between; align-items: center; gap: 10px; }
+.onboarding-step { color: var(--muted-2); font: 10px var(--mono); letter-spacing: .06em; text-transform: uppercase; }
+.onboarding h2 { margin: 0; font-size: 22px; letter-spacing: -.4px; }
+.onboarding p { margin: 0; color: var(--muted); font-size: 13px; line-height: 1.5; }
+.onboarding-choice { display: flex; flex-wrap: wrap; gap: 6px; margin: 0; padding: 0; border: 0; }
+.onboarding-choice legend { width: 100%; margin-bottom: 6px; font-size: 13px; font-weight: 600; }
+.onboarding-choice label { position: relative; display: inline-flex; align-items: center; gap: 6px; padding: 7px 11px; border: 1px solid var(--line); border-radius: 999px; font-size: 12px; cursor: pointer; }
+.onboarding-choice label:has(input:checked) { border-color: var(--ink); background: var(--panel-soft); font-weight: 600; }
+.onboarding-choice input { accent-color: var(--ink); }
+.onboarding-semester { display: grid; gap: 6px; font-size: 13px; font-weight: 600; }
+.onboarding-semester select { min-height: 42px; }
+.onboarding-preview { padding: 10px 12px; border-radius: 8px; background: var(--panel-soft); }
+.onboarding-tips { display: grid; gap: 10px; margin: 0; padding: 0; list-style: none; font-size: 13px; line-height: 1.45; }
+.onboarding-tips li { display: grid; grid-template-columns: 20px minmax(0, 1fr); gap: 10px; align-items: start; }
+.onboarding-tips svg { width: 18px; height: 18px; fill: none; stroke: currentColor; stroke-width: 1.6; }
