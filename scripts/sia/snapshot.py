@@ -180,12 +180,13 @@ def parse_detail(page: str, code: str) -> dict:
     activities = []
     # Groups follow the course title "Nombre (código)"; some pages add "Contenido de la asignatura".
     content = text.split('Prerrequisitos', 1)[0]
-    content = content.split(f'({code})', 1)[-1].split('Contenido de la asignatura', 1)[-1]
+    content = re.split(rf'\({re.escape(code)} ?\)', content, maxsplit=1)[-1].split('Contenido de la asignatura', 1)[-1]
     # Activity headers: "CLASE MAGISTRAL (2016488)" or "CLASE TEORICA 1000003 (21000003)".
-    pieces = re.split(r'([A-ZÁÉÍÓÚÑ][A-ZÁÉÍÓÚÑ ]+?)(?: \d+)? \(\d+(?:-B)?\) (?=\(\d+\) Grupo)', content)
+    # Group ids can be numeric or codes such as "(SUMA-01) Grupo PEAMA Sumapaz".
+    pieces = re.split(r'([A-ZÁÉÍÓÚÑ][A-ZÁÉÍÓÚÑ ]+?)(?: \d+)? \([\w-]+ ?\) (?=\([^()]+\) Grupo )', content)
     for label, content in zip(pieces[1::2], pieces[2::2]):
         groups = []
-        for group in re.finditer(r'\((\d+)\) Grupo (\S+) Profesor: (.*?)\. Facultad: (.*?)Horarios/Aula: (.*?) Fecha: (\d{2}/\d{2}/\d{4}) - (\d{2}/\d{2}/\d{4}) (.*?) Duración: (.*?) Jornada: (.*?) Cupos disponibles: (\d+)', content):
+        for group in re.finditer(r'\(([^()]+)\) Grupo (.+?) Profesor: (.*?)\. Facultad: (.*?)Horarios/Aula: (.*?) Fecha: (\d{2}/\d{2}/\d{4}) - (\d{2}/\d{2}/\d{4}) (.*?) Duración: (.*?) Jornada: (.*?) Cupos disponibles: (\d+)', content):
             groups.append({
                 'grupo': group.group(2), 'profesor': group.group(3).strip() or None,
                 'fecha_inicio': group.group(6), 'fecha_fin': group.group(7),
@@ -198,48 +199,75 @@ def parse_detail(page: str, code: str) -> dict:
     return {'actividades': activities, 'prerrequisitos': parse_prerequisites(text)}
 
 
+class PlanSearch:
+    """A search session positioned on one plan; reopened when ADF loses its place."""
+
+    def __init__(self, campus: str, faculty: str, plan: str):
+        self.campus, self.faculty, self.plan = campus, faculty, plan
+        self.requests = 0
+        self.client: AdfClient | None = None
+        self.plan_label = ''
+        self.page = ''
+
+    def open(self) -> None:
+        if self.client:
+            self.requests += self.client.requests
+        client = AdfClient()
+        page = client.select(LEVEL, '0')  # Pregrado
+        page = client.select(CAMPUS, choose(page, CAMPUS, self.campus))
+        page = client.select(FACULTY, choose(page, FACULTY, self.faculty))
+        page = client.select(PLAN, choose(page, PLAN, self.plan))
+        self.plan_label = next(label for value, label in options(page, PLAN) if value == client.values[PLAN])
+        self.client, self.page = client, page
+
+    def search(self, typology: str) -> tuple[list[dict], dict[int, str]]:
+        assert self.client
+        self.page = self.client.select(TYPOLOGY, choose(self.page, TYPOLOGY, typology))
+        self.page = self.client.action(SEARCH)
+        return parse_results(self.page), {int(index): link for link, index in RESULT_LINK.findall(self.page)}
+
+    def total_requests(self) -> int:
+        return self.requests + (self.client.requests if self.client else 0)
+
+
 def snapshot(campus: str, faculty: str, plan: str, typologies: list[str], with_details: bool, only: set[str] | None = None, debug_dir: str | None = None) -> dict:
-    client = AdfClient()
-    page = client.select(LEVEL, '0')  # Pregrado
-    page = client.select(CAMPUS, choose(page, CAMPUS, campus))
-    page = client.select(FACULTY, choose(page, FACULTY, faculty))
-    page = client.select(PLAN, choose(page, PLAN, plan))
-    plan_label = next(label for value, label in options(page, PLAN) if value == client.values[PLAN])
+    search = PlanSearch(campus, faculty, plan)
+    search.open()
     courses: dict[str, dict] = {}
     for typology in typologies:
-        page = client.select(TYPOLOGY, choose(page, TYPOLOGY, typology))
-        page = client.action(SEARCH)
-        rows = parse_results(page)
-        links = {int(index): link for link, index in RESULT_LINK.findall(page)}
+        rows, links = search.search(typology)
         print(f'{typology}: {len(rows)} asignaturas', file=sys.stderr)
         for index, row in enumerate(rows):
             course = courses.setdefault(row['codigo'], row)
             if not with_details or 'actividades' in course or index not in links or (only and row['codigo'] not in only):
                 continue
-            detail = client.action(links[index])
-            if f"({row['codigo']})" not in visible_text(detail):
-                # The view lost its place: search again and retry this course once.
-                page = client.select(TYPOLOGY, client.values[TYPOLOGY])
-                page = client.action(SEARCH)
-                links = {int(position): link for link, position in RESULT_LINK.findall(page)}
-                detail = client.action(links[index]) if index in links else ''
+            detail = ''
+            for attempt in range(2):
+                detail = search.client.action(links[index])
+                if f"({row['codigo']}" in visible_text(detail):
+                    break
+                # The view lost its place: start a fresh session and search again.
+                search.open()
+                rows_again, links = search.search(typology)
+                if index not in links or rows_again[index]['codigo'] != row['codigo']:
+                    break
             if debug_dir:
                 with open(f"{debug_dir}/{row['codigo']}.html", 'w', encoding='utf-8') as handle:
                     handle.write(detail)
-            if f"({row['codigo']})" in visible_text(detail):
+            if f"({row['codigo']}" in visible_text(detail):
                 course.update(parse_detail(detail, row['codigo']))
+                search.page = search.client.action(BACK)
+                links = {int(position): link for link, position in RESULT_LINK.findall(search.page)} or links
             else:
                 course['detalle_no_disponible'] = True
                 print(f"  sin detalle: {row['codigo']} {row['nombre']}", file=sys.stderr)
-            page = client.action(BACK)
-            links = {int(position): link for link, position in RESULT_LINK.findall(page)} or links
     return {
         'fuente': {
             'url': START,
             'servicio': 'Buscador de cursos (público, sin autenticación)',
-            'filtros': {'nivel': 'Pregrado', 'sede': campus, 'facultad': faculty, 'plan': plan_label, 'tipologias': typologies},
+            'filtros': {'nivel': 'Pregrado', 'sede': campus, 'facultad': faculty, 'plan': search.plan_label, 'tipologias': typologies},
             'consultado': dt.datetime.now(dt.timezone.utc).replace(microsecond=0).isoformat(),
-            'peticiones': client.requests,
+            'peticiones': search.total_requests(),
         },
         'asignaturas': sorted(courses.values(), key=lambda course: course['codigo']),
     }
