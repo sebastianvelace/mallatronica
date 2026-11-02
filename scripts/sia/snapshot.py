@@ -33,7 +33,13 @@ PAUSE_SECONDS = 1.5
 # Filter components of the search form, in cascade order.
 LEVEL, CAMPUS, FACULTY, PLAN, TYPOLOGY = (f'pt1:r1:0:{name}' for name in ('soc1', 'soc9', 'soc2', 'soc3', 'soc4'))
 SEARCH, BACK = 'pt1:r1:0:cb1', 'pt1:r1:0:cb4'
-RESULT_LINK = re.compile(r'id="(pt1:r1:0:t4:(\d+):cl2)"')
+# Each result row links its course code: <a id="pt1:r1:0:t4:N:cl2" ...>2016488</a>.
+RESULT_LINK = re.compile(r'id="(pt1:r1:0:t4:\d+:cl2)"[^>]*>\s*([^<\s]+)\s*</a>')
+
+# The results table only activates its first rows on the server: links past this
+# range do not open. Searching one typology at a time keeps every list below it.
+TABLE_RANGE = 25
+DEFAULT_TYPOLOGIES = ['FUND. OBLIGATORIA', 'FUND. OPTATIVA', 'DISCIPLINAR OBLIGATORIA', 'DISCIPLINAR OPTATIVA', 'TRABAJO DE GRADO', 'NIVELACI']
 
 DAYS = 'LUNES|MARTES|MIÉRCOLES|JUEVES|VIERNES|SÁBADO|DOMINGO'
 CODE = r'\d{7}(?:-B)?'
@@ -199,6 +205,11 @@ def parse_detail(page: str, code: str) -> dict:
     return {'actividades': activities, 'prerrequisitos': parse_prerequisites(text)}
 
 
+def result_links(page: str) -> dict[str, str]:
+    """Course code -> detail link, so a row is never opened by position."""
+    return {code: link for link, code in RESULT_LINK.findall(page)}
+
+
 class PlanSearch:
     """A search session positioned on one plan; reopened when ADF loses its place."""
 
@@ -224,7 +235,7 @@ class PlanSearch:
         assert self.client
         self.page = self.client.select(TYPOLOGY, choose(self.page, TYPOLOGY, typology))
         self.page = self.client.action(SEARCH)
-        return parse_results(self.page), {int(index): link for link, index in RESULT_LINK.findall(self.page)}
+        return parse_results(self.page), result_links(self.page)
 
     def total_requests(self) -> int:
         return self.requests + (self.client.requests if self.client else 0)
@@ -237,19 +248,22 @@ def snapshot(campus: str, faculty: str, plan: str, typologies: list[str], with_d
     for typology in typologies:
         rows, links = search.search(typology)
         print(f'{typology}: {len(rows)} asignaturas', file=sys.stderr)
-        for index, row in enumerate(rows):
-            course = courses.setdefault(row['codigo'], row)
-            if not with_details or 'actividades' in course or index not in links or (only and row['codigo'] not in only):
+        if with_details and len(rows) > TABLE_RANGE:
+            print(f'  aviso: más de {TABLE_RANGE} resultados; los detalles posteriores pueden no abrir', file=sys.stderr)
+        for row in rows:
+            code = row['codigo']
+            course = courses.setdefault(code, row)
+            if not with_details or 'actividades' in course or code not in links or (only and code not in only):
                 continue
             detail = ''
             for attempt in range(2):
-                detail = search.client.action(links[index])
-                if f"({row['codigo']}" in visible_text(detail):
+                detail = search.client.action(links[code])
+                if f'({code}' in visible_text(detail):
                     break
                 # The view lost its place: start a fresh session and search again.
                 search.open()
-                rows_again, links = search.search(typology)
-                if index not in links or rows_again[index]['codigo'] != row['codigo']:
+                _, links = search.search(typology)
+                if code not in links:
                     break
             if debug_dir:
                 with open(f"{debug_dir}/{row['codigo']}.html", 'w', encoding='utf-8') as handle:
@@ -257,7 +271,7 @@ def snapshot(campus: str, faculty: str, plan: str, typologies: list[str], with_d
             if f"({row['codigo']}" in visible_text(detail):
                 course.update(parse_detail(detail, row['codigo']))
                 search.page = search.client.action(BACK)
-                links = {int(position): link for link, position in RESULT_LINK.findall(search.page)} or links
+                links = result_links(search.page) or links
             else:
                 course['detalle_no_disponible'] = True
                 print(f"  sin detalle: {row['codigo']} {row['nombre']}", file=sys.stderr)
@@ -309,14 +323,14 @@ def main() -> int:
     parser.add_argument('--campus', default='1101 SEDE BOGOT')
     parser.add_argument('--faculty', default='2055 FACULTAD DE INGENIER')
     parser.add_argument('--plan', default='2545')
-    parser.add_argument('--typology', action='append', help='Tipología del buscador; se puede repetir. Por defecto, todas menos libre elección.')
+    parser.add_argument('--typology', action='append', help='Tipología del buscador; se puede repetir. Por defecto, cada tipología menos libre elección.')
     parser.add_argument('--no-details', action='store_true', help='Solo el listado, sin grupos ni prerrequisitos.')
     parser.add_argument('--out', default='data/sia/snapshots/latest.json')
     parser.add_argument('--only', action='append', help='Abrir el detalle solo de estos códigos (depuración).')
     parser.add_argument('--debug-dir', help='Guardar el HTML de cada detalle en esta carpeta.')
     parser.add_argument('--plan-out', help='Regenerar también el plan de la app (p. ej. data/sia/plan2545.json).')
     args = parser.parse_args()
-    typologies = args.typology or ['TODAS MENOS']
+    typologies = args.typology or DEFAULT_TYPOLOGIES
     try:
         data = snapshot(args.campus, args.faculty, args.plan, typologies, not args.no_details, set(args.only or []), args.debug_dir)
     except (SiaError, OSError) as error:
