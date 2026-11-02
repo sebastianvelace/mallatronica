@@ -21,6 +21,7 @@ import json
 import re
 import sys
 import time
+import urllib.error
 import urllib.parse
 import urllib.request
 
@@ -337,6 +338,12 @@ def main() -> int:
     typologies = args.typology or DEFAULT_TYPOLOGIES
     try:
         data = snapshot(args.campus, args.faculty, args.plan, typologies, not args.no_details, set(args.only or []), args.debug_dir)
+    except urllib.error.HTTPError as error:
+        print(f'Error consultando el SIA: HTTP {error.code}', file=sys.stderr)
+        if error.code == 403:
+            print('El SIA rechazó la conexión. Ocurre con servidores de centros de datos como los runners de GitHub;\n'
+                  'ejecuta el script desde una conexión regular (npm run sia:snapshot) o desde un runner propio (SIA_RUNNER).', file=sys.stderr)
+        return 1
     except (SiaError, OSError) as error:
         print(f'Error consultando el SIA: {error}', file=sys.stderr)
         return 1
