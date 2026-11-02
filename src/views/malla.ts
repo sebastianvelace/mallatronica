@@ -10,7 +10,8 @@ import { formatIsoDate } from '../ui/html'
 import { icon } from '../ui/icons'
 import { showToast } from '../ui/toast'
 import { togglePlanned } from './planner'
-import { offerFor, offerSummary } from '../data/sia-offer'
+import { offerAgeDays, offerFor, offerSummary } from '../data/sia-offer'
+import { groupingBalance, groupingFor } from '../domain/groupings'
 
 const totalCredits = curriculumMeta.regularCredits
 
@@ -23,6 +24,7 @@ export function renderMalla() {
   return `
     <section class="curriculum-heading"><div><p>UNAL Bogotá <span>/</span> Plan 2545</p><h1>Ingeniería Electrónica<span>.</span></h1><p>Tu carrera, materia por materia.</p></div><div class="curriculum-metrics"><div class="recorded-average"><span>PAPA estimado</span><strong data-recorded-average>${cumulative.value?.toFixed(2) ?? 'Sin notas'}</strong><small>PA ${average.value?.toFixed(2) ?? '—'} · ${average.courses} materias · ${cumulative.credits} créditos cursados</small><details><summary>¿Cómo se calcula?</summary><p>Ponderado por créditos con notas numéricas del plan, libre elección, Matemáticas Básicas y Lectoescritura. El PA usa la última nota de cada materia; el PAPA suma también los intentos anteriores que registres en Notas. Inglés AP/RE y aprobaciones sin nota no se ponderan. Es una estimación: no reemplaza el PAPA oficial del SIA.</p></details></div><div class="curriculum-progress"><strong>${approved}<span> / ${totalCredits} cr.</span></strong><div role="progressbar" aria-label="Créditos aprobados" aria-valuenow="${Math.min(100, percentage)}" aria-valuemin="0" aria-valuemax="100"><i style="width:${Math.min(100, percentage)}%"></i></div><small>${percentage}% del plan registrado</small></div></div></section>
     ${renderProfileNotice()}
+    ${renderOfferNotice()}
     ${renderCreditBalance()}
     ${renderCurriculumBoard(boardOptions())}
     <details class="curriculum-support" id="support-tracks" data-panel="support"${store.openPanels.has('support') ? ' open' : ''}><summary>Nivelación y lengua extranjera <span>Configurar mi situación</span></summary>${renderSupportTracks()}</details>
@@ -37,6 +39,13 @@ function pendingProfileItems() {
     state.literacy === 'sin-definir' && 'Lectoescritura',
     state.english === 'sin-definir' && 'lengua extranjera',
   ].filter((item): item is string => Boolean(item))
+}
+
+/** The SIA offer is a dated snapshot; older than two weeks it may mislead during registration. */
+function renderOfferNotice() {
+  const age = offerAgeDays()
+  if (age === null || age <= 14) return ''
+  return `<section class="profile-notice offer-notice" role="note"><div><strong>La oferta del SIA tiene ${age} días</strong><p>Grupos, horarios y cupos pueden haber cambiado. Confírmalos en el buscador del SIA antes de inscribir.</p></div></section>`
 }
 
 /** First-run guidance: an unconfigured situation blocks Cálculo diferencial and its dependents. */
@@ -54,8 +63,16 @@ function renderCreditBalance() {
     <p>Estimación por componente, no certificación de grado. Las agrupaciones de optativas aún necesitan validación; los excedentes no pasan automáticamente a libre elección.</p>
     <div class="credit-balance-table"><table><caption>Créditos registrados y exigidos</caption><thead><tr><th scope="col">Componente</th><th scope="col">Registrados</th><th scope="col">Exigidos</th><th scope="col">Faltantes estimados</th></tr></thead><tbody>${balance.rows.map(row => `<tr><th scope="row">${row.category}</th><td>${row.recorded}</td><td>${row.required}</td><td>${row.remaining}</td></tr>`).join('')}</tbody></table></div>
     <p>Trabajo de grado aporta como máximo 6 créditos al balance, aunque registres ambas alternativas. Libre elección aporta como máximo ${freeRequired} créditos registrados. La nivelación es individual y no se suma a los ${totalCredits} créditos.</p>
+    ${renderGroupingBalance()}
     <p>El mapa muestra ${referenceFreeSlotCount} espacios de libre elección como guía visual. Con materias de 3 créditos suman ${referenceFreeSlotCount * 3}${referenceFreeSlotCount * 3 < freeRequired ? `, por debajo de los ${freeRequired} exigidos: planea al menos ${freeRequired - referenceFreeSlotCount * 3} crédito${freeRequired - referenceFreeSlotCount * 3 === 1 ? '' : 's'} más` : ''}.</p>
     <p>Fuente: resumen SIA del plan ${curriculumMeta.plan}, consulta del ${formatIsoDate(curriculumMeta.consultedAt)}. No se importó progreso personal.</p></details>`
+}
+
+/** Elective credits per official grouping; memberships stay marked when they are inferred. */
+function renderGroupingBalance() {
+  const rows = groupingBalance(store.state, store.state.groupings)
+  return `<div class="credit-balance-table grouping-balance"><table><caption>Optativas por agrupación</caption><thead><tr><th scope="col">Agrupación</th><th scope="col">Aprobados</th><th scope="col">Exigidos</th><th scope="col">Faltantes</th></tr></thead><tbody>${rows.map(row => `<tr><th scope="row">${row.nombre}${row.uncertain ? ' <span class="grouping-source" data-source="inferida">incluye inferidas</span>' : ''}</th><td>${row.approved}</td><td>${row.creditos_optativos}</td><td>${row.remaining}</td></tr>`).join('')}</tbody></table></div>
+    <p>Las agrupaciones y sus créditos vienen de la página oficial del programa. A qué agrupación pertenece cada optativa no es público: la aplicación lo infiere y puedes confirmarlo en el detalle de cada materia según tu vista de Mis planes en el SIA.</p>`
 }
 
 function boardOptions(): BoardOptions {
@@ -104,6 +121,15 @@ function boardOptions(): BoardOptions {
     },
     planned: (id) => state.plan.includes(id),
     offer: (subject) => offerSummary(offerFor(subject.code)),
+    grouping: (subject) => groupingFor(subject, state.groupings),
+    setGrouping: (subject, groupingId) => {
+      const next = { ...state.groupings }
+      if (groupingId) next[subject.id] = groupingId
+      else delete next[subject.id]
+      state.groupings = next
+      store.pendingCourseId = subject.id
+      commit()
+    },
     togglePlan: (subject) => {
       const adding = !state.plan.includes(subject.id)
       togglePlanned(subject.id)

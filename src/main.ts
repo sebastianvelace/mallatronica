@@ -1,4 +1,5 @@
 import './style.css'
+import { loadOffer } from './data/sia-offer'
 import { emptyState, isProgressFile, parseState } from './domain/state'
 import { commit, navigate, setRenderer, store, type View } from './app/store'
 import { icon } from './ui/icons'
@@ -118,6 +119,14 @@ function importState(event: Event) {
 
 setRenderer(render)
 render()
+// The SIA offer arrives as its own chunk; rerender once without losing focus or scroll.
+loadOffer().then(() => {
+  const active = document.activeElement?.id
+  const scroll = window.scrollY
+  render()
+  window.scrollTo(0, scroll)
+  if (active) document.getElementById(active)?.focus({ preventScroll: true })
+}).catch(() => {})
 
 // Offline support only in production builds, so development never serves stale files.
 if (import.meta.env.PROD && 'serviceWorker' in navigator) {

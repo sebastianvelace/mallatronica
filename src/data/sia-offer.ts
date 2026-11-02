@@ -1,4 +1,3 @@
-import snapshot from '../../data/sia/snapshots/latest.json'
 import { courseCodeKey } from './curriculum'
 
 /** Snapshot of the public SIA course search, produced by scripts/sia/snapshot.py. */
@@ -43,7 +42,7 @@ export type CourseOffer = {
   seats: number
 }
 
-const data = snapshot as { fuente: { consultado: string; url: string }; asignaturas: SiaCourse[] }
+type Snapshot = { fuente: { consultado: string; url: string }; asignaturas: SiaCourse[] }
 
 const dayNames: Record<string, string> = { LUNES: 'Lunes', MARTES: 'Martes', 'MIÉRCOLES': 'Miércoles', JUEVES: 'Jueves', VIERNES: 'Viernes', 'SÁBADO': 'Sábado', DOMINGO: 'Domingo' }
 
@@ -66,24 +65,48 @@ function toOffer(course: SiaCourse): CourseOffer {
   }
 }
 
-const offers = new Map(data.asignaturas.map((course) => [courseCodeKey(course.codigo), toOffer(course)]))
+export type OfferMeta = { consultedAt: string; term: string | null }
 
-export function offerFor(code: string): CourseOffer | undefined {
-  return offers.get(courseCodeKey(code))
+let offers: Map<string, CourseOffer> | null = null
+let meta: OfferMeta | null = null
+let loading: Promise<void> | null = null
+
+/**
+ * The snapshot is a separate chunk (most of the data size), fetched after the
+ * first render; until then the offer reads as "loading".
+ */
+export function loadOffer() {
+  loading ??= import('../../data/sia/snapshots/latest.json').then(({ default: snapshot }) => {
+    const data = snapshot as Snapshot
+    offers = new Map(data.asignaturas.map((course) => [courseCodeKey(course.codigo), toOffer(course)]))
+    const date = data.asignaturas.flatMap((course) => course.actividades ?? []).flatMap((activity) => activity.grupos)[0]?.fecha_inicio
+    const match = date?.match(/^\d{2}\/(\d{2})\/(\d{4})$/)
+    meta = { consultedAt: data.fuente.consultado, term: match ? `${match[2]}-${Number(match[1]) >= 7 ? 2 : 1}` : null }
+  })
+  return loading
 }
 
-/** ISO timestamp of the SIA consultation. */
-export const offerConsultedAt = data.fuente.consultado
+export function offerLoaded() {
+  return offers !== null
+}
 
-/** Term inferred from the groups' start dates, e.g. "2026-2"; null when no group was read. */
-export const offerTerm = (() => {
-  const date = data.asignaturas.flatMap((course) => course.actividades ?? []).flatMap((activity) => activity.grupos)[0]?.fecha_inicio
-  const match = date?.match(/^\d{2}\/(\d{2})\/(\d{4})$/)
-  return match ? `${match[2]}-${Number(match[1]) >= 7 ? 2 : 1}` : null
-})()
+export function offerFor(code: string): CourseOffer | undefined {
+  return offers?.get(courseCodeKey(code))
+}
+
+/** Consultation date and term of the loaded snapshot; null while loading. */
+export function offerMeta() {
+  return meta
+}
+
+/** Days since the SIA consultation, to warn when the offer may be outdated. */
+export function offerAgeDays(now = Date.now()) {
+  return meta ? Math.floor((now - Date.parse(meta.consultedAt)) / 86_400_000) : null
+}
 
 /** One-line summary for compact UI. */
 export function offerSummary(offer: CourseOffer | undefined) {
+  if (!offers) return 'Cargando oferta del SIA…'
   if (!offer) return 'Sin datos del SIA'
   if (offer.unscheduled) return 'Sin programar en el SIA'
   if (!offer.detailed) return 'Programada · grupos no leídos'

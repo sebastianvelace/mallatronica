@@ -1,6 +1,7 @@
 import { courseCodeKey, subjects, type Subject } from '../data/curriculum'
 import { referenceSemesters, type ReferenceSlot } from '../data/reference-layout'
 import { electiveCandidates, referenceSlot, type ElectiveAssignments, type FreeChoice } from '../domain/electives'
+import type { CourseGrouping } from '../domain/groupings'
 import './curriculum-board.css'
 
 type CourseStatus = 'aprobada' | 'reprobada' | 'pendiente' | 'disponible' | 'parcial' | 'bloqueada'
@@ -20,6 +21,9 @@ export type BoardOptions = {
   togglePlan: (subject: Subject) => void
   /** One-line summary of the SIA offer for the current term. */
   offer: (subject: Subject) => string
+  /** Effective grouping of an elective (confirmed by the student or inferred). */
+  grouping: (subject: Subject) => CourseGrouping | undefined
+  setGrouping: (subject: Subject, groupingId: string | null) => void
 }
 const labels: Record<CourseStatus, string> = { aprobada: 'Aprobada', reprobada: 'Reprobada', pendiente: 'Pendiente', disponible: 'Requisitos registrados cumplidos', parcial: 'Requisitos parciales', bloqueada: 'Requisitos pendientes' }
 const shortLabels: Record<CourseStatus, string> = { ...labels, disponible: 'Disponible', parcial: 'Parcial', bloqueada: 'Bloqueada' }
@@ -37,16 +41,14 @@ function gradeEditor(subject: Subject, options: BoardOptions) {
   return `<form class="course-grade" data-grade-form><label for="course-grade-input">Nota final <span>opcional</span></label><div><input id="course-grade-input" type="number" min="0" max="5" step="0.1" value="${grade ?? ''}" placeholder="0.0 a 5.0" inputmode="decimal" aria-describedby="course-grade-help" /><button type="submit">Guardar nota</button>${grade !== undefined ? '<button type="button" data-grade-remove aria-label="Quitar nota conservando el estado">Quitar</button>' : ''}</div><small id="course-grade-help">${grade !== undefined ? 'La nota participa en tu promedio registrado.' : 'Registra resultados aprobados o reprobados. Si faltan requisitos en la app, se señalará como inconsistencia para revisar.'}</small></form>`
 }
 
-// A visual ranking by name, never a declaration of official grouping eligibility.
-function matchesReferenceName(slot: ReferenceSlot, name: string) {
-  const label = normalize(slot.label)
-  const course = normalize(name)
-  if (label.includes('probabilidad')) return /probabilidad|estadistica/.test(course)
-  if (label.includes('administracion')) return /administracion|gerencia|gestion/.test(course)
-  if (label.includes('digital')) return /digital|embebid/.test(course)
-  if (label.includes('analoga')) return /analoga|lineales/.test(course)
-  if (label.includes('telecomunicaciones')) return /telecomunicaciones|\brf\b/.test(course)
-  return false
+const groupingSourceLabels = { confirmada: 'confirmada por ti', inferida: 'inferida', ambigua: 'ambigua' } as const
+
+/** Electives show their grouping and let the student confirm it from their own SIA view. */
+function groupingEditor(subject: Subject, options: BoardOptions) {
+  const info = options.grouping(subject)
+  if (!subject.tipologia.includes('OPTATIVA') || !info?.candidates.length) return ''
+  const choices = info.candidates.map((grouping) => `<option value="${escape(grouping.id)}"${info.source === 'confirmada' && info.grouping.id === grouping.id ? ' selected' : ''}>${escape(grouping.nombre)}</option>`).join('')
+  return `<div class="preview-grouping"><p><strong>Agrupación:</strong> ${escape(info.grouping.nombre)} <span class="grouping-source" data-source="${info.source}">${groupingSourceLabels[info.source]}</span></p><small>${escape(info.reason)}</small><label><span>Confirmar según Mis planes del SIA</span><select data-grouping-select><option value=""${info.source === 'confirmada' ? '' : ' selected'}>Usar la inferida</option>${choices}</select></label></div>`
 }
 
 function courseTile(subject: Subject, options: BoardOptions) {
@@ -114,10 +116,11 @@ export function mountCurriculumBoard(root: HTMLElement, options: BoardOptions): 
       const elsewhere = Object.entries(options.electiveAssignments).some(([key, id]) => key !== selectedSlot && (id === course.id || options.freeChoices.some((item) => item.id === id && courseCodeKey(item.code) === courseCodeKey(course.code))))
       return `<button data-elective-id="${escape(course.id)}" ${elsewhere ? 'disabled' : ''} aria-pressed="${current === course.id}"><span>${escape(course.name)}<small>${escape(course.code)} · ${course.credits} créditos${elsewhere ? ' · ya elegida en otro espacio' : current === course.id ? ' · elección actual' : ''}</small></span><span aria-hidden="true">${current === course.id ? '✓' : '+'}</span></button>`
     }
-    const matching = candidates.filter((course) => matchesReferenceName(slot, course.name))
-    const other = candidates.filter((course) => !matchesReferenceName(slot, course.name))
+    const inGrouping = (course: typeof candidates[number]) => 'tipologia' in course && !!slot.grouping && options.grouping(course as Subject)?.grouping.id === slot.grouping
+    const matching = candidates.filter(inGrouping)
+    const other = candidates.filter((course) => !inGrouping(course))
     const choices = matching.length
-      ? `<p class="picker-group-label">Coincidencias por nombre · confirmar agrupación</p>${matching.map(candidateButton).join('')}${other.length ? `<details class="picker-other"><summary>Otras opciones del componente (${other.length})</summary><div class="picker-options">${other.map(candidateButton).join('')}</div></details>` : ''}`
+      ? `<p class="picker-group-label">De esta agrupación · inferida salvo que la confirmes en el detalle de la materia</p>${matching.map(candidateButton).join('')}${other.length ? `<details class="picker-other"><summary>Otras opciones del componente (${other.length})</summary><div class="picker-options">${other.map(candidateButton).join('')}</div></details>` : ''}`
       : candidates.map(candidateButton).join('')
     picker.innerHTML = `<div class="picker-heading"><div><small>Semestre ${selectedSlot.split(':')[0]} · elección personal</small><h2 id="elective-picker-title">${escape(slot.label)}</h2></div><button data-picker-close aria-label="Cerrar selección">×</button></div><p>${slot.kind === 'free' ? 'Elige una materia de tu catálogo personal. Aquí solo planificas su ubicación; no cuenta como aprobada.' : 'Elige una optativa del componente. El SIA no publica aquí su agrupación: verifica que corresponda a este espacio.'}</p><div class="picker-options">${choices || '<p class="picker-empty">Aún no hay materias en tu catálogo personal. Agrégalas o importa un catálogo desde Libre elección.</p>'}</div><div class="picker-footer">${current ? '<button data-elective-clear>Dejar espacio sin elegir</button>' : ''}${slot.kind === 'free' ? '<button data-manage-free>Gestionar libre elección</button>' : '<small>Elegir una materia no la aprueba ni la inscribe.</small>'}</div>`
     picker.showModal()
@@ -211,7 +214,7 @@ export function mountCurriculumBoard(root: HTMLElement, options: BoardOptions): 
       const satisfied = match ? options.approved(match) : false
       return `<li class="${satisfied ? 'is-met' : ''}"><span aria-label="${satisfied ? 'Cumplido' : 'Sin aprobación registrada'}">${satisfied ? '✓' : '○'}</span><div>${escape(reference.name)}<small>${escape(reference.code)}${match ? '' : ' · equivalencia fuera del catálogo'}</small></div></li>`
     }).join('')}</ul></div>`).join('')
-    preview.innerHTML = `<div class="preview-top"><span>${escape(subject.code)} · ${subject.credits} créditos</span><button data-preview-close aria-label="Cerrar detalle">×</button></div><h2>${escape(subject.name)}</h2><p class="preview-type">${escape(subject.tipologia)}</p><p class="preview-offer-line">Oferta SIA: ${escape(options.offer(subject))}</p>${subject.sinProgramar ? `<p class="preview-offer">${offerLabel}. Verifica la oferta vigente en el SIA antes de planearla.</p>` : ''}<div class="preview-status" data-status="${status}">${labels[status]}${note !== undefined ? ` · nota ${note.toFixed(1)}` : ''}</div>${options.approved(subject) && missing.length ? `<p class="preview-warning">Hay una inconsistencia en el historial: faltan ${escape(missing.join(' · '))}.</p>` : ''}${gradeEditor(subject, options)}<${options.approved(subject) ? 'details' : 'div'} class="preview-scroll">${options.approved(subject) ? '<summary>Prerrequisitos y materias relacionadas</summary>' : ''}<section><h3>Para cursarla</h3>${subject.prereqGroups && subject.prereqGroups.length > 1 ? '<p>Debes cumplir todas las condiciones siguientes.</p>' : ''}${requirements}${additionalMissing.length ? `<p class="preview-warning">${escape(additionalMissing.join(' · '))}</p>` : ''}</section>${dependencies.length ? `<section><h3>Es requisito u opción para</h3><p>${dependencies.map((item) => escape(item.name)).join(' · ')}</p><small>Puede haber otras condiciones por cumplir.</small></section>` : ''}${subject.sinProgramar ? '<p class="preview-warning">Sin programar en la consulta 2026-2. Verifica la oferta del periodo que vas a inscribir.</p>' : ''}${subject.tag === 'Grado' ? '<p class="preview-warning">Revisa la modalidad y los requisitos de grado con la coordinación; este catálogo no incluye todos los requisitos administrativos.</p>' : ''}</${options.approved(subject) ? 'details' : 'div'}><div class="preview-actions"><button data-preview-state="${options.approved(subject) ? 'clear' : 'aprobada'}" ${note !== undefined || (!options.approved(subject) && missing.length) ? 'disabled' : ''}>${note !== undefined ? 'Estado definido por la nota' : options.approved(subject) ? 'Quitar aprobación' : 'Marcar aprobada'}</button><button data-preview-plan ${!options.planned(subject.id) && (missing.length || options.approved(subject)) ? 'disabled' : ''}>${options.planned(subject.id) ? 'Quitar del plan' : 'Agregar al plan'}</button><button data-preview-schedule ${missing.length || options.approved(subject) ? 'disabled' : ''}>Planificar horario</button></div><button class="preview-pin" data-preview-pin>${pin ? 'Detalle fijado · Esc para cerrar' : 'Fijar detalle para interactuar'}</button>`
+    preview.innerHTML = `<div class="preview-top"><span>${escape(subject.code)} · ${subject.credits} créditos</span><button data-preview-close aria-label="Cerrar detalle">×</button></div><h2>${escape(subject.name)}</h2><p class="preview-type">${escape(subject.tipologia)}</p><p class="preview-offer-line">Oferta SIA: ${escape(options.offer(subject))}</p>${subject.sinProgramar ? `<p class="preview-offer">${offerLabel}. Verifica la oferta vigente en el SIA antes de planearla.</p>` : ''}<div class="preview-status" data-status="${status}">${labels[status]}${note !== undefined ? ` · nota ${note.toFixed(1)}` : ''}</div>${options.approved(subject) && missing.length ? `<p class="preview-warning">Hay una inconsistencia en el historial: faltan ${escape(missing.join(' · '))}.</p>` : ''}${groupingEditor(subject, options)}${gradeEditor(subject, options)}<${options.approved(subject) ? 'details' : 'div'} class="preview-scroll">${options.approved(subject) ? '<summary>Prerrequisitos y materias relacionadas</summary>' : ''}<section><h3>Para cursarla</h3>${subject.prereqGroups && subject.prereqGroups.length > 1 ? '<p>Debes cumplir todas las condiciones siguientes.</p>' : ''}${requirements}${additionalMissing.length ? `<p class="preview-warning">${escape(additionalMissing.join(' · '))}</p>` : ''}</section>${dependencies.length ? `<section><h3>Es requisito u opción para</h3><p>${dependencies.map((item) => escape(item.name)).join(' · ')}</p><small>Puede haber otras condiciones por cumplir.</small></section>` : ''}${subject.sinProgramar ? '<p class="preview-warning">Sin programar en la consulta 2026-2. Verifica la oferta del periodo que vas a inscribir.</p>' : ''}${subject.tag === 'Grado' ? '<p class="preview-warning">Revisa la modalidad y los requisitos de grado con la coordinación; este catálogo no incluye todos los requisitos administrativos.</p>' : ''}</${options.approved(subject) ? 'details' : 'div'}><div class="preview-actions"><button data-preview-state="${options.approved(subject) ? 'clear' : 'aprobada'}" ${note !== undefined || (!options.approved(subject) && missing.length) ? 'disabled' : ''}>${note !== undefined ? 'Estado definido por la nota' : options.approved(subject) ? 'Quitar aprobación' : 'Marcar aprobada'}</button><button data-preview-plan ${!options.planned(subject.id) && (missing.length || options.approved(subject)) ? 'disabled' : ''}>${options.planned(subject.id) ? 'Quitar del plan' : 'Agregar al plan'}</button><button data-preview-schedule ${missing.length || options.approved(subject) ? 'disabled' : ''}>Ver grupos y horario</button></div><button class="preview-pin" data-preview-pin>${pin ? 'Detalle fijado · Esc para cerrar' : 'Fijar detalle para interactuar'}</button>`
     preview.hidden = false
     preview.classList.toggle('is-pinned', pin)
     if (!same && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) preview.animate([{ opacity: 0, transform: 'scale(.96) translateY(5px)' }, { opacity: 1, transform: 'scale(1) translateY(0)' }], { duration: 180, easing: 'ease-out' })
@@ -250,6 +253,10 @@ export function mountCurriculumBoard(root: HTMLElement, options: BoardOptions): 
     const input = event.target.querySelector<HTMLInputElement>('input')!
     if (!event.target.reportValidity()) return
     options.saveGrade(active, input.value === '' ? undefined : input.valueAsNumber)
+  }, { signal })
+  preview.addEventListener('change', (event) => {
+    const select = (event.target as HTMLElement).closest<HTMLSelectElement>('[data-grouping-select]')
+    if (select && active) options.setGrouping(active, select.value || null)
   }, { signal })
   preview.addEventListener('click', (event) => {
     const target = (event.target as HTMLElement).closest<HTMLButtonElement>('button')

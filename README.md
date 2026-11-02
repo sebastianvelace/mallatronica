@@ -36,8 +36,9 @@ Consulta [las limitaciones](docs/sia-v2-integration.md) y las fuentes en `data/s
 
 Las materias, prerrequisitos y la oferta del periodo (grupos, horarios y cupos)
 provienen del buscador público de cursos del SIA mediante
-`scripts/sia/snapshot.py`; un workflow semanal propone la actualización como pull
-request. Ver [ADR-002](docs/ADR-002-sia-snapshots.md).
+`scripts/sia/snapshot.py` (`npm run sia:snapshot`). Una tarea semanal propone la
+actualización como pull request; el SIA bloquea los runners de GitHub, así que el
+workflow incluido requiere un runner propio. Ver [ADR-002](docs/ADR-002-sia-snapshots.md).
 
 ## Contribuir
 
