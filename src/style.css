@@ -343,3 +343,14 @@ body { font-size: 15px; line-height: 1.55; }
 .offer-source { color: var(--muted-2); font: 9px/1.5 var(--mono); }
 .plan-offer { color: var(--muted-2); }
 .schedule-workspace { align-items: start; }
+.manual-block > summary { cursor: pointer; color: var(--muted); font: 600 11px var(--mono); padding: 4px 0; }
+.manual-block[open] > summary { margin-bottom: 12px; }
+.manual-block > .schedule-form-grid { margin-bottom: 14px; }
+.offer-stale { padding: 8px 10px; border-left: 2px solid var(--amber); background: color-mix(in srgb, var(--amber) 8%, var(--panel)); color: var(--ink) !important; }
+/* The SIA groups panel is the main way to fill the week: give it room. */
+.schedule-workspace { grid-template-columns: minmax(280px, .8fr) minmax(0, 1.2fr); }
+.offer-panel { max-height: 640px; }
+.offer-activity ul { grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); }
+@media (max-width: 900px) { .schedule-workspace { grid-template-columns: 1fr; } .offer-panel { max-height: none; } }
+.offer-group.is-full { border-style: dashed; }
+.offer-full { color: var(--coral); font-weight: 600; }

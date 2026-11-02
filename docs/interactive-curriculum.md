@@ -58,7 +58,13 @@ The calculator shows two estimates. The PA (Acuerdo 008 de 2008, Art. 41) uses t
 
 A production build registers a network-first service worker (`public/sw.js`): online visits always load the latest deployment, and the last version seen keeps working offline. The manifest makes the app installable. "Imprimir o guardar PDF" in the map footer prints the summary and the ten-semester map on one A4 landscape page in the light palette.
 
+## Elective groupings
+
+The official program page and the 2023 curriculum define five groupings with optional credits: Matemáticas, probabilidad y estadística (3) and Ciencias económicas y administrativas (6) in fundamentación; Electrónica Análoga, Electrónica Digital and Telecomunicaciones (3 each) in the disciplinary component. Which elective belongs to which grouping is not public (it lives in Acuerdo 17 de 2022 and in the authenticated "Mis planes"), so `data/sia/agrupaciones.json` records an inferred membership with its reason; Circuitos de RF is marked ambiguous. The course detail shows the grouping as inferred, ambiguous or confirmed, and the student can confirm it from their own SIA view (`state.groupings`, stored locally). Map slots stand for the groupings, the picker ranks courses by membership, and the credit balance adds approved credits per grouping, flagging inferred ones.
+
 ## Schedule
+
+The SIA groups of the selected course are the main way to fill the week; manual entry is folded unless the course has no groups or a block is being edited. Groups without seats are highlighted. Offer data older than 14 days shows a warning on the map and in the groups panel. The offer is a separate chunk loaded after the first render.
 
 Blocks can be edited in place; an edited block is never reported as conflicting with its own previous version. A conflict message names the overlapping course and time. Each course keeps one theme-aware color across all its blocks. The course picker groups plan and free-choice courses and hides approved ones, except the course being edited or preselected.
 

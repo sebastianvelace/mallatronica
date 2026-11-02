@@ -10,7 +10,7 @@ import { formatIsoDate } from '../ui/html'
 import { icon } from '../ui/icons'
 import { showToast } from '../ui/toast'
 import { togglePlanned } from './planner'
-import { offerFor, offerSummary } from '../data/sia-offer'
+import { offerAgeDays, offerFor, offerSummary } from '../data/sia-offer'
 import { groupingBalance, groupingFor } from '../domain/groupings'
 
 const totalCredits = curriculumMeta.regularCredits
@@ -24,6 +24,7 @@ export function renderMalla() {
   return `
     <section class="curriculum-heading"><div><p>UNAL Bogotá <span>/</span> Plan 2545</p><h1>Ingeniería Electrónica<span>.</span></h1><p>Tu carrera, materia por materia.</p></div><div class="curriculum-metrics"><div class="recorded-average"><span>PAPA estimado</span><strong data-recorded-average>${cumulative.value?.toFixed(2) ?? 'Sin notas'}</strong><small>PA ${average.value?.toFixed(2) ?? '—'} · ${average.courses} materias · ${cumulative.credits} créditos cursados</small><details><summary>¿Cómo se calcula?</summary><p>Ponderado por créditos con notas numéricas del plan, libre elección, Matemáticas Básicas y Lectoescritura. El PA usa la última nota de cada materia; el PAPA suma también los intentos anteriores que registres en Notas. Inglés AP/RE y aprobaciones sin nota no se ponderan. Es una estimación: no reemplaza el PAPA oficial del SIA.</p></details></div><div class="curriculum-progress"><strong>${approved}<span> / ${totalCredits} cr.</span></strong><div role="progressbar" aria-label="Créditos aprobados" aria-valuenow="${Math.min(100, percentage)}" aria-valuemin="0" aria-valuemax="100"><i style="width:${Math.min(100, percentage)}%"></i></div><small>${percentage}% del plan registrado</small></div></div></section>
     ${renderProfileNotice()}
+    ${renderOfferNotice()}
     ${renderCreditBalance()}
     ${renderCurriculumBoard(boardOptions())}
     <details class="curriculum-support" id="support-tracks" data-panel="support"${store.openPanels.has('support') ? ' open' : ''}><summary>Nivelación y lengua extranjera <span>Configurar mi situación</span></summary>${renderSupportTracks()}</details>
@@ -38,6 +39,13 @@ function pendingProfileItems() {
     state.literacy === 'sin-definir' && 'Lectoescritura',
     state.english === 'sin-definir' && 'lengua extranjera',
   ].filter((item): item is string => Boolean(item))
+}
+
+/** The SIA offer is a dated snapshot; older than two weeks it may mislead during registration. */
+function renderOfferNotice() {
+  const age = offerAgeDays()
+  if (age === null || age <= 14) return ''
+  return `<section class="profile-notice offer-notice" role="note"><div><strong>La oferta del SIA tiene ${age} días</strong><p>Grupos, horarios y cupos pueden haber cambiado. Confírmalos en el buscador del SIA antes de inscribir.</p></div></section>`
 }
 
 /** First-run guidance: an unconfigured situation blocks Cálculo diferencial and its dependents. */
