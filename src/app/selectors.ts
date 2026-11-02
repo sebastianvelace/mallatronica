@@ -1,6 +1,6 @@
 import { supportSubjects, type Subject } from '../data/curriculum'
 import type { CatalogCourse } from '../domain/catalog'
-import { courseStatus, isApproved as isApprovedIn, isFreeChoiceApproved as isFreeChoiceApprovedIn, missingRequirements, prerequisiteGroupSatisfied, type CourseStatus, type Status } from '../domain/progress'
+import { courseStatus, isApproved as isApprovedIn, isFreeChoiceApproved as isFreeChoiceApprovedIn, isVerifiableGroup, missingRequirements, prerequisiteGroupSatisfied, type CourseStatus, type Status } from '../domain/progress'
 import { store } from './store'
 
 /** Eligibility helpers bound to the current store state. */
@@ -38,7 +38,7 @@ export function supportStatus(id: string): Status | 'exento' | 'disponible' | 'b
   if (state.subjects[id] === 'aprobada') return 'aprobada'
   if (state.subjects[id] === 'reprobada') return 'reprobada'
   if (support.prereqGroups === null || support.prereqGroups.length === 0) return 'disponible'
-  if (support.prereqGroups.every((group) => prerequisiteGroupSatisfied(state, group))) return 'disponible'
+  if (support.prereqGroups.filter(isVerifiableGroup).every((group) => prerequisiteGroupSatisfied(state, group))) return 'disponible'
   return 'bloqueada'
 }
 

@@ -87,3 +87,10 @@ test('imported catalog ids are namespaced away from plan ids', () => {
   assert.equal(normalizeCatalogCourse({ id: 'free-keep', code: 'X1', name: 'A', credits: 3, category: 'LE' }, 0, 'imported').id, 'free-keep')
   assert.equal(normalizeCatalogCourse({ code: 'AB-1', name: 'A', credits: 3, category: 'LE' }, 2, 'manual').id, 'free-ab-1-2')
 })
+
+test('conditions made only of out-of-catalogue codes are reported, not enforced', () => {
+  const { isVerifiableGroup } = loadTs(() => require('../src/domain/progress.ts'))
+  const item = (code) => ({ code, name: code, type: 'M', condition: 1, corequisite: false })
+  assert.equal(isVerifiableGroup({ condition: 1, mode: 'all', type: 'M', items: [item('1000095')] }), false)
+  assert.equal(isVerifiableGroup({ condition: 1, mode: 'any', type: 'M', items: [item('2001285'), item('1000004-B')] }), true)
+})

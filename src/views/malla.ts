@@ -2,7 +2,7 @@ import { curriculumMeta, subjects, supportSubjects } from '../data/curriculum'
 import { referenceFreeSlotCount } from '../data/reference-layout'
 import { readElectiveAssignments } from '../domain/electives'
 import { cumulativeAverage, recordedAverage } from '../domain/grades'
-import { approvedCredits, prerequisiteGroupLabel, prerequisiteGroupSatisfied, recordBalance, type RequirementStatus } from '../domain/progress'
+import { approvedCredits, isVerifiableGroup, prerequisiteGroupLabel, prerequisiteGroupSatisfied, recordBalance, type RequirementStatus } from '../domain/progress'
 import { canApprove, getMissingRequirements, getStatus, isApproved, statusInfo, supportStatus } from '../app/selectors'
 import { commit, navigate, store } from '../app/store'
 import { mountCurriculumBoard, renderCurriculumBoard, type BoardOptions } from '../ui/curriculum-board'
@@ -139,7 +139,8 @@ function renderSupportTracks() {
       const grade = kind === 'nivelacion' && status !== 'exento'
         ? `<label class="support-grade"><span>Nota</span><input type="number" min="0" max="5" step="0.1" value="${state.notes[subject.id] ?? ''}" placeholder="—" data-note="${subject.id}" aria-label="Nota de ${subject.name}" /></label>`
         : ''
-      const row = `<div class="support-subject"><strong>${subject.name}</strong><small>${subject.code} · ${subject.credits} créditos adicionales</small></div><div class="support-row-actions">${grade}<span class="support-status ${info.className}">${info.icon} ${info.label}</span></div>`
+      const external = subject.prereqGroups?.filter((group) => !isVerifiableGroup(group)).flatMap((group) => group.items.map((item) => item.code)) ?? []
+      const row = `<div class="support-subject"><strong>${subject.name}</strong><small>${subject.code} · ${subject.credits} créditos adicionales${external.length ? ` · requisito por verificar en el SIA: ${external.join(', ')}` : ''}</small></div><div class="support-row-actions">${grade}<span class="support-status ${info.className}">${info.icon} ${info.label}</span></div>`
       return interactive ? `<button type="button" class="support-row support-row-button" data-support-id="${subject.id}">${row}</button>` : `<div class="support-row">${row}</div>`
     }).join('')
     const selectors = kind === 'idioma'
@@ -186,7 +187,7 @@ export function bindMalla(root: HTMLElement) {
   root.querySelectorAll<HTMLButtonElement>('[data-support-id]').forEach((button) => button.addEventListener('click', () => {
     const support = supportSubjects.find((subject) => subject.id === button.dataset.supportId)
     if (!support) return
-    const missing = support.prereqGroups?.filter((group) => !prerequisiteGroupSatisfied(state, group)).map(prerequisiteGroupLabel) ?? []
+    const missing = support.prereqGroups?.filter((group) => isVerifiableGroup(group) && !prerequisiteGroupSatisfied(state, group)).map(prerequisiteGroupLabel) ?? []
     if (missing.length) { showToast(`${support.name} sigue bloqueado`, `Primero completa ${missing.join(', ')}`); return }
     state.subjects[support.id] = state.subjects[support.id] === 'aprobada' ? 'pendiente' : 'aprobada'
     commit()

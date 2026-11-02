@@ -189,12 +189,16 @@ def parse_detail(page: str, code: str) -> dict:
     content = re.split(rf'\({re.escape(code)} ?\)', content, maxsplit=1)[-1].split('Contenido de la asignatura', 1)[-1]
     # Activity headers: "CLASE MAGISTRAL (2016488)" or "CLASE TEORICA 1000003 (21000003)".
     # Group ids can be numeric or codes such as "(SUMA-01) Grupo PEAMA Sumapaz".
-    pieces = re.split(r'([A-ZÁÉÍÓÚÑ][A-ZÁÉÍÓÚÑ ]+?)(?: \d+)? \([\w-]+ ?\) (?=\([^()]+\) Grupo )', content)
+    # Labels may carry a suffix, e.g. "CLASE PRACTICA-Programación de Computadores (2015734)".
+    pieces = re.split(r'([A-ZÁÉÍÓÚÑ][A-ZÁÉÍÓÚÑ ]+?(?:-[^()]+?)?)(?: \d+)? \([\w-]+ ?\) (?=\([^()]+\) [^()]+? Profesor: )', content)
     for label, content in zip(pieces[1::2], pieces[2::2]):
         groups = []
-        for group in re.finditer(r'\(([^()]+)\) Grupo (.+?) Profesor: (.*?)\. Facultad: (.*?)Horarios/Aula: (.*?) Fecha: (\d{2}/\d{2}/\d{4}) - (\d{2}/\d{2}/\d{4}) (.*?) Duración: (.*?) Jornada: (.*?) Cupos disponibles: (\d+)', content):
+        # "(1) Grupo 1 Profesor:" or "(1) 2024045-1 Taller de proyectos interdisciplinarios Profesor:".
+        for group in re.finditer(r'\(([^()]+)\) (?:Grupo )?(.+?) Profesor: (.*?)\. Facultad: (.*?)Horarios/Aula: (.*?) Fecha: (\d{2}/\d{2}/\d{4}) - (\d{2}/\d{2}/\d{4}) (.*?) Duración: (.*?) Jornada: (.*?) Cupos disponibles: (\d+)', content):
+            name = group.group(2).strip()
+            numbered = re.match(rf'{re.escape(code)}-(\S+)', name)
             groups.append({
-                'grupo': group.group(2), 'profesor': group.group(3).strip() or None,
+                'grupo': numbered.group(1) if numbered else name, 'profesor': group.group(3).strip() or None,
                 'fecha_inicio': group.group(6), 'fecha_fin': group.group(7),
                 'sesiones': parse_sessions(group.group(8)), 'duracion': group.group(9).strip(),
                 'jornada': group.group(10).strip(), 'cupos_disponibles': int(group.group(11)),
