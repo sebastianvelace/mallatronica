@@ -8,6 +8,7 @@ import { bindGradeInputs } from './views/grade-inputs'
 import { renderCalculator } from './views/calculator'
 import { renderInfo } from './views/info'
 import { bindMalla, renderMalla } from './views/malla'
+import { bindPlanner, renderPlanner } from './views/planner'
 import { bindSchedule, renderSchedule } from './views/schedule'
 
 const app = document.querySelector<HTMLDivElement>('#app')!
@@ -15,6 +16,7 @@ let disposeView = () => {}
 
 const views: Record<View, { render: () => string; bind?: (root: HTMLElement) => (() => void) | void }> = {
   malla: { render: renderMalla, bind: bindMalla },
+  plan: { render: renderPlanner, bind: bindPlanner },
   calculadora: { render: renderCalculator },
   horario: { render: renderSchedule, bind: bindSchedule },
   libre: { render: renderFreeChoice, bind: bindFreeChoice },
@@ -37,6 +39,7 @@ function render() {
           <div class="workspace-brand"><span class="brand-name">mallatrónica</span><span class="workspace-campus">UNAL · Bogotá</span></div>
           <nav class="workspace-nav" aria-label="Navegación principal">
             ${navItem('malla', icon('grid'), 'Malla', 'Malla curricular')}
+            ${navItem('plan', icon('route'), 'Planear', 'Planear el próximo semestre')}
             ${navItem('calculadora', icon('calculator'), 'Notas', 'Notas y promedio')}
             ${navItem('horario', icon('calendar'), 'Horario', 'Horario semanal')}
             ${navItem('libre', icon('book'), 'Libre elección', 'Libre elección')}

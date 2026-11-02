@@ -1,7 +1,7 @@
 import { emptyState, parseState, type State, type Theme } from '../domain/state'
 import { showToast } from '../ui/toast'
 
-export type View = 'malla' | 'calculadora' | 'horario' | 'libre' | 'info'
+export type View = 'malla' | 'plan' | 'calculadora' | 'horario' | 'libre' | 'info'
 
 const STATE_KEY = 'mallatronica-state-v2'
 

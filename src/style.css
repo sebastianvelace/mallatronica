@@ -292,3 +292,29 @@ body { font-size: 15px; line-height: 1.55; }
 .schedule-form.is-editing { border-color: color-mix(in srgb, var(--amber) 60%, var(--line)); }
 .field-help { color: var(--muted-2); font: 9px var(--mono); }
 @media print { .schedule-block-actions { display: none; } }
+
+/* Next-term planner */
+.planner-layout { display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr); gap: 15px; margin: 0 44px 32px; align-items: start; }
+.planner-layout .panel { padding: 20px 22px; }
+.planner-layout .panel-heading { align-items: baseline; gap: 12px; margin-bottom: 12px; padding: 0 0 14px; }
+.plan-list { display: grid; gap: 8px; margin: 14px 0; padding: 0; list-style: none; }
+.plan-row { display: grid; grid-template-columns: minmax(0, 1fr) auto auto; align-items: center; gap: 12px; padding: 11px 12px; border: 1px solid var(--line); border-radius: 8px; background: var(--bg-elevated); }
+.plan-row strong { display: block; font-size: 13px; }
+.plan-row small { display: block; margin-top: 3px; color: var(--muted); font: 10px var(--mono); }
+.plan-row.is-done { opacity: .7; }
+.plan-row-actions { display: flex; align-items: center; gap: 6px; grid-column: 2 / 4; }
+.plan-opens { padding: 3px 8px; border-radius: 999px; background: color-mix(in srgb, var(--mint) 18%, var(--panel)); color: var(--ink); font: 10px var(--mono); white-space: nowrap; }
+.plan-flag { display: inline-block; margin-top: 6px; padding: 2px 7px; border-radius: 999px; font: 10px var(--mono); }
+.plan-flag.ok { background: color-mix(in srgb, var(--mint) 20%, var(--panel)); }
+.plan-flag.warn { background: color-mix(in srgb, var(--coral) 18%, var(--panel)); color: var(--ink); }
+.plan-free { display: flex; align-items: flex-end; gap: 10px; margin: 6px 0 16px; }
+.plan-free label { display: grid; flex: 1; gap: 6px; color: var(--muted-2); font: 9px var(--mono); }
+.plan-free select { min-height: 40px; }
+.plan-unlocks { margin-top: 12px; padding: 14px 16px; border-left: 2px solid var(--mint); background: var(--panel-soft); }
+.plan-unlocks h3 { margin: 0 0 8px; font-size: 13px; }
+.plan-unlocks ul { margin: 0; padding-left: 18px; display: grid; gap: 4px; font-size: 12px; }
+.plan-unlocks small, .plan-unlocks p { color: var(--muted); font-size: 11px; }
+.catalog-empty.compact { padding: 22px 0 6px; text-align: left; }
+.course-planned { color: var(--map-discipline); font-weight: 600; }
+@media (max-width: 900px) { .planner-layout { grid-template-columns: 1fr; margin-inline: 16px; } }
+@media (max-width: 520px) { .plan-row { grid-template-columns: minmax(0, 1fr) auto; } .plan-row > .button { grid-column: 1 / -1; } .plan-row-actions { grid-column: 1 / -1; } }

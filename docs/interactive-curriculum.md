@@ -41,8 +41,14 @@ Eligibility (`src/domain/progress.ts`) and stored/imported progress parsing (`sr
 
 - `src/main.ts` renders the shell (navigation, theme, export/import, reset) and mounts the active view.
 - `src/app/store.ts` holds persisted academic state plus presentation state that survives rerenders; `commit()` saves and rerenders. `src/app/selectors.ts` binds eligibility helpers to that state.
-- `src/views/` contains one module per destination (`malla`, `calculator`, `schedule`, `free-choice`, `info`) with a `render` function and, when needed, a `bind` function. Grade inputs shared by several views live in `grade-inputs.ts`.
-- `src/domain/` stays free of DOM code: progress, state parsing, schedule rules, grades, electives, catalog and credit balance.
+- `src/views/` contains one module per destination (`malla`, `planner`, `calculator`, `schedule`, `free-choice`, `info`) with a `render` function and, when needed, a `bind` function. Grade inputs shared by several views live in `grade-inputs.ts`.
+- `src/domain/` stays free of DOM code: progress, planning, state parsing, schedule rules, grades, electives, catalog and credit balance.
+
+## Next-term planner
+
+The **Planear** destination lists courses that can be taken now: not approved and with every recorded requirement met (a failed course can be retaken). They are ranked by how many courses they open through prerequisite links, transitively and including OR alternatives, then by suggested visual semester. The ranking is guidance, not a university rule.
+
+Planned courses (`state.plan`) can come from the suggestions, from a course detail on the map ("Agregar al plan") or from the local free-choice catalogue. The planner shows pending credits, flags planned courses that are already approved or whose requirements are no longer recorded, and lists the courses that would become available if the whole plan were approved. That simulation works on a copy and never changes recorded progress. The app does not know each student's credit allowance, so it asks to verify it in the SIA. Planned courses show an "En plan" label on the map and can be sent to the schedule.
 
 ## Schedule
 
@@ -66,7 +72,7 @@ Courses marked `sin_programar_2026_2` in the SIA extraction show a "No ofertada"
 - Search handles accents and has an explicit no-results state.
 - Search and filters preserve positions; horizontal position survives academic updates.
 - Preview stays inside the viewport; the page has no horizontal overflow at mobile widths (the map itself scrolls).
-- All five named navigation destinations remain accessible on desktop and mobile.
+- All six named navigation destinations remain accessible on desktop and mobile.
 - Optional grades update the weighted average, reject invalid input, and survive reloads.
 - Elective assignments survive reloads, prevent duplicates, and preserve grades when changed.
 - Regular courses with `semester: null` remain editable in the calculator.

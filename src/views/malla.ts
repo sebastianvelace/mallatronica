@@ -9,6 +9,7 @@ import { mountCurriculumBoard, renderCurriculumBoard, type BoardOptions } from '
 import { formatIsoDate } from '../ui/html'
 import { icon } from '../ui/icons'
 import { showToast } from '../ui/toast'
+import { togglePlanned } from './planner'
 
 const totalCredits = curriculumMeta.regularCredits
 
@@ -98,6 +99,14 @@ function boardOptions(): BoardOptions {
       store.pendingCourseId = subject.id
       commit()
       if (inconsistentDependents.length) showToast('Revisa el historial', `${inconsistentDependents.length} materia${inconsistentDependents.length === 1 ? '' : 's'} aprobada${inconsistentDependents.length === 1 ? '' : 's'} quedó con requisitos pendientes.`)
+    },
+    planned: (id) => state.plan.includes(id),
+    togglePlan: (subject) => {
+      const adding = !state.plan.includes(subject.id)
+      togglePlanned(subject.id)
+      store.pendingCourseId = subject.id
+      commit()
+      showToast(adding ? 'Agregada al plan' : 'Quitada del plan', `${subject.name} · revisa la carga en Planear.`)
     },
     schedule: (subject) => {
       store.pendingScheduleSubjectId = subject.id
