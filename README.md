@@ -3,8 +3,9 @@
 Malla interactiva para Ingeniería Electrónica de la Universidad Nacional de
 Colombia, Bogotá (plan 2545). Proyecto independiente, no oficial.
 
-Permite explorar prerrequisitos, registrar avances y notas, ubicar optativas y
-planificar horarios. El progreso se guarda en el navegador; exporta una copia
+Permite explorar prerrequisitos, registrar avances y notas (PA y PAPA estimados),
+planear el próximo semestre, ubicar optativas y armar horarios. Después de la
+primera visita funciona sin conexión. El progreso se guarda en el navegador; exporta una copia
 antes de borrar sus datos. No pide credenciales del SIA ni sincroniza con él.
 
 ## Desarrollo local
@@ -30,7 +31,7 @@ El balance de 172 créditos es una estimación por componentes, no una
 certificación de grado. Algunas agrupaciones y restricciones requieren
 verificación. El promedio registrado incluye las notas locales de libre elección,
 Matemáticas Básicas y Lectoescritura. Inglés acreditado como AP/RE no se pondera.
-El cálculo no reemplaza el PAPA oficial ni representa todavía intentos repetidos.
+El PAPA estimado suma los intentos anteriores que registres; no reemplaza el PAPA oficial.
 Consulta [las limitaciones](docs/sia-v2-integration.md) y las fuentes en `data/sia/`.
 
 ## Contribuir
