@@ -5,7 +5,7 @@ import { icon } from './ui/icons'
 import { showToast } from './ui/toast'
 import { bindFreeChoice, renderFreeChoice } from './views/free-choice'
 import { bindGradeInputs } from './views/grade-inputs'
-import { renderCalculator } from './views/calculator'
+import { bindCalculator, renderCalculator } from './views/calculator'
 import { renderInfo } from './views/info'
 import { bindMalla, renderMalla } from './views/malla'
 import { bindPlanner, renderPlanner } from './views/planner'
@@ -17,7 +17,7 @@ let disposeView = () => {}
 const views: Record<View, { render: () => string; bind?: (root: HTMLElement) => (() => void) | void }> = {
   malla: { render: renderMalla, bind: bindMalla },
   plan: { render: renderPlanner, bind: bindPlanner },
-  calculadora: { render: renderCalculator },
+  calculadora: { render: renderCalculator, bind: bindCalculator },
   horario: { render: renderSchedule, bind: bindSchedule },
   libre: { render: renderFreeChoice, bind: bindFreeChoice },
   info: { render: renderInfo },

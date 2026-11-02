@@ -318,3 +318,14 @@ body { font-size: 15px; line-height: 1.55; }
 .course-planned { color: var(--map-discipline); font-weight: 600; }
 @media (max-width: 900px) { .planner-layout { grid-template-columns: 1fr; margin-inline: 16px; } }
 @media (max-width: 520px) { .plan-row { grid-template-columns: minmax(0, 1fr) auto; } .plan-row > .button { grid-column: 1 / -1; } .plan-row-actions { grid-column: 1 / -1; } }
+
+/* Repeated courses (earlier attempts for the PAPA) */
+.attempt-list { display: grid; gap: 6px; margin: 0 0 12px 39px; padding: 0; list-style: none; }
+.attempt-row { display: grid; grid-template-columns: minmax(0, 1fr) auto auto; align-items: center; gap: 12px; padding: 8px 10px; border: 1px solid var(--line); border-radius: 8px; background: var(--bg-elevated); font-size: 12px; }
+.attempt-row small { display: block; color: var(--muted); font: 9px var(--mono); }
+.attempt-row strong { color: var(--coral); font: 600 13px var(--mono); }
+.attempt-form { display: flex; flex-wrap: wrap; align-items: flex-end; gap: 10px; margin-left: 39px; }
+.attempt-form label { display: grid; gap: 6px; color: var(--muted-2); font: 9px var(--mono); }
+.attempt-form select { max-width: 340px; min-height: 38px; }
+.attempt-form input { width: 120px; min-height: 38px; }
+@media (max-width: 760px) { .attempt-list, .attempt-form { margin-left: 0; } .attempt-form select { max-width: none; width: 100%; } .attempt-form label:first-child { flex-basis: 100%; } }

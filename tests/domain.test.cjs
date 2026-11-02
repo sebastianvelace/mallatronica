@@ -130,3 +130,30 @@ test('critical global requirements are represented conservatively', () => {
   assert.deepEqual(workshop.globalPrereqs?.map(item => [item.kind, item.value]), [['regularCredits', 121]])
   assert.deepEqual(degree.globalPrereqs?.map(item => [item.kind, item.value]), [['disciplinaryCredits', 63]])
 })
+
+const { cumulativeAverage, readAttempts } = loadTs(() => require('../src/domain/grades.ts'))
+
+test('PAPA counts every attempt while PA keeps only the latest grade', () => {
+  // Programación (3 cr.) failed with 2.0, then passed with 4.0; Cálculo diferencial (4 cr.) 3.5.
+  const notes = { programacion: 4.0, 'calculo-diferencial': 3.5 }
+  const pa = recordedAverage(notes)
+  const papa = cumulativeAverage(notes, { programacion: [2.0] })
+  assert.ok(Math.abs(pa.value - (4 * 3 + 3.5 * 4) / 7) < 1e-12)
+  assert.ok(Math.abs(papa.value - (4 * 3 + 2 * 3 + 3.5 * 4) / 10) < 1e-12)
+  assert.equal(papa.credits, 10)
+  assert.equal(papa.repeated, 1)
+  assert.deepEqual(cumulativeAverage(notes, {}).value, pa.value)
+})
+
+test('PAPA includes free-choice attempts and levelation but not language AP/RE', () => {
+  const free = [{ id: 'free-a', credits: 2 }]
+  const result = cumulativeAverage({ 'matematicas-basicas': 3 }, { 'free-a': [1], 'ingles-1': [2] }, free, { 'free-a': 4 })
+  assert.equal(result.credits, 4 + 2 + 2)
+  assert.ok(Math.abs(result.value - (3 * 4 + 4 * 2 + 1 * 2) / 8) < 1e-12)
+})
+
+test('stored attempts keep failing grades of known courses only', () => {
+  assert.deepEqual(readAttempts({ programacion: [2, 3.5, '1', -1, 2.04], unknown: [1], 'ingles-1': [1], 'calculo-diferencial': [] }), { programacion: [2, 2] })
+  assert.deepEqual(readAttempts({ 'free-a': [1.5] }, [{ id: 'free-a', credits: 3 }]), { 'free-a': [1.5] })
+  for (const value of [null, [], 'x']) assert.deepEqual(readAttempts(value), {})
+})
