@@ -1,4 +1,4 @@
-import { courseCodeKey, disciplinaryIds, subjects, type PrerequisiteGroup, type PrerequisiteRef, type Subject } from '../data/curriculum'
+import { courseCodeKey, disciplinaryIds, subjects, supportSubjects, type PrerequisiteGroup, type PrerequisiteRef, type Subject } from '../data/curriculum'
 import type { CatalogCourse } from './catalog'
 import { creditBalance } from './credit-balance'
 
@@ -64,6 +64,16 @@ export function prerequisiteSatisfied(record: AcademicRecord, reference: Prerequ
 export function prerequisiteGroupSatisfied(record: AcademicRecord, group: PrerequisiteGroup) {
   const statuses = group.items.map(item => prerequisiteSatisfied(record, item))
   return group.mode === 'all' ? statuses.every(Boolean) : statuses.some(Boolean)
+}
+
+const catalogCodes = new Set([...subjects, ...supportSubjects].map(course => courseCodeKey(course.code)))
+
+/**
+ * A condition whose courses are all outside this plan's catalogue (for example a
+ * placement test) cannot be checked here; it is reported, not enforced.
+ */
+export function isVerifiableGroup(group: PrerequisiteGroup) {
+  return group.items.some(item => catalogCodes.has(courseCodeKey(item.code)))
 }
 
 export function prerequisiteGroupLabel(group: PrerequisiteGroup) {

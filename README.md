@@ -34,6 +34,11 @@ Matemáticas Básicas y Lectoescritura. Inglés acreditado como AP/RE no se pond
 El PAPA estimado suma los intentos anteriores que registres; no reemplaza el PAPA oficial.
 Consulta [las limitaciones](docs/sia-v2-integration.md) y las fuentes en `data/sia/`.
 
+Las materias, prerrequisitos y la oferta del periodo (grupos, horarios y cupos)
+provienen del buscador público de cursos del SIA mediante
+`scripts/sia/snapshot.py`; un workflow semanal propone la actualización como pull
+request. Ver [ADR-002](docs/ADR-002-sia-snapshots.md).
+
 ## Contribuir
 
 Se reciben issues y pull requests. Lee [CONTRIBUTING.md](CONTRIBUTING.md).

@@ -235,3 +235,4 @@ details.preview-scroll { margin-block: 18px; }
   .course-meta, .course-foot, .course-slot small { font-size: 6px; }
   .course-name, .course-slot span { font-size: 7.5px; line-height: 1.2; }
 }
+.preview-offer-line { margin: -4px 0 12px; color: var(--muted); font: 11px var(--mono); }
