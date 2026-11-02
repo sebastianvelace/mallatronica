@@ -1,5 +1,5 @@
 import { subjects } from '../data/curriculum'
-import { offerConsultedAt, offerFor, offerTerm, type OfferGroup } from '../data/sia-offer'
+import { offerFor, offerLoaded, offerMeta, type OfferGroup } from '../data/sia-offer'
 import { findConflict, scheduleAsText, slotColor, timeToMinutes, upsertSlot, validateSlot, DAY_END, DAY_START } from '../domain/schedule'
 import { scheduleDays, type ScheduleDay, type ScheduleSlot } from '../domain/state'
 import { isApproved, isFreeChoiceApproved } from '../app/selectors'
@@ -41,7 +41,7 @@ export function renderSchedule() {
   const selectedId = editing?.subjectId ?? store.pendingScheduleSubjectId
   const options = courseOptions(selectedId)
   const value = (field: 'start' | 'end' | 'group' | 'room', fallback: string) => escapeHtml(editing?.[field] ?? fallback)
-  return `<section class="page-heading compact"><div><div class="eyebrow"><span class="eyebrow-dot"></span> Planeación semanal</div><h1>Arma tu <em>semana.</em></h1><p class="lede">Agrega tus bloques manualmente y detecta choques antes de armar la matrícula.</p></div><div class="heading-note"><span>FUENTE</span><strong>Grupos del SIA${offerTerm ? ` ${offerTerm}` : ''}</strong><small>Consultados el ${formatIsoDate(offerConsultedAt.slice(0, 10))} · también puedes cargar bloques a mano</small></div></section>
+  return `<section class="page-heading compact"><div><div class="eyebrow"><span class="eyebrow-dot"></span> Planeación semanal</div><h1>Arma tu <em>semana.</em></h1><p class="lede">Agrega tus bloques manualmente y detecta choques antes de armar la matrícula.</p></div><div class="heading-note"><span>FUENTE</span><strong>Grupos del SIA${offerMeta()?.term ? ` ${offerMeta()!.term}` : ''}</strong><small>${offerMeta() ? `Consultados el ${formatIsoDate(offerMeta()!.consultedAt.slice(0, 10))}` : 'Cargando oferta'} · también puedes cargar bloques a mano</small></div></section>
   <section class="schedule-toolbar"><div><span class="panel-kicker">Tu horario</span><h2>${slotCount ? `${slotCount} bloque${slotCount === 1 ? '' : 's'} guardado${slotCount === 1 ? '' : 's'}` : 'Todavía no hay bloques'}</h2></div><div class="toolbar-controls"><button class="button button-outline" data-action="copy-schedule" ${slotCount ? '' : 'disabled'}>${icon('download')} Copiar</button><button class="button button-solid" data-action="print-schedule">Imprimir</button><button class="text-button" data-action="clear-schedule" ${slotCount ? '' : 'disabled'}>Vaciar</button></div></section>
   <section class="schedule-workspace"><form class="schedule-form${editing ? ' is-editing' : ''}" data-schedule-form><div class="schedule-form-head"><span class="panel-kicker">${editing ? 'Editar bloque' : 'Agregar bloque'}</span><p>Solo guardamos estos datos en tu navegador.</p></div><label><span>Materia</span><select name="subjectId" required>${options.html}</select>${options.hidden ? `<small class="field-help">${options.hidden} materia${options.hidden === 1 ? '' : 's'} aprobada${options.hidden === 1 ? '' : 's'} no se muestra${options.hidden === 1 ? '' : 'n'}.</small>` : ''}</label><div class="schedule-form-grid"><label><span>Día</span><select name="day">${scheduleDays.map((day) => `<option value="${day}"${editing?.day === day ? ' selected' : ''}>${day}</option>`).join('')}</select></label><label><span>Grupo</span><input name="group" maxlength="20" placeholder="Opcional" value="${value('group', '')}" /></label><label><span>Inicio</span><input name="start" type="time" min="07:00" max="20:59" value="${value('start', '07:00')}" required /></label><label><span>Fin</span><input name="end" type="time" min="07:01" max="21:00" value="${value('end', '09:00')}" required /></label><label><span>Salón</span><input name="room" maxlength="30" placeholder="Opcional" value="${value('room', '')}" /></label></div><div class="schedule-form-actions"><button class="button button-solid" type="submit">${editing ? 'Guardar cambios' : 'Agregar al horario'} ${icon('arrow')}</button>${editing ? '<button class="button button-quiet" type="button" data-schedule-cancel>Cancelar edición</button>' : ''}</div></form>${renderOfferPanel(selectedId ?? courseOptions(null).firstId)}</section>
   <div class="week-grid"><div class="time-axis">${hourMarks.map((time) => `<span>${time}</span>`).join('')}</div>${scheduleDays.map((day) => `<div class="day-column"><strong>${day}</strong><div class="day-lines">${state.schedule.filter((slot) => slot.day === day).sort((a, b) => a.start.localeCompare(b.start)).map(renderScheduleSlot).join('') || '<span class="day-empty">Sin bloques</span>'}</div></div>`).join('')}</div>`
@@ -55,8 +55,11 @@ function groupKey(group: OfferGroup) {
 function renderOfferPanel(subjectId: string | null) {
   const subject = subjects.find((item) => item.id === subjectId)
   const offer = subject ? offerFor(subject.code) : undefined
-  const source = `Buscador de cursos del SIA${offerTerm ? ` · periodo ${offerTerm}` : ''} · consultado el ${formatIsoDate(offerConsultedAt.slice(0, 10))}`
-  const body = !subject
+  const info = offerMeta()
+  const source = info ? `Buscador de cursos del SIA${info.term ? ` · periodo ${info.term}` : ''} · consultado el ${formatIsoDate(info.consultedAt.slice(0, 10))}` : 'Buscador de cursos del SIA'
+  const body = !offerLoaded()
+    ? '<p>Cargando la oferta del SIA…</p>'
+    : !subject
     ? '<p>Las materias de libre elección se agregan manualmente con el formulario.</p>'
     : !offer
       ? '<p>Esta materia no aparece en el último snapshot del SIA.</p>'

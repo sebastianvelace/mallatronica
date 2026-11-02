@@ -2,6 +2,11 @@ name: Datos del SIA
 
 # Refreshes data/sia/ from the public SIA course search and proposes the
 # change as a pull request. Nothing reaches production until it is merged.
+#
+# The SIA answers 403 to GitHub-hosted runners (first run, 2026-11-02), so the
+# scheduled run only happens when the repository variable SIA_RUNNER names a
+# self-hosted runner label (for example a computer on a regular connection).
+# Otherwise run `npm run sia:snapshot` locally and open a pull request.
 on:
   workflow_dispatch:
   schedule:
@@ -18,7 +23,8 @@ concurrency:
 
 jobs:
   snapshot:
-    runs-on: ubuntu-latest
+    if: github.event_name == 'workflow_dispatch' || vars.SIA_RUNNER != ''
+    runs-on: ${{ vars.SIA_RUNNER || 'ubuntu-latest' }}
     timeout-minutes: 30
     steps:
       - uses: actions/checkout@v4

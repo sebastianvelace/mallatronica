@@ -34,5 +34,6 @@ Análisis técnico (2 de noviembre de 2026):
 
 - **Agrupaciones de optativas:** no aparecen en el buscador público. Siguen sin verificar hasta transcribir el acuerdo vigente del plan (Acuerdo 17 de 2022 del Consejo de Facultad) o hasta que un estudiante importe localmente su propia vista de "Mis planes".
 - **Libre elección:** el buscador la consulta por facultad y plan de origen. Requiere una segunda etapa del script.
+- **Acceso desde GitHub:** la primera ejecución en un runner alojado por GitHub (2 de noviembre de 2026) recibió `403 Forbidden` en la primera petición, mientras que desde una conexión regular el mismo script funciona. No se intenta evadir ese bloqueo. El workflow corre de forma programada solo si la variable `SIA_RUNNER` apunta a un runner propio; si no, se ejecuta `npm run sia:snapshot` localmente y se abre un pull request.
 - **Cambios del SIA:** si el SIA cambia su HTML, el script falla y los datos quedan en la última versión válida. El workflow fallido es la alerta.
 - **Uso responsable:** se consultan solo datos públicos, con baja frecuencia y pausas. Conviene solicitar a la Dirección Nacional de Información Académica un acceso oficial que reemplace este mecanismo.
