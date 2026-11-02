@@ -2,6 +2,7 @@ import { courseCodeKey, subjects, supportSubjects } from '../data/curriculum'
 import type { CatalogCourse } from './catalog'
 import { readElectiveAssignments, type ElectiveAssignments } from './electives'
 import { readAttempts, readGrades, type Attempts } from './grades'
+import { readGroupingChoices } from './groupings'
 import type { RequirementStatus, Status } from './progress'
 
 export type ScheduleDay = 'Lunes' | 'Martes' | 'Miércoles' | 'Jueves' | 'Viernes' | 'Sábado'
@@ -34,6 +35,8 @@ export type State = {
   plan: string[]
   /** Earlier failing grades of repeated courses, for the PAPA. */
   attempts: Attempts
+  /** Elective groupings the student confirmed from their own SIA (subject id -> grouping id). */
+  groupings: Record<string, string>
 }
 
 export const SCHEMA_VERSION = 7
@@ -57,6 +60,7 @@ export function emptyState(theme: Theme = 'light'): State {
     electiveAssignments: {},
     plan: [],
     attempts: {},
+    groupings: {},
   }
 }
 
@@ -145,6 +149,7 @@ export function parseState(value: unknown, fallbackTheme: Theme = 'light'): Stat
     electiveAssignments: readElectiveAssignments(raw.electiveAssignments, freeChoice),
     plan: readPlan(raw.plan, freeChoice),
     attempts: readAttempts(raw.attempts, freeChoice),
+    groupings: readGroupingChoices(raw.groupings),
   }
   // A grade decides the result; a stale manual mark would contradict it.
   for (const id of Object.keys(state.notes)) delete state.subjects[id]

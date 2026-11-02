@@ -1,0 +1,32 @@
+{
+ "fuente": {
+  "agrupaciones": "Página oficial del programa (Facultad de Ingeniería, Sede Bogotá), sección Plan de estudios, y Malla curricular 2023",
+  "urls": [
+   "https://ingenieria.bogota.unal.edu.co/es/programas-academicos/ingenieria-electronica/",
+   "https://ingenieria.bogota.unal.edu.co/images/Malla_Ing_Electrnica_2023.pdf"
+  ],
+  "consultado": "2026-11-02",
+  "pertenencia": "No publicada en fuentes públicas: está en el Acuerdo 17 de 2022 del Consejo de Facultad (protegido con captcha) y en Mis planes del SIA (requiere autenticación). Las asignaciones de abajo son inferencias por nombre y prerrequisitos, marcadas como tales."
+ },
+ "agrupaciones": [
+  { "id": "matematicas", "nombre": "Matemáticas, probabilidad y estadística", "componente": "FUND. OPTATIVA", "creditos_optativos": 3 },
+  { "id": "economicas", "nombre": "Ciencias económicas y administrativas", "componente": "FUND. OPTATIVA", "creditos_optativos": 6 },
+  { "id": "analoga", "nombre": "Electrónica Análoga", "componente": "DISCIPLINAR OPTATIVA", "creditos_optativos": 3 },
+  { "id": "digital", "nombre": "Electrónica Digital", "componente": "DISCIPLINAR OPTATIVA", "creditos_optativos": 3 },
+  { "id": "telecomunicaciones", "nombre": "Telecomunicaciones", "componente": "DISCIPLINAR OPTATIVA", "creditos_optativos": 3 }
+ ],
+ "asignaturas": {
+  "1000013-B": { "agrupacion": "matematicas", "estado": "inferida", "motivo": "Única optativa de fundamentación del área de matemáticas y estadística." },
+  "2015698": { "agrupacion": "economicas", "estado": "inferida", "motivo": "Administración de empresas." },
+  "2016592": { "agrupacion": "economicas", "estado": "inferida", "motivo": "Economía general." },
+  "2016741": { "agrupacion": "economicas", "estado": "inferida", "motivo": "Finanzas." },
+  "2015701": { "agrupacion": "economicas", "estado": "inferida", "motivo": "Gerencia de recursos humanos." },
+  "2015702": { "agrupacion": "economicas", "estado": "inferida", "motivo": "Gerencia y gestión de proyectos." },
+  "2016609": { "agrupacion": "economicas", "estado": "inferida", "motivo": "Optativa de fundamentación; la otra agrupación con créditos optativos es matemáticas. Pertenencia menos segura." },
+  "2028211": { "agrupacion": "analoga", "estado": "inferida", "motivo": "Circuitos integrados lineales: electrónica análoga." },
+  "2016508": { "agrupacion": "digital", "estado": "inferida", "motivo": "Sistemas embebidos; prerrequisito Electrónica digital II." },
+  "2016512": { "agrupacion": "digital", "estado": "inferida", "motivo": "Verificación de sistemas digitales; prerrequisito Electrónica digital II." },
+  "2019125": { "agrupacion": "telecomunicaciones", "estado": "inferida", "motivo": "Redes de telecomunicaciones; prerrequisito Comunicaciones." },
+  "2016488": { "agrupacion": "telecomunicaciones", "estado": "inferida", "candidatas": ["telecomunicaciones", "analoga"], "motivo": "Circuitos de RF: tema de telecomunicaciones, pero su prerrequisito es Electrónica análoga II. Pertenencia ambigua." }
+ }
+}

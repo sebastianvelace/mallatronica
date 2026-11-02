@@ -11,6 +11,7 @@ import { icon } from '../ui/icons'
 import { showToast } from '../ui/toast'
 import { togglePlanned } from './planner'
 import { offerFor, offerSummary } from '../data/sia-offer'
+import { groupingBalance, groupingFor } from '../domain/groupings'
 
 const totalCredits = curriculumMeta.regularCredits
 
@@ -54,8 +55,16 @@ function renderCreditBalance() {
     <p>Estimación por componente, no certificación de grado. Las agrupaciones de optativas aún necesitan validación; los excedentes no pasan automáticamente a libre elección.</p>
     <div class="credit-balance-table"><table><caption>Créditos registrados y exigidos</caption><thead><tr><th scope="col">Componente</th><th scope="col">Registrados</th><th scope="col">Exigidos</th><th scope="col">Faltantes estimados</th></tr></thead><tbody>${balance.rows.map(row => `<tr><th scope="row">${row.category}</th><td>${row.recorded}</td><td>${row.required}</td><td>${row.remaining}</td></tr>`).join('')}</tbody></table></div>
     <p>Trabajo de grado aporta como máximo 6 créditos al balance, aunque registres ambas alternativas. Libre elección aporta como máximo ${freeRequired} créditos registrados. La nivelación es individual y no se suma a los ${totalCredits} créditos.</p>
+    ${renderGroupingBalance()}
     <p>El mapa muestra ${referenceFreeSlotCount} espacios de libre elección como guía visual. Con materias de 3 créditos suman ${referenceFreeSlotCount * 3}${referenceFreeSlotCount * 3 < freeRequired ? `, por debajo de los ${freeRequired} exigidos: planea al menos ${freeRequired - referenceFreeSlotCount * 3} crédito${freeRequired - referenceFreeSlotCount * 3 === 1 ? '' : 's'} más` : ''}.</p>
     <p>Fuente: resumen SIA del plan ${curriculumMeta.plan}, consulta del ${formatIsoDate(curriculumMeta.consultedAt)}. No se importó progreso personal.</p></details>`
+}
+
+/** Elective credits per official grouping; memberships stay marked when they are inferred. */
+function renderGroupingBalance() {
+  const rows = groupingBalance(store.state, store.state.groupings)
+  return `<div class="credit-balance-table grouping-balance"><table><caption>Optativas por agrupación</caption><thead><tr><th scope="col">Agrupación</th><th scope="col">Aprobados</th><th scope="col">Exigidos</th><th scope="col">Faltantes</th></tr></thead><tbody>${rows.map(row => `<tr><th scope="row">${row.nombre}${row.uncertain ? ' <span class="grouping-source" data-source="inferida">incluye inferidas</span>' : ''}</th><td>${row.approved}</td><td>${row.creditos_optativos}</td><td>${row.remaining}</td></tr>`).join('')}</tbody></table></div>
+    <p>Las agrupaciones y sus créditos vienen de la página oficial del programa. A qué agrupación pertenece cada optativa no es público: la aplicación lo infiere y puedes confirmarlo en el detalle de cada materia según tu vista de Mis planes en el SIA.</p>`
 }
 
 function boardOptions(): BoardOptions {
@@ -104,6 +113,15 @@ function boardOptions(): BoardOptions {
     },
     planned: (id) => state.plan.includes(id),
     offer: (subject) => offerSummary(offerFor(subject.code)),
+    grouping: (subject) => groupingFor(subject, state.groupings),
+    setGrouping: (subject, groupingId) => {
+      const next = { ...state.groupings }
+      if (groupingId) next[subject.id] = groupingId
+      else delete next[subject.id]
+      state.groupings = next
+      store.pendingCourseId = subject.id
+      commit()
+    },
     togglePlan: (subject) => {
       const adding = !state.plan.includes(subject.id)
       togglePlanned(subject.id)

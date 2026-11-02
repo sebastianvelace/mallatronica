@@ -236,3 +236,12 @@ details.preview-scroll { margin-block: 18px; }
   .course-name, .course-slot span { font-size: 7.5px; line-height: 1.2; }
 }
 .preview-offer-line { margin: -4px 0 12px; color: var(--muted); font: 11px var(--mono); }
+.preview-grouping { display: grid; gap: 6px; margin: 0 0 14px; padding: 10px 12px; border: 1px solid var(--line); border-radius: 8px; background: var(--panel-soft); }
+.preview-grouping p { margin: 0; font-size: 12px; }
+.preview-grouping small { color: var(--muted); font-size: 11px; line-height: 1.4; }
+.preview-grouping label { display: grid; gap: 4px; color: var(--muted-2); font: 10px var(--mono); }
+.preview-grouping select { min-height: 34px; }
+.grouping-source { display: inline-block; padding: 1px 6px; border-radius: 999px; background: color-mix(in srgb, var(--amber) 16%, var(--panel)); color: var(--ink); font: 9.5px var(--mono); font-weight: 400; }
+.grouping-source[data-source="confirmada"] { background: color-mix(in srgb, var(--mint) 22%, var(--panel)); }
+.grouping-source[data-source="ambigua"] { background: color-mix(in srgb, var(--coral) 18%, var(--panel)); }
+.grouping-balance { margin-top: 14px; }
