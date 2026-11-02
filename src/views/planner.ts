@@ -40,7 +40,7 @@ function optionCard(option: TimetableOption, index: number) {
   const picks = option.picks
     .slice()
     .sort((a, b) => a.courseName.localeCompare(b.courseName))
-    .map((pick) => `<li><strong>${escapeHtml(pick.courseName)}</strong> · ${escapeHtml(pick.group.activity.replace(/^CLASE /, '').split('-')[0].toLowerCase())} G${escapeHtml(pick.group.group)}<small>${pick.group.sessions.map((session) => `${shortDay(session.day)} ${session.start}–${session.end}`).join(' · ')} · ${pick.group.seats} cupo${pick.group.seats === 1 ? '' : 's'}</small></li>`)
+    .map((pick) => `<li><strong>${escapeHtml(pick.courseName)}</strong> · ${escapeHtml(pick.group.activity.replace(/^CLASE /, '').split('-')[0].toLowerCase())} G${escapeHtml(pick.group.group)}<small>${pick.group.sessions.map((session) => `${shortDay(session.day)} ${session.start}–${session.end}`).join(' · ')} · ${pick.group.seats} cupo${pick.group.seats === 1 ? '' : 's'}${pick.alternatives.length ? ` · mismo horario: ${pick.alternatives.map((alt) => `G${escapeHtml(alt.group)}`).join(', ')}` : ''}</small></li>`)
     .join('')
   return `<article class="timetable-option"><header><strong>Opción ${index + 1}</strong><span>${option.days} día${option.days === 1 ? '' : 's'} · ${option.gapMinutes ? `${hours(option.gapMinutes)} de huecos` : 'sin huecos'} · termina ${clock(option.latestEnd)}</span></header><ul>${picks}</ul><button class="button button-solid" type="button" data-timetable-apply="${index}">Usar esta opción ${icon('arrow')}</button></article>`
 }

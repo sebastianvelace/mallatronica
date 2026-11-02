@@ -58,6 +58,14 @@ The calculator shows two estimates. The PA (Acuerdo 008 de 2008, Art. 41) uses t
 
 A production build registers a network-first service worker (`public/sw.js`): online visits always load the latest deployment, and the last version seen keeps working offline. The manifest makes the app installable. "Imprimir o guardar PDF" in the map footer prints the summary and the ten-semester map on one A4 landscape page in the light palette.
 
+## First run
+
+A three-step guide appears only for people without recorded progress: their levelation and language situation, the semester they are in (marking the required courses drawn in earlier semesters, editable afterwards) and a short tour of Malla, Planear and Horario. Skipping it keeps the configuration notice on the map.
+
+## Timetable builder
+
+"Arma tu horario" in the planner combines the SIA groups of planned courses: one group per course activity (lecture, lab, workshop), no overlaps among them or with existing blocks of other courses, optionally only groups with seats. Groups with identical sessions are one choice (the one with more seats; the rest shown as alternatives). Options are ranked by fewer days, fewer idle minutes and earlier end; the search is bounded so it stays instant. Applying an option replaces the blocks of those courses. The schedule header sums courses, class hours and credits.
+
 ## Elective groupings
 
 The official program page and the 2023 curriculum define five groupings with optional credits: Matemáticas, probabilidad y estadística (3) and Ciencias económicas y administrativas (6) in fundamentación; Electrónica Análoga, Electrónica Digital and Telecomunicaciones (3 each) in the disciplinary component. Which elective belongs to which grouping is not public (it lives in Acuerdo 17 de 2022 and in the authenticated "Mis planes"), so `data/sia/agrupaciones.json` records an inferred membership with its reason; Circuitos de RF is marked ambiguous. The course detail shows the grouping as inferred, ambiguous or confirmed, and the student can confirm it from their own SIA view (`state.groupings`, stored locally). Map slots stand for the groupings, the picker ranks courses by membership, and the credit balance adds approved credits per grouping, flagging inferred ones.

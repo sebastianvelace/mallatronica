@@ -6,7 +6,8 @@ export type TimetableGroup = { activity: string; group: string; seats: number; t
 export type TimetableCourse = { id: string; name: string; groups: TimetableGroup[] }
 export type BusyBlock = { day: string; start: string; end: string }
 
-export type TimetablePick = { courseId: string; courseName: string; group: TimetableGroup }
+/** `alternatives` are other groups with exactly the same sessions (interchangeable for the timetable). */
+export type TimetablePick = { courseId: string; courseName: string; group: TimetableGroup; alternatives: TimetableGroup[] }
 export type TimetableOption = {
   picks: TimetablePick[]
   /** Days with at least one class. */
@@ -52,6 +53,19 @@ function score(picks: TimetablePick[]): TimetableOption {
   return { picks, days: byDay.size, gapMinutes, latestEnd }
 }
 
+/** Groups with identical sessions are one choice: the one with most seats, the rest as alternatives. */
+function collapse(groups: TimetableGroup[]) {
+  const bySessions = new Map<string, TimetableGroup[]>()
+  for (const group of groups) {
+    const key = group.sessions.map(session => `${session.day} ${session.start}-${session.end}`).sort().join('|')
+    bySessions.set(key, [...(bySessions.get(key) ?? []), group])
+  }
+  return [...bySessions.values()].map(same => {
+    const [group, ...alternatives] = same.slice().sort((a, b) => b.seats - a.seats)
+    return { group, alternatives }
+  })
+}
+
 /** Fewer days first, then fewer idle minutes, then finishing earlier. */
 function compare(a: TimetableOption, b: TimetableOption) {
   return a.days - b.days || a.gapMinutes - b.gapMinutes || a.latestEnd - b.latestEnd
@@ -64,12 +78,12 @@ function compare(a: TimetableOption, b: TimetableOption) {
  */
 export function buildTimetables(courses: TimetableCourse[], fixed: BusyBlock[] = [], { requireSeats = true, limit = 5, maxNodes = 60_000 } = {}): TimetableResult {
   const fixedIntervals = intervals(fixed)
-  const slots: { course: TimetableCourse; activity: string; groups: TimetableGroup[] }[] = []
+  const slots: { course: TimetableCourse; activity: string; groups: { group: TimetableGroup; alternatives: TimetableGroup[] }[] }[] = []
   const missing: TimetableResult['missing'] = []
   for (const course of courses) {
     for (const activity of [...new Set(course.groups.map(group => group.activity))]) {
       const usable = course.groups.filter(group => group.activity === activity && fitsBoard(group) && (!requireSeats || group.seats > 0) && !overlaps(intervals(group.sessions), fixedIntervals))
-      if (usable.length) slots.push({ course, activity, groups: usable })
+      if (usable.length) slots.push({ course, activity, groups: collapse(usable) })
       else missing.push({ courseId: course.id, courseName: course.name, activity })
     }
   }
@@ -91,11 +105,11 @@ export function buildTimetables(courses: TimetableCourse[], fixed: BusyBlock[] =
       if (best.length > limit) best.pop()
       return
     }
-    for (const group of slots[index].groups) {
+    for (const { group, alternatives } of slots[index].groups) {
       if (++nodes > maxNodes) { truncated = true; return }
       const own = intervals(group.sessions)
       if (overlaps(own, taken)) continue
-      chosen.push({ courseId: slots[index].course.id, courseName: slots[index].course.name, group })
+      chosen.push({ courseId: slots[index].course.id, courseName: slots[index].course.name, group, alternatives })
       taken.push(...own)
       visit(index + 1)
       taken.splice(taken.length - own.length, own.length)

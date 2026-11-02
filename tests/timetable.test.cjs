@@ -56,3 +56,16 @@ test('groups outside the board are not proposed and the search is bounded', () =
   assert.ok(result.options.length <= 5)
   assert.equal(result.truncated, true)
 })
+
+test('groups with identical sessions are one choice, keeping the one with more seats', () => {
+  const twin = { id: 't', name: 'Gemela', groups: [
+    group('T', '1', [session('Lunes', '07:00', '09:00')], 1),
+    group('T', '5', [session('Lunes', '07:00', '09:00')], 10),
+    group('T', '2', [session('Martes', '07:00', '09:00')], 3),
+  ] }
+  const { options } = buildTimetables([twin])
+  assert.equal(options.length, 2)
+  const monday = options.find(option => option.picks[0].group.sessions[0].day === 'Lunes')
+  assert.equal(monday.picks[0].group.group, '5')
+  assert.deepEqual(monday.picks[0].alternatives.map(alt => alt.group), ['1'])
+})
