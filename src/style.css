@@ -342,3 +342,4 @@ body { font-size: 15px; line-height: 1.55; }
 .offer-group .button { min-height: 32px; padding-inline: 12px; }
 .offer-source { color: var(--muted-2); font: 9px/1.5 var(--mono); }
 .plan-offer { color: var(--muted-2); }
+.schedule-workspace { align-items: start; }

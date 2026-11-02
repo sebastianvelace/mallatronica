@@ -27,113 +27,6 @@
   "sin_programar_2026_2": true
  },
  {
-  "codigo": "1000003-B",
-  "nombre": "Álgebra Lineal",
-  "creditos": 4,
-  "tipologia": "FUND. OBLIGATORIA (B)",
-  "agrupacion": null,
-  "prerrequisitos": [
-   {
-    "codigo": "1000004-B",
-    "nombre": "Cálculo diferencial",
-    "tipo": "M",
-    "condicion": 1,
-    "todas": false,
-    "correquisito": false
-   },
-   {
-    "codigo": "2001285",
-    "nombre": "Matematicas i",
-    "tipo": "M",
-    "condicion": 1,
-    "todas": false,
-    "correquisito": false
-   }
-  ],
-  "semestre": null,
-  "sin_programar_2026_2": false
- },
- {
-  "codigo": "1000004-B",
-  "nombre": "Cálculo diferencial",
-  "creditos": 4,
-  "tipologia": "FUND. OBLIGATORIA (B)",
-  "agrupacion": null,
-  "prerrequisitos": [],
-  "semestre": null,
-  "sin_programar_2026_2": false
- },
- {
-  "codigo": "1000006-B",
-  "nombre": "Cálculo en varias variables",
-  "creditos": 4,
-  "tipologia": "FUND. OBLIGATORIA (B)",
-  "agrupacion": null,
-  "prerrequisitos": [
-   {
-    "codigo": "1000005-B",
-    "nombre": "Cálculo Integral",
-    "tipo": "M",
-    "condicion": 1,
-    "todas": false,
-    "correquisito": false
-   },
-   {
-    "codigo": "2019617",
-    "nombre": "Matematicas ii",
-    "tipo": "M",
-    "condicion": 1,
-    "todas": false,
-    "correquisito": false
-   },
-   {
-    "codigo": "1000003-B",
-    "nombre": "Álgebra Lineal",
-    "tipo": "M",
-    "condicion": 2,
-    "todas": false,
-    "correquisito": false
-   },
-   {
-    "codigo": "2000927",
-    "nombre": "Matematicas iii",
-    "tipo": "M",
-    "condicion": 2,
-    "todas": false,
-    "correquisito": false
-   }
-  ],
-  "semestre": null,
-  "sin_programar_2026_2": false
- },
- {
-  "codigo": "1000005-B",
-  "nombre": "Cálculo Integral",
-  "creditos": 4,
-  "tipologia": "FUND. OBLIGATORIA (B)",
-  "agrupacion": null,
-  "prerrequisitos": [
-   {
-    "codigo": "1000004-B",
-    "nombre": "Cálculo diferencial",
-    "tipo": "M",
-    "condicion": 1,
-    "todas": false,
-    "correquisito": false
-   },
-   {
-    "codigo": "2001285",
-    "nombre": "Matematicas i",
-    "tipo": "M",
-    "condicion": 1,
-    "todas": false,
-    "correquisito": false
-   }
-  ],
-  "semestre": null,
-  "sin_programar_2026_2": false
- },
- {
   "codigo": "2016487",
   "nombre": "Campos electromagnéticos",
   "creditos": 4,
@@ -289,7 +182,7 @@
   "creditos": 12,
   "tipologia": "NIVELACIÓN (E)",
   "agrupacion": null,
-  "prerrequisitos": null,
+  "prerrequisitos": [],
   "semestre": null,
   "sin_programar_2026_2": true
  },
@@ -362,6 +255,86 @@
    {
     "codigo": "2016507",
     "nombre": "Señales y Sistemas II",
+    "tipo": "M",
+    "condicion": 1,
+    "todas": false,
+    "correquisito": false
+   }
+  ],
+  "semestre": null,
+  "sin_programar_2026_2": false
+ },
+ {
+  "codigo": "1000004-B",
+  "nombre": "Cálculo diferencial",
+  "creditos": 4,
+  "tipologia": "FUND. OBLIGATORIA (B)",
+  "agrupacion": null,
+  "prerrequisitos": [],
+  "semestre": null,
+  "sin_programar_2026_2": false
+ },
+ {
+  "codigo": "1000006-B",
+  "nombre": "Cálculo en varias variables",
+  "creditos": 4,
+  "tipologia": "FUND. OBLIGATORIA (B)",
+  "agrupacion": null,
+  "prerrequisitos": [
+   {
+    "codigo": "1000005-B",
+    "nombre": "Cálculo Integral",
+    "tipo": "M",
+    "condicion": 1,
+    "todas": false,
+    "correquisito": false
+   },
+   {
+    "codigo": "2019617",
+    "nombre": "Matematicas ii",
+    "tipo": "M",
+    "condicion": 1,
+    "todas": false,
+    "correquisito": false
+   },
+   {
+    "codigo": "1000003-B",
+    "nombre": "Álgebra Lineal",
+    "tipo": "M",
+    "condicion": 2,
+    "todas": false,
+    "correquisito": false
+   },
+   {
+    "codigo": "2000927",
+    "nombre": "Matematicas iii",
+    "tipo": "M",
+    "condicion": 2,
+    "todas": false,
+    "correquisito": false
+   }
+  ],
+  "semestre": null,
+  "sin_programar_2026_2": false
+ },
+ {
+  "codigo": "1000005-B",
+  "nombre": "Cálculo Integral",
+  "creditos": 4,
+  "tipologia": "FUND. OBLIGATORIA (B)",
+  "agrupacion": null,
+  "prerrequisitos": [
+   {
+    "codigo": "1000004-B",
+    "nombre": "Cálculo diferencial",
+    "tipo": "M",
+    "condicion": 1,
+    "todas": false,
+    "correquisito": false
+   },
+   {
+    "codigo": "2001285",
+    "nombre": "Matematicas i",
     "tipo": "M",
     "condicion": 1,
     "todas": false,
@@ -589,33 +562,6 @@
   "sin_programar_2026_2": false
  },
  {
-  "codigo": "2016500",
-  "nombre": "Física de Semiconductores",
-  "creditos": 3,
-  "tipologia": "FUND. OBLIGATORIA (B)",
-  "agrupacion": null,
-  "prerrequisitos": [
-   {
-    "codigo": "1000040-B",
-    "nombre": "Introducción a la ciencia de materiales",
-    "tipo": "M",
-    "condicion": 1,
-    "todas": false,
-    "correquisito": false
-   },
-   {
-    "codigo": "2000174",
-    "nombre": "Materiales para ingenieria",
-    "tipo": "M",
-    "condicion": 1,
-    "todas": false,
-    "correquisito": false
-   }
-  ],
-  "semestre": null,
-  "sin_programar_2026_2": false
- },
- {
   "codigo": "1000017-B",
   "nombre": "Fundamentos de electricidad y magnetismo",
   "creditos": 4,
@@ -729,6 +675,33 @@
   "sin_programar_2026_2": false
  },
  {
+  "codigo": "2016500",
+  "nombre": "Física de Semiconductores",
+  "creditos": 3,
+  "tipologia": "FUND. OBLIGATORIA (B)",
+  "agrupacion": null,
+  "prerrequisitos": [
+   {
+    "codigo": "1000040-B",
+    "nombre": "Introducción a la ciencia de materiales",
+    "tipo": "M",
+    "condicion": 1,
+    "todas": false,
+    "correquisito": false
+   },
+   {
+    "codigo": "2000174",
+    "nombre": "Materiales para ingenieria",
+    "tipo": "M",
+    "condicion": 1,
+    "todas": false,
+    "correquisito": false
+   }
+  ],
+  "semestre": null,
+  "sin_programar_2026_2": false
+ },
+ {
   "codigo": "2015701",
   "nombre": "Gerencia de recursos humanos",
   "creditos": 3,
@@ -807,7 +780,16 @@
   "creditos": 3,
   "tipologia": "NIVELACIÓN (E)",
   "agrupacion": null,
-  "prerrequisitos": null,
+  "prerrequisitos": [
+   {
+    "codigo": "1000095",
+    "nombre": "Examen de clasificación en inglés",
+    "tipo": "M",
+    "condicion": 1,
+    "todas": true,
+    "correquisito": false
+   }
+  ],
   "semestre": null,
   "sin_programar_2026_2": false
  },
@@ -817,7 +799,16 @@
   "creditos": 3,
   "tipologia": "NIVELACIÓN (E)",
   "agrupacion": null,
-  "prerrequisitos": null,
+  "prerrequisitos": [
+   {
+    "codigo": "1000095",
+    "nombre": "Examen de clasificación en inglés",
+    "tipo": "M",
+    "condicion": 1,
+    "todas": true,
+    "correquisito": false
+   }
+  ],
   "semestre": null,
   "sin_programar_2026_2": true
  },
@@ -827,7 +818,32 @@
   "creditos": 3,
   "tipologia": "NIVELACIÓN (E)",
   "agrupacion": null,
-  "prerrequisitos": null,
+  "prerrequisitos": [
+   {
+    "codigo": "1000044-B",
+    "nombre": "Inglés I- Semestral",
+    "tipo": "M",
+    "condicion": 1,
+    "todas": false,
+    "correquisito": false
+   },
+   {
+    "codigo": "1000048-B",
+    "nombre": "Inglés I- Virtual",
+    "tipo": "M",
+    "condicion": 1,
+    "todas": false,
+    "correquisito": false
+   },
+   {
+    "codigo": "2024731",
+    "nombre": "Inglés intensivo I",
+    "tipo": "M",
+    "condicion": 1,
+    "todas": false,
+    "correquisito": false
+   }
+  ],
   "semestre": null,
   "sin_programar_2026_2": false
  },
@@ -837,7 +853,32 @@
   "creditos": 3,
   "tipologia": "NIVELACIÓN (E)",
   "agrupacion": null,
-  "prerrequisitos": null,
+  "prerrequisitos": [
+   {
+    "codigo": "1000044-B",
+    "nombre": "Inglés I- Semestral",
+    "tipo": "M",
+    "condicion": 1,
+    "todas": false,
+    "correquisito": false
+   },
+   {
+    "codigo": "1000048-B",
+    "nombre": "Inglés I- Virtual",
+    "tipo": "M",
+    "condicion": 1,
+    "todas": false,
+    "correquisito": false
+   },
+   {
+    "codigo": "2024731",
+    "nombre": "Inglés intensivo I",
+    "tipo": "M",
+    "condicion": 1,
+    "todas": false,
+    "correquisito": false
+   }
+  ],
   "semestre": null,
   "sin_programar_2026_2": true
  },
@@ -847,7 +888,48 @@
   "creditos": 3,
   "tipologia": "NIVELACIÓN (E)",
   "agrupacion": null,
-  "prerrequisitos": null,
+  "prerrequisitos": [
+   {
+    "codigo": "1000045-B",
+    "nombre": "Inglés II - Semestral",
+    "tipo": "M",
+    "condicion": 1,
+    "todas": false,
+    "correquisito": false
+   },
+   {
+    "codigo": "1000049-B",
+    "nombre": "Inglés II - Virtual",
+    "tipo": "M",
+    "condicion": 1,
+    "todas": false,
+    "correquisito": false
+   },
+   {
+    "codigo": "2023925",
+    "nombre": "Inglés II- Intensivo",
+    "tipo": "M",
+    "condicion": 1,
+    "todas": false,
+    "correquisito": false
+   },
+   {
+    "codigo": "1000052-B",
+    "nombre": "Inglés Intensivo I y II",
+    "tipo": "M",
+    "condicion": 1,
+    "todas": false,
+    "correquisito": false
+   },
+   {
+    "codigo": "2022291",
+    "nombre": "Inglés intensivo II",
+    "tipo": "M",
+    "condicion": 1,
+    "todas": false,
+    "correquisito": false
+   }
+  ],
   "semestre": null,
   "sin_programar_2026_2": false
  },
@@ -857,7 +939,48 @@
   "creditos": 3,
   "tipologia": "NIVELACIÓN (E)",
   "agrupacion": null,
-  "prerrequisitos": null,
+  "prerrequisitos": [
+   {
+    "codigo": "1000045-B",
+    "nombre": "Inglés II - Semestral",
+    "tipo": "M",
+    "condicion": 1,
+    "todas": false,
+    "correquisito": false
+   },
+   {
+    "codigo": "1000049-B",
+    "nombre": "Inglés II - Virtual",
+    "tipo": "M",
+    "condicion": 1,
+    "todas": false,
+    "correquisito": false
+   },
+   {
+    "codigo": "2023925",
+    "nombre": "Inglés II- Intensivo",
+    "tipo": "M",
+    "condicion": 1,
+    "todas": false,
+    "correquisito": false
+   },
+   {
+    "codigo": "1000052-B",
+    "nombre": "Inglés Intensivo I y II",
+    "tipo": "M",
+    "condicion": 1,
+    "todas": false,
+    "correquisito": false
+   },
+   {
+    "codigo": "2022291",
+    "nombre": "Inglés intensivo II",
+    "tipo": "M",
+    "condicion": 1,
+    "todas": false,
+    "correquisito": false
+   }
+  ],
   "semestre": null,
   "sin_programar_2026_2": true
  },
@@ -867,7 +990,48 @@
   "creditos": 3,
   "tipologia": "NIVELACIÓN (E)",
   "agrupacion": null,
-  "prerrequisitos": null,
+  "prerrequisitos": [
+   {
+    "codigo": "1000045-B",
+    "nombre": "Inglés II - Semestral",
+    "tipo": "M",
+    "condicion": 1,
+    "todas": false,
+    "correquisito": false
+   },
+   {
+    "codigo": "1000049-B",
+    "nombre": "Inglés II - Virtual",
+    "tipo": "M",
+    "condicion": 1,
+    "todas": false,
+    "correquisito": false
+   },
+   {
+    "codigo": "2023925",
+    "nombre": "Inglés II- Intensivo",
+    "tipo": "M",
+    "condicion": 1,
+    "todas": false,
+    "correquisito": false
+   },
+   {
+    "codigo": "1000052-B",
+    "nombre": "Inglés Intensivo I y II",
+    "tipo": "M",
+    "condicion": 1,
+    "todas": false,
+    "correquisito": false
+   },
+   {
+    "codigo": "2022291",
+    "nombre": "Inglés intensivo II",
+    "tipo": "M",
+    "condicion": 1,
+    "todas": false,
+    "correquisito": false
+   }
+  ],
   "semestre": null,
   "sin_programar_2026_2": true
  },
@@ -877,7 +1041,16 @@
   "creditos": 3,
   "tipologia": "NIVELACIÓN (E)",
   "agrupacion": null,
-  "prerrequisitos": null,
+  "prerrequisitos": [
+   {
+    "codigo": "1000095",
+    "nombre": "Examen de clasificación en inglés",
+    "tipo": "M",
+    "condicion": 1,
+    "todas": true,
+    "correquisito": false
+   }
+  ],
   "semestre": null,
   "sin_programar_2026_2": true
  },
@@ -887,7 +1060,16 @@
   "creditos": 6,
   "tipologia": "NIVELACIÓN (E)",
   "agrupacion": null,
-  "prerrequisitos": null,
+  "prerrequisitos": [
+   {
+    "codigo": "1000095",
+    "nombre": "Examen de clasificación en inglés",
+    "tipo": "M",
+    "condicion": 1,
+    "todas": true,
+    "correquisito": false
+   }
+  ],
   "semestre": null,
   "sin_programar_2026_2": false
  },
@@ -897,7 +1079,48 @@
   "creditos": 6,
   "tipologia": "NIVELACIÓN (E)",
   "agrupacion": null,
-  "prerrequisitos": null,
+  "prerrequisitos": [
+   {
+    "codigo": "1000045-B",
+    "nombre": "Inglés II - Semestral",
+    "tipo": "M",
+    "condicion": 1,
+    "todas": false,
+    "correquisito": false
+   },
+   {
+    "codigo": "1000049-B",
+    "nombre": "Inglés II - Virtual",
+    "tipo": "M",
+    "condicion": 1,
+    "todas": false,
+    "correquisito": false
+   },
+   {
+    "codigo": "2023925",
+    "nombre": "Inglés II- Intensivo",
+    "tipo": "M",
+    "condicion": 1,
+    "todas": false,
+    "correquisito": false
+   },
+   {
+    "codigo": "1000052-B",
+    "nombre": "Inglés Intensivo I y II",
+    "tipo": "M",
+    "condicion": 1,
+    "todas": false,
+    "correquisito": false
+   },
+   {
+    "codigo": "2022291",
+    "nombre": "Inglés intensivo II",
+    "tipo": "M",
+    "condicion": 1,
+    "todas": false,
+    "correquisito": false
+   }
+  ],
   "semestre": null,
   "sin_programar_2026_2": false
  },
@@ -907,7 +1130,40 @@
   "creditos": 3,
   "tipologia": "NIVELACIÓN (E)",
   "agrupacion": null,
-  "prerrequisitos": null,
+  "prerrequisitos": [
+   {
+    "codigo": "1000046-B",
+    "nombre": "Inglés III - Semestral",
+    "tipo": "M",
+    "condicion": 1,
+    "todas": false,
+    "correquisito": false
+   },
+   {
+    "codigo": "1000050-B",
+    "nombre": "Inglés III- Virtual",
+    "tipo": "M",
+    "condicion": 1,
+    "todas": false,
+    "correquisito": false
+   },
+   {
+    "codigo": "2023926",
+    "nombre": "Inglés III-Intensivo",
+    "tipo": "M",
+    "condicion": 1,
+    "todas": false,
+    "correquisito": false
+   },
+   {
+    "codigo": "2021183",
+    "nombre": "Inglés Intensivo II y III",
+    "tipo": "M",
+    "condicion": 1,
+    "todas": false,
+    "correquisito": false
+   }
+  ],
   "semestre": null,
   "sin_programar_2026_2": false
  },
@@ -917,7 +1173,40 @@
   "creditos": 3,
   "tipologia": "NIVELACIÓN (E)",
   "agrupacion": null,
-  "prerrequisitos": null,
+  "prerrequisitos": [
+   {
+    "codigo": "1000046-B",
+    "nombre": "Inglés III - Semestral",
+    "tipo": "M",
+    "condicion": 1,
+    "todas": false,
+    "correquisito": false
+   },
+   {
+    "codigo": "1000050-B",
+    "nombre": "Inglés III- Virtual",
+    "tipo": "M",
+    "condicion": 1,
+    "todas": false,
+    "correquisito": false
+   },
+   {
+    "codigo": "2023926",
+    "nombre": "Inglés III-Intensivo",
+    "tipo": "M",
+    "condicion": 1,
+    "todas": false,
+    "correquisito": false
+   },
+   {
+    "codigo": "2021183",
+    "nombre": "Inglés Intensivo II y III",
+    "tipo": "M",
+    "condicion": 1,
+    "todas": false,
+    "correquisito": false
+   }
+  ],
   "semestre": null,
   "sin_programar_2026_2": true
  },
@@ -983,7 +1272,7 @@
   "creditos": 4,
   "tipologia": "NIVELACIÓN (E)",
   "agrupacion": null,
-  "prerrequisitos": null,
+  "prerrequisitos": [],
   "semestre": null,
   "sin_programar_2026_2": false
  },
@@ -1036,7 +1325,7 @@
   "creditos": 4,
   "tipologia": "NIVELACIÓN (E)",
   "agrupacion": null,
-  "prerrequisitos": null,
+  "prerrequisitos": [],
   "semestre": null,
   "sin_programar_2026_2": false
  },
@@ -1245,7 +1534,7 @@
   "creditos": 12,
   "tipologia": "NIVELACIÓN (E)",
   "agrupacion": null,
-  "prerrequisitos": null,
+  "prerrequisitos": [],
   "semestre": null,
   "sin_programar_2026_2": true
  },
@@ -1329,6 +1618,33 @@
     "tipo": "M",
     "condicion": 1,
     "todas": true,
+    "correquisito": false
+   }
+  ],
+  "semestre": null,
+  "sin_programar_2026_2": false
+ },
+ {
+  "codigo": "1000003-B",
+  "nombre": "Álgebra Lineal",
+  "creditos": 4,
+  "tipologia": "FUND. OBLIGATORIA (B)",
+  "agrupacion": null,
+  "prerrequisitos": [
+   {
+    "codigo": "1000004-B",
+    "nombre": "Cálculo diferencial",
+    "tipo": "M",
+    "condicion": 1,
+    "todas": false,
+    "correquisito": false
+   },
+   {
+    "codigo": "2001285",
+    "nombre": "Matematicas i",
+    "tipo": "M",
+    "condicion": 1,
+    "todas": false,
     "correquisito": false
    }
   ],
