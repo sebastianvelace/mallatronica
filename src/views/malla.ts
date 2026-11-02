@@ -10,6 +10,7 @@ import { formatIsoDate } from '../ui/html'
 import { icon } from '../ui/icons'
 import { showToast } from '../ui/toast'
 import { togglePlanned } from './planner'
+import { offerFor, offerSummary } from '../data/sia-offer'
 
 const totalCredits = curriculumMeta.regularCredits
 
@@ -102,6 +103,7 @@ function boardOptions(): BoardOptions {
       if (inconsistentDependents.length) showToast('Revisa el historial', `${inconsistentDependents.length} materia${inconsistentDependents.length === 1 ? '' : 's'} aprobada${inconsistentDependents.length === 1 ? '' : 's'} quedó con requisitos pendientes.`)
     },
     planned: (id) => state.plan.includes(id),
+    offer: (subject) => offerSummary(offerFor(subject.code)),
     togglePlan: (subject) => {
       const adding = !state.plan.includes(subject.id)
       togglePlanned(subject.id)

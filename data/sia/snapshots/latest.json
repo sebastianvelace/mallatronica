@@ -1,0 +1,3451 @@
+{
+ "fuente": {
+  "url": "https://sia.unal.edu.co/Catalogo/facespublico/public/servicioPublico.jsf?taskflowId=task-flow-AC_CatalogoAsignaturas",
+  "servicio": "Buscador de cursos (público, sin autenticación)",
+  "filtros": {
+   "nivel": "Pregrado",
+   "sede": "1101 SEDE BOGOT",
+   "facultad": "2055 FACULTAD DE INGENIER",
+   "plan": "2545 INGENIERÍA ELECTRÓNICA",
+   "tipologias": [
+    "TODAS MENOS"
+   ]
+  },
+  "consultado": "2026-11-02T22:26:48+00:00",
+  "peticiones": 261
+ },
+ "asignaturas": [
+  {
+   "codigo": "1000001-B",
+   "nombre": "Matemáticas Básicas",
+   "creditos": 4,
+   "tipologia": "NIVELACIÓN (E)",
+   "sin_programar": false,
+   "actividades": [],
+   "prerrequisitos": []
+  },
+  {
+   "codigo": "1000002-B",
+   "nombre": "Lecto-Escritura",
+   "creditos": 4,
+   "tipologia": "NIVELACIÓN (E)",
+   "sin_programar": false,
+   "actividades": [],
+   "prerrequisitos": []
+  },
+  {
+   "codigo": "1000003-B",
+   "nombre": "Álgebra Lineal",
+   "creditos": 4,
+   "tipologia": "FUND. OBLIGATORIA (B)",
+   "sin_programar": false,
+   "actividades": [],
+   "prerrequisitos": [
+    {
+     "codigo": "1000004-B",
+     "nombre": "Cálculo diferencial",
+     "tipo": "M",
+     "condicion": 1,
+     "todas": false,
+     "correquisito": false
+    },
+    {
+     "codigo": "2001285",
+     "nombre": "Matematicas i",
+     "tipo": "M",
+     "condicion": 1,
+     "todas": false,
+     "correquisito": false
+    }
+   ]
+  },
+  {
+   "codigo": "1000004-B",
+   "nombre": "Cálculo diferencial",
+   "creditos": 4,
+   "tipologia": "FUND. OBLIGATORIA (B)",
+   "sin_programar": false,
+   "actividades": [],
+   "prerrequisitos": []
+  },
+  {
+   "codigo": "1000005-B",
+   "nombre": "Cálculo Integral",
+   "creditos": 4,
+   "tipologia": "FUND. OBLIGATORIA (B)",
+   "sin_programar": false,
+   "actividades": [],
+   "prerrequisitos": [
+    {
+     "codigo": "1000004-B",
+     "nombre": "Cálculo diferencial",
+     "tipo": "M",
+     "condicion": 1,
+     "todas": false,
+     "correquisito": false
+    },
+    {
+     "codigo": "2001285",
+     "nombre": "Matematicas i",
+     "tipo": "M",
+     "condicion": 1,
+     "todas": false,
+     "correquisito": false
+    }
+   ]
+  },
+  {
+   "codigo": "1000006-B",
+   "nombre": "Cálculo en varias variables",
+   "creditos": 4,
+   "tipologia": "FUND. OBLIGATORIA (B)",
+   "sin_programar": false,
+   "actividades": [],
+   "prerrequisitos": [
+    {
+     "codigo": "1000005-B",
+     "nombre": "Cálculo Integral",
+     "tipo": "M",
+     "condicion": 1,
+     "todas": false,
+     "correquisito": false
+    },
+    {
+     "codigo": "2019617",
+     "nombre": "Matematicas ii",
+     "tipo": "M",
+     "condicion": 1,
+     "todas": false,
+     "correquisito": false
+    },
+    {
+     "codigo": "1000003-B",
+     "nombre": "Álgebra Lineal",
+     "tipo": "M",
+     "condicion": 2,
+     "todas": false,
+     "correquisito": false
+    },
+    {
+     "codigo": "2000927",
+     "nombre": "Matematicas iii",
+     "tipo": "M",
+     "condicion": 2,
+     "todas": false,
+     "correquisito": false
+    }
+   ]
+  },
+  {
+   "codigo": "1000007-B",
+   "nombre": "Ecuaciones Diferenciales",
+   "creditos": 4,
+   "tipologia": "FUND. OBLIGATORIA (B)",
+   "sin_programar": false,
+   "actividades": [],
+   "prerrequisitos": [
+    {
+     "codigo": "1000005-B",
+     "nombre": "Cálculo Integral",
+     "tipo": "M",
+     "condicion": 1,
+     "todas": false,
+     "correquisito": false
+    },
+    {
+     "codigo": "2019617",
+     "nombre": "Matematicas ii",
+     "tipo": "M",
+     "condicion": 1,
+     "todas": false,
+     "correquisito": false
+    },
+    {
+     "codigo": "1000003-B",
+     "nombre": "Álgebra Lineal",
+     "tipo": "M",
+     "condicion": 2,
+     "todas": false,
+     "correquisito": false
+    },
+    {
+     "codigo": "2000927",
+     "nombre": "Matematicas iii",
+     "tipo": "M",
+     "condicion": 2,
+     "todas": false,
+     "correquisito": false
+    }
+   ]
+  },
+  {
+   "codigo": "1000013-B",
+   "nombre": "Probabilidad y estadística fundamental",
+   "creditos": 3,
+   "tipologia": "FUND. OPTATIVA (O)",
+   "sin_programar": false,
+   "actividades": [],
+   "prerrequisitos": []
+  },
+  {
+   "codigo": "1000017-B",
+   "nombre": "Fundamentos de electricidad y magnetismo",
+   "creditos": 4,
+   "tipologia": "FUND. OBLIGATORIA (B)",
+   "sin_programar": false,
+   "actividades": [],
+   "prerrequisitos": [
+    {
+     "codigo": "1000005-B",
+     "nombre": "Cálculo Integral",
+     "tipo": "M",
+     "condicion": 1,
+     "todas": false,
+     "correquisito": false
+    },
+    {
+     "codigo": "2019617",
+     "nombre": "Matematicas ii",
+     "tipo": "M",
+     "condicion": 1,
+     "todas": false,
+     "correquisito": false
+    },
+    {
+     "codigo": "2000438",
+     "nombre": "Fisica i",
+     "tipo": "M",
+     "condicion": 2,
+     "todas": false,
+     "correquisito": false
+    },
+    {
+     "codigo": "1000019-B",
+     "nombre": "Fundamentos de mecánica",
+     "tipo": "M",
+     "condicion": 2,
+     "todas": false,
+     "correquisito": false
+    }
+   ]
+  },
+  {
+   "codigo": "1000019-B",
+   "nombre": "Fundamentos de mecánica",
+   "creditos": 4,
+   "tipologia": "FUND. OBLIGATORIA (B)",
+   "sin_programar": false,
+   "actividades": [
+    {
+     "actividad": "CLASE LABORATORIO",
+     "grupos": [
+      {
+       "grupo": "1",
+       "profesor": "Gustavo Martinez Tamayo",
+       "fecha_inicio": "24/08/2026",
+       "fecha_fin": "12/12/2026",
+       "sesiones": [
+        {
+         "dia": "VIERNES",
+         "inicio": "07:00",
+         "fin": "09:00",
+         "lugar": "404-100 · Yu Takeuchi"
+        }
+       ],
+       "duracion": "Semestral",
+       "jornada": "DIURNO",
+       "cupos_disponibles": 0
+      },
+      {
+       "grupo": "10",
+       "profesor": "JUAN RAFAEL JIMENEZ SANABRIA",
+       "fecha_inicio": "24/08/2026",
+       "fecha_fin": "12/12/2026",
+       "sesiones": [
+        {
+         "dia": "JUEVES",
+         "inicio": "09:00",
+         "fin": "11:00",
+         "lugar": "404-110 · Yu Takeuchi"
+        }
+       ],
+       "duracion": "Semestral",
+       "jornada": "DIURNO",
+       "cupos_disponibles": 1
+      },
+      {
+       "grupo": "11",
+       "profesor": "EVER DAVID ALCALA CAJAR",
+       "fecha_inicio": "24/08/2026",
+       "fecha_fin": "12/12/2026",
+       "sesiones": [
+        {
+         "dia": "VIERNES",
+         "inicio": "09:00",
+         "fin": "11:00",
+         "lugar": "404-100 · Yu Takeuchi"
+        }
+       ],
+       "duracion": "Semestral",
+       "jornada": "DIURNO",
+       "cupos_disponibles": 1
+      },
+      {
+       "grupo": "12",
+       "profesor": "FABIAN FELIPE QUEVEDO FARIETA",
+       "fecha_inicio": "24/08/2026",
+       "fecha_fin": "12/12/2026",
+       "sesiones": [
+        {
+         "dia": "MARTES",
+         "inicio": "11:00",
+         "fin": "13:00",
+         "lugar": "404-102 · Yu Takeuchi"
+        }
+       ],
+       "duracion": "Semestral",
+       "jornada": "DIURNO",
+       "cupos_disponibles": 1
+      },
+      {
+       "grupo": "13",
+       "profesor": "Alvaro Marino Camargo",
+       "fecha_inicio": "24/08/2026",
+       "fecha_fin": "17/12/2026",
+       "sesiones": [
+        {
+         "dia": "JUEVES",
+         "inicio": "09:00",
+         "fin": "11:00",
+         "lugar": "404-102 · Yu Takeuchi"
+        }
+       ],
+       "duracion": "Semestral",
+       "jornada": "DIURNO",
+       "cupos_disponibles": 1
+      },
+      {
+       "grupo": "14",
+       "profesor": "Alvaro Marino Camargo",
+       "fecha_inicio": "24/08/2026",
+       "fecha_fin": "17/12/2026",
+       "sesiones": [
+        {
+         "dia": "MIÉRCOLES",
+         "inicio": "09:00",
+         "fin": "11:00",
+         "lugar": "404-100 · Yu Takeuchi"
+        }
+       ],
+       "duracion": "Semestral",
+       "jornada": "DIURNO",
+       "cupos_disponibles": 0
+      },
+      {
+       "grupo": "15",
+       "profesor": "EVER DAVID ALCALA CAJAR",
+       "fecha_inicio": "24/08/2026",
+       "fecha_fin": "12/12/2026",
+       "sesiones": [
+        {
+         "dia": "LUNES",
+         "inicio": "09:00",
+         "fin": "11:00",
+         "lugar": "404-110 · Yu Takeuchi"
+        }
+       ],
+       "duracion": "Semestral",
+       "jornada": "DIURNO",
+       "cupos_disponibles": 1
+      },
+      {
+       "grupo": "16",
+       "profesor": "Alvaro Marino Camargo",
+       "fecha_inicio": "24/08/2026",
+       "fecha_fin": "17/12/2026",
+       "sesiones": [
+        {
+         "dia": "MARTES",
+         "inicio": "11:00",
+         "fin": "13:00",
+         "lugar": "404-100 · Yu Takeuchi"
+        }
+       ],
+       "duracion": "Semestral",
+       "jornada": "DIURNO",
+       "cupos_disponibles": 4
+      },
+      {
+       "grupo": "17",
+       "profesor": "JULIAN MATEO DE MENDOZA GUTIERREZ",
+       "fecha_inicio": "24/08/2026",
+       "fecha_fin": "12/12/2026",
+       "sesiones": [
+        {
+         "dia": "LUNES",
+         "inicio": "11:00",
+         "fin": "13:00",
+         "lugar": "404-100 · Yu Takeuchi"
+        }
+       ],
+       "duracion": "Semestral",
+       "jornada": "DIURNO",
+       "cupos_disponibles": 10
+      },
+      {
+       "grupo": "18",
+       "profesor": "Jaime Villalobos Velasco",
+       "fecha_inicio": "24/08/2026",
+       "fecha_fin": "12/12/2026",
+       "sesiones": [
+        {
+         "dia": "MIÉRCOLES",
+         "inicio": "11:00",
+         "fin": "13:00",
+         "lugar": "404-100 · Yu Takeuchi"
+        }
+       ],
+       "duracion": "Semestral",
+       "jornada": "DIURNO",
+       "cupos_disponibles": 16
+      },
+      {
+       "grupo": "19",
+       "profesor": "JULY PAOLA GARZÓN LOPEZ",
+       "fecha_inicio": "24/08/2026",
+       "fecha_fin": "12/12/2026",
+       "sesiones": [
+        {
+         "dia": "JUEVES",
+         "inicio": "16:00",
+         "fin": "18:00",
+         "lugar": "404-100 · Yu Takeuchi"
+        }
+       ],
+       "duracion": "Semestral",
+       "jornada": "DIURNO",
+       "cupos_disponibles": 11
+      },
+      {
+       "grupo": "2",
+       "profesor": "Gustavo Martinez Tamayo",
+       "fecha_inicio": "24/08/2026",
+       "fecha_fin": "12/12/2026",
+       "sesiones": [
+        {
+         "dia": "JUEVES",
+         "inicio": "07:00",
+         "fin": "09:00",
+         "lugar": "404-100 · Yu Takeuchi"
+        }
+       ],
+       "duracion": "Semestral",
+       "jornada": "DIURNO",
+       "cupos_disponibles": 3
+      },
+      {
+       "grupo": "20",
+       "profesor": "JOSE ALFREDO GOMEZ MATEUS",
+       "fecha_inicio": "26/10/2026",
+       "fecha_fin": "12/12/2026",
+       "sesiones": [
+        {
+         "dia": "JUEVES",
+         "inicio": "14:00",
+         "fin": "16:00",
+         "lugar": "404-100 · Yu Takeuchi"
+        }
+       ],
+       "duracion": "Semestral",
+       "jornada": "DIURNO",
+       "cupos_disponibles": 22
+      },
+      {
+       "grupo": "21",
+       "profesor": "SEBASTIAN CORTES CORONADO",
+       "fecha_inicio": "24/08/2026",
+       "fecha_fin": "30/09/2026",
+       "sesiones": [
+        {
+         "dia": "LUNES",
+         "inicio": "14:00",
+         "fin": "16:00",
+         "lugar": "404-100 · Yu Takeuchi"
+        },
+        {
+         "dia": "LUNES",
+         "inicio": "14:00",
+         "fin": "16:00",
+         "lugar": ""
+        }
+       ],
+       "duracion": "Semestral",
+       "jornada": "DIURNO",
+       "cupos_disponibles": 5
+      },
+      {
+       "grupo": "22",
+       "profesor": "SEBASTIAN CORTES CORONADO",
+       "fecha_inicio": "24/08/2026",
+       "fecha_fin": "30/09/2026",
+       "sesiones": [
+        {
+         "dia": "MIÉRCOLES",
+         "inicio": "14:00",
+         "fin": "16:00",
+         "lugar": "404-100 · Yu Takeuchi"
+        },
+        {
+         "dia": "MIÉRCOLES",
+         "inicio": "14:00",
+         "fin": "16:00",
+         "lugar": "404-100 · Yu Takeuchi"
+        }
+       ],
+       "duracion": "Semestral",
+       "jornada": "DIURNO",
+       "cupos_disponibles": 14
+      },
+      {
+       "grupo": "23",
+       "profesor": "SEBASTIAN CORTES CORONADO",
+       "fecha_inicio": "24/08/2026",
+       "fecha_fin": "30/09/2026",
+       "sesiones": [
+        {
+         "dia": "MARTES",
+         "inicio": "16:00",
+         "fin": "18:00",
+         "lugar": "404-100 · Yu Takeuchi"
+        },
+        {
+         "dia": "MARTES",
+         "inicio": "16:00",
+         "fin": "18:00",
+         "lugar": "404-100 · Yu Takeuchi"
+        }
+       ],
+       "duracion": "Semestral",
+       "jornada": "DIURNO",
+       "cupos_disponibles": 29
+      },
+      {
+       "grupo": "24",
+       "profesor": "SEBASTIAN CORTES CORONADO",
+       "fecha_inicio": "24/08/2026",
+       "fecha_fin": "30/09/2026",
+       "sesiones": [
+        {
+         "dia": "VIERNES",
+         "inicio": "14:00",
+         "fin": "16:00",
+         "lugar": "404-100 · Yu Takeuchi"
+        },
+        {
+         "dia": "VIERNES",
+         "inicio": "14:00",
+         "fin": "16:00",
+         "lugar": "404-100 · Yu Takeuchi"
+        }
+       ],
+       "duracion": "Semestral",
+       "jornada": "DIURNO",
+       "cupos_disponibles": 13
+      },
+      {
+       "grupo": "25",
+       "profesor": "Plinio Del Carmen Teheran Sermeno",
+       "fecha_inicio": "24/08/2026",
+       "fecha_fin": "12/12/2026",
+       "sesiones": [
+        {
+         "dia": "MIÉRCOLES",
+         "inicio": "18:00",
+         "fin": "20:00",
+         "lugar": "404-204 · Yu Takeuchi"
+        }
+       ],
+       "duracion": "Semestral",
+       "jornada": "DIURNO",
+       "cupos_disponibles": 25
+      },
+      {
+       "grupo": "3",
+       "profesor": "Gustavo Martinez Tamayo",
+       "fecha_inicio": "24/08/2026",
+       "fecha_fin": "12/12/2026",
+       "sesiones": [
+        {
+         "dia": "MIÉRCOLES",
+         "inicio": "07:00",
+         "fin": "09:00",
+         "lugar": "404-100 · Yu Takeuchi"
+        }
+       ],
+       "duracion": "Semestral",
+       "jornada": "DIURNO",
+       "cupos_disponibles": 1
+      },
+      {
+       "grupo": "4",
+       "profesor": "JUAN RAFAEL JIMENEZ SANABRIA",
+       "fecha_inicio": "24/08/2026",
+       "fecha_fin": "12/12/2026",
+       "sesiones": [
+        {
+         "dia": "MIÉRCOLES",
+         "inicio": "07:00",
+         "fin": "09:00",
+         "lugar": "404-102 · Yu Takeuchi"
+        }
+       ],
+       "duracion": "Semestral",
+       "jornada": "DIURNO",
+       "cupos_disponibles": 1
+      },
+      {
+       "grupo": "5",
+       "profesor": "FABIAN FELIPE QUEVEDO FARIETA",
+       "fecha_inicio": "24/08/2026",
+       "fecha_fin": "12/12/2026",
+       "sesiones": [
+        {
+         "dia": "LUNES",
+         "inicio": "09:00",
+         "fin": "11:00",
+         "lugar": "404-100 · Yu Takeuchi"
+        }
+       ],
+       "duracion": "Semestral",
+       "jornada": "DIURNO",
+       "cupos_disponibles": 2
+      },
+      {
+       "grupo": "6",
+       "profesor": "Jaime Villalobos Velasco",
+       "fecha_inicio": "24/08/2026",
+       "fecha_fin": "12/12/2026",
+       "sesiones": [
+        {
+         "dia": "MARTES",
+         "inicio": "07:00",
+         "fin": "09:00",
+         "lugar": "404-100 · Yu Takeuchi"
+        }
+       ],
+       "duracion": "Semestral",
+       "jornada": "DIURNO",
+       "cupos_disponibles": 3
+      },
+      {
+       "grupo": "7",
+       "profesor": "Jaime Villalobos Velasco",
+       "fecha_inicio": "24/08/2026",
+       "fecha_fin": "12/12/2026",
+       "sesiones": [
+        {
+         "dia": "JUEVES",
+         "inicio": "09:00",
+         "fin": "11:00",
+         "lugar": "404-100 · Yu Takeuchi"
+        }
+       ],
+       "duracion": "Semestral",
+       "jornada": "DIURNO",
+       "cupos_disponibles": 0
+      },
+      {
+       "grupo": "8",
+       "profesor": "Alvaro Marino Camargo",
+       "fecha_inicio": "24/08/2026",
+       "fecha_fin": "12/12/2026",
+       "sesiones": [
+        {
+         "dia": "MARTES",
+         "inicio": "09:00",
+         "fin": "11:00",
+         "lugar": "404-100 · Yu Takeuchi"
+        }
+       ],
+       "duracion": "Semestral",
+       "jornada": "DIURNO",
+       "cupos_disponibles": 1
+      },
+      {
+       "grupo": "9",
+       "profesor": "JULIAN MATEO DE MENDOZA GUTIERREZ",
+       "fecha_inicio": "24/08/2026",
+       "fecha_fin": "12/12/2026",
+       "sesiones": [
+        {
+         "dia": "MARTES",
+         "inicio": "07:00",
+         "fin": "09:00",
+         "lugar": "404-102 · Yu Takeuchi"
+        }
+       ],
+       "duracion": "Semestral",
+       "jornada": "DIURNO",
+       "cupos_disponibles": 2
+      }
+     ]
+    },
+    {
+     "actividad": "CLASE TALLER",
+     "grupos": [
+      {
+       "grupo": "1",
+       "profesor": "FABIAN FELIPE QUEVEDO FARIETA",
+       "fecha_inicio": "24/08/2026",
+       "fecha_fin": "12/12/2026",
+       "sesiones": [
+        {
+         "dia": "JUEVES",
+         "inicio": "07:00",
+         "fin": "09:00",
+         "lugar": "453-109 · Guillermina Uribe Bone"
+        }
+       ],
+       "duracion": "Semestral",
+       "jornada": "DIURNO",
+       "cupos_disponibles": 0
+      },
+      {
+       "grupo": "10",
+       "profesor": "FABIAN FELIPE QUEVEDO FARIETA. Gladys Aminta Mendoza Baron",
+       "fecha_inicio": "26/10/2026",
+       "fecha_fin": "12/12/2026",
+       "sesiones": [
+        {
+         "dia": "MARTES",
+         "inicio": "09:00",
+         "fin": "11:00",
+         "lugar": "453-109 · Guillermina Uribe Bone"
+        }
+       ],
+       "duracion": "Semestral",
+       "jornada": "DIURNO",
+       "cupos_disponibles": 1
+      },
+      {
+       "grupo": "11",
+       "profesor": "JULIAN MATEO DE MENDOZA GUTIERREZ. Gladys Aminta Mendoza Baron",
+       "fecha_inicio": "26/10/2026",
+       "fecha_fin": "12/12/2026",
+       "sesiones": [
+        {
+         "dia": "MARTES",
+         "inicio": "11:00",
+         "fin": "13:00",
+         "lugar": "453-109 · Guillermina Uribe Bone"
+        }
+       ],
+       "duracion": "Semestral",
+       "jornada": "DIURNO",
+       "cupos_disponibles": 1
+      },
+      {
+       "grupo": "12",
+       "profesor": "JULIAN MATEO DE MENDOZA GUTIERREZ",
+       "fecha_inicio": "24/08/2026",
+       "fecha_fin": "17/12/2026",
+       "sesiones": [
+        {
+         "dia": "JUEVES",
+         "inicio": "11:00",
+         "fin": "13:00",
+         "lugar": "401-102 · Julio Garavito Armero"
+        }
+       ],
+       "duracion": "Semestral",
+       "jornada": "DIURNO",
+       "cupos_disponibles": 1
+      },
+      {
+       "grupo": "13",
+       "profesor": "MIGUEL ENRIQUE GÁMEZ LÓPEZ",
+       "fecha_inicio": "26/10/2026",
+       "fecha_fin": "12/12/2026",
+       "sesiones": [
+        {
+         "dia": "VIERNES",
+         "inicio": "14:00",
+         "fin": "16:00",
+         "lugar": "453-109 · Guillermina Uribe Bone"
+        }
+       ],
+       "duracion": "Semestral",
+       "jornada": "DIURNO",
+       "cupos_disponibles": 1
+      },
+      {
+       "grupo": "14",
+       "profesor": "Miguel Andrés Perdomo Gutiérrez",
+       "fecha_inicio": "26/10/2026",
+       "fecha_fin": "12/12/2026",
+       "sesiones": [
+        {
+         "dia": "VIERNES",
+         "inicio": "09:00",
+         "fin": "11:00",
+         "lugar": "401-202 · Julio Garavito Armero"
+        }
+       ],
+       "duracion": "Semestral",
+       "jornada": "DIURNO",
+       "cupos_disponibles": 0
+      },
+      {
+       "grupo": "15",
+       "profesor": "EVER DAVID ALCALA CAJAR",
+       "fecha_inicio": "26/10/2026",
+       "fecha_fin": "12/12/2026",
+       "sesiones": [
+        {
+         "dia": "JUEVES",
+         "inicio": "09:00",
+         "fin": "11:00",
+         "lugar": "401-102 · Julio Garavito Armero"
+        }
+       ],
+       "duracion": "Semestral",
+       "jornada": "DIURNO",
+       "cupos_disponibles": 1
+      },
+      {
+       "grupo": "16",
+       "profesor": "Edna Carolina Pinilla Beltran",
+       "fecha_inicio": "24/08/2026",
+       "fecha_fin": "17/12/2026",
+       "sesiones": [
+        {
+         "dia": "LUNES",
+         "inicio": "11:00",
+         "fin": "13:00",
+         "lugar": "453-109 · Guillermina Uribe Bone"
+        }
+       ],
+       "duracion": "Semestral",
+       "jornada": "DIURNO",
+       "cupos_disponibles": 4
+      },
+      {
+       "grupo": "17",
+       "profesor": "Jereson Silva Valencia",
+       "fecha_inicio": "26/10/2026",
+       "fecha_fin": "12/12/2026",
+       "sesiones": [
+        {
+         "dia": "VIERNES",
+         "inicio": "11:00",
+         "fin": "13:00",
+         "lugar": "405-203 · Posgrados Matemáticas y Física"
+        }
+       ],
+       "duracion": "Semestral",
+       "jornada": "DIURNO",
+       "cupos_disponibles": 10
+      },
+      {
+       "grupo": "18",
+       "profesor": "Jereson Silva Valencia",
+       "fecha_inicio": "24/08/2026",
+       "fecha_fin": "12/12/2026",
+       "sesiones": [
+        {
+         "dia": "VIERNES",
+         "inicio": "11:00",
+         "fin": "13:00",
+         "lugar": "405-203 · Posgrados Matemáticas y Física"
+        }
+       ],
+       "duracion": "Semestral",
+       "jornada": "DIURNO",
+       "cupos_disponibles": 16
+      },
+      {
+       "grupo": "19",
+       "profesor": "Jereson Silva Valencia",
+       "fecha_inicio": "24/08/2026",
+       "fecha_fin": "12/12/2026",
+       "sesiones": [
+        {
+         "dia": "LUNES",
+         "inicio": "11:00",
+         "fin": "13:00",
+         "lugar": "405-203 · Posgrados Matemáticas y Física"
+        }
+       ],
+       "duracion": "Semestral",
+       "jornada": "DIURNO",
+       "cupos_disponibles": 11
+      },
+      {
+       "grupo": "2",
+       "profesor": "Gustavo Martinez Tamayo",
+       "fecha_inicio": "24/08/2026",
+       "fecha_fin": "12/12/2026",
+       "sesiones": [
+        {
+         "dia": "LUNES",
+         "inicio": "07:00",
+         "fin": "09:00",
+         "lugar": "453-109 · Guillermina Uribe Bone"
+        }
+       ],
+       "duracion": "Semestral",
+       "jornada": "DIURNO",
+       "cupos_disponibles": 3
+      },
+      {
+       "grupo": "20",
+       "profesor": "Jereson Silva Valencia",
+       "fecha_inicio": "24/08/2026",
+       "fecha_fin": "17/12/2026",
+       "sesiones": [
+        {
+         "dia": "LUNES",
+         "inicio": "11:00",
+         "fin": "13:00",
+         "lugar": "405-203 · Posgrados Matemáticas y Física"
+        }
+       ],
+       "duracion": "Semestral",
+       "jornada": "DIURNO",
+       "cupos_disponibles": 22
+      },
+      {
+       "grupo": "21",
+       "profesor": "JOSE ALFREDO GOMEZ MATEUS",
+       "fecha_inicio": "24/08/2026",
+       "fecha_fin": "12/12/2026",
+       "sesiones": [
+        {
+         "dia": "MIÉRCOLES",
+         "inicio": "14:00",
+         "fin": "16:00",
+         "lugar": "453-109 · Guillermina Uribe Bone"
+        }
+       ],
+       "duracion": "Semestral",
+       "jornada": "DIURNO",
+       "cupos_disponibles": 5
+      },
+      {
+       "grupo": "22",
+       "profesor": "JULY PAOLA GARZÓN LOPEZ",
+       "fecha_inicio": "26/10/2026",
+       "fecha_fin": "12/12/2026",
+       "sesiones": [
+        {
+         "dia": "VIERNES",
+         "inicio": "14:00",
+         "fin": "16:00",
+         "lugar": "453-111 · Guillermina Uribe Bone"
+        }
+       ],
+       "duracion": "Semestral",
+       "jornada": "DIURNO",
+       "cupos_disponibles": 14
+      },
+      {
+       "grupo": "23",
+       "profesor": "Edna Carolina Pinilla Beltran",
+       "fecha_inicio": "24/08/2026",
+       "fecha_fin": "12/12/2026",
+       "sesiones": [
+        {
+         "dia": "MIÉRCOLES",
+         "inicio": "16:00",
+         "fin": "18:00",
+         "lugar": "453-109 · Guillermina Uribe Bone"
+        }
+       ],
+       "duracion": "Semestral",
+       "jornada": "DIURNO",
+       "cupos_disponibles": 29
+      },
+      {
+       "grupo": "24",
+       "profesor": "Felipe Valencia Hernandez",
+       "fecha_inicio": "24/08/2026",
+       "fecha_fin": "17/12/2026",
+       "sesiones": [
+        {
+         "dia": "MARTES",
+         "inicio": "14:00",
+         "fin": "16:00",
+         "lugar": "453-109 · Guillermina Uribe Bone"
+        }
+       ],
+       "duracion": "Semestral",
+       "jornada": "DIURNO",
+       "cupos_disponibles": 13
+      },
+      {
+       "grupo": "25",
+       "profesor": "Plinio Del Carmen Teheran Sermeno",
+       "fecha_inicio": "24/08/2026",
+       "fecha_fin": "12/12/2026",
+       "sesiones": [
+        {
+         "dia": "JUEVES",
+         "inicio": "18:00",
+         "fin": "20:00",
+         "lugar": "404-204 · Yu Takeuchi"
+        }
+       ],
+       "duracion": "Semestral",
+       "jornada": "DIURNO",
+       "cupos_disponibles": 25
+      },
+      {
+       "grupo": "3",
+       "profesor": "Gustavo Martinez Tamayo",
+       "fecha_inicio": "24/08/2026",
+       "fecha_fin": "12/12/2026",
+       "sesiones": [
+        {
+         "dia": "VIERNES",
+         "inicio": "09:00",
+         "fin": "11:00",
+         "lugar": "453-109 · Guillermina Uribe Bone"
+        }
+       ],
+       "duracion": "Semestral",
+       "jornada": "DIURNO",
+       "cupos_disponibles": 1
+      },
+      {
+       "grupo": "4",
+       "profesor": "Jaime Villalobos Velasco",
+       "fecha_inicio": "24/08/2026",
+       "fecha_fin": "12/12/2026",
+       "sesiones": [
+        {
+         "dia": "JUEVES",
+         "inicio": "07:00",
+         "fin": "09:00",
+         "lugar": "401-105 · Julio Garavito Armero"
+        }
+       ],
+       "duracion": "Semestral",
+       "jornada": "DIURNO",
+       "cupos_disponibles": 1
+      },
+      {
+       "grupo": "5",
+       "profesor": "Jaime Villalobos Velasco",
+       "fecha_inicio": "24/08/2026",
+       "fecha_fin": "12/12/2026",
+       "sesiones": [
+        {
+         "dia": "MIÉRCOLES",
+         "inicio": "07:00",
+         "fin": "09:00",
+         "lugar": "405-215 · Posgrados Matemáticas y Física"
+        }
+       ],
+       "duracion": "Semestral",
+       "jornada": "DIURNO",
+       "cupos_disponibles": 2
+      },
+      {
+       "grupo": "6",
+       "profesor": "Ramiro Cardona Cardona",
+       "fecha_inicio": "24/08/2026",
+       "fecha_fin": "12/12/2026",
+       "sesiones": [
+        {
+         "dia": "JUEVES",
+         "inicio": "07:00",
+         "fin": "09:00",
+         "lugar": "401-207 · Julio Garavito Armero"
+        }
+       ],
+       "duracion": "Semestral",
+       "jornada": "DIURNO",
+       "cupos_disponibles": 3
+      },
+      {
+       "grupo": "7",
+       "profesor": "Ramiro Cardona Cardona",
+       "fecha_inicio": "24/08/2026",
+       "fecha_fin": "12/12/2026",
+       "sesiones": [
+        {
+         "dia": "MIÉRCOLES",
+         "inicio": "11:00",
+         "fin": "13:00",
+         "lugar": "401-207 · Julio Garavito Armero"
+        }
+       ],
+       "duracion": "Semestral",
+       "jornada": "DIURNO",
+       "cupos_disponibles": 0
+      },
+      {
+       "grupo": "8",
+       "profesor": "Edna Carolina Pinilla Beltran",
+       "fecha_inicio": "26/10/2026",
+       "fecha_fin": "12/12/2026",
+       "sesiones": [
+        {
+         "dia": "JUEVES",
+         "inicio": "09:00",
+         "fin": "11:00",
+         "lugar": "401-202 · Julio Garavito Armero"
+        }
+       ],
+       "duracion": "Semestral",
+       "jornada": "DIURNO",
+       "cupos_disponibles": 1
+      },
+      {
+       "grupo": "9",
+       "profesor": "EVER DAVID ALCALA CAJAR",
+       "fecha_inicio": "26/10/2026",
+       "fecha_fin": "12/12/2026",
+       "sesiones": [
+        {
+         "dia": "JUEVES",
+         "inicio": "07:00",
+         "fin": "09:00",
+         "lugar": "405-215 · Posgrados Matemáticas y Física"
+        }
+       ],
+       "duracion": "Semestral",
+       "jornada": "DIURNO",
+       "cupos_disponibles": 2
+      }
+     ]
+    },
+    {
+     "actividad": "CLASE MAGISTRAL",
+     "grupos": [
+      {
+       "grupo": "1",
+       "profesor": "Gustavo Martinez Tamayo",
+       "fecha_inicio": "24/08/2026",
+       "fecha_fin": "12/12/2026",
+       "sesiones": [
+        {
+         "dia": "MARTES",
+         "inicio": "07:00",
+         "fin": "09:00",
+         "lugar": "453-231 · Guillermina Uribe Bone"
+        }
+       ],
+       "duracion": "Semestral",
+       "jornada": "DIURNO",
+       "cupos_disponibles": 0
+      },
+      {
+       "grupo": "10",
+       "profesor": "Ovidio Amado Almanza Montero",
+       "fecha_inicio": "24/08/2026",
+       "fecha_fin": "12/12/2026",
+       "sesiones": [
+        {
+         "dia": "MIÉRCOLES",
+         "inicio": "09:00",
+         "fin": "11:00",
+         "lugar": "453-231 · Guillermina Uribe Bone"
+        }
+       ],
+       "duracion": "Semestral",
+       "jornada": "DIURNO",
+       "cupos_disponibles": 1
+      },
+      {
+       "grupo": "11",
+       "profesor": "Ovidio Amado Almanza Montero",
+       "fecha_inicio": "24/08/2026",
+       "fecha_fin": "12/12/2026",
+       "sesiones": [
+        {
+         "dia": "MIÉRCOLES",
+         "inicio": "09:00",
+         "fin": "11:00",
+         "lugar": "453-231 · Guillermina Uribe Bone"
+        }
+       ],
+       "duracion": "Semestral",
+       "jornada": "DIURNO",
+       "cupos_disponibles": 1
+      },
+      {
+       "grupo": "12",
+       "profesor": "Ovidio Amado Almanza Montero",
+       "fecha_inicio": "24/08/2026",
+       "fecha_fin": "12/12/2026",
+       "sesiones": [
+        {
+         "dia": "MIÉRCOLES",
+         "inicio": "09:00",
+         "fin": "11:00",
+         "lugar": "453-231 · Guillermina Uribe Bone"
+        }
+       ],
+       "duracion": "Semestral",
+       "jornada": "DIURNO",
+       "cupos_disponibles": 1
+      },
+      {
+       "grupo": "13",
+       "profesor": "Jaime Villalobos Velasco",
+       "fecha_inicio": "24/08/2026",
+       "fecha_fin": "12/12/2026",
+       "sesiones": [
+        {
+         "dia": "MARTES",
+         "inicio": "09:00",
+         "fin": "11:00",
+         "lugar": "453-232 · Guillermina Uribe Bone"
+        }
+       ],
+       "duracion": "Semestral",
+       "jornada": "DIURNO",
+       "cupos_disponibles": 1
+      },
+      {
+       "grupo": "14",
+       "profesor": "Jaime Villalobos Velasco",
+       "fecha_inicio": "24/08/2026",
+       "fecha_fin": "12/12/2026",
+       "sesiones": [
+        {
+         "dia": "MARTES",
+         "inicio": "09:00",
+         "fin": "11:00",
+         "lugar": "453-232 · Guillermina Uribe Bone"
+        }
+       ],
+       "duracion": "Semestral",
+       "jornada": "DIURNO",
+       "cupos_disponibles": 0
+      },
+      {
+       "grupo": "15",
+       "profesor": "Jaime Villalobos Velasco",
+       "fecha_inicio": "24/08/2026",
+       "fecha_fin": "12/12/2026",
+       "sesiones": [
+        {
+         "dia": "MARTES",
+         "inicio": "09:00",
+         "fin": "11:00",
+         "lugar": "453-232 · Guillermina Uribe Bone"
+        }
+       ],
+       "duracion": "Semestral",
+       "jornada": "DIURNO",
+       "cupos_disponibles": 1
+      },
+      {
+       "grupo": "17",
+       "profesor": "Jereson Silva Valencia",
+       "fecha_inicio": "24/08/2026",
+       "fecha_fin": "12/12/2026",
+       "sesiones": [
+        {
+         "dia": "JUEVES",
+         "inicio": "11:00",
+         "fin": "13:00",
+         "lugar": "453-231 · Guillermina Uribe Bone"
+        }
+       ],
+       "duracion": "Semestral",
+       "jornada": "DIURNO",
+       "cupos_disponibles": 10
+      },
+      {
+       "grupo": "18",
+       "profesor": "Jereson Silva Valencia",
+       "fecha_inicio": "24/08/2026",
+       "fecha_fin": "12/12/2026",
+       "sesiones": [
+        {
+         "dia": "JUEVES",
+         "inicio": "11:00",
+         "fin": "13:00",
+         "lugar": "453-231 · Guillermina Uribe Bone"
+        }
+       ],
+       "duracion": "Semestral",
+       "jornada": "DIURNO",
+       "cupos_disponibles": 16
+      },
+      {
+       "grupo": "19",
+       "profesor": "Jereson Silva Valencia",
+       "fecha_inicio": "24/08/2026",
+       "fecha_fin": "17/12/2026",
+       "sesiones": [
+        {
+         "dia": "JUEVES",
+         "inicio": "11:00",
+         "fin": "13:00",
+         "lugar": "453-231 · Guillermina Uribe Bone"
+        }
+       ],
+       "duracion": "Semestral",
+       "jornada": "DIURNO",
+       "cupos_disponibles": 11
+      },
+      {
+       "grupo": "2",
+       "profesor": "Gustavo Martinez Tamayo",
+       "fecha_inicio": "24/08/2026",
+       "fecha_fin": "12/12/2026",
+       "sesiones": [
+        {
+         "dia": "MARTES",
+         "inicio": "07:00",
+         "fin": "09:00",
+         "lugar": "453-231 · Guillermina Uribe Bone"
+        }
+       ],
+       "duracion": "Semestral",
+       "jornada": "DIURNO",
+       "cupos_disponibles": 3
+      },
+      {
+       "grupo": "20",
+       "profesor": "Jereson Silva Valencia",
+       "fecha_inicio": "24/08/2026",
+       "fecha_fin": "12/12/2026",
+       "sesiones": [
+        {
+         "dia": "JUEVES",
+         "inicio": "11:00",
+         "fin": "13:00",
+         "lugar": "453-231 · Guillermina Uribe Bone"
+        }
+       ],
+       "duracion": "Semestral",
+       "jornada": "DIURNO",
+       "cupos_disponibles": 22
+      },
+      {
+       "grupo": "21",
+       "profesor": "Felipe Valencia Hernandez",
+       "fecha_inicio": "24/08/2026",
+       "fecha_fin": "12/12/2026",
+       "sesiones": [
+        {
+         "dia": "JUEVES",
+         "inicio": "14:00",
+         "fin": "16:00",
+         "lugar": "453-233 · Guillermina Uribe Bone"
+        }
+       ],
+       "duracion": "Semestral",
+       "jornada": "DIURNO",
+       "cupos_disponibles": 5
+      },
+      {
+       "grupo": "22",
+       "profesor": "Felipe Valencia Hernandez",
+       "fecha_inicio": "24/08/2026",
+       "fecha_fin": "12/12/2026",
+       "sesiones": [
+        {
+         "dia": "JUEVES",
+         "inicio": "14:00",
+         "fin": "16:00",
+         "lugar": "453-233 · Guillermina Uribe Bone"
+        }
+       ],
+       "duracion": "Semestral",
+       "jornada": "DIURNO",
+       "cupos_disponibles": 14
+      },
+      {
+       "grupo": "23",
+       "profesor": "Felipe Valencia Hernandez",
+       "fecha_inicio": "24/08/2026",
+       "fecha_fin": "12/12/2026",
+       "sesiones": [
+        {
+         "dia": "JUEVES",
+         "inicio": "14:00",
+         "fin": "16:00",
+         "lugar": "453-233 · Guillermina Uribe Bone"
+        }
+       ],
+       "duracion": "Semestral",
+       "jornada": "DIURNO",
+       "cupos_disponibles": 29
+      },
+      {
+       "grupo": "24",
+       "profesor": "Felipe Valencia Hernandez",
+       "fecha_inicio": "24/08/2026",
+       "fecha_fin": "17/12/2026",
+       "sesiones": [
+        {
+         "dia": "JUEVES",
+         "inicio": "14:00",
+         "fin": "16:00",
+         "lugar": "453-233 · Guillermina Uribe Bone"
+        }
+       ],
+       "duracion": "Semestral",
+       "jornada": "DIURNO",
+       "cupos_disponibles": 13
+      },
+      {
+       "grupo": "25",
+       "profesor": "Plinio Del Carmen Teheran Sermeno",
+       "fecha_inicio": "24/08/2026",
+       "fecha_fin": "12/12/2026",
+       "sesiones": [
+        {
+         "dia": "MARTES",
+         "inicio": "18:00",
+         "fin": "20:00",
+         "lugar": "404-204 · Yu Takeuchi"
+        }
+       ],
+       "duracion": "Semestral",
+       "jornada": "DIURNO",
+       "cupos_disponibles": 25
+      },
+      {
+       "grupo": "3",
+       "profesor": "Gustavo Martinez Tamayo",
+       "fecha_inicio": "24/08/2026",
+       "fecha_fin": "12/12/2026",
+       "sesiones": [
+        {
+         "dia": "MARTES",
+         "inicio": "07:00",
+         "fin": "09:00",
+         "lugar": "453-231 · Guillermina Uribe Bone"
+        }
+       ],
+       "duracion": "Semestral",
+       "jornada": "DIURNO",
+       "cupos_disponibles": 1
+      },
+      {
+       "grupo": "4",
+       "profesor": "Gustavo Martinez Tamayo",
+       "fecha_inicio": "24/08/2026",
+       "fecha_fin": "12/12/2026",
+       "sesiones": [
+        {
+         "dia": "MARTES",
+         "inicio": "07:00",
+         "fin": "09:00",
+         "lugar": "453-231 · Guillermina Uribe Bone"
+        }
+       ],
+       "duracion": "Semestral",
+       "jornada": "DIURNO",
+       "cupos_disponibles": 1
+      },
+      {
+       "grupo": "5",
+       "profesor": "Ramiro Cardona Cardona",
+       "fecha_inicio": "24/08/2026",
+       "fecha_fin": "12/12/2026",
+       "sesiones": [
+        {
+         "dia": "VIERNES",
+         "inicio": "09:00",
+         "fin": "11:00",
+         "lugar": "453-231 · Guillermina Uribe Bone"
+        }
+       ],
+       "duracion": "Semestral",
+       "jornada": "DIURNO",
+       "cupos_disponibles": 2
+      },
+      {
+       "grupo": "6",
+       "profesor": "Ramiro Cardona Cardona",
+       "fecha_inicio": "24/08/2026",
+       "fecha_fin": "12/12/2026",
+       "sesiones": [
+        {
+         "dia": "VIERNES",
+         "inicio": "09:00",
+         "fin": "11:00",
+         "lugar": "453-231 · Guillermina Uribe Bone"
+        }
+       ],
+       "duracion": "Semestral",
+       "jornada": "DIURNO",
+       "cupos_disponibles": 3
+      },
+      {
+       "grupo": "7",
+       "profesor": "Ramiro Cardona Cardona",
+       "fecha_inicio": "24/08/2026",
+       "fecha_fin": "12/12/2026",
+       "sesiones": [
+        {
+         "dia": "VIERNES",
+         "inicio": "09:00",
+         "fin": "11:00",
+         "lugar": "453-231 · Guillermina Uribe Bone"
+        }
+       ],
+       "duracion": "Semestral",
+       "jornada": "DIURNO",
+       "cupos_disponibles": 0
+      },
+      {
+       "grupo": "8",
+       "profesor": "Ramiro Cardona Cardona",
+       "fecha_inicio": "24/08/2026",
+       "fecha_fin": "12/12/2026",
+       "sesiones": [
+        {
+         "dia": "VIERNES",
+         "inicio": "09:00",
+         "fin": "11:00",
+         "lugar": "453-231 · Guillermina Uribe Bone"
+        }
+       ],
+       "duracion": "Semestral",
+       "jornada": "DIURNO",
+       "cupos_disponibles": 1
+      },
+      {
+       "grupo": "9",
+       "profesor": "Ovidio Amado Almanza Montero",
+       "fecha_inicio": "24/08/2026",
+       "fecha_fin": "12/12/2026",
+       "sesiones": [
+        {
+         "dia": "MIÉRCOLES",
+         "inicio": "09:00",
+         "fin": "11:00",
+         "lugar": "453-231 · Guillermina Uribe Bone"
+        }
+       ],
+       "duracion": "Semestral",
+       "jornada": "DIURNO",
+       "cupos_disponibles": 2
+      }
+     ]
+    }
+   ],
+   "prerrequisitos": [
+    {
+     "codigo": "1000004-B",
+     "nombre": "Cálculo diferencial",
+     "tipo": "M",
+     "condicion": 1,
+     "todas": false,
+     "correquisito": false
+    },
+    {
+     "codigo": "2001285",
+     "nombre": "Matematicas i",
+     "tipo": "M",
+     "condicion": 1,
+     "todas": false,
+     "correquisito": false
+    }
+   ]
+  },
+  {
+   "codigo": "1000020-B",
+   "nombre": "Fundamentos de oscilaciones, ondas y óptica",
+   "creditos": 4,
+   "tipologia": "FUND. OBLIGATORIA (B)",
+   "sin_programar": false,
+   "actividades": [],
+   "prerrequisitos": []
+  },
+  {
+   "codigo": "1000040-B",
+   "nombre": "Introducción a la ciencia de materiales",
+   "creditos": 3,
+   "tipologia": "FUND. OBLIGATORIA (B)",
+   "sin_programar": false,
+   "actividades": [],
+   "prerrequisitos": []
+  },
+  {
+   "codigo": "1000044-B",
+   "nombre": "Inglés I- Semestral",
+   "creditos": 3,
+   "tipologia": "NIVELACIÓN (E)",
+   "sin_programar": false,
+   "actividades": [],
+   "prerrequisitos": []
+  },
+  {
+   "codigo": "1000045-B",
+   "nombre": "Inglés II - Semestral",
+   "creditos": 3,
+   "tipologia": "NIVELACIÓN (E)",
+   "sin_programar": false,
+   "actividades": [],
+   "prerrequisitos": []
+  },
+  {
+   "codigo": "1000046-B",
+   "nombre": "Inglés III - Semestral",
+   "creditos": 3,
+   "tipologia": "NIVELACIÓN (E)",
+   "sin_programar": false,
+   "actividades": [],
+   "prerrequisitos": []
+  },
+  {
+   "codigo": "1000047-B",
+   "nombre": "Inglés IV- Semestral",
+   "creditos": 3,
+   "tipologia": "NIVELACIÓN (E)",
+   "sin_programar": false,
+   "actividades": [],
+   "prerrequisitos": []
+  },
+  {
+   "codigo": "1000048-B",
+   "nombre": "Inglés I- Virtual",
+   "creditos": 3,
+   "tipologia": "NIVELACIÓN (E)",
+   "sin_programar": true,
+   "actividades": [],
+   "prerrequisitos": []
+  },
+  {
+   "codigo": "1000049-B",
+   "nombre": "Inglés II - Virtual",
+   "creditos": 3,
+   "tipologia": "NIVELACIÓN (E)",
+   "sin_programar": true,
+   "actividades": [],
+   "prerrequisitos": []
+  },
+  {
+   "codigo": "1000050-B",
+   "nombre": "Inglés III- Virtual",
+   "creditos": 3,
+   "tipologia": "NIVELACIÓN (E)",
+   "sin_programar": true,
+   "actividades": [],
+   "prerrequisitos": []
+  },
+  {
+   "codigo": "1000051-B",
+   "nombre": "Inglés IV- Virtual",
+   "creditos": 3,
+   "tipologia": "NIVELACIÓN (E)",
+   "sin_programar": true,
+   "actividades": [],
+   "prerrequisitos": []
+  },
+  {
+   "codigo": "1000052-B",
+   "nombre": "Inglés Intensivo I y II",
+   "creditos": 6,
+   "tipologia": "NIVELACIÓN (E)",
+   "sin_programar": false,
+   "actividades": [],
+   "prerrequisitos": []
+  },
+  {
+   "codigo": "1000053-B",
+   "nombre": "Inglés Intensivo III y IV",
+   "creditos": 6,
+   "tipologia": "NIVELACIÓN (E)",
+   "sin_programar": false,
+   "actividades": [],
+   "prerrequisitos": []
+  },
+  {
+   "codigo": "2015159",
+   "nombre": "Variable compleja",
+   "creditos": 4,
+   "tipologia": "FUND. OBLIGATORIA (B)",
+   "sin_programar": false,
+   "actividades": [],
+   "prerrequisitos": []
+  },
+  {
+   "codigo": "2015316",
+   "nombre": "Trabajo de Grado",
+   "creditos": 6,
+   "tipologia": "TRABAJO DE GRADO (P)",
+   "sin_programar": false,
+   "actividades": [],
+   "prerrequisitos": []
+  },
+  {
+   "codigo": "2015317",
+   "nombre": "Trabajo de Grado - Asignaturas de Posgrado",
+   "creditos": 6,
+   "tipologia": "TRABAJO DE GRADO (P)",
+   "sin_programar": false,
+   "actividades": [],
+   "prerrequisitos": []
+  },
+  {
+   "codigo": "2015698",
+   "nombre": "Administración de empresas",
+   "creditos": 3,
+   "tipologia": "FUND. OPTATIVA (O)",
+   "sin_programar": true,
+   "actividades": [],
+   "prerrequisitos": [
+    {
+     "codigo": "2010263",
+     "nombre": "Fundamentos de economia",
+     "tipo": "M",
+     "condicion": 1,
+     "todas": false,
+     "correquisito": false
+    },
+    {
+     "codigo": "2015703",
+     "nombre": "Ingeniería económica",
+     "tipo": "M",
+     "condicion": 1,
+     "todas": false,
+     "correquisito": false
+    }
+   ]
+  },
+  {
+   "codigo": "2015701",
+   "nombre": "Gerencia de recursos humanos",
+   "creditos": 3,
+   "tipologia": "FUND. OPTATIVA (O)",
+   "sin_programar": false,
+   "actividades": [],
+   "prerrequisitos": []
+  },
+  {
+   "codigo": "2015702",
+   "nombre": "Gerencia y gestión de proyectos",
+   "creditos": 3,
+   "tipologia": "FUND. OPTATIVA (O)",
+   "sin_programar": false,
+   "actividades": [],
+   "prerrequisitos": []
+  },
+  {
+   "codigo": "2015703",
+   "nombre": "Ingeniería económica",
+   "creditos": 3,
+   "tipologia": "FUND. OBLIGATORIA (B)",
+   "sin_programar": false,
+   "actividades": [],
+   "prerrequisitos": []
+  },
+  {
+   "codigo": "2015734",
+   "nombre": "Programación de computadores",
+   "creditos": 3,
+   "tipologia": "FUND. OBLIGATORIA (B)",
+   "sin_programar": false,
+   "actividades": [],
+   "prerrequisitos": []
+  },
+  {
+   "codigo": "2016375",
+   "nombre": "Programación orientada a objetos",
+   "creditos": 3,
+   "tipologia": "FUND. OBLIGATORIA (B)",
+   "sin_programar": false,
+   "actividades": [],
+   "prerrequisitos": []
+  },
+  {
+   "codigo": "2016487",
+   "nombre": "Campos electromagnéticos",
+   "creditos": 4,
+   "tipologia": "DISCIPLINAR OBLIGATORIA (C)",
+   "sin_programar": false,
+   "actividades": [
+    {
+     "actividad": "CLASE MAGISTRAL",
+     "grupos": [
+      {
+       "grupo": "1",
+       "profesor": "Nicolas Mora Parra",
+       "fecha_inicio": "24/08/2026",
+       "fecha_fin": "12/12/2026",
+       "sesiones": [
+        {
+         "dia": "MARTES",
+         "inicio": "11:00",
+         "fin": "13:00",
+         "lugar": "401-305 · Julio Garavito Armero"
+        },
+        {
+         "dia": "JUEVES",
+         "inicio": "11:00",
+         "fin": "13:00",
+         "lugar": "401-305 · Julio Garavito Armero"
+        }
+       ],
+       "duracion": "Semestral",
+       "jornada": "DIURNO",
+       "cupos_disponibles": 6
+      },
+      {
+       "grupo": "2",
+       "profesor": "Francisco Jose Roman Campos",
+       "fecha_inicio": "24/08/2026",
+       "fecha_fin": "12/12/2026",
+       "sesiones": [
+        {
+         "dia": "MIÉRCOLES",
+         "inicio": "07:00",
+         "fin": "09:00",
+         "lugar": "453-315 · Guillermina Uribe Bone"
+        },
+        {
+         "dia": "VIERNES",
+         "inicio": "07:00",
+         "fin": "09:00",
+         "lugar": "453-315 · Guillermina Uribe Bone"
+        }
+       ],
+       "duracion": "Semestral",
+       "jornada": "DIURNO",
+       "cupos_disponibles": 0
+      },
+      {
+       "grupo": "3",
+       "profesor": "Nicolas Mora Parra",
+       "fecha_inicio": "24/08/2026",
+       "fecha_fin": "17/12/2026",
+       "sesiones": [
+        {
+         "dia": "LUNES",
+         "inicio": "14:00",
+         "fin": "16:00",
+         "lugar": "453-315 · Guillermina Uribe Bone"
+        },
+        {
+         "dia": "MIÉRCOLES",
+         "inicio": "14:00",
+         "fin": "16:00",
+         "lugar": "454-307 · Luis Carlos Sarmiento Angulo"
+        }
+       ],
+       "duracion": "Semestral",
+       "jornada": "DIURNO",
+       "cupos_disponibles": 4
+      },
+      {
+       "grupo": "4",
+       "profesor": "Francisco Jose Roman Campos",
+       "fecha_inicio": "24/08/2026",
+       "fecha_fin": "12/12/2026",
+       "sesiones": [
+        {
+         "dia": "LUNES",
+         "inicio": "11:00",
+         "fin": "13:00",
+         "lugar": "453-413 · Guillermina Uribe Bone"
+        },
+        {
+         "dia": "MIÉRCOLES",
+         "inicio": "11:00",
+         "fin": "13:00",
+         "lugar": "453-413 · Guillermina Uribe Bone"
+        }
+       ],
+       "duracion": "Semestral",
+       "jornada": "DIURNO",
+       "cupos_disponibles": 0
+      }
+     ]
+    }
+   ],
+   "prerrequisitos": [
+    {
+     "codigo": "1000006-B",
+     "nombre": "Cálculo en varias variables",
+     "tipo": "M",
+     "condicion": 1,
+     "todas": false,
+     "correquisito": false
+    },
+    {
+     "codigo": "2000927",
+     "nombre": "Matematicas iii",
+     "tipo": "M",
+     "condicion": 1,
+     "todas": false,
+     "correquisito": false
+    },
+    {
+     "codigo": "2000439",
+     "nombre": "Fisica II",
+     "tipo": "M",
+     "condicion": 2,
+     "todas": false,
+     "correquisito": false
+    },
+    {
+     "codigo": "1000017-B",
+     "nombre": "Fundamentos de electricidad y magnetismo",
+     "tipo": "M",
+     "condicion": 2,
+     "todas": false,
+     "correquisito": false
+    }
+   ]
+  },
+  {
+   "codigo": "2016488",
+   "nombre": "Circuitos de RF",
+   "creditos": 3,
+   "tipologia": "DISCIPLINAR OPTATIVA (T)",
+   "sin_programar": false,
+   "actividades": [
+    {
+     "actividad": "CLASE MAGISTRAL",
+     "grupos": [
+      {
+       "grupo": "1",
+       "profesor": "Cristian Andres Triana Infante",
+       "fecha_inicio": "24/08/2026",
+       "fecha_fin": "12/12/2026",
+       "sesiones": [
+        {
+         "dia": "MIÉRCOLES",
+         "inicio": "09:00",
+         "fin": "11:00",
+         "lugar": "453-417 · Guillermina Uribe Bone"
+        },
+        {
+         "dia": "VIERNES",
+         "inicio": "09:00",
+         "fin": "11:00",
+         "lugar": "401-305 · Julio Garavito Armero"
+        }
+       ],
+       "duracion": "Semestral",
+       "jornada": "DIURNO",
+       "cupos_disponibles": 6
+      }
+     ]
+    },
+    {
+     "actividad": "CLASE LABORATORIO",
+     "grupos": [
+      {
+       "grupo": "1",
+       "profesor": "Cristian Andres Triana Infante",
+       "fecha_inicio": "24/08/2026",
+       "fecha_fin": "12/12/2026",
+       "sesiones": [
+        {
+         "dia": "MARTES",
+         "inicio": "09:00",
+         "fin": "11:00",
+         "lugar": "411-104A · Laboratorios de Eléctrica y Mecánica"
+        }
+       ],
+       "duracion": "Semestral",
+       "jornada": "DIURNO",
+       "cupos_disponibles": 3
+      },
+      {
+       "grupo": "2",
+       "profesor": "Cristian Andres Triana Infante",
+       "fecha_inicio": "24/08/2026",
+       "fecha_fin": "12/12/2026",
+       "sesiones": [
+        {
+         "dia": "JUEVES",
+         "inicio": "09:00",
+         "fin": "11:00",
+         "lugar": "411-102A · Laboratorios de Eléctrica y Mecánica"
+        }
+       ],
+       "duracion": "Semestral",
+       "jornada": "DIURNO",
+       "cupos_disponibles": 3
+      }
+     ]
+    }
+   ],
+   "prerrequisitos": [
+    {
+     "codigo": "2016496",
+     "nombre": "Electrónica análoga II",
+     "tipo": "M",
+     "condicion": 1,
+     "todas": true,
+     "correquisito": false
+    }
+   ]
+  },
+  {
+   "codigo": "2016489",
+   "nombre": "Circuitos Eléctricos I",
+   "creditos": 3,
+   "tipologia": "DISCIPLINAR OBLIGATORIA (C)",
+   "sin_programar": false,
+   "actividades": [
+    {
+     "actividad": "CLASE MAGISTRAL",
+     "grupos": [
+      {
+       "grupo": "1",
+       "profesor": "Oscar German Duarte Velasco",
+       "fecha_inicio": "24/08/2026",
+       "fecha_fin": "12/12/2026",
+       "sesiones": [
+        {
+         "dia": "MARTES",
+         "inicio": "07:00",
+         "fin": "09:00",
+         "lugar": "453-413 · Guillermina Uribe Bone"
+        },
+        {
+         "dia": "JUEVES",
+         "inicio": "07:00",
+         "fin": "09:00",
+         "lugar": "453-413 · Guillermina Uribe Bone"
+        }
+       ],
+       "duracion": "Semestral",
+       "jornada": "DIURNO",
+       "cupos_disponibles": 1
+      },
+      {
+       "grupo": "2",
+       "profesor": "Rene Alexander Soto Perez",
+       "fecha_inicio": "24/08/2026",
+       "fecha_fin": "12/12/2026",
+       "sesiones": [
+        {
+         "dia": "MIÉRCOLES",
+         "inicio": "09:00",
+         "fin": "11:00",
+         "lugar": "453-315 · Guillermina Uribe Bone"
+        },
+        {
+         "dia": "VIERNES",
+         "inicio": "09:00",
+         "fin": "11:00",
+         "lugar": "401-206 · Julio Garavito Armero"
+        }
+       ],
+       "duracion": "Semestral",
+       "jornada": "DIURNO",
+       "cupos_disponibles": 20
+      },
+      {
+       "grupo": "3",
+       "profesor": "Fabio Andres Pavas Martinez",
+       "fecha_inicio": "24/08/2026",
+       "fecha_fin": "12/12/2026",
+       "sesiones": [
+        {
+         "dia": "MARTES",
+         "inicio": "09:00",
+         "fin": "11:00",
+         "lugar": "401-207 · Julio Garavito Armero"
+        },
+        {
+         "dia": "JUEVES",
+         "inicio": "09:00",
+         "fin": "11:00",
+         "lugar": "401-207 · Julio Garavito Armero"
+        }
+       ],
+       "duracion": "Semestral",
+       "jornada": "DIURNO",
+       "cupos_disponibles": 2
+      },
+      {
+       "grupo": "4",
+       "profesor": "Carlos Andres Perilla Rozo",
+       "fecha_inicio": "24/08/2026",
+       "fecha_fin": "12/12/2026",
+       "sesiones": [
+        {
+         "dia": "LUNES",
+         "inicio": "16:00",
+         "fin": "18:00",
+         "lugar": "453-415 · Guillermina Uribe Bone"
+        },
+        {
+         "dia": "MIÉRCOLES",
+         "inicio": "16:00",
+         "fin": "18:00",
+         "lugar": "453-415 · Guillermina Uribe Bone"
+        }
+       ],
+       "duracion": "Semestral",
+       "jornada": "DIURNO",
+       "cupos_disponibles": 0
+      },
+      {
+       "grupo": "5",
+       "profesor": "Carlos Andres Perilla Rozo",
+       "fecha_inicio": "24/08/2026",
+       "fecha_fin": "17/12/2026",
+       "sesiones": [
+        {
+         "dia": "MARTES",
+         "inicio": "14:00",
+         "fin": "16:00",
+         "lugar": "401-306 · Julio Garavito Armero"
+        },
+        {
+         "dia": "JUEVES",
+         "inicio": "14:00",
+         "fin": "16:00",
+         "lugar": "401-305 · Julio Garavito Armero"
+        }
+       ],
+       "duracion": "Semestral",
+       "jornada": "DIURNO",
+       "cupos_disponibles": 1
+      },
+      {
+       "grupo": "6",
+       "profesor": "Oscar German Duarte Velasco",
+       "fecha_inicio": "24/08/2026",
+       "fecha_fin": "12/12/2026",
+       "sesiones": [
+        {
+         "dia": "MARTES",
+         "inicio": "11:00",
+         "fin": "13:00",
+         "lugar": "453-315 · Guillermina Uribe Bone"
+        },
+        {
+         "dia": "JUEVES",
+         "inicio": "11:00",
+         "fin": "13:00",
+         "lugar": "453-315 · Guillermina Uribe Bone"
+        }
+       ],
+       "duracion": "Semestral",
+       "jornada": "DIURNO",
+       "cupos_disponibles": 0
+      }
+     ]
+    }
+   ],
+   "prerrequisitos": [
+    {
+     "codigo": "1000003-B",
+     "nombre": "Álgebra Lineal",
+     "tipo": "M",
+     "condicion": 1,
+     "todas": false,
+     "correquisito": false
+    },
+    {
+     "codigo": "2000927",
+     "nombre": "Matematicas iii",
+     "tipo": "M",
+     "condicion": 1,
+     "todas": false,
+     "correquisito": false
+    },
+    {
+     "codigo": "2001331",
+     "nombre": "Taller de electronica",
+     "tipo": "M",
+     "condicion": 2,
+     "todas": false,
+     "correquisito": false
+    },
+    {
+     "codigo": "2016509",
+     "nombre": "Taller de ingeniería electrónica",
+     "tipo": "M",
+     "condicion": 2,
+     "todas": false,
+     "correquisito": false
+    }
+   ]
+  },
+  {
+   "codigo": "2016490",
+   "nombre": "Circuitos Eléctricos II",
+   "creditos": 4,
+   "tipologia": "DISCIPLINAR OBLIGATORIA (C)",
+   "sin_programar": false,
+   "actividades": [
+    {
+     "actividad": "CLASE MAGISTRAL",
+     "grupos": [
+      {
+       "grupo": "1",
+       "profesor": "Carlos Eduardo Sanchez Diaz",
+       "fecha_inicio": "24/08/2026",
+       "fecha_fin": "12/12/2026",
+       "sesiones": [
+        {
+         "dia": "LUNES",
+         "inicio": "11:00",
+         "fin": "13:00",
+         "lugar": "454-208 · Luis Carlos Sarmiento Angulo"
+        },
+        {
+         "dia": "MIÉRCOLES",
+         "inicio": "11:00",
+         "fin": "13:00",
+         "lugar": "454-208 · Luis Carlos Sarmiento Angulo"
+        }
+       ],
+       "duracion": "Semestral",
+       "jornada": "DIURNO",
+       "cupos_disponibles": 7
+      },
+      {
+       "grupo": "2",
+       "profesor": "Luis Eduardo Gallego Vega",
+       "fecha_inicio": "24/08/2026",
+       "fecha_fin": "12/12/2026",
+       "sesiones": [
+        {
+         "dia": "LUNES",
+         "inicio": "09:00",
+         "fin": "11:00",
+         "lugar": "401-305 · Julio Garavito Armero"
+        },
+        {
+         "dia": "MIÉRCOLES",
+         "inicio": "09:00",
+         "fin": "11:00",
+         "lugar": "401-305 · Julio Garavito Armero"
+        }
+       ],
+       "duracion": "Semestral",
+       "jornada": "DIURNO",
+       "cupos_disponibles": 5
+      },
+      {
+       "grupo": "3",
+       "profesor": "Daniel Rodriguez Manrique",
+       "fecha_inicio": "24/08/2026",
+       "fecha_fin": "12/12/2026",
+       "sesiones": [
+        {
+         "dia": "LUNES",
+         "inicio": "14:00",
+         "fin": "16:00",
+         "lugar": "453-317 · Guillermina Uribe Bone"
+        },
+        {
+         "dia": "MIÉRCOLES",
+         "inicio": "14:00",
+         "fin": "16:00",
+         "lugar": "453-317 · Guillermina Uribe Bone"
+        }
+       ],
+       "duracion": "Semestral",
+       "jornada": "DIURNO",
+       "cupos_disponibles": 8
+      },
+      {
+       "grupo": "4",
+       "profesor": "Carlos Eduardo Sanchez Diaz",
+       "fecha_inicio": "24/08/2026",
+       "fecha_fin": "12/12/2026",
+       "sesiones": [
+        {
+         "dia": "LUNES",
+         "inicio": "07:00",
+         "fin": "09:00",
+         "lugar": "453-317 · Guillermina Uribe Bone"
+        },
+        {
+         "dia": "MIÉRCOLES",
+         "inicio": "07:00",
+         "fin": "09:00",
+         "lugar": "453-413 · Guillermina Uribe Bone"
+        }
+       ],
+       "duracion": "Semestral",
+       "jornada": "DIURNO",
+       "cupos_disponibles": 21
+      }
+     ]
+    },
+    {
+     "actividad": "CLASE LABORATORIO",
+     "grupos": []
+    }
+   ],
+   "prerrequisitos": [
+    {
+     "codigo": "2016489",
+     "nombre": "Circuitos Eléctricos I",
+     "tipo": "M",
+     "condicion": 1,
+     "todas": true,
+     "correquisito": false
+    },
+    {
+     "codigo": "1000007-B",
+     "nombre": "Ecuaciones Diferenciales",
+     "tipo": "M",
+     "condicion": 2,
+     "todas": false,
+     "correquisito": false
+    },
+    {
+     "codigo": "2019619",
+     "nombre": "Matematicas iv",
+     "tipo": "M",
+     "condicion": 2,
+     "todas": false,
+     "correquisito": false
+    }
+   ]
+  },
+  {
+   "codigo": "2016492",
+   "nombre": "Comunicaciones",
+   "creditos": 3,
+   "tipologia": "DISCIPLINAR OBLIGATORIA (C)",
+   "sin_programar": false,
+   "actividades": [
+    {
+     "actividad": "CLASE MAGISTRAL",
+     "grupos": [
+      {
+       "grupo": "1",
+       "profesor": "Javier Enrique Arevalo Peña",
+       "fecha_inicio": "24/08/2026",
+       "fecha_fin": "12/12/2026",
+       "sesiones": [
+        {
+         "dia": "LUNES",
+         "inicio": "11:00",
+         "fin": "13:00",
+         "lugar": "453-315 · Guillermina Uribe Bone"
+        },
+        {
+         "dia": "MIÉRCOLES",
+         "inicio": "11:00",
+         "fin": "13:00",
+         "lugar": "453-315 · Guillermina Uribe Bone"
+        }
+       ],
+       "duracion": "Semestral",
+       "jornada": "DIURNO",
+       "cupos_disponibles": 5
+      },
+      {
+       "grupo": "2",
+       "profesor": "GLORIA MARGARITA VARON DURAN",
+       "fecha_inicio": "24/08/2026",
+       "fecha_fin": "12/12/2026",
+       "sesiones": [
+        {
+         "dia": "LUNES",
+         "inicio": "14:00",
+         "fin": "16:00",
+         "lugar": "401-105 · Julio Garavito Armero"
+        },
+        {
+         "dia": "MIÉRCOLES",
+         "inicio": "14:00",
+         "fin": "16:00",
+         "lugar": "401-105 · Julio Garavito Armero"
+        }
+       ],
+       "duracion": "Semestral",
+       "jornada": "DIURNO",
+       "cupos_disponibles": 0
+      }
+     ]
+    }
+   ],
+   "prerrequisitos": [
+    {
+     "codigo": "2001619",
+     "nombre": "Analisis de sistemas dinamicos",
+     "tipo": "M",
+     "condicion": 1,
+     "todas": false,
+     "correquisito": false
+    },
+    {
+     "codigo": "2016507",
+     "nombre": "Señales y Sistemas II",
+     "tipo": "M",
+     "condicion": 1,
+     "todas": false,
+     "correquisito": false
+    },
+    {
+     "codigo": "1000015-B",
+     "nombre": "Probabilidad fundamental",
+     "tipo": "M",
+     "condicion": 2,
+     "todas": false,
+     "correquisito": false
+    },
+    {
+     "codigo": "2001065",
+     "nombre": "Probabilidad y estadistica",
+     "tipo": "M",
+     "condicion": 2,
+     "todas": false,
+     "correquisito": false
+    },
+    {
+     "codigo": "1000013-B",
+     "nombre": "Probabilidad y estadística fundamental",
+     "tipo": "M",
+     "condicion": 2,
+     "todas": false,
+     "correquisito": false
+    }
+   ]
+  },
+  {
+   "codigo": "2016493",
+   "nombre": "Control",
+   "creditos": 4,
+   "tipologia": "DISCIPLINAR OBLIGATORIA (C)",
+   "sin_programar": false,
+   "actividades": [
+    {
+     "actividad": "CLASE MAGISTRAL",
+     "grupos": [
+      {
+       "grupo": "1",
+       "profesor": "German Andres Ramos Fuentes",
+       "fecha_inicio": "24/08/2026",
+       "fecha_fin": "12/12/2026",
+       "sesiones": [
+        {
+         "dia": "LUNES",
+         "inicio": "11:00",
+         "fin": "13:00",
+         "lugar": "453-415 · Guillermina Uribe Bone"
+        },
+        {
+         "dia": "MIÉRCOLES",
+         "inicio": "11:00",
+         "fin": "13:00",
+         "lugar": "453-415 · Guillermina Uribe Bone"
+        }
+       ],
+       "duracion": "Semestral",
+       "jornada": "DIURNO",
+       "cupos_disponibles": 1
+      },
+      {
+       "grupo": "2",
+       "profesor": "EDUARDO ALIRIO MOJICA NAVA",
+       "fecha_inicio": "24/08/2026",
+       "fecha_fin": "12/12/2026",
+       "sesiones": [
+        {
+         "dia": "MARTES",
+         "inicio": "16:00",
+         "fin": "18:00",
+         "lugar": "401-305 · Julio Garavito Armero"
+        },
+        {
+         "dia": "JUEVES",
+         "inicio": "16:00",
+         "fin": "18:00",
+         "lugar": "401-305 · Julio Garavito Armero"
+        }
+       ],
+       "duracion": "Semestral",
+       "jornada": "DIURNO",
+       "cupos_disponibles": 1
+      },
+      {
+       "grupo": "3",
+       "profesor": "No informado Facultad: Horarios/Aula: No informado Fecha: 24/08/2026 - 12/12/2026 LUNES de 09:00 a 11:00. SALON DE CLASE 453-415. 453-415. 453 - Guillermina Uribe Bone. SALON. MIÉRCOLES de 09:00 a 11:00. SALON DE CLASE 453-111. 453-111. 453 - Guillermina Uribe Bone. SALON. Duración: Semestral Jornada: DIURNO Cupos disponibles: 7 (4) Grupo 4 Profesor: Jhon Alexander Cortes Romero",
+       "fecha_inicio": "24/08/2026",
+       "fecha_fin": "12/12/2026",
+       "sesiones": [
+        {
+         "dia": "LUNES",
+         "inicio": "16:00",
+         "fin": "18:00",
+         "lugar": "401-101 · Julio Garavito Armero"
+        },
+        {
+         "dia": "MIÉRCOLES",
+         "inicio": "16:00",
+         "fin": "18:00",
+         "lugar": "401-101 · Julio Garavito Armero"
+        }
+       ],
+       "duracion": "Semestral",
+       "jornada": "DIURNO",
+       "cupos_disponibles": 1
+      }
+     ]
+    },
+    {
+     "actividad": "CLASE LABORATORIO",
+     "grupos": []
+    }
+   ],
+   "prerrequisitos": [
+    {
+     "codigo": "2001619",
+     "nombre": "Analisis de sistemas dinamicos",
+     "tipo": "M",
+     "condicion": 1,
+     "todas": false,
+     "correquisito": false
+    },
+    {
+     "codigo": "2016507",
+     "nombre": "Señales y Sistemas II",
+     "tipo": "M",
+     "condicion": 1,
+     "todas": false,
+     "correquisito": false
+    }
+   ]
+  },
+  {
+   "codigo": "2016495",
+   "nombre": "Electrónica análoga I",
+   "creditos": 4,
+   "tipologia": "DISCIPLINAR OBLIGATORIA (C)",
+   "sin_programar": false,
+   "actividades": [
+    {
+     "actividad": "CLASE MAGISTRAL",
+     "grupos": [
+      {
+       "grupo": "1",
+       "profesor": "Pablo Enrique Rodriguez Espinosa",
+       "fecha_inicio": "24/08/2026",
+       "fecha_fin": "12/12/2026",
+       "sesiones": [
+        {
+         "dia": "MARTES",
+         "inicio": "09:00",
+         "fin": "11:00",
+         "lugar": "453-411 · Guillermina Uribe Bone"
+        },
+        {
+         "dia": "JUEVES",
+         "inicio": "09:00",
+         "fin": "11:00",
+         "lugar": "453-409 · Guillermina Uribe Bone"
+        }
+       ],
+       "duracion": "Semestral",
+       "jornada": "DIURNO",
+       "cupos_disponibles": 1
+      },
+      {
+       "grupo": "2",
+       "profesor": "Jhon Jairo Ramirez Echeverry",
+       "fecha_inicio": "24/08/2026",
+       "fecha_fin": "12/12/2026",
+       "sesiones": [
+        {
+         "dia": "LUNES",
+         "inicio": "07:00",
+         "fin": "09:00",
+         "lugar": "453-232 · Guillermina Uribe Bone"
+        },
+        {
+         "dia": "VIERNES",
+         "inicio": "07:00",
+         "fin": "09:00",
+         "lugar": "453-231 · Guillermina Uribe Bone"
+        }
+       ],
+       "duracion": "Semestral",
+       "jornada": "DIURNO",
+       "cupos_disponibles": 7
+      },
+      {
+       "grupo": "3",
+       "profesor": "Giovanny Aldemar Baquero Rozo",
+       "fecha_inicio": "24/08/2026",
+       "fecha_fin": "12/12/2026",
+       "sesiones": [
+        {
+         "dia": "LUNES",
+         "inicio": "09:00",
+         "fin": "11:00",
+         "lugar": "453-417 · Guillermina Uribe Bone"
+        },
+        {
+         "dia": "VIERNES",
+         "inicio": "09:00",
+         "fin": "11:00",
+         "lugar": "453-411 · Guillermina Uribe Bone"
+        }
+       ],
+       "duracion": "Semestral",
+       "jornada": "DIURNO",
+       "cupos_disponibles": 6
+      },
+      {
+       "grupo": "4",
+       "profesor": "Jesus Maria Quintero Quintero",
+       "fecha_inicio": "24/08/2026",
+       "fecha_fin": "12/12/2026",
+       "sesiones": [
+        {
+         "dia": "MARTES",
+         "inicio": "07:00",
+         "fin": "09:00",
+         "lugar": "401-305 · Julio Garavito Armero"
+        },
+        {
+         "dia": "JUEVES",
+         "inicio": "07:00",
+         "fin": "09:00",
+         "lugar": "401-305 · Julio Garavito Armero"
+        }
+       ],
+       "duracion": "Semestral",
+       "jornada": "DIURNO",
+       "cupos_disponibles": 3
+      },
+      {
+       "grupo": "5",
+       "profesor": "EDGAR DANIEL TORRES GARCIA",
+       "fecha_inicio": "27/08/2026",
+       "fecha_fin": "17/12/2026",
+       "sesiones": [
+        {
+         "dia": "MARTES",
+         "inicio": "09:00",
+         "fin": "11:00",
+         "lugar": "453-303 · Guillermina Uribe Bone"
+        },
+        {
+         "dia": "JUEVES",
+         "inicio": "09:00",
+         "fin": "11:00",
+         "lugar": "453-415 · Guillermina Uribe Bone"
+        }
+       ],
+       "duracion": "Semestral",
+       "jornada": "DIURNO",
+       "cupos_disponibles": 10
+      }
+     ]
+    },
+    {
+     "actividad": "CLASE LABORATORIO",
+     "grupos": []
+    }
+   ],
+   "prerrequisitos": [
+    {
+     "codigo": "2016489",
+     "nombre": "Circuitos Eléctricos I",
+     "tipo": "M",
+     "condicion": 1,
+     "todas": true,
+     "correquisito": false
+    }
+   ]
+  },
+  {
+   "codigo": "2016496",
+   "nombre": "Electrónica análoga II",
+   "creditos": 4,
+   "tipologia": "DISCIPLINAR OBLIGATORIA (C)",
+   "sin_programar": false,
+   "actividades": [
+    {
+     "actividad": "CLASE MAGISTRAL",
+     "grupos": [
+      {
+       "grupo": "1",
+       "profesor": "GLORIA MARGARITA VARON DURAN",
+       "fecha_inicio": "24/08/2026",
+       "fecha_fin": "12/12/2026",
+       "sesiones": [
+        {
+         "dia": "MIÉRCOLES",
+         "inicio": "09:00",
+         "fin": "11:00",
+         "lugar": "453-115 · Guillermina Uribe Bone"
+        },
+        {
+         "dia": "VIERNES",
+         "inicio": "09:00",
+         "fin": "11:00",
+         "lugar": "453-315 · Guillermina Uribe Bone"
+        }
+       ],
+       "duracion": "Semestral",
+       "jornada": "DIURNO",
+       "cupos_disponibles": 2
+      },
+      {
+       "grupo": "2",
+       "profesor": "GLORIA MARGARITA VARON DURAN",
+       "fecha_inicio": "24/08/2026",
+       "fecha_fin": "12/12/2026",
+       "sesiones": [
+        {
+         "dia": "MIÉRCOLES",
+         "inicio": "11:00",
+         "fin": "13:00",
+         "lugar": "453-411 · Guillermina Uribe Bone"
+        },
+        {
+         "dia": "VIERNES",
+         "inicio": "11:00",
+         "fin": "13:00",
+         "lugar": "453-409 · Guillermina Uribe Bone"
+        }
+       ],
+       "duracion": "Semestral",
+       "jornada": "DIURNO",
+       "cupos_disponibles": 0
+      }
+     ]
+    },
+    {
+     "actividad": "CLASE LABORATORIO",
+     "grupos": []
+    }
+   ],
+   "prerrequisitos": [
+    {
+     "codigo": "2016495",
+     "nombre": "Electrónica análoga I",
+     "tipo": "M",
+     "condicion": 1,
+     "todas": true,
+     "correquisito": false
+    },
+    {
+     "codigo": "2016490",
+     "nombre": "Circuitos Eléctricos II",
+     "tipo": "M",
+     "condicion": 2,
+     "todas": false,
+     "correquisito": false
+    },
+    {
+     "codigo": "2001603",
+     "nombre": "Circuitos electricos ii",
+     "tipo": "M",
+     "condicion": 2,
+     "todas": false,
+     "correquisito": false
+    }
+   ]
+  },
+  {
+   "codigo": "2016497",
+   "nombre": "Electrónica de potencia",
+   "creditos": 4,
+   "tipologia": "DISCIPLINAR OBLIGATORIA (C)",
+   "sin_programar": false,
+   "actividades": [
+    {
+     "actividad": "CLASE MAGISTRAL",
+     "grupos": [
+      {
+       "grupo": "1",
+       "profesor": "Johan Sebastian Sanchez Choachi",
+       "fecha_inicio": "24/08/2026",
+       "fecha_fin": "12/12/2026",
+       "sesiones": [
+        {
+         "dia": "LUNES",
+         "inicio": "14:00",
+         "fin": "16:00",
+         "lugar": "453-413 · Guillermina Uribe Bone"
+        },
+        {
+         "dia": "MIÉRCOLES",
+         "inicio": "14:00",
+         "fin": "16:00",
+         "lugar": "401-305 · Julio Garavito Armero"
+        }
+       ],
+       "duracion": "Semestral",
+       "jornada": "DIURNO",
+       "cupos_disponibles": 3
+      },
+      {
+       "grupo": "2",
+       "profesor": "RICARDO ISAZA RUGET",
+       "fecha_inicio": "24/08/2026",
+       "fecha_fin": "12/12/2026",
+       "sesiones": [
+        {
+         "dia": "MARTES",
+         "inicio": "09:00",
+         "fin": "11:00",
+         "lugar": "453-315 · Guillermina Uribe Bone"
+        },
+        {
+         "dia": "JUEVES",
+         "inicio": "09:00",
+         "fin": "11:00",
+         "lugar": "453-315 · Guillermina Uribe Bone"
+        }
+       ],
+       "duracion": "Semestral",
+       "jornada": "DIURNO",
+       "cupos_disponibles": 19
+      }
+     ]
+    },
+    {
+     "actividad": "CLASE LABORATORIO",
+     "grupos": []
+    }
+   ],
+   "prerrequisitos": [
+    {
+     "codigo": "2016495",
+     "nombre": "Electrónica análoga I",
+     "tipo": "M",
+     "condicion": 1,
+     "todas": true,
+     "correquisito": false
+    },
+    {
+     "codigo": "2016490",
+     "nombre": "Circuitos Eléctricos II",
+     "tipo": "M",
+     "condicion": 2,
+     "todas": false,
+     "correquisito": false
+    },
+    {
+     "codigo": "2001603",
+     "nombre": "Circuitos electricos ii",
+     "tipo": "M",
+     "condicion": 2,
+     "todas": false,
+     "correquisito": false
+    }
+   ]
+  },
+  {
+   "codigo": "2016498",
+   "nombre": "Electrónica digital I",
+   "creditos": 4,
+   "tipologia": "DISCIPLINAR OBLIGATORIA (C)",
+   "sin_programar": false,
+   "actividades": [
+    {
+     "actividad": "CLASE MAGISTRAL",
+     "grupos": [
+      {
+       "grupo": "1",
+       "profesor": "Andres Junior Gallego Garces",
+       "fecha_inicio": "24/08/2026",
+       "fecha_fin": "12/12/2026",
+       "sesiones": [
+        {
+         "dia": "MARTES",
+         "inicio": "09:00",
+         "fin": "11:00",
+         "lugar": "453-413 · Guillermina Uribe Bone"
+        },
+        {
+         "dia": "JUEVES",
+         "inicio": "09:00",
+         "fin": "11:00",
+         "lugar": "453-413 · Guillermina Uribe Bone"
+        }
+       ],
+       "duracion": "Semestral",
+       "jornada": "DIURNO",
+       "cupos_disponibles": 1
+      },
+      {
+       "grupo": "2",
+       "profesor": "Johan Sebastian Eslava Garzon",
+       "fecha_inicio": "24/08/2026",
+       "fecha_fin": "12/12/2026",
+       "sesiones": [
+        {
+         "dia": "LUNES",
+         "inicio": "07:00",
+         "fin": "09:00",
+         "lugar": "401-306 · Julio Garavito Armero"
+        },
+        {
+         "dia": "MIÉRCOLES",
+         "inicio": "07:00",
+         "fin": "09:00",
+         "lugar": "401-305 · Julio Garavito Armero"
+        }
+       ],
+       "duracion": "Semestral",
+       "jornada": "DIURNO",
+       "cupos_disponibles": 0
+      },
+      {
+       "grupo": "3",
+       "profesor": "Johan Sebastian Eslava Garzon",
+       "fecha_inicio": "24/08/2026",
+       "fecha_fin": "12/12/2026",
+       "sesiones": [
+        {
+         "dia": "LUNES",
+         "inicio": "09:00",
+         "fin": "11:00",
+         "lugar": "401-306 · Julio Garavito Armero"
+        },
+        {
+         "dia": "MIÉRCOLES",
+         "inicio": "09:00",
+         "fin": "11:00",
+         "lugar": "401-306 · Julio Garavito Armero"
+        }
+       ],
+       "duracion": "Semestral",
+       "jornada": "DIURNO",
+       "cupos_disponibles": 1
+      },
+      {
+       "grupo": "4",
+       "profesor": "Carlos Ivan Camargo Bareño",
+       "fecha_inicio": "24/08/2026",
+       "fecha_fin": "12/12/2026",
+       "sesiones": [
+        {
+         "dia": "MARTES",
+         "inicio": "07:00",
+         "fin": "09:00",
+         "lugar": "453-415 · Guillermina Uribe Bone"
+        },
+        {
+         "dia": "JUEVES",
+         "inicio": "07:00",
+         "fin": "09:00",
+         "lugar": "453-411 · Guillermina Uribe Bone"
+        }
+       ],
+       "duracion": "Semestral",
+       "jornada": "DIURNO",
+       "cupos_disponibles": 2
+      },
+      {
+       "grupo": "5",
+       "profesor": "JOHNNY GERMAN CUBIDES CASTRO",
+       "fecha_inicio": "24/08/2026",
+       "fecha_fin": "17/12/2026",
+       "sesiones": [
+        {
+         "dia": "MARTES",
+         "inicio": "18:00",
+         "fin": "20:00",
+         "lugar": "401-208 · Julio Garavito Armero"
+        },
+        {
+         "dia": "JUEVES",
+         "inicio": "18:00",
+         "fin": "20:00",
+         "lugar": "401-208 · Julio Garavito Armero"
+        }
+       ],
+       "duracion": "Semestral",
+       "jornada": "DIURNO",
+       "cupos_disponibles": 1
+      }
+     ]
+    },
+    {
+     "actividad": "CLASE LABORATORIO",
+     "grupos": []
+    }
+   ],
+   "prerrequisitos": [
+    {
+     "codigo": "2016495",
+     "nombre": "Electrónica análoga I",
+     "tipo": "M",
+     "condicion": 1,
+     "todas": true,
+     "correquisito": false
+    }
+   ]
+  },
+  {
+   "codigo": "2016499",
+   "nombre": "Electrónica digital II",
+   "creditos": 4,
+   "tipologia": "DISCIPLINAR OBLIGATORIA (C)",
+   "sin_programar": false,
+   "actividades": [
+    {
+     "actividad": "CLASE MAGISTRAL",
+     "grupos": [
+      {
+       "grupo": "1",
+       "profesor": "Carlos Ivan Camargo Bareño",
+       "fecha_inicio": "24/08/2026",
+       "fecha_fin": "12/12/2026",
+       "sesiones": [
+        {
+         "dia": "MARTES",
+         "inicio": "09:00",
+         "fin": "11:00",
+         "lugar": "454-205 · Luis Carlos Sarmiento Angulo"
+        },
+        {
+         "dia": "JUEVES",
+         "inicio": "09:00",
+         "fin": "11:00",
+         "lugar": "454-205 · Luis Carlos Sarmiento Angulo"
+        }
+       ],
+       "duracion": "Semestral",
+       "jornada": "DIURNO",
+       "cupos_disponibles": 4
+      },
+      {
+       "grupo": "2",
+       "profesor": "DIEGO ALEXANDER TIBADUIZA BURGOS",
+       "fecha_inicio": "24/08/2026",
+       "fecha_fin": "12/12/2026",
+       "sesiones": [
+        {
+         "dia": "MARTES",
+         "inicio": "11:00",
+         "fin": "13:00",
+         "lugar": "401-303 · Julio Garavito Armero"
+        },
+        {
+         "dia": "VIERNES",
+         "inicio": "11:00",
+         "fin": "13:00",
+         "lugar": "453-413 · Guillermina Uribe Bone"
+        }
+       ],
+       "duracion": "Semestral",
+       "jornada": "DIURNO",
+       "cupos_disponibles": 0
+      }
+     ]
+    },
+    {
+     "actividad": "CLASE LABORATORIO",
+     "grupos": []
+    }
+   ],
+   "prerrequisitos": [
+    {
+     "codigo": "2016498",
+     "nombre": "Electrónica digital I",
+     "tipo": "M",
+     "condicion": 1,
+     "todas": true,
+     "correquisito": false
+    }
+   ]
+  },
+  {
+   "codigo": "2016500",
+   "nombre": "Física de Semiconductores",
+   "creditos": 3,
+   "tipologia": "FUND. OBLIGATORIA (B)",
+   "sin_programar": false,
+   "actividades": [
+    {
+     "actividad": "CLASE TEORICA",
+     "grupos": [
+      {
+       "grupo": "1",
+       "profesor": "Clara Lilia Calderon Triana",
+       "fecha_inicio": "26/10/2026",
+       "fecha_fin": "12/12/2026",
+       "sesiones": [
+        {
+         "dia": "MARTES",
+         "inicio": "14:00",
+         "fin": "16:00",
+         "lugar": "453-111 · Guillermina Uribe Bone"
+        },
+        {
+         "dia": "JUEVES",
+         "inicio": "14:00",
+         "fin": "16:00",
+         "lugar": "453-111 · Guillermina Uribe Bone"
+        }
+       ],
+       "duracion": "Semestral",
+       "jornada": "DIURNO",
+       "cupos_disponibles": 5
+      },
+      {
+       "grupo": "2",
+       "profesor": "Carlos Mario Garzon Ospina",
+       "fecha_inicio": "26/10/2026",
+       "fecha_fin": "12/12/2026",
+       "sesiones": [
+        {
+         "dia": "MARTES",
+         "inicio": "14:00",
+         "fin": "16:00",
+         "lugar": "401-207 · Julio Garavito Armero"
+        },
+        {
+         "dia": "JUEVES",
+         "inicio": "14:00",
+         "fin": "16:00",
+         "lugar": "401-207 · Julio Garavito Armero"
+        }
+       ],
+       "duracion": "Semestral",
+       "jornada": "DIURNO",
+       "cupos_disponibles": 3
+      },
+      {
+       "grupo": "3",
+       "profesor": "Carlos Mario Garzon Ospina",
+       "fecha_inicio": "24/08/2026",
+       "fecha_fin": "17/12/2026",
+       "sesiones": [
+        {
+         "dia": "MARTES",
+         "inicio": "07:00",
+         "fin": "09:00",
+         "lugar": "404-204 · Yu Takeuchi"
+        },
+        {
+         "dia": "JUEVES",
+         "inicio": "07:00",
+         "fin": "09:00",
+         "lugar": "404-204 · Yu Takeuchi"
+        }
+       ],
+       "duracion": "Semestral",
+       "jornada": "DIURNO",
+       "cupos_disponibles": 3
+      }
+     ]
+    }
+   ],
+   "prerrequisitos": [
+    {
+     "codigo": "1000040-B",
+     "nombre": "Introducción a la ciencia de materiales",
+     "tipo": "M",
+     "condicion": 1,
+     "todas": false,
+     "correquisito": false
+    },
+    {
+     "codigo": "2000174",
+     "nombre": "Materiales para ingenieria",
+     "tipo": "M",
+     "condicion": 1,
+     "todas": false,
+     "correquisito": false
+    }
+   ]
+  },
+  {
+   "codigo": "2016501",
+   "nombre": "Instrumentación y medidas",
+   "creditos": 3,
+   "tipologia": "DISCIPLINAR OBLIGATORIA (C)",
+   "sin_programar": false,
+   "actividades": [],
+   "prerrequisitos": []
+  },
+  {
+   "codigo": "2016502",
+   "nombre": "Introducción a ingeniería electrónica",
+   "creditos": 5,
+   "tipologia": "DISCIPLINAR OBLIGATORIA (C)",
+   "sin_programar": false,
+   "actividades": [],
+   "prerrequisitos": []
+  },
+  {
+   "codigo": "2016503",
+   "nombre": "Líneas y antenas",
+   "creditos": 3,
+   "tipologia": "DISCIPLINAR OBLIGATORIA (C)",
+   "sin_programar": false,
+   "actividades": [],
+   "prerrequisitos": []
+  },
+  {
+   "codigo": "2016506",
+   "nombre": "Señales y sistemas I",
+   "creditos": 3,
+   "tipologia": "DISCIPLINAR OBLIGATORIA (C)",
+   "sin_programar": false,
+   "actividades": [],
+   "prerrequisitos": []
+  },
+  {
+   "codigo": "2016507",
+   "nombre": "Señales y Sistemas II",
+   "creditos": 3,
+   "tipologia": "DISCIPLINAR OBLIGATORIA (C)",
+   "sin_programar": false,
+   "actividades": [],
+   "prerrequisitos": []
+  },
+  {
+   "codigo": "2016508",
+   "nombre": "Sistemas embebidos",
+   "creditos": 3,
+   "tipologia": "DISCIPLINAR OPTATIVA (T)",
+   "sin_programar": false,
+   "actividades": [],
+   "prerrequisitos": []
+  },
+  {
+   "codigo": "2016509",
+   "nombre": "Taller de ingeniería electrónica",
+   "creditos": 2,
+   "tipologia": "DISCIPLINAR OBLIGATORIA (C)",
+   "sin_programar": false,
+   "actividades": [],
+   "prerrequisitos": []
+  },
+  {
+   "codigo": "2016512",
+   "nombre": "Verificación de sistemas digitales",
+   "creditos": 3,
+   "tipologia": "DISCIPLINAR OPTATIVA (T)",
+   "sin_programar": false,
+   "actividades": [],
+   "prerrequisitos": []
+  },
+  {
+   "codigo": "2016592",
+   "nombre": "Economía general",
+   "creditos": 3,
+   "tipologia": "FUND. OPTATIVA (O)",
+   "sin_programar": false,
+   "actividades": [],
+   "prerrequisitos": []
+  },
+  {
+   "codigo": "2016609",
+   "nombre": "Seguridad industrial",
+   "creditos": 3,
+   "tipologia": "FUND. OPTATIVA (O)",
+   "sin_programar": false,
+   "actividades": [],
+   "prerrequisitos": []
+  },
+  {
+   "codigo": "2016741",
+   "nombre": "Finanzas",
+   "creditos": 3,
+   "tipologia": "FUND. OPTATIVA (O)",
+   "sin_programar": false,
+   "actividades": [],
+   "prerrequisitos": [
+    {
+     "codigo": "2010263",
+     "nombre": "Fundamentos de economia",
+     "tipo": "M",
+     "condicion": 1,
+     "todas": false,
+     "correquisito": false
+    },
+    {
+     "codigo": "2015703",
+     "nombre": "Ingeniería económica",
+     "tipo": "M",
+     "condicion": 1,
+     "todas": false,
+     "correquisito": false
+    }
+   ]
+  },
+  {
+   "codigo": "2019125",
+   "nombre": "Redes de telecomunicaciones",
+   "creditos": 3,
+   "tipologia": "DISCIPLINAR OPTATIVA (T)",
+   "sin_programar": false,
+   "actividades": [],
+   "prerrequisitos": []
+  },
+  {
+   "codigo": "2021185",
+   "nombre": "Suficiencia por Acogimiento al Acuerdo 032",
+   "creditos": 12,
+   "tipologia": "NIVELACIÓN (E)",
+   "sin_programar": true,
+   "actividades": [],
+   "prerrequisitos": []
+  },
+  {
+   "codigo": "2022660",
+   "nombre": "Comprensión de textos en idioma extranjero",
+   "creditos": 12,
+   "tipologia": "NIVELACIÓN (E)",
+   "sin_programar": true,
+   "actividades": [],
+   "prerrequisitos": []
+  },
+  {
+   "codigo": "2023926",
+   "nombre": "Inglés III-Intensivo",
+   "creditos": 3,
+   "tipologia": "NIVELACIÓN (E)",
+   "sin_programar": true,
+   "actividades": [],
+   "prerrequisitos": []
+  },
+  {
+   "codigo": "2024045",
+   "nombre": "Taller de proyectos interdisciplinarios",
+   "creditos": 3,
+   "tipologia": "DISCIPLINAR OBLIGATORIA (C)",
+   "sin_programar": false,
+   "actividades": [],
+   "prerrequisitos": []
+  },
+  {
+   "codigo": "2024731",
+   "nombre": "Inglés intensivo I",
+   "creditos": 3,
+   "tipologia": "NIVELACIÓN (E)",
+   "sin_programar": true,
+   "actividades": [],
+   "prerrequisitos": []
+  },
+  {
+   "codigo": "2028211",
+   "nombre": "Circuitos integrados lineales y aplicaciones",
+   "creditos": 3,
+   "tipologia": "DISCIPLINAR OPTATIVA (T)",
+   "sin_programar": false,
+   "actividades": [
+    {
+     "actividad": "CLASE TEORICA PRACTICA",
+     "grupos": [
+      {
+       "grupo": "1",
+       "profesor": "Giovanny Aldemar Baquero Rozo",
+       "fecha_inicio": "24/08/2026",
+       "fecha_fin": "17/12/2026",
+       "sesiones": [
+        {
+         "dia": "LUNES",
+         "inicio": "07:00",
+         "fin": "09:00",
+         "lugar": "453-413 · Guillermina Uribe Bone"
+        },
+        {
+         "dia": "VIERNES",
+         "inicio": "07:00",
+         "fin": "09:00",
+         "lugar": "411-102A · Laboratorios de Eléctrica y Mecánica"
+        }
+       ],
+       "duracion": "Semestral",
+       "jornada": "DIURNO",
+       "cupos_disponibles": 0
+      },
+      {
+       "grupo": "2",
+       "profesor": "Giovanny Aldemar Baquero Rozo",
+       "fecha_inicio": "24/08/2026",
+       "fecha_fin": "17/12/2026",
+       "sesiones": [
+        {
+         "dia": "LUNES",
+         "inicio": "07:00",
+         "fin": "09:00",
+         "lugar": "453-413 · Guillermina Uribe Bone"
+        },
+        {
+         "dia": "MARTES",
+         "inicio": "07:00",
+         "fin": "09:00",
+         "lugar": "411-202A · Laboratorios de Eléctrica y Mecánica"
+        }
+       ],
+       "duracion": "Semestral",
+       "jornada": "DIURNO",
+       "cupos_disponibles": 1
+      }
+     ]
+    }
+   ],
+   "prerrequisitos": []
+  },
+  {
+   "codigo": "2028816",
+   "nombre": "Diseño de sistemas electrónicos",
+   "creditos": 3,
+   "tipologia": "DISCIPLINAR OBLIGATORIA (C)",
+   "sin_programar": false,
+   "actividades": [
+    {
+     "actividad": "FACULTAD DE INGENIERÍA CLASE TEORICA",
+     "grupos": [
+      {
+       "grupo": "1",
+       "profesor": "Óscar Julián Perdomo Charry",
+       "fecha_inicio": "24/08/2026",
+       "fecha_fin": "12/12/2026",
+       "sesiones": [
+        {
+         "dia": "MARTES",
+         "inicio": "09:00",
+         "fin": "11:00",
+         "lugar": "454-307 · Luis Carlos Sarmiento Angulo"
+        },
+        {
+         "dia": "JUEVES",
+         "inicio": "09:00",
+         "fin": "11:00",
+         "lugar": "454-307 · Luis Carlos Sarmiento Angulo"
+        }
+       ],
+       "duracion": "Semestral",
+       "jornada": "DIURNO",
+       "cupos_disponibles": 18
+      },
+      {
+       "grupo": "2",
+       "profesor": "Óscar Julián Perdomo Charry",
+       "fecha_inicio": "24/08/2026",
+       "fecha_fin": "12/12/2026",
+       "sesiones": [
+        {
+         "dia": "MARTES",
+         "inicio": "11:00",
+         "fin": "13:00",
+         "lugar": "401-202 · Julio Garavito Armero"
+        },
+        {
+         "dia": "JUEVES",
+         "inicio": "11:00",
+         "fin": "13:00",
+         "lugar": "401-202 · Julio Garavito Armero"
+        }
+       ],
+       "duracion": "Semestral",
+       "jornada": "DIURNO",
+       "cupos_disponibles": 3
+      }
+     ]
+    }
+   ],
+   "prerrequisitos": []
+  }
+ ]
+}

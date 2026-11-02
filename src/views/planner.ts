@@ -1,4 +1,5 @@
 import { planItems, planSuggestions, plannedCredits, unlockedByPlan, type PlanItem, type PlanSuggestion } from '../domain/planner'
+import { offerFor, offerSummary } from '../data/sia-offer'
 import { isFreeChoiceApproved } from '../app/selectors'
 import { commit, navigate, store } from '../app/store'
 import { escapeHtml } from '../ui/html'
@@ -16,7 +17,7 @@ function semesterLabel(semester: number | null) {
 }
 
 function suggestionRow({ subject, opens, semester }: PlanSuggestion) {
-  return `<li class="plan-row"><div><strong>${escapeHtml(subject.name)}</strong><small>${escapeHtml(subject.code)} · ${subject.credits} cr. · ${semesterLabel(semester)}${subject.sinProgramar ? ' · <span class="course-offer">sin programar 2026-2</span>' : ''}</small></div><span class="plan-opens" title="Materias a las que abre camino">${opens ? `Abre ${opens}` : 'Cierra ruta'}</span><button class="button button-quiet" type="button" data-plan-add="${escapeHtml(subject.id)}" aria-label="Agregar ${escapeHtml(subject.name)} al plan">Agregar</button></li>`
+  return `<li class="plan-row"><div><strong>${escapeHtml(subject.name)}</strong><small>${escapeHtml(subject.code)} · ${subject.credits} cr. · ${semesterLabel(semester)}</small><small class="plan-offer${offerFor(subject.code)?.unscheduled ? ' course-offer' : ''}">SIA: ${offerSummary(offerFor(subject.code))}</small></div><span class="plan-opens" title="Materias a las que abre camino">${opens ? `Abre ${opens}` : 'Cierra ruta'}</span><button class="button button-quiet" type="button" data-plan-add="${escapeHtml(subject.id)}" aria-label="Agregar ${escapeHtml(subject.name)} al plan">Agregar</button></li>`
 }
 
 function planRow(item: PlanItem) {
@@ -25,7 +26,7 @@ function planRow(item: PlanItem) {
     : item.state === 'blocked'
       ? '<span class="plan-flag warn">Requisitos pendientes</span>'
       : ''
-  return `<li class="plan-row${item.state === 'approved' ? ' is-done' : ''}"><div><strong>${escapeHtml(item.name)}</strong><small>${escapeHtml(item.code)} · ${item.credits} cr.${item.kind === 'free' ? ' · libre elección' : ''}${item.sinProgramar ? ' · <span class="course-offer">sin programar 2026-2</span>' : ''}</small>${note}</div><div class="plan-row-actions"><button class="text-button" type="button" data-plan-schedule="${escapeHtml(item.id)}"${item.state === 'approved' ? ' disabled' : ''}>Al horario</button><button class="choice-remove" type="button" data-plan-remove="${escapeHtml(item.id)}" aria-label="Quitar ${escapeHtml(item.name)} del plan">×</button></div></li>`
+  return `<li class="plan-row${item.state === 'approved' ? ' is-done' : ''}"><div><strong>${escapeHtml(item.name)}</strong><small>${escapeHtml(item.code)} · ${item.credits} cr.${item.kind === 'free' ? ' · libre elección' : ''}</small>${item.kind === 'plan' ? `<small class="plan-offer${offerFor(item.code)?.unscheduled ? ' course-offer' : ''}">SIA: ${offerSummary(offerFor(item.code))}</small>` : ''}${note}</div><div class="plan-row-actions"><button class="text-button" type="button" data-plan-schedule="${escapeHtml(item.id)}"${item.state === 'approved' ? ' disabled' : ''}>Al horario</button><button class="choice-remove" type="button" data-plan-remove="${escapeHtml(item.id)}" aria-label="Quitar ${escapeHtml(item.name)} del plan">×</button></div></li>`
 }
 
 export function renderPlanner() {
