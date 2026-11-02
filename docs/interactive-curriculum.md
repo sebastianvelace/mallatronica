@@ -50,6 +50,14 @@ The **Planear** destination lists courses that can be taken now: not approved an
 
 Planned courses (`state.plan`) can come from the suggestions, from a course detail on the map ("Agregar al plan") or from the local free-choice catalogue. The planner shows pending credits, flags planned courses that are already approved or whose requirements are no longer recorded, and lists the courses that would become available if the whole plan were approved. That simulation works on a copy and never changes recorded progress. The app does not know each student's credit allowance, so it asks to verify it in the SIA. Planned courses show an "En plan" label on the map and can be sent to the schedule.
 
+## Averages
+
+The calculator shows two estimates. The PA (Acuerdo 008 de 2008, Art. 41) uses the latest grade of each course. The PAPA (Art. 42) adds every earlier attempt of repeated courses, recorded in "Materias repetidas" as failing grades (0.0 to 2.9) of courses that already have a latest grade. Cancellations without a grade do not count. Both remain estimates; the map heading shows the PAPA with the PA.
+
+## Offline use and printing
+
+A production build registers a network-first service worker (`public/sw.js`): online visits always load the latest deployment, and the last version seen keeps working offline. The manifest makes the app installable. "Imprimir o guardar PDF" in the map footer prints the summary and the ten-semester map on one A4 landscape page in the light palette.
+
 ## Schedule
 
 Blocks can be edited in place; an edited block is never reported as conflicting with its own previous version. A conflict message names the overlapping course and time. Each course keeps one theme-aware color across all its blocks. The course picker groups plan and free-choice courses and hides approved ones, except the course being edited or preselected.

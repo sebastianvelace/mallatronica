@@ -213,3 +213,25 @@ details.preview-scroll { margin-block: 18px; }
 .course-offer { color: var(--amber); }
 .preview-offer { margin: 0 0 12px; color: var(--amber); font-size: 12px; }
 @media (max-width: 760px) { .profile-notice { margin-inline: 16px; flex-direction: column; align-items: stretch; } }
+
+/* Printing (or saving as PDF): the map fits one landscape page in the light palette. */
+@page { size: A4 landscape; margin: 8mm; }
+@media print {
+  :root, :root[data-theme='dark'] { --bg: #fff; --bg-elevated: #fff; --panel: #fff; --panel-soft: #f3f3f1; --line: #d6d8d3; --line-strong: #b9bdb5; --ink: #111311; --muted: #555a54; --muted-2: #777c75; --mint: #111311; --coral: #c8543d; --amber: #8a6800; --blue: #35729a; --lavender: #6d5b9d; background: #fff; color: #111311; }
+  body { background: #fff; print-color-adjust: exact; -webkit-print-color-adjust: exact; }
+  .workspace-header, .workspace-nav, .profile-notice, .credit-balance, .board-controls, .board-search-feedback, .board-bottom, .course-catalogue, #support-tracks, .curriculum-footer, .course-preview, .elective-picker, .requirement-toast, .curriculum-edges, .slot-change, .course-hint, .curriculum-heading details { display: none !important; }
+  .curriculum-heading, .curriculum-workspace { margin-inline: 0; }
+  .curriculum-heading { padding-block: 0 8px; }
+  .curriculum-heading h1 { font-size: 20px; }
+  .map-intro { margin: 0 0 6px; font-size: 9px; }
+  .map-intro > span:last-child { display: none; }
+  .curriculum-viewport { overflow: visible; padding: 0; }
+  .curriculum-grid { grid-template-columns: repeat(10, minmax(0, 1fr)); gap: 5px; min-width: 0; padding: 0; }
+  .curriculum-column { grid-template-rows: 24px repeat(5, auto); gap: 5px; }
+  .curriculum-column header { font-size: 7px; }
+  .curriculum-column header strong { font-size: 11px; }
+  .course-tile, .course-slot, .course-empty, .assigned-course { min-height: 0; height: auto; padding: 4px 5px; break-inside: avoid; box-shadow: none; transform: none; opacity: 1; }
+  .course-tile.is-filtered { opacity: 1; }
+  .course-meta, .course-foot, .course-slot small { font-size: 6px; }
+  .course-name, .course-slot span { font-size: 7.5px; line-height: 1.2; }
+}

@@ -25,7 +25,7 @@ export function renderMalla() {
     ${renderCreditBalance()}
     ${renderCurriculumBoard(boardOptions())}
     <details class="curriculum-support" id="support-tracks" data-panel="support"${store.openPanels.has('support') ? ' open' : ''}><summary>Nivelación y lengua extranjera <span>Configurar mi situación</span></summary>${renderSupportTracks()}</details>
-    <footer class="curriculum-footer"><span>Avance guardado en este navegador · datos del SIA consultados el ${formatIsoDate(curriculumMeta.consultedAt)} · oferta y requisitos finales en el SIA</span><div><button class="text-button" data-action="import">Importar avance</button><button class="text-button" data-view="info">Fuentes y alcance</button><button class="text-button" data-action="reset">Reiniciar</button></div></footer>
+    <footer class="curriculum-footer"><span>Avance guardado en este navegador · datos del SIA consultados el ${formatIsoDate(curriculumMeta.consultedAt)} · oferta y requisitos finales en el SIA</span><div><button class="text-button" data-action="print-map">Imprimir o guardar PDF</button><button class="text-button" data-action="import">Importar avance</button><button class="text-button" data-view="info">Fuentes y alcance</button><button class="text-button" data-action="reset">Reiniciar</button></div></footer>
   `
 }
 
@@ -167,6 +167,7 @@ export function bindMalla(root: HTMLElement) {
     support.scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth', block: 'start' })
     support.querySelector<HTMLSelectElement>('select[data-profile]')?.focus({ preventScroll: true })
   })
+  root.querySelector<HTMLElement>('[data-action="print-map"]')?.addEventListener('click', () => window.print())
   root.querySelectorAll<HTMLSelectElement>('[data-profile]').forEach((select) => select.addEventListener('change', () => {
     const key = select.dataset.profile as 'mathBasics' | 'literacy' | 'english'
     state[key] = select.value as RequirementStatus
