@@ -36,7 +36,24 @@ export default async function handler(request, response) {
         body,
       })
       const text = await post.text()
-      result.postback = { status: post.status, ms: Date.now() - postStarted, bytes: text.length, campusesListed: text.includes('SEDE BOGOT'), noop: text.includes('<noop/>') }
+      result.postback = { status: post.status, ms: Date.now() - postStarted, bytes: text.length, partial: text.includes('<partial-response'), noop: text.includes('<noop/>'), campusesListed: text.includes('SEDE BOGOT') }
+      // Second step on the same session: choosing the campus must list its faculties.
+      const nextState = text.match(/<update id="javax.faces.ViewState"><!\[CDATA\[([^\]]+)\]\]>/)?.[1] ?? viewState
+      const campus = text.match(/<option[^>]*value="(\d+)"[^>]*>1101 SEDE BOGOT/)?.[1] ?? '2'
+      body.set('javax.faces.ViewState', nextState ?? '')
+      body.set('pt1:r1:0:soc9', campus)
+      body.set('event', 'pt1:r1:0:soc9')
+      body.delete('event.pt1:r1:0:soc1')
+      body.set('event.pt1:r1:0:soc9', body.get('event.pt1:r1:0:soc9') ?? '<m xmlns="http://oracle.com/richClient/comm"><k v="autoSubmit"><b>1</b></k><k v="suppressMessageShow"><s>true</s></k><k v="type"><s>valueChange</s></k></m>')
+      body.set('oracle.adf.view.rich.PROCESS', 'pt1:r1:0:soc9')
+      await new Promise(resolve => setTimeout(resolve, 1500))
+      const second = await fetch(new URL(action, 'https://sia.unal.edu.co'), {
+        method: 'POST',
+        headers: { 'User-Agent': USER_AGENT, 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8', 'Adf-Rich-Message': 'true', Cookie: cookies },
+        body,
+      })
+      const secondText = await second.text()
+      result.secondStep = { status: second.status, bytes: secondText.length, partial: secondText.includes('<partial-response'), facultiesListed: secondText.includes('FACULTAD DE INGENIER') }
     } else {
       result.get.sample = html.slice(0, 200)
     }
