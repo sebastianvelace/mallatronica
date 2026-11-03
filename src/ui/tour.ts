@@ -39,6 +39,12 @@ export const tourSteps: TourStep[] = [
     view: 'malla',
   },
   {
+    targets: ['[data-action="customize"]'],
+    title: 'Hazla tuya',
+    body: 'Cambia el fondo, la textura, el estilo de las tarjetas, los colores y la tipografía de tu malla, o prueba uno de los estilos listos.',
+    view: 'malla',
+  },
+  {
     targets: ['.workspace-nav [data-view="plan"]'],
     title: 'Planea el próximo semestre',
     body: 'Te muestra lo que tus requisitos permiten inscribir y qué materias se habilitan si apruebas tu plan.',

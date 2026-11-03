@@ -1,5 +1,7 @@
 import './style.css'
 import './ui/tour.css'
+import './ui/customizer.css'
+import { initLook, openCustomizer } from './ui/customizer'
 import { startTour } from './ui/tour'
 import { loadOffer } from './data/sia-offer'
 import { emptyState, isProgressFile, parseState } from './domain/state'
@@ -50,7 +52,7 @@ function render() {
             ${navItem('info', icon('info'), 'Ayuda', 'Fuentes y ayuda')}
           </nav>
           <div class="workspace-actions">
-            <a class="github-link" href="https://github.com/sebastianvelace/mallatronica" target="_blank" rel="noopener noreferrer" aria-label="Ver el código y contribuir en GitHub (abre otra pestaña)">GitHub ${icon('arrow')}</a>
+            <a class="github-link" href="https://github.com/sebastianvelace/mallatronica" target="_blank" rel="noopener noreferrer" aria-label="Ver el código y contribuir en GitHub (abre otra pestaña)">${icon('github')}<span>GitHub</span></a>
             <button data-action="theme" aria-label="Cambiar tema" title="Cambiar tema">${icon('sun')}</button>
             <button data-action="export" aria-label="Exportar avance" title="Exportar avance">${icon('download')}<span>Exportar</span></button>
           </div>
@@ -71,6 +73,7 @@ function render() {
 /** Controls shared by every view: navigation, theme, disclosures, export/import and reset. */
 function bindShell() {
   app.querySelectorAll<HTMLElement>('[data-view]').forEach((element) => element.addEventListener('click', () => navigate(element.dataset.view as View)))
+  app.querySelectorAll<HTMLElement>('[data-action="customize"]').forEach((element) => element.addEventListener('click', () => openCustomizer()))
   app.querySelectorAll<HTMLElement>('[data-action="tour"]').forEach((element) => element.addEventListener('click', () => startTour()))
   app.querySelector<HTMLElement>('[data-action="theme"]')?.addEventListener('click', () => {
     store.state.theme = store.state.theme === 'dark' ? 'light' : 'dark'
@@ -123,6 +126,7 @@ function importState(event: Event) {
   reader.readAsText(file)
 }
 
+initLook()
 setRenderer(render)
 render()
 // Deep links such as /app#horario, including back/forward and edited URLs.

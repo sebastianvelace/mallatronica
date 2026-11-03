@@ -44,6 +44,13 @@ h3 { font-size: 17px; line-height: 1.3; letter-spacing: -.01em; }
 .header-nav a { color: var(--muted); font-size: 15px; text-decoration: none; transition: color .2s; }
 .header-nav a:hover { color: var(--ink); }
 
+.header-actions { display: flex; align-items: center; gap: 10px; }
+.header-github { display: inline-flex; align-items: center; gap: 8px; min-height: 40px; padding: 0 12px; border-radius: 10px; color: var(--ink); font-size: 14px; font-weight: 500; text-decoration: none; transition: background .2s; }
+.header-github:hover { background: var(--paper-2); }
+.gh-icon { width: 20px; height: 20px; fill: currentColor; flex: none; }
+.footer-github { display: inline-flex; align-items: center; gap: 8px; }
+.footer-github .gh-icon { width: 17px; height: 17px; }
+
 /* Buttons and links */
 .btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; padding: 14px 26px; border: 1px solid transparent; border-radius: 12px; font: 500 15px/1 var(--body); text-decoration: none; cursor: pointer; transition: transform .2s, background .2s, border-color .2s, color .2s; }
 .btn span { transition: transform .2s; }
@@ -181,6 +188,8 @@ h3 { font-size: 17px; line-height: 1.3; letter-spacing: -.01em; }
   .footer-grid > :first-child { grid-column: 1 / -1; }
 }
 @media (max-width: 600px) {
+  .header-github span { display: none; }
+  .header-github { padding: 0 8px; }
   .num-grid, .stats { grid-template-columns: 1fr; }
   .tabs { flex-wrap: nowrap; justify-content: flex-start; overflow-x: auto; margin-inline: -16px; padding-inline: 16px; scrollbar-width: none; }
   .tabs [role='tab'] { flex: none; }

@@ -12,7 +12,7 @@
 .workspace-nav-item:hover { color: var(--ink); background: var(--panel-soft); }
 .workspace-actions { display: flex; gap: 6px; }
 .github-link { display: inline-flex; align-items: center; justify-content: center; gap: 6px; min-height: 44px; padding: 8px 10px; border-radius: 8px; color: var(--ink); font-size: 13px; text-decoration: none; white-space: nowrap; }
-.github-link svg { width: 16px; height: 16px; transform: rotate(-45deg); }
+.github-link svg { width: 18px; height: 18px; fill: currentColor; stroke: none; }
 .github-link:hover { background: var(--panel-soft); }
 .github-link:focus-visible { outline: 2px solid currentColor; outline-offset: 3px; }
 .workspace-actions button { display: inline-flex; align-items: center; justify-content: center; gap: 7px; min-width: 40px; min-height: 40px; padding: 8px; border: 0; border-radius: 8px; color: var(--muted); background: transparent; font-size: 12px; }
@@ -94,6 +94,7 @@ details.preview-scroll { margin-block: 18px; }
 .curriculum-progress small { color: var(--muted); font-size: 12px; }
 .board-controls { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 14px; padding-block: 14px; border-block: 1px solid var(--line); }
 .board-tabs { display: flex; gap: 4px; }
+.board-actions { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
 .board-tabs button { border: 0; background: transparent; color: var(--muted); padding: 10px 14px; border-radius: 8px; font-size: 13px; min-height: 42px; }
 .board-tabs button.is-active { background: var(--ink); color: var(--bg-elevated); }
 .board-tabs button span { margin-left: 6px; opacity: .7; font-size: 11px; }

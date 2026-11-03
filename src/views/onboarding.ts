@@ -3,7 +3,7 @@ import { referenceSemesters } from '../data/reference-layout'
 import type { RequirementStatus } from '../domain/progress'
 import { commit, store } from '../app/store'
 import { icon } from '../ui/icons'
-import { startTour } from '../ui/tour'
+import { startTour, tourSteps } from '../ui/tour'
 
 let step = 0
 let semester = 1
@@ -40,7 +40,7 @@ function stepWelcome() {
 
 function stepDone() {
   const count = coursesBefore(semester).length
-  return `<p class="onboarding-lede">${count ? `Marcamos ${count} materias como aprobadas.` : 'Empiezas con la malla en blanco.'} Ahora te mostramos en 10 pasos cortos dónde está cada cosa.</p><div class="onboarding-tour-preview" aria-hidden="true"><span></span><span></span><span></span><i></i></div><p class="muted">Puedes repetir el recorrido cuando quieras desde Ayuda.</p>`
+  return `<p class="onboarding-lede">${count ? `Marcamos ${count} materias como aprobadas.` : 'Empiezas con la malla en blanco.'} Ahora te mostramos en ${tourSteps.length} pasos cortos dónde está cada cosa.</p><div class="onboarding-tour-preview" aria-hidden="true"><span></span><span></span><span></span><i></i></div><p class="muted">Puedes repetir el recorrido cuando quieras desde Ayuda.</p>`
 }
 
 const steps = [
