@@ -1,6 +1,6 @@
 import { courseCodeKey } from './curriculum'
 
-/** Snapshot of the public SIA course search, produced by scripts/sia/snapshot.py. */
+/** Snapshot of the public SIA course search, produced by src/sia/job.ts (Vercel Cron or npm run sia:snapshot). */
 type SiaSession = { dia: string; inicio: string; fin: string; lugar: string }
 type SiaGroup = {
   grupo: string
@@ -65,24 +65,47 @@ function toOffer(course: SiaCourse): CourseOffer {
   }
 }
 
-export type OfferMeta = { consultedAt: string; term: string | null }
+/** `live` comes from the cron-refreshed copy (/api/sia/offer); `bundled` is the copy shipped with the build. */
+export type OfferMeta = { consultedAt: string; term: string | null; source: 'live' | 'bundled' }
 
 let offers: Map<string, CourseOffer> | null = null
 let meta: OfferMeta | null = null
 let loading: Promise<void> | null = null
 
+function isSnapshot(value: unknown): value is Snapshot {
+  const data = value as Snapshot
+  return !!data && typeof data.fuente?.consultado === 'string' && Array.isArray(data.asignaturas) && data.asignaturas.length > 0
+    && data.asignaturas.every(course => typeof course.codigo === 'string' && typeof course.nombre === 'string')
+}
+
+async function fetchLive(timeoutMs = 5000): Promise<Snapshot | null> {
+  try {
+    const controller = new AbortController()
+    const timer = setTimeout(() => controller.abort(), timeoutMs)
+    const response = await fetch('/api/sia/offer', { signal: controller.signal })
+    clearTimeout(timer)
+    if (!response.ok) return null
+    const data: unknown = await response.json()
+    return isSnapshot(data) ? data : null
+  } catch {
+    return null
+  }
+}
+
 /**
- * The snapshot is a separate chunk (most of the data size), fetched after the
- * first render; until then the offer reads as "loading".
+ * Loads the offer after the first render: the copy the Vercel cron keeps
+ * refreshed from the SIA, or, if it is unavailable or invalid, the copy
+ * bundled with the build (a separate chunk). Until then the offer reads as loading.
  */
 export function loadOffer() {
-  loading ??= import('../../data/sia/snapshots/latest.json').then(({ default: snapshot }) => {
-    const data = snapshot as Snapshot
+  loading ??= (async () => {
+    const live = await fetchLive()
+    const data = live ?? (await import('../../data/sia/snapshots/latest.json')).default as Snapshot
     offers = new Map(data.asignaturas.map((course) => [courseCodeKey(course.codigo), toOffer(course)]))
     const date = data.asignaturas.flatMap((course) => course.actividades ?? []).flatMap((activity) => activity.grupos)[0]?.fecha_inicio
     const match = date?.match(/^\d{2}\/(\d{2})\/(\d{4})$/)
-    meta = { consultedAt: data.fuente.consultado, term: match ? `${match[2]}-${Number(match[1]) >= 7 ? 2 : 1}` : null }
-  })
+    meta = { consultedAt: data.fuente.consultado, term: match ? `${match[2]}-${Number(match[1]) >= 7 ? 2 : 1}` : null, source: live ? 'live' : 'bundled' }
+  })()
   return loading
 }
 

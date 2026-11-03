@@ -35,11 +35,11 @@ Matemáticas Básicas y Lectoescritura. Inglés acreditado como AP/RE no se pond
 El PAPA estimado suma los intentos anteriores que registres; no reemplaza el PAPA oficial.
 Consulta [las limitaciones](docs/sia-v2-integration.md) y las fuentes en `data/sia/`.
 
-Las materias, prerrequisitos y la oferta del periodo (grupos, horarios y cupos)
-provienen del buscador público de cursos del SIA mediante
-`scripts/sia/snapshot.py` (`npm run sia:snapshot`). Una tarea semanal propone la
-actualización como pull request; el SIA bloquea los runners de GitHub, así que el
-workflow incluido requiere un runner propio. Ver [ADR-002](docs/ADR-002-sia-snapshots.md).
+La oferta del periodo (grupos, horarios y cupos) se actualiza sola: una función
+programada en Vercel consulta el buscador público de cursos del SIA cada día,
+valida el resultado y lo publica; la app lo lee al abrirse y, si no está
+disponible, usa la copia incluida. `npm run sia:snapshot` regenera esa copia y el
+plan. Ver [ADR-002](docs/ADR-002-sia-snapshots.md).
 
 ## Contribuir
 

@@ -60,7 +60,7 @@ function renderOfferPanel(subjectId: string | null) {
   const subject = subjects.find((item) => item.id === subjectId)
   const offer = subject ? offerFor(subject.code) : undefined
   const info = offerMeta()
-  const source = info ? `Buscador de cursos del SIA${info.term ? ` · periodo ${info.term}` : ''} · consultado el ${formatIsoDate(info.consultedAt.slice(0, 10))}` : 'Buscador de cursos del SIA'
+  const source = info ? `Buscador de cursos del SIA${info.term ? ` · periodo ${info.term}` : ''} · consultado el ${formatIsoDate(info.consultedAt.slice(0, 10))} · ${info.source === 'live' ? 'actualización automática' : 'copia incluida en la app'}` : 'Buscador de cursos del SIA'
   const body = !offerLoaded()
     ? '<p>Cargando la oferta del SIA…</p>'
     : !subject
