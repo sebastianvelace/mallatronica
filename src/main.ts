@@ -1,4 +1,6 @@
 import './style.css'
+import './ui/tour.css'
+import { startTour } from './ui/tour'
 import { loadOffer } from './data/sia-offer'
 import { emptyState, isProgressFile, parseState } from './domain/state'
 import { commit, navigate, setRenderer, store, viewFromHash, type View } from './app/store'
@@ -69,6 +71,7 @@ function render() {
 /** Controls shared by every view: navigation, theme, disclosures, export/import and reset. */
 function bindShell() {
   app.querySelectorAll<HTMLElement>('[data-view]').forEach((element) => element.addEventListener('click', () => navigate(element.dataset.view as View)))
+  app.querySelectorAll<HTMLElement>('[data-action="tour"]').forEach((element) => element.addEventListener('click', () => startTour()))
   app.querySelector<HTMLElement>('[data-action="theme"]')?.addEventListener('click', () => {
     store.state.theme = store.state.theme === 'dark' ? 'light' : 'dark'
     commit()
