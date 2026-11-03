@@ -26,12 +26,13 @@ Análisis técnico (2 de noviembre de 2026):
    - `job.ts` divide el trabajo en pasos reanudables.
 
    Se identifica con un User-Agent propio y espera 1,2 s entre peticiones (unas 280 por plan). Busca una tipología a la vez, porque la tabla de resultados solo activa sus primeras 25 filas en el servidor, y abre cada detalle por código.
-2. **Vercel Cron diario** (`/api/sia/cron`, protegido con `CRON_SECRET`). Inicia un trabajo; cada paso dura unos 45 s, guarda su progreso y encadena el siguiente con `waitUntil`, hasta terminar. Una prueba del 3 de noviembre de 2026 confirmó que el SIA responde a las funciones de Vercel (IPs de AWS en `iad1`), incluso en postbacks sucesivos de la misma sesión.
+2. **Vercel Cron diario** (`/api/sia/cron`, protegido con `CRON_SECRET`). Inicia un trabajo; cada paso trabaja hasta 240 s (el máximo de Hobby es 300 s) y le pasa su progreso al siguiente en el cuerpo de un POST encadenado con `waitUntil`, sin usar almacenamiento intermedio. Un plan completo toma unos 2 pasos; hay topes de 20 pasos y 4 errores. Una prueba del 3 de noviembre de 2026 confirmó que el SIA responde a las funciones de Vercel (IPs de AWS en `iad1`), incluso en postbacks sucesivos de la misma sesión.
 3. **Vercel Blob.**
-   - Guarda el progreso y las versiones publicadas con nombres únicos, leídos por la API de listado (consistente), así que no se lee una copia vieja de la CDN.
+   - Solo dos archivos con nombre fijo, sobrescritos al final de cada corrida: `offer.json` (el snapshot publicado) y `status.json` (resultado de la corrida). Son unas 2 operaciones avanzadas al día (~60 al mes, frente a 2.000 incluidas en Hobby); las lecturas usan `head()`, que es una operación simple, y quedan cacheadas en el borde.
+   - Si se superara el límite de Hobby, Vercel no cobra pero bloquea Blob 30 días; la app seguiría con la copia incluida.
    - Producción y previews usan prefijos distintos.
    - Solo un snapshot completo que pase `validateSnapshot` (materias mínimas, ≥90 % con detalle, sesiones y cupos bien formados) reemplaza al publicado. Si no pasa, sigue el último válido.
-4. **Endpoints.** `/api/sia/offer` sirve el último snapshot publicado, cacheado en el borde. `/api/sia/status` muestra el último paso, la última publicación y el último error.
+4. **Endpoints.** `/api/sia/offer` sirve el último snapshot publicado, cacheado en el borde. `/api/sia/status` muestra el resultado de la última corrida: si publicó, sus problemas y su progreso.
 5. **App.** Al abrirse lee `/api/sia/offer` y valida su forma. Si falla (desarrollo local, sin publicación todavía, red caída), usa la copia incluida en el build. La interfaz indica cuál fuente usa, su fecha y avisa si tiene más de 14 días.
 6. **Copia incluida y plan.** `npm run sia:snapshot` corre el mismo trabajo de una vez y regenera la copia incluida y `data/sia/plan2545.json`. Las materias, créditos y prerrequisitos cambian rara vez y siguen pasando por pull request, con `tests/sia.test.cjs` exigiendo coherencia con el snapshot.
 

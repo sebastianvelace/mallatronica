@@ -5,7 +5,7 @@
   "outputDirectory": "dist",
   "installCommand": "npm ci",
   "functions": {
-    "api/sia/cron.ts": { "maxDuration": 60 }
+    "api/sia/cron.ts": { "maxDuration": 300 }
   },
   "crons": [
     { "path": "/api/sia/cron", "schedule": "17 11 * * *" }
