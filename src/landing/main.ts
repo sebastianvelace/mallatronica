@@ -40,6 +40,21 @@ document.querySelectorAll('[data-app-link]').forEach((link) => {
   link.addEventListener('focus', prefetchApp, { once: true })
 })
 
+/*
+ * Browsers with cross-document view transitions animate the jump to the app in CSS.
+ * Elsewhere, drop a curtain first and let the app lift it.
+ */
+const crossDocumentTransitions = 'onpagereveal' in window && CSS.supports?.('view-transition-name: none')
+document.querySelectorAll<HTMLAnchorElement>('[data-app-link]').forEach((link) => link.addEventListener('click', (event) => {
+  if (crossDocumentTransitions || reducedMotion || event.defaultPrevented || event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return
+  event.preventDefault()
+  try { sessionStorage.setItem('mt-curtain', '1') } catch { /* the curtain is only cosmetic */ }
+  document.documentElement.classList.add('mt-leaving')
+  setTimeout(() => { location.href = link.href }, 420)
+}))
+// Coming back from the app (back button, bfcache) must not show the curtain.
+addEventListener('pageshow', () => document.documentElement.classList.remove('mt-leaving'))
+
 /* Live SIA status: hidden unless the last refresh published. */
 fetch('/api/sia/status', { signal: AbortSignal.timeout(5000) })
   .then((response) => (response.ok ? response.json() as Promise<SiaStatus> : null))

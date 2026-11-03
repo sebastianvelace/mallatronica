@@ -166,7 +166,7 @@ export function lookCss(value: Look) {
   rules.push(`${scope} .course-tile[data-status='aprobada'] { background: color-mix(in srgb, var(--map-approved) 9%, var(--panel)); }`)
   if (background.type !== 'none') {
     const layers = [...textureImage(texture, Boolean(dark)), ...backgroundLayers(background)]
-    rules.push(`${scope} .curriculum-grid { background-image: ${layers.map((layer) => layer.image).join(', ')}; background-size: ${layers.map((layer) => layer.size).join(', ')}; border-radius: 18px; padding: 18px 16px; }`)
+    rules.push(`${scope} .curriculum-grid { background-image: ${layers.map((layer) => layer.image).join(', ')}; background-size: ${layers.map((layer) => layer.size).join(', ')}; border-radius: 18px; padding: 18px 16px; box-sizing: content-box; }`)
     if (dark) rules.push(`${scope} .curriculum-column > header { color: #f5f5f5; border-bottom-color: rgba(255,255,255,.18); } ${scope} .curriculum-column > header > span { color: rgba(255,255,255,.7); } ${scope} .course-slot { color: rgba(255,255,255,.78); border-color: rgba(255,255,255,.3); } ${scope} .course-slot small { color: rgba(255,255,255,.6); }`)
   }
   rules.push(`${scope} .course-tile, ${scope} .course-slot { border-radius: ${cards.radius}px; }`)

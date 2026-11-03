@@ -18,7 +18,25 @@
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
     <meta name="twitter:card" content="summary_large_image" />
-    <style>@view-transition { navigation: auto; }</style>
+    <style>
+      /* Landing ↔ app: the old page recedes, the new one rises like a curtain; the logo travels between them. */
+      @view-transition { navigation: auto; }
+      @media (prefers-reduced-motion: no-preference) {
+        ::view-transition-group(root) { animation-duration: .8s; }
+        ::view-transition-old(root) { animation: mt-vt-out .8s cubic-bezier(.65,0,.25,1) both; }
+        ::view-transition-new(root) { animation: mt-vt-in .8s cubic-bezier(.65,0,.25,1) both; }
+        ::view-transition-group(brand) { animation-duration: .8s; animation-timing-function: cubic-bezier(.65,0,.25,1); z-index: 2; }
+        @keyframes mt-vt-out { to { transform: scale(.9); opacity: .25; filter: blur(6px); border-radius: 28px; } }
+        @keyframes mt-vt-in { from { clip-path: inset(100% 0 0 0 round 32px 32px 0 0); transform: translateY(12%); } 60% { clip-path: inset(0 0 0 0 round 32px 32px 0 0); } to { clip-path: inset(0 0 0 0 round 0); transform: none; } }
+      }
+      /* Fallback where cross-document view transitions are not supported: a curtain. */
+      html.mt-leaving::after, html.mt-arriving::after { content: ''; position: fixed; inset: 0; z-index: 2147483647; background: #0a0a0a; pointer-events: none; }
+      html.mt-leaving::after { animation: mt-curtain-up .42s cubic-bezier(.65,0,.25,1) both; }
+      html.mt-leaving main, html.mt-leaving .site-header { transition: opacity .38s ease, transform .42s cubic-bezier(.65,0,.25,1); opacity: .25; transform: scale(.96); }
+      html.mt-arriving::after { animation: mt-curtain-out .7s cubic-bezier(.65,0,.25,1) .05s both; }
+      @keyframes mt-curtain-up { from { transform: translateY(100%); } to { transform: none; } }
+      @keyframes mt-curtain-out { from { transform: none; } to { transform: translateY(-100%); } }
+    </style>
   </head>
   <body>
     <a class="skip-link" href="#contenido">Saltar al contenido</a>

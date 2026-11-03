@@ -39,7 +39,8 @@ h3 { font-size: 17px; line-height: 1.3; letter-spacing: -.01em; }
 .site-header { position: fixed; inset: 0 0 auto; z-index: 50; transition: background .25s, box-shadow .25s, backdrop-filter .25s; }
 .site-header.scrolled { background: rgba(255, 255, 255, .82); backdrop-filter: saturate(180%) blur(14px); -webkit-backdrop-filter: saturate(180%) blur(14px); box-shadow: 0 1px 0 var(--line); }
 .header-inner { display: flex; align-items: center; justify-content: space-between; gap: 24px; height: 72px; }
-.logo { font: 700 23px/1 var(--display); letter-spacing: -.04em; text-decoration: none; view-transition-name: brand; }
+.logo { font: 700 23px/1 var(--display); letter-spacing: -.04em; text-decoration: none; }
+.site-header .logo { view-transition-name: brand; }
 .header-nav { display: flex; gap: 32px; }
 .header-nav a { color: var(--muted); font-size: 15px; text-decoration: none; transition: color .2s; }
 .header-nav a:hover { color: var(--ink); }
