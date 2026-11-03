@@ -37,6 +37,8 @@ export type State = {
   attempts: Attempts
   /** Elective groupings the student confirmed from their own SIA (subject id -> grouping id). */
   groupings: Record<string, string>
+  /** First-run guide completed or skipped. */
+  onboarded: boolean
 }
 
 export const SCHEMA_VERSION = 7
@@ -61,6 +63,7 @@ export function emptyState(theme: Theme = 'light'): State {
     plan: [],
     attempts: {},
     groupings: {},
+    onboarded: false,
   }
 }
 
@@ -150,7 +153,12 @@ export function parseState(value: unknown, fallbackTheme: Theme = 'light'): Stat
     plan: readPlan(raw.plan, freeChoice),
     attempts: readAttempts(raw.attempts, freeChoice),
     groupings: readGroupingChoices(raw.groupings),
+    onboarded: false,
   }
+  // People who already recorded something do not need the first-run guide.
+  state.onboarded = raw.onboarded === true
+    || Object.keys(state.subjects).length > 0 || Object.keys(state.notes).length > 0 || state.schedule.length > 0
+    || [state.mathBasics, state.literacy, state.english].some(value => value !== 'sin-definir')
   // A grade decides the result; a stale manual mark would contradict it.
   for (const id of Object.keys(state.notes)) delete state.subjects[id]
   for (const id of Object.keys(state.freeChoiceNotes)) delete state.freeChoiceStatus[id]

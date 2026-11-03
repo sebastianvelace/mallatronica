@@ -9,6 +9,7 @@ import { bindGradeInputs } from './views/grade-inputs'
 import { bindCalculator, renderCalculator } from './views/calculator'
 import { renderInfo } from './views/info'
 import { bindMalla, renderMalla } from './views/malla'
+import { bindOnboarding, renderOnboarding } from './views/onboarding'
 import { bindPlanner, renderPlanner } from './views/planner'
 import { bindSchedule, renderSchedule } from './views/schedule'
 
@@ -57,10 +58,12 @@ function render() {
     </div>
     <input type="file" id="import-file" accept="application/json" hidden />
     <input type="file" id="catalog-file" accept="application/json" hidden />
+    ${renderOnboarding()}
   `
   bindShell()
   bindGradeInputs(app)
   disposeView = view.bind?.(app) ?? (() => {})
+  bindOnboarding(app)
 }
 
 /** Controls shared by every view: navigation, theme, disclosures, export/import and reset. */

@@ -4,7 +4,8 @@ Malla interactiva para Ingeniería Electrónica de la Universidad Nacional de
 Colombia, Bogotá (plan 2545). Proyecto independiente, no oficial.
 
 Permite explorar prerrequisitos, registrar avances y notas (PA y PAPA estimados),
-planear el próximo semestre, ubicar optativas y armar horarios. Después de la
+planear el próximo semestre con sugerencias, armar horarios sin choques con los
+grupos reales del SIA y ubicar optativas por agrupación. Después de la
 primera visita funciona sin conexión. El progreso se guarda en el navegador; exporta una copia
 antes de borrar sus datos. No pide credenciales del SIA ni sincroniza con él.
 
