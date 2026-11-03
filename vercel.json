@@ -3,5 +3,11 @@
   "framework": "vite",
   "buildCommand": "npm run build",
   "outputDirectory": "dist",
-  "installCommand": "npm ci"
+  "installCommand": "npm ci",
+  "functions": {
+    "api/sia/cron.ts": { "maxDuration": 300 }
+  },
+  "crons": [
+    { "path": "/api/sia/cron", "schedule": "17 11 * * *" }
+  ]
 }
