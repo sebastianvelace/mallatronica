@@ -10,4 +10,9 @@ académica con sus atribuciones. Su disponibilidad pública no significa que
 estén licenciados bajo MIT. Consulta los enlaces y referencias de
 `data/sia/v2/fuentes_contradicciones.md` antes de reutilizarlos.
 
+Las tipografías Space Grotesk (Florian Karsten) e Inter (Rasmus Andersson) se
+distribuyen bajo la SIL Open Font License 1.1 mediante los paquetes
+`@fontsource/space-grotesk` y `@fontsource/inter`, que incluyen el texto de la
+licencia.
+
 Este proyecto es independiente y no representa un servicio oficial de la UNAL.

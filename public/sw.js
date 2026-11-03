@@ -1,7 +1,7 @@
 // Network first, cache as fallback: online visits always get the latest
 // deployment, and the last version seen keeps working offline.
-const CACHE = 'mallatronica-v1'
-const SHELL = ['/', '/manifest.webmanifest', '/icon.svg']
+const CACHE = 'mallatronica-v2'
+const SHELL = ['/', '/app', '/manifest.webmanifest', '/icon.svg']
 
 self.addEventListener('install', (event) => {
   event.waitUntil(caches.open(CACHE).then((cache) => cache.addAll(SHELL)).then(() => self.skipWaiting()))
@@ -15,7 +15,8 @@ self.addEventListener('activate', (event) => {
 
 self.addEventListener('fetch', (event) => {
   const { request } = event
-  if (request.method !== 'GET' || new URL(request.url).origin !== self.location.origin) return
+  const url = new URL(request.url)
+  if (request.method !== 'GET' || url.origin !== self.location.origin || url.pathname.startsWith('/api/')) return
   event.respondWith(fetch(request)
     .then((response) => {
       if (response.ok) {
@@ -24,5 +25,6 @@ self.addEventListener('fetch', (event) => {
       }
       return response
     })
-    .catch(async () => (await caches.match(request)) ?? (request.mode === 'navigate' ? caches.match('/') : Response.error())))
+    .catch(async () => (await caches.match(request, { ignoreSearch: true }))
+      ?? (request.mode === 'navigate' ? caches.match(url.pathname.startsWith('/app') ? '/app' : '/') : Response.error())))
 })

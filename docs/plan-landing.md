@@ -1,6 +1,6 @@
 # Plan: landing de Mallatrónica
 
-**Estado:** planeado para implementar el 3 de noviembre de 2026.
+**Estado:** implementado el 3 de noviembre de 2026 (PR #9). Pendiente: medir Lighthouse sobre el despliegue.
 **Objetivo:** una página de entrada bonita que explique qué hace la app y cómo funciona. Sus botones llevan a la aplicación, que debe sentirse como una app instalada y no como una página web. Sin registro ni login.
 **Referencia estética:** [integrascale.online](https://www.integrascale.online/). Capturas analizadas el 3 de noviembre.
 

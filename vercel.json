@@ -4,10 +4,16 @@
   "buildCommand": "npm run build",
   "outputDirectory": "dist",
   "installCommand": "npm ci",
+  "cleanUrls": true,
   "functions": {
-    "api/sia/cron.ts": { "maxDuration": 300 }
+    "api/sia/cron.ts": {
+      "maxDuration": 300
+    }
   },
   "crons": [
-    { "path": "/api/sia/cron", "schedule": "17 11 * * *" }
+    {
+      "path": "/api/sia/cron",
+      "schedule": "17 11 * * *"
+    }
   ]
 }

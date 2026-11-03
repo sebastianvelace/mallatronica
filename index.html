@@ -3,14 +3,294 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="theme-color" content="#0c1116" />
-    <meta name="description" content="Planificador académico para Ingeniería Electrónica UNAL Bogotá." />
+    <meta name="theme-color" content="#ffffff" />
+    <title>Mallatrónica · Planea tu carrera de Ingeniería Electrónica</title>
+    <meta name="description" content="Marca lo que aprobaste, mira qué puedes inscribir y arma tu horario con los grupos reales del SIA. Gratis, sin registro y no oficial, para Ingeniería Electrónica de la UNAL Bogotá." />
+    <link rel="canonical" href="https://mallatronica.vercel.app/" />
     <link rel="icon" href="/icon.svg" type="image/svg+xml" />
     <link rel="manifest" href="/manifest.webmanifest" />
-    <title>Mallatrónica · Planificador académico</title>
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="es_CO" />
+    <meta property="og:title" content="Mallatrónica · Tu carrera, planeada." />
+    <meta property="og:description" content="Malla interactiva, planeador de semestre, notas y horarios con grupos reales del SIA para Ingeniería Electrónica UNAL Bogotá." />
+    <meta property="og:url" content="https://mallatronica.vercel.app/" />
+    <meta property="og:image" content="https://mallatronica.vercel.app/landing/og.jpg" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <style>@view-transition { navigation: auto; }</style>
   </head>
   <body>
-    <div id="app"></div>
-    <script type="module" src="/src/main.ts"></script>
+    <a class="skip-link" href="#contenido">Saltar al contenido</a>
+
+    <header class="site-header" data-header>
+      <div class="container header-inner">
+        <a class="logo" href="/" aria-label="Mallatrónica, inicio">mallatrónica</a>
+        <nav class="header-nav" aria-label="Secciones">
+          <a href="#como-funciona">Cómo funciona</a>
+          <a href="#funciones">Funciones</a>
+          <a href="#datos">Datos del SIA</a>
+          <a href="#preguntas">Preguntas</a>
+        </nav>
+        <a class="btn btn-primary btn-small" href="/app" data-app-link>Abrir la app <span aria-hidden="true">→</span></a>
+      </div>
+    </header>
+
+    <main id="contenido">
+      <section class="hero" aria-labelledby="hero-title">
+        <canvas class="constellation" data-constellation aria-hidden="true"></canvas>
+        <div class="hero-glow" aria-hidden="true"></div>
+        <div class="container hero-inner">
+          <p class="eyebrow">Ingeniería Electrónica · UNAL Bogotá</p>
+          <h1 id="hero-title">Tu carrera,<br />planeada.</h1>
+          <p class="hero-kicker">Malla, semestre, notas y horario en un solo lugar</p>
+          <p class="hero-lede">Marca lo que aprobaste, mira qué puedes inscribir y arma tu horario con los grupos reales del SIA, sin hojas de cálculo.</p>
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="/app" data-app-link data-continue>Abrir la app <span aria-hidden="true">→</span></a>
+            <a class="btn btn-ghost" href="#como-funciona">Ver cómo funciona</a>
+          </div>
+          <p class="hero-saved" data-saved hidden>Tienes tu avance guardado en este navegador.</p>
+          <p class="live" data-live hidden><span class="live-dot" aria-hidden="true"></span><span data-live-text></span></p>
+        </div>
+      </section>
+
+      <section class="section section-night" aria-labelledby="problema-title">
+        <div class="container">
+          <h2 id="problema-title" class="reveal">¿Cuánto tiempo se te va en esto?</h2>
+          <hr class="rule" />
+          <div class="num-grid">
+            <article class="num-card reveal"><span class="num">01</span><p>Revisar a mano qué prerrequisitos ya cumples</p></article>
+            <article class="num-card reveal"><span class="num">02</span><p>Saltar entre el SIA, PDFs y hojas de cálculo</p></article>
+            <article class="num-card reveal"><span class="num">03</span><p>Armar horarios que terminan cruzándose</p></article>
+            <article class="num-card reveal"><span class="num">04</span><p>Calcular cuántos créditos y qué promedio te faltan</p></article>
+          </div>
+          <p class="statement reveal">Eso no es estudiar. Es fricción. Y tiene solución.</p>
+        </div>
+      </section>
+
+      <section class="section" id="como-funciona" aria-labelledby="pasos-title">
+        <div class="container">
+          <p class="eyebrow">Cómo funciona</p>
+          <h2 id="pasos-title" class="reveal">Tres pasos y ya estás planeando</h2>
+          <hr class="rule rule-light" />
+          <ol class="steps">
+            <li class="step reveal">
+              <span class="num">01</span>
+              <h3>Marca tu avance</h3>
+              <p>Dinos en qué semestre vas y precargamos las materias anteriores. Ajusta lo que haga falta con un clic.</p>
+            </li>
+            <li class="step reveal">
+              <span class="num">02</span>
+              <h3>Planea el semestre</h3>
+              <p>Ve qué puedes inscribir según tus requisitos y qué materias se habilitan si lo apruebas.</p>
+            </li>
+            <li class="step reveal">
+              <span class="num">03</span>
+              <h3>Arma tu horario</h3>
+              <p>Elige entre los grupos reales del SIA, con profesor, salón y cupos. Los choques se ven antes de inscribir.</p>
+            </li>
+          </ol>
+        </div>
+      </section>
+
+      <section class="marquee-section" aria-label="Algunas asignaturas del plan 2545">
+        <div class="marquee" data-marquee="0"></div>
+        <div class="marquee marquee-reverse" data-marquee="1"></div>
+      </section>
+
+      <section class="section section-soft" id="funciones" aria-labelledby="funciones-title">
+        <div class="container">
+          <p class="eyebrow">Funciones</p>
+          <h2 id="funciones-title" class="reveal">Todo lo que necesitas para tu carrera</h2>
+          <hr class="rule rule-short" />
+          <p class="section-lede">Cinco herramientas que comparten tu avance. Elige una para verla.</p>
+          <div class="tabs" role="tablist" aria-label="Funciones de la app" data-tabs>
+            <button role="tab" id="tab-malla" aria-controls="panel-malla" aria-selected="true">Malla</button>
+            <button role="tab" id="tab-plan" aria-controls="panel-plan" aria-selected="false" tabindex="-1">Planear</button>
+            <button role="tab" id="tab-notas" aria-controls="panel-notas" aria-selected="false" tabindex="-1">Notas</button>
+            <button role="tab" id="tab-horario" aria-controls="panel-horario" aria-selected="false" tabindex="-1">Horario</button>
+            <button role="tab" id="tab-libre" aria-controls="panel-libre" aria-selected="false" tabindex="-1">Libre elección</button>
+          </div>
+
+          <div class="tab-panel" role="tabpanel" id="panel-malla" aria-labelledby="tab-malla">
+            <div class="feature-copy">
+              <h3>Tu malla, viva</h3>
+              <ul class="checks">
+                <li>Las 46 asignaturas del plan 2545 con créditos y prerrequisitos del SIA</li>
+                <li>Cada materia te dice si ya la puedes inscribir o qué te falta</li>
+                <li>Balance de créditos por componente y de optativas por agrupación</li>
+              </ul>
+              <a class="link-arrow" href="/app#malla" data-app-link>Probar la malla <span aria-hidden="true">→</span></a>
+            </div>
+            <figure class="device"><picture><source media="(max-width: 600px)" srcset="/landing/malla-mobile.jpg" width="780" height="1300" /><img src="/landing/malla.jpg" alt="Vista de la malla curricular con materias aprobadas, disponibles y bloqueadas" width="1280" height="800" loading="lazy" decoding="async" /></picture></figure>
+          </div>
+
+          <div class="tab-panel" role="tabpanel" id="panel-plan" aria-labelledby="tab-plan" hidden>
+            <div class="feature-copy">
+              <h3>El próximo semestre, claro</h3>
+              <ul class="checks">
+                <li>Solo te muestra lo que tus requisitos te permiten inscribir</li>
+                <li>Mira qué materias se habilitan si apruebas tu plan</li>
+                <li>Prioriza lo que suma créditos o cierra componentes</li>
+              </ul>
+              <a class="link-arrow" href="/app#plan" data-app-link>Probar el planeador <span aria-hidden="true">→</span></a>
+            </div>
+            <figure class="device"><picture><source media="(max-width: 600px)" srcset="/landing/plan-mobile.jpg" width="780" height="1300" /><img src="/landing/plan.jpg" alt="Planeador del próximo semestre con materias sugeridas y créditos" width="1280" height="800" loading="lazy" decoding="async" /></picture></figure>
+          </div>
+
+          <div class="tab-panel" role="tabpanel" id="panel-notas" aria-labelledby="tab-notas" hidden>
+            <div class="feature-copy">
+              <h3>Tu promedio, sin sorpresas</h3>
+              <ul class="checks">
+                <li>Registra tus calificaciones por materia y semestre</li>
+                <li>Calcula tu PAPA con la misma ponderación por créditos</li>
+                <li>Tu malla y tu ruta se actualizan solas con cada nota</li>
+              </ul>
+              <a class="link-arrow" href="/app#calculadora" data-app-link>Probar la calculadora <span aria-hidden="true">→</span></a>
+            </div>
+            <figure class="device"><picture><source media="(max-width: 600px)" srcset="/landing/notas-mobile.jpg" width="780" height="1300" /><img src="/landing/notas.jpg" alt="Calculadora de notas y promedio" width="1280" height="800" loading="lazy" decoding="async" /></picture></figure>
+          </div>
+
+          <div class="tab-panel" role="tabpanel" id="panel-horario" aria-labelledby="tab-horario" hidden>
+            <div class="feature-copy">
+              <h3>Horarios sin cruces</h3>
+              <ul class="checks">
+                <li>Grupos reales del SIA: profesor, salón, horas y cupos</li>
+                <li>Los choques se detectan antes de inscribir</li>
+                <li>Agrega bloques a mano para monitorías, trabajo o lo que quieras</li>
+              </ul>
+              <a class="link-arrow" href="/app#horario" data-app-link>Probar el horario <span aria-hidden="true">→</span></a>
+            </div>
+            <figure class="device"><picture><source media="(max-width: 600px)" srcset="/landing/horario-mobile.jpg" width="780" height="1300" /><img src="/landing/horario.jpg" alt="Horario semanal armado con grupos del SIA" width="1280" height="800" loading="lazy" decoding="async" /></picture></figure>
+          </div>
+
+          <div class="tab-panel" role="tabpanel" id="panel-libre" aria-labelledby="tab-libre" hidden>
+            <div class="feature-copy">
+              <h3>Libre elección, organizada</h3>
+              <ul class="checks">
+                <li>Guarda las materias que te interesan y registra su resultado</li>
+                <li>Lleva la cuenta de tus créditos de libre elección</li>
+                <li>Pásalas al horario con un clic</li>
+              </ul>
+              <a class="link-arrow" href="/app#libre" data-app-link>Probar libre elección <span aria-hidden="true">→</span></a>
+            </div>
+            <figure class="device"><picture><source media="(max-width: 600px)" srcset="/landing/libre-mobile.jpg" width="780" height="1300" /><img src="/landing/libre.jpg" alt="Seguimiento de créditos de libre elección" width="1280" height="800" loading="lazy" decoding="async" /></picture></figure>
+          </div>
+        </div>
+      </section>
+
+      <section class="section section-night" id="datos" aria-labelledby="datos-title">
+        <div class="container data-grid">
+          <div>
+            <p class="eyebrow eyebrow-night">Datos del SIA</p>
+            <h2 id="datos-title" class="reveal">Datos reales.<br />Actualizados solos.</h2>
+            <p class="section-lede lede-night">Cada mañana la app consulta el buscador público de cursos del SIA, revisa que la información esté completa y publica la oferta del periodo. Si algo falla, se queda la última versión buena.</p>
+            <a class="link-arrow link-night" href="https://github.com/sebastianvelace/mallatronica/blob/main/docs/ADR-002-sia-snapshots.md" target="_blank" rel="noopener noreferrer">Cómo funciona por dentro <span aria-hidden="true">→</span></a>
+          </div>
+          <dl class="stats" data-stats>
+            <div class="stat"><dt>Última actualización</dt><dd data-stat="updated">Cada mañana</dd></div>
+            <div class="stat" hidden><dt>Asignaturas con oferta</dt><dd data-stat="courses"></dd></div>
+            <div class="stat" hidden><dt>Grupos del periodo</dt><dd data-stat="groups"></dd></div>
+            <div class="stat"><dt>Fuente</dt><dd>Buscador público del SIA</dd></div>
+          </dl>
+        </div>
+      </section>
+
+      <section class="section" aria-labelledby="gratis-title">
+        <div class="container">
+          <h2 id="gratis-title" class="reveal">Gratis. Sin registro.<br />Tus datos son tuyos.</h2>
+          <hr class="rule rule-light" />
+          <div class="pillars">
+            <article class="pillar reveal">
+              <h3>Sin cuentas</h3>
+              <p>No hay registro ni contraseñas. Abres la app y empiezas.</p>
+            </article>
+            <article class="pillar reveal">
+              <h3>En tu navegador</h3>
+              <p>Tu avance se guarda en tu dispositivo. Lo exportas e importas cuando cambies de equipo.</p>
+            </article>
+            <article class="pillar reveal">
+              <h3>Código abierto</h3>
+              <p>Todo el código está en GitHub. Cualquiera puede revisarlo, reportar errores o contribuir.</p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="section section-soft" id="preguntas" aria-labelledby="preguntas-title">
+        <div class="container faq-wrap">
+          <div>
+            <p class="eyebrow">Preguntas</p>
+            <h2 id="preguntas-title" class="reveal">Lo que suelen preguntar</h2>
+          </div>
+          <div class="faq">
+            <details>
+              <summary>¿Es una herramienta oficial de la UNAL?</summary>
+              <p>No. Mallatrónica es un proyecto estudiantil independiente. Usa información pública del SIA, pero lo que vale para trámites es siempre el SIA y la normativa de la universidad.</p>
+            </details>
+            <details>
+              <summary>¿Qué pasa si cambio de computador o de navegador?</summary>
+              <p>Tu avance vive en el navegador donde lo marcaste. Usa <strong>Exportar</strong> para descargarlo como archivo e impórtalo en el otro equipo.</p>
+            </details>
+            <details>
+              <summary>¿Qué tan actualizados están los grupos y cupos?</summary>
+              <p>La oferta se consulta una vez al día. En épocas de inscripción los cupos cambian por minutos, así que confírmalos en el SIA antes de inscribir.</p>
+            </details>
+            <details>
+              <summary>¿Sirve para mi plan de estudios?</summary>
+              <p>Por ahora cubre el plan 2545 de Ingeniería Electrónica en la sede Bogotá. Más planes están en el radar.</p>
+            </details>
+            <details>
+              <summary>¿Puedo instalarla en el celular?</summary>
+              <p>Sí. Ábrela en el navegador del celular y elige “Agregar a la pantalla de inicio” o “Instalar”. Se abre como una app y funciona sin conexión con lo último que cargaste.</p>
+            </details>
+          </div>
+        </div>
+      </section>
+
+      <section class="section section-night cta" aria-labelledby="cta-title">
+        <div class="container cta-grid">
+          <div>
+            <h2 id="cta-title" class="reveal">¿Listo para planear tu semestre?</h2>
+            <ul class="checks checks-night">
+              <li>Sin registro</li>
+              <li>Funciona sin conexión</li>
+              <li>Se instala como app</li>
+            </ul>
+          </div>
+          <div class="cta-card">
+            <p class="eyebrow eyebrow-night">Para empezar</p>
+            <ol class="mini-steps">
+              <li><span>01</span>Abre la app</li>
+              <li><span>02</span>Dinos en qué semestre vas</li>
+              <li><span>03</span>Ajusta tu malla y planea</li>
+            </ol>
+            <a class="btn btn-light btn-block" href="/app" data-app-link data-continue>Abrir la app <span aria-hidden="true">→</span></a>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="container footer-grid">
+        <div>
+          <a class="logo logo-night" href="/">mallatrónica</a>
+          <p>Proyecto estudiantil, no oficial. No está afiliado a la Universidad Nacional de Colombia.</p>
+        </div>
+        <nav class="footer-nav" aria-label="Pie de página">
+          <a href="#como-funciona">Cómo funciona</a>
+          <a href="#funciones">Funciones</a>
+          <a href="#datos">Datos del SIA</a>
+          <a href="#preguntas">Preguntas</a>
+        </nav>
+        <div class="footer-nav">
+          <a href="/app" data-app-link>Abrir la app</a>
+          <a href="https://github.com/sebastianvelace/mallatronica" target="_blank" rel="noopener noreferrer">GitHub</a>
+          <a href="https://sia.unal.edu.co" target="_blank" rel="noopener noreferrer">SIA UNAL</a>
+        </div>
+      </div>
+    </footer>
+
+    <script type="module" src="/src/landing/main.ts"></script>
   </body>
 </html>

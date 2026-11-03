@@ -57,7 +57,11 @@ async function finish(job: RunState, extraProblem?: string) {
     : jobDone(job) ? validateSnapshot(snapshot)
     : ['El trabajo no terminó: se alcanzó el límite de pasos o de errores.']
   if (!problems.length) await writeJson('offer', snapshot)
-  const status = { finishedAt: new Date().toISOString(), published: !problems.length, problems, job: summary(job) }
+  const groups = snapshot.asignaturas.reduce((total, course) => total + (course.actividades ?? []).reduce((sum, activity) => sum + (activity.grupos?.length ?? 0), 0), 0)
+  const status = {
+    finishedAt: new Date().toISOString(), published: !problems.length, problems, job: summary(job),
+    offer: { courses: snapshot.asignaturas.length, groups },
+  }
   await writeJson('status', status)
   console.log('[sia] fin', JSON.stringify(status))
 }

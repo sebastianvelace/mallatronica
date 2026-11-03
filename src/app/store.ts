@@ -22,10 +22,18 @@ function loadState(): State {
   }
 }
 
+const views: View[] = ['malla', 'plan', 'calculadora', 'horario', 'libre', 'info']
+
+/** The view named in the URL hash (/app#horario), if any. */
+export function viewFromHash(hash = typeof location === 'undefined' ? '' : location.hash): View | null {
+  const name = decodeURIComponent(hash.replace(/^#/, ''))
+  return (views as string[]).includes(name) ? name as View : null
+}
+
 /** Persisted academic state plus ephemeral presentation state that survives rerenders. */
 export const store = {
   state: loadState(),
-  view: 'malla' as View,
+  view: (viewFromHash() ?? 'malla') as View,
   /** Course detail to reopen after an academic update. */
   pendingCourseId: undefined as string | undefined,
   /** Course to preselect when the schedule form opens. */
@@ -68,5 +76,6 @@ export function commit() {
 
 export function navigate(view: View) {
   store.view = view
+  if (typeof history !== 'undefined' && location.hash !== `#${view}`) history.replaceState(null, '', `#${view}`)
   renderer()
 }
