@@ -1,7 +1,7 @@
 import { waitUntil } from '@vercel/functions'
 import type { IncomingMessage, ServerResponse } from 'node:http'
 import { jobDone, newJob, runStep, toSnapshot, validateSnapshot, type JobState } from '../../src/sia/job.js'
-import { writeJson } from './_store.js'
+import { hasBlobCredentials, writeJson } from './_store.js'
 
 /**
  * Refreshes the SIA offer once a day. Vercel Cron calls GET, which starts a
@@ -93,9 +93,9 @@ export default async function handler(request: IncomingMessage, response: Server
     console.warn('[sia] llamada rechazada:', secret ? 'clave incorrecta' : 'falta CRON_SECRET')
     return json(response, 401, { ok: false })
   }
-  if (!process.env.BLOB_READ_WRITE_TOKEN) {
-    console.error('[sia] falta BLOB_READ_WRITE_TOKEN: conecta el Blob al proyecto')
-    return json(response, 500, { ok: false, error: 'Falta BLOB_READ_WRITE_TOKEN.' })
+  if (!hasBlobCredentials()) {
+    console.error('[sia] falta BLOB_STORE_ID: conecta el Blob al proyecto y redespliega')
+    return json(response, 500, { ok: false, error: 'Falta la conexión con Vercel Blob.' })
   }
 
   let job: RunState
