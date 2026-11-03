@@ -1,8 +1,9 @@
 import { subjects } from '../data/curriculum'
 import { referenceSemesters } from '../data/reference-layout'
 import type { RequirementStatus } from '../domain/progress'
-import { commit, navigate, store } from '../app/store'
+import { commit, store } from '../app/store'
 import { icon } from '../ui/icons'
+import { startTour, tourSteps } from '../ui/tour'
 
 let step = 0
 let semester = 1
@@ -33,26 +34,37 @@ function stepProgress() {
   return `<p>Marca de una vez las materias obligatorias de los semestres anteriores. Luego puedes corregir cualquier materia en la malla o importar tu avance.</p><label class="onboarding-semester"><span>¿En qué semestre vas?</span><select data-onboarding-semester>${Array.from({ length: 10 }, (_, index) => index + 1).map((value) => `<option value="${value}"${value === semester ? ' selected' : ''}>${value === 1 ? 'Primer semestre (empiezo)' : `Semestre ${value}`}</option>`).join('')}</select></label><p class="onboarding-preview" aria-live="polite">${count ? `Se marcarán como aprobadas ${count} materias de los semestres 1 a ${semester - 1} de la malla de referencia.` : 'No se marcará ninguna materia.'}</p>`
 }
 
+function stepWelcome() {
+  return `<p class="onboarding-lede">Tu malla, tu semestre, tus notas y tu horario en un solo lugar. Configurarla toma menos de un minuto.</p><ol class="onboarding-preview-steps"><li><span>1</span>Cuéntanos tu situación de nivelación</li><li><span>2</span>Marcamos lo que ya aprobaste</li><li><span>3</span>Te mostramos dónde está cada cosa</li></ol><p class="muted">Sin registro: todo se guarda en este navegador.</p>`
+}
+
 function stepDone() {
-  return `<ul class="onboarding-tips"><li>${icon('grid')}<span><strong>Malla:</strong> toca una materia para ver requisitos, grupos del SIA, notas y agregarla al plan.</span></li><li>${icon('route')}<span><strong>Planear:</strong> mira qué puedes inscribir y arma un horario sin choques con los grupos reales.</span></li><li>${icon('calendar')}<span><strong>Horario:</strong> ajusta tu semana y confirma cupos en el SIA antes de inscribir.</span></li></ul><p class="muted">Todo se guarda solo en este navegador. Exporta una copia desde el encabezado cuando quieras.</p>`
+  const count = coursesBefore(semester).length
+  return `<p class="onboarding-lede">${count ? `Marcamos ${count} materias como aprobadas.` : 'Empiezas con la malla en blanco.'} Ahora te mostramos en ${tourSteps.length} pasos cortos dónde está cada cosa.</p><div class="onboarding-tour-preview" aria-hidden="true"><span></span><span></span><span></span><i></i></div><p class="muted">Puedes repetir el recorrido cuando quieras desde Ayuda.</p>`
 }
 
 const steps = [
-  { title: 'Tu situación', body: stepSituation },
-  { title: 'Lo que ya aprobaste', body: stepProgress },
-  { title: 'Listo para empezar', body: stepDone },
+  { title: 'Bienvenido a Mallatrónica', body: stepWelcome, next: 'Empezar' },
+  { title: 'Tu situación', body: stepSituation, next: 'Continuar' },
+  { title: 'Lo que ya aprobaste', body: stepProgress, next: 'Continuar' },
+  { title: 'Todo listo', body: stepDone, next: 'Ver recorrido' },
 ]
 
 export function renderOnboarding() {
   if (!shouldOnboard()) return ''
   const current = steps[step]
-  return `<dialog class="onboarding" aria-labelledby="onboarding-title"><form method="dialog" data-onboarding-form><header><span class="onboarding-step">Paso ${step + 1} de ${steps.length}</span><button type="button" class="text-button" data-onboarding-skip>Omitir</button></header><h2 id="onboarding-title">${current.title}</h2>${current.body()}<footer>${step ? '<button type="button" class="button button-quiet" data-onboarding-back>Atrás</button>' : '<span></span>'}<button type="submit" class="button button-solid">${step === steps.length - 1 ? 'Empezar' : 'Continuar'} ${icon('arrow')}</button></footer></form></dialog>`
+  const last = step === steps.length - 1
+  const bars = steps.map((_, index) => `<i class="${index <= step ? 'done' : ''}"></i>`).join('')
+  return `<dialog class="onboarding" aria-labelledby="onboarding-title"><form method="dialog" data-onboarding-form><header><span class="onboarding-step">Paso ${step + 1} de ${steps.length}</span><button type="button" class="onboarding-skip" data-onboarding-skip>${last ? 'Cerrar' : 'Saltar'}</button></header><div class="onboarding-bars" aria-hidden="true">${bars}</div><h2 id="onboarding-title">${current.title}</h2>${current.body()}<footer>${step ? '<button type="button" class="button button-quiet" data-onboarding-back>Atrás</button>' : '<span></span>'}<div class="onboarding-footer-actions">${last ? '<button type="button" class="button button-quiet" data-onboarding-later>Ahora no</button>' : ''}<button type="submit" class="button button-solid">${current.next} ${icon('arrow')}</button></div></footer></form></dialog>`
 }
 
-function finish() {
+function finish(tour = false) {
   store.state.onboarded = true
   step = 0
+  const goToPlan = semester > 1 && !tour
+  store.view = goToPlan ? 'plan' : 'malla'
   commit()
+  if (tour) requestAnimationFrame(() => startTour())
 }
 
 export function bindOnboarding(root: HTMLElement) {
@@ -61,7 +73,8 @@ export function bindOnboarding(root: HTMLElement) {
   if (!dialog.open) dialog.showModal()
   const form = dialog.querySelector<HTMLFormElement>('[data-onboarding-form]')!
   dialog.addEventListener('cancel', (event) => { event.preventDefault(); finish() })
-  dialog.querySelector('[data-onboarding-skip]')?.addEventListener('click', finish)
+  dialog.querySelector('[data-onboarding-skip]')?.addEventListener('click', () => finish())
+  dialog.querySelector('[data-onboarding-later]')?.addEventListener('click', () => finish())
   dialog.querySelector('[data-onboarding-back]')?.addEventListener('click', () => { step = Math.max(0, step - 1); commit() })
   dialog.querySelector<HTMLSelectElement>('[data-onboarding-semester]')?.addEventListener('change', (event) => {
     semester = Number((event.target as HTMLSelectElement).value)
@@ -72,18 +85,16 @@ export function bindOnboarding(root: HTMLElement) {
   form.addEventListener('submit', (event) => {
     event.preventDefault()
     const state = store.state
-    if (step === 0) {
+    if (step === 1) {
       if (!form.reportValidity()) return
       const data = new FormData(form)
       for (const { key } of situations) state[key] = String(data.get(key)) as RequirementStatus
     }
-    if (step === 1) {
+    if (step === 2) {
       for (const subject of coursesBefore(semester)) if (state.notes[subject.id] === undefined) state.subjects[subject.id] = 'aprobada'
     }
     if (step === steps.length - 1) {
-      store.view = semester > 1 ? 'plan' : 'malla'
-      finish()
-      if (semester > 1) navigate('plan')
+      finish(true)
       return
     }
     step += 1

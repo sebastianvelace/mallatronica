@@ -13,7 +13,9 @@
     "build": "tsc && vite build",
     "preview": "vite preview",
     "test": "node --test tests/*.test.cjs",
-    "sia:snapshot": "node scripts/sia/snapshot.cjs"
+    "sia:snapshot": "node scripts/sia/snapshot.cjs",
+    "landing:graph": "node scripts/landing/graph.cjs",
+    "landing:screenshots": "node scripts/landing/screenshots.cjs"
   },
   "devDependencies": {
     "@types/node": "^22.20.5",
@@ -21,6 +23,8 @@
     "vite": "^8.0.16"
   },
   "dependencies": {
+    "@fontsource/inter": "^5.3.0",
+    "@fontsource/space-grotesk": "^5.3.0",
     "@vercel/blob": "^2.8.2",
     "@vercel/functions": "^3.10.5"
   }

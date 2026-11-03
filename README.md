@@ -18,6 +18,9 @@ npm ci
 npm run dev
 ```
 
+La landing queda en `http://localhost:5173/` y la aplicación en `/app`
+(por ejemplo, `/app#horario` abre el horario).
+
 Verificación y vista de producción:
 
 ```sh
@@ -25,6 +28,15 @@ npm test
 npm run build
 npm run preview
 ```
+
+## Estructura
+
+- `index.html` y `src/landing/`: la landing, estática y liviana, que explica la app.
+  Su fondo es la red real de prerrequisitos (`npm run landing:graph`) y sus capturas
+  salen de la app con un estudiante de ejemplo (`npm run build && npm run landing:screenshots`).
+- `app.html` y `src/main.ts`: la aplicación, servida en `/app`. Al instalarla como
+  app se abre directamente ahí.
+- `api/sia/`: la actualización diaria de la oferta del SIA (Vercel Cron y Blob).
 
 ## Alcance académico
 
@@ -50,8 +62,10 @@ por estudiantes; utiliza únicamente ejemplos ficticios.
 ## Vercel
 
 Importa `sebastianvelace/mallatronica` en Vercel. El repositorio incluye la
-configuración de Vite: `npm run build` genera `dist`. No requiere variables
-secretas ni backend. El despliegue no incluye una integración autenticada con SIA.
+configuración de Vite: `npm run build` genera `dist`, y `cleanUrls` sirve la app en
+`/app`. Para la actualización automática de la oferta hay que conectar un
+almacén de Vercel Blob al proyecto y definir `CRON_SECRET`; sin eso, la app usa la
+copia incluida. No hay integración autenticada con el SIA.
 
 ## Licencia
 

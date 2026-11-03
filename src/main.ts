@@ -1,7 +1,11 @@
 import './style.css'
+import './ui/tour.css'
+import './ui/customizer.css'
+import { initLook, openCustomizer } from './ui/customizer'
+import { startTour } from './ui/tour'
 import { loadOffer } from './data/sia-offer'
 import { emptyState, isProgressFile, parseState } from './domain/state'
-import { commit, navigate, setRenderer, store, type View } from './app/store'
+import { commit, navigate, setRenderer, store, viewFromHash, type View } from './app/store'
 import { icon } from './ui/icons'
 import { showToast } from './ui/toast'
 import { bindFreeChoice, renderFreeChoice } from './views/free-choice'
@@ -38,7 +42,7 @@ function render() {
     <div class="workspace-shell">
       <main class="main-content">
         <header class="workspace-header">
-          <div class="workspace-brand"><span class="brand-name">mallatrónica</span><span class="workspace-campus">UNAL · Bogotá</span></div>
+          <a class="workspace-brand" href="/" aria-label="Mallatrónica: ir a la página de inicio"><span class="brand-name">mallatrónica</span><span class="workspace-campus">UNAL · Bogotá</span></a>
           <nav class="workspace-nav" aria-label="Navegación principal">
             ${navItem('malla', icon('grid'), 'Malla', 'Malla curricular')}
             ${navItem('plan', icon('route'), 'Planear', 'Planear el próximo semestre')}
@@ -48,7 +52,7 @@ function render() {
             ${navItem('info', icon('info'), 'Ayuda', 'Fuentes y ayuda')}
           </nav>
           <div class="workspace-actions">
-            <a class="github-link" href="https://github.com/sebastianvelace/mallatronica" target="_blank" rel="noopener noreferrer" aria-label="Ver el código y contribuir en GitHub (abre otra pestaña)">GitHub ${icon('arrow')}</a>
+            <a class="github-link" href="https://github.com/sebastianvelace/mallatronica" target="_blank" rel="noopener noreferrer" aria-label="Ver el código y contribuir en GitHub (abre otra pestaña)">${icon('github')}<span>GitHub</span></a>
             <button data-action="theme" aria-label="Cambiar tema" title="Cambiar tema">${icon('sun')}</button>
             <button data-action="export" aria-label="Exportar avance" title="Exportar avance">${icon('download')}<span>Exportar</span></button>
           </div>
@@ -69,6 +73,8 @@ function render() {
 /** Controls shared by every view: navigation, theme, disclosures, export/import and reset. */
 function bindShell() {
   app.querySelectorAll<HTMLElement>('[data-view]').forEach((element) => element.addEventListener('click', () => navigate(element.dataset.view as View)))
+  app.querySelectorAll<HTMLElement>('[data-action="customize"]').forEach((element) => element.addEventListener('click', () => openCustomizer()))
+  app.querySelectorAll<HTMLElement>('[data-action="tour"]').forEach((element) => element.addEventListener('click', () => startTour()))
   app.querySelector<HTMLElement>('[data-action="theme"]')?.addEventListener('click', () => {
     store.state.theme = store.state.theme === 'dark' ? 'light' : 'dark'
     commit()
@@ -120,8 +126,14 @@ function importState(event: Event) {
   reader.readAsText(file)
 }
 
+initLook()
 setRenderer(render)
 render()
+// Deep links such as /app#horario, including back/forward and edited URLs.
+window.addEventListener('hashchange', () => {
+  const view = viewFromHash()
+  if (view && view !== store.view) navigate(view)
+})
 // The SIA offer arrives as its own chunk; rerender once without losing focus or scroll.
 loadOffer().then(() => {
   const active = document.activeElement?.id
